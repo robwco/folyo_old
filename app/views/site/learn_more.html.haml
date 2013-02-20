@@ -1,0 +1,106 @@
+= content_for :title, "Learn More"
+= content_for :body_class, "no-sidebar intro"
+
+
+/ %h1 Find a Designer Right Now!
+= content_for :header do
+	#intro-header.clearfix
+		.tagline
+			%h2 Folyo is a community of hand-picked designers
+			%p Post a project, and we'll send it to every Folyo designer as part of our weekly newsletter. Designers who are interested in your project will then get in touch with you directly.
+			.cta
+				%a{:href => url_for(new_user_with_role_path(:initial_role => 'client'))+"/job", :class => "button big-button"} Get Started
+				%span.price $100 per project
+		.guarantee
+			%h5.money-back Money back guarantee	
+			%p.small If you can't find a designer through Folyo, we'll refund the fee, no questions asked!
+.block.reasons.clearfix
+	%h2
+		%span 3 Good Reasons to Use Folyo
+	.reason.best
+		%h4 Hire Only the Best 
+		%p Each Folyo designer is selected for their skills and experience. And those who get too much negative feedback are removed from the directory. 	
+	.reason.write
+		%h4 Write the Perfect Job Offer
+		%p We will help you write your job description to get as many replies as possible, and can also help you estimate a budget for your project.
+	.reason.help
+		%h4 Get Personalized Help
+		%p We can help you pick the best match out of the designers who replied to your offer, and guide you along the selection process.
+.block.process
+	%h2
+		%span The Folyo Process
+	%ol.flowchart.clearfix
+		%li.node
+			.item.submit-project
+				%p You submit your project
+		%li.node
+			.item.pay-fee			
+				%p You pay the $100 fee					
+		%li.node
+			.item.send-project			
+				%p We send your project to designers		
+		%li.node
+			.item.designers				
+				%p Designers get in touch with you
+		%li.decision
+			.item.find-someone
+				%p Did you find someone suitable?
+		%li.node
+			.item.success		
+				%p.yes <strong class="result">Yes:</strong> Let's get designing!
+			.item.refund
+				%p.no <strong class="result">No:</strong> You get a full refund
+.block.compare.clearfix
+	%h2
+		%span How Does Folyo Compare to…
+	.comparison
+		.sub
+			%h4 Designer Communities
+			%p <a target="_blank" href="http://dribbble.com">Dribbble</a>, <a target="_blank" href="http://behance.com">Behance</a>…
+
+			%h5 When browsing a designer community…
+			%ul
+				%li.cons You have to contact designers individually
+				%li.cons You have to evaluate designers yourself
+				%li.cons Designers you contact are often unavailable
+			%h5 Instead, on Folyo:
+			%ul
+				%li.pro Designers are the ones who contact you
+				%li.pro Designers are pre-approved for you
+				%li.pro Only available designers will get in touch
+
+	.comparison
+		.sub
+			%h4 Job Boards
+			%p <a target="_blank" href="http://authenticjobs.com">Authentic Jobs</a>, <a target="_blank" href="http://37signals.com/jobs">37Signals Jobs</a>…
+
+			%h5 If you post on a job board…
+			%ul
+				%li.cons You have no control over who replies
+				%li.cons Designers have to visit the job board
+				%li.cons Your project is out in the open			
+			%h5 But with Folyo:
+			%ul
+				%li.pro Only pre-approved designers can reply
+				%li.pro Designers receive your project in their inbox
+				%li.pro Your project is sent to a private community
+.block.faq.clearfix
+	%h2
+		%span FAQ
+	.question
+		%h4 $100 to get a new logo? <br/> That's great!
+		%p Sorry, the $100 fee is only for helping you find a designer. This does not cover the actual work done by the designer (nor do we take a commission on that work).		
+	.question
+		%h4 $100 to find a designer? <br/> That's expensive!
+		%p If you consider a startup founder's time is <a href="http://blog.asmartbear.com/value-time.html" target="_blank">worth $1000/hour</a>, it's actually pretty cheap! Plus, we will refund you the full fee if your search is not successful.
+	.question
+		%h4 Can you recommend a good designer?
+		%p Every designer on Folyo comes highly recommended! And after you post a project and you get some replies, we can help you narrow down the selection.
+.block.call-to-action.clearfix
+	.tagline
+		%h2 Post a job offer now and find the perfect designer:
+	.cta
+		%a{:href => url_for(new_user_with_role_path(:initial_role => 'client'))+"/job", :class => "button big-button"} Get Started
+		.price.small $100 per project
+.block.not-ready
+	%p Not ready to post a job? You can still #{link_to "sign up for free", url_for(new_user_with_role_path(:initial_role => 'client'))} to access more Folyo features and see which designers are actively looking for new projects.

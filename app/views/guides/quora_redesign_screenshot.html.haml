@@ -1,0 +1,26 @@
+= content_for :title, "Quora Redesign"
+= content_for :body_class, "screenshot"
+= content_for :add_css_to_head do
+	= stylesheet_link_tag 'redesign', :media => 'screen'
+:javascript
+	imgArray=Array();
+	$(document).ready(function(){
+		$("#frame a").each(function(){
+			imgArray.push($(this));
+		});
+		$("#frame a").click(function(){
+			var lastImg=imgArray.pop();
+			imgArray.unshift(lastImg);
+			$.each(imgArray, function(i, val){
+				val.css("z-index", i);
+			});
+			return false;
+		}).one("click",function(){
+			$("#message").fadeOut("medium");
+		});
+	});
+#frame
+	%a.screenshot#img1{:href => "#"}
+	%a.screenshot#img2{:href => "#"}
+	%a.screenshot#img3{:href => "#"}
+	#message Click to cycle through the images

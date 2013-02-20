@@ -1,0 +1,38 @@
+= content_for :title, '[Admin]Browse Designers'
+= content_for :subnav do
+	= render :partial => '/admin/designers/designers_nav'
+
+%ul.designers
+	- @designers.each do |d|
+		%li.designer
+			- if d.status == :pending
+				%h2{class: d.status.to_s.downcase}
+					= link_to d.full_name, edit_designer_path(d)
+				%ul.actions
+					%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
+					- unless d.dribbble_url.blank?
+						%li.dribbble= link_to "Dribbble", d.dribbble_url
+					= render 'admin/designers/status', :d => d
+
+			- else
+				.bio
+					%h2{class: d.status.to_s.downcase}
+						= link_to d.full_name, d
+					%h4
+						= d.short_bio
+					%p= first_words(Sanitize.clean(d.long_bio), 50)
+
+				.col2
+					= render :partial => '/designers/featured_work', :locals => {:designer => d}
+					%ul.actions
+						%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
+						- unless d.dribbble_url
+							%li.dribbble= link_to "Dribbble", d.dribbble_url
+						%li.edit
+							= link_to 'Edit designer', edit_designer_path(d)
+						= render 'admin/designers/status', :d => d
+
+= paginate @designers
+
+= content_for :sidebar do
+	= render :partial => 'designers/skill_filters'

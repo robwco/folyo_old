@@ -1,0 +1,48 @@
+class Admin::DesignersController < Admin::BaseController
+
+  respond_to :html, :json
+
+  def update
+   update! do |format|
+     format.json do
+       if params[:featured_shot_url]
+         @designer.featured_shot_url = params[:featured_shot_url]
+       end
+       if params[:status_id]
+         @designer.status_id = params[:status_id]
+       end
+       if params[:coordinates]
+         @designer.coordinates = params[:coordinates]
+        end
+       @designer.save
+       render :json => @designer
+     end
+   end
+  end
+
+  def designer_posts
+    @designer_posts = DesignerPost.ordered.page(params[:page]).per(10)
+  end
+
+  def designer_messages
+    @designer_messages = Message.ordered.page(params[:page]).per(10)
+  end
+
+  def find_coordinates
+    @designers=Designer.accepted.find(:all, :conditions => [ "(location IS NOT NULL AND location!='') AND (coordinates IS NULL OR coordinates='' OR coordinates LIKE ? )", '%undefined%'], :joins =>:user, :include => :user)
+  end
+
+  def shot_url
+    @designers=Designer.accepted.find(:all, :conditions => [ "(dribble_username IS NOT NULL AND dribble_username!='') AND (featured_shot_url IS NULL OR featured_shot_url='')"], :joins =>:user, :include => :user)
+  end
+
+  protected
+
+  def collection
+    @designers = Designer.page(params[:page]).per(10).ordered_by_status
+    unless params[:skill].blank?
+      @designers = @designers.any_in(skills: params[:skill].to_sym)
+    end
+  end
+
+end

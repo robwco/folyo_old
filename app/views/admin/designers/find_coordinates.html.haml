@@ -1,0 +1,14 @@
+= content_for :title, '[Admin]Find Coordinates'
+
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
+= javascript_include_tag 'designer_account'
+
+:javascript
+	designers=#{@designers.to_json(:include => :user)};
+
+= javascript_include_tag 'find_coordinates'
+
+%h4
+	%a{:href=>"#", :id=>"start"} Start
+%h4
+	%a{:href=>"#", :id=>"abort"} Abort

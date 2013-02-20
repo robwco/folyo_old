@@ -1,0 +1,13 @@
+= content_for :title, '[Admin]Fill Shot URL'
+
+= javascript_include_tag 'designer_account'
+
+:javascript
+	designers=#{@designers.to_json(:include => :user)};
+	console.log(designers);	
+= javascript_include_tag 'fill_shot_url'
+
+%h4
+	%a{:href=>"#", :id=>"start"} Start
+%h4
+	%a{:href=>"#", :id=>"abort"} Abort

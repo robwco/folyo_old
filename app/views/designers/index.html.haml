@@ -1,0 +1,47 @@
+%iframe#portfolio-preview{src: @designer.dribbble_url}
+
+#designer-search-bar
+  .designer{ data: { id: @designer.id } }
+    .full-name= @designer.full_name
+    - if @designer.dribbble_url
+      = link_to 'Dribbble', @designer.dribbble_url, id: 'dribbble-url'
+    - if @designer.behance_url
+      = link_to 'Behance', @designer.behance_url, id: 'behance-url'
+    = link_to 'Accept', accept_designer_search_path(@search, designer_id: @designer.id), id: 'accept'
+    = link_to 'Reject', reject_designer_search_path(@search, designer_id: @designer.id), id: 'reject'
+    = link_to 'Skip', next_designer_search_path(@search, designer_id: @designer.id), id: 'skip'
+
+  = simple_form_for @search do |f|
+    = f.submit
+
+:coffeescript
+
+  $el = $('#designer-search-bar')
+
+  refreshDesigner = (data) ->
+    $designer = $('.designer', $el)
+    $designer.data('id', data.designer_id)
+    $('.full-name', $designer).html(data.full_name)
+    $('#portfolio-preview').attr('src', data.dribbble_url)
+    for id in ['#accept', '#reject', '#skip']
+    	$(id).attr('href', $(id).attr('href').replace(/designer_id=.*/, "designer_id=\#{data.designer_id}"))
+
+  $('#accept,#reject', $el).click (e) ->
+    e.preventDefault()
+    url = $(e.target).attr('href')
+    $.ajax
+      type: 'POST'
+      url: url
+      data: { '_method': 'PUT' }
+      success: refreshDesigner
+
+  $('#skip', $el).click (e) ->
+    e.preventDefault()
+    url = $(e.target).attr('href')
+    $.ajax
+      type: 'GET'
+      url: url
+      success: refreshDesigner
+
+
+

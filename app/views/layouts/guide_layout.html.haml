@@ -1,0 +1,27 @@
+!!!
+%html{:class=> yield(:body_class)}
+  %head
+    %title
+      Folyo -
+      = yield(:title)
+
+    = stylesheet_link_tag 'guides.css', :media => 'screen'
+
+    = yield(:add_css_to_head)
+
+    = javascript_include_tag :vendor
+
+    = csrf_meta_tag
+
+    - if protect_against_forgery?
+      :javascript
+        var AUTH_TOKEN = #{form_authenticity_token.inspect};
+
+    %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
+
+    %script{:type=>"text/javascript", :src=>"http://use.typekit.com/tpm6qxy.js"}
+    :javascript
+      try{Typekit.load();}catch(e){}
+  %body{:class=> yield(:body_class)}
+    = content_for?(:content) ? yield(:content) : yield
+    = render :partial => '/site/clicky'

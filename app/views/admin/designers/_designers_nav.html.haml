@@ -1,0 +1,9 @@
+= content_for :body_class, " with-subnav"
+#subnav
+	%ul
+		%li
+			= current_link_to 'All Designers', admin_designers_path
+		%li
+			= current_link_to 'Designers Posts', designer_posts_admin_designers_path
+		%li
+			= current_link_to 'Designers Messages', designer_messages_admin_designers_path

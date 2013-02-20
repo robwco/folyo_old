@@ -1,0 +1,15 @@
+= content_for :title, '[Admin]Browse Designers'
+= #content_for :body_class, "no-sidebar"
+
+.designers
+	Email address, name
+	%br
+	- @designers.ordered.accepted.each do |d|
+		%p
+			= d.user.full_name
+			%br
+			%input{:type => "text", :value => d.user.email}
+		
+
+= content_for :sidebar do
+	= render :partial => 'designers/skill_filters'

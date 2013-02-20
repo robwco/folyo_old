@@ -1,0 +1,6 @@
+%h1#logo
+  = link_to 'Folyo', root_path, :title => 'Home'
+%ul#top-bar.clearfix
+  %li= current_link_to 'Apply as a Designer', new_user_with_role_path(:initial_role => 'designer')
+  %li= current_link_to 'Log In', '/sign_in'
+  %li.post-job= link_to 'Browse Designers', designers_path, :class => "button"

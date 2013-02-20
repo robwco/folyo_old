@@ -1,0 +1,9 @@
+.filters
+  %h4
+    %span Filter by skills
+    - if params[:skill_id]
+      %span.show-all
+        =link_to("Show all")
+  %ul.filter
+    - Designer.skills.each do |s|
+      %li{:class => params[:skill] == s.to_s ? 'selected' : ''}= link_to(s.to_s.humanize, :skill => s)

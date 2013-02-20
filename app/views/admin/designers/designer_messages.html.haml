@@ -1,0 +1,12 @@
+= content_for :title, '[Admin] Designer Messages'
+= content_for :subnav do
+	= render :partial => '/admin/designers/designers_nav'
+
+.block
+	%ul
+		- @designer_messages.ordered.each do |m|
+			%li
+				%h4{:class => m.from_user.role} From: #{link_to m.from_user.full_name, m.from_user} #{m.from_user.company_name if m.from_user.is_a?(Client)}
+				%h4{:class => m.to_user.role} To: #{link_to m.to_user.full_name, m.to_user} #{m.to_user.company_name if m.to_user.is_a?(Client)}
+				.comment= m.comment.html_safe
+	= paginate @designer_messages

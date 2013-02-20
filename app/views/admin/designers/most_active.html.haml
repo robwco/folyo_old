@@ -1,0 +1,13 @@
+= content_for :title, '[Admin]Active Designers'
+= content_for :subnav do
+	= render :partial => '/admin/designers/designers_nav'
+%ul.designers
+	- @designers.each do |d|
+		- unless d.user.nil?
+			%li.designer
+				.bio
+					%h2{:class=>d.status.name.downcase}
+						= link_to d.user.full_name, d
+					%p #{d.reply_count} replies
+
+= will_paginate @designers

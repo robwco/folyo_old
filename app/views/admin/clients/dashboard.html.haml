@@ -1,0 +1,72 @@
+= content_for :title, '[Admin]Clients Dashboard'
+= content_for :body_class, "no-sidebar clients-dashboard"
+
+:javascript
+	$("#start").click(function(){
+
+
+	});
+
+.dashboard
+	.row.clearfix
+		.block
+			.title
+				%h5 no_offers
+				%h6 Has never posted an offer
+			%ul
+				- (1..4).each do |i|
+					%li
+						=link_to "Microsoft", "#", :class => "client-link"
+		.block
+			.title
+				%h5 pending
+				%h6 Has an offer pending approval
+			%ul
+				- (1..4).each do |i|
+					%li
+						=link_to "Cisco Systems", "#", :class => "client-link"
+						=link_to "Redesign a mobile app UI", "#", :class => "offer-link"
+		.block
+			.title
+				%h5 approved
+				%h6 Has an approved offer
+			%ul
+				%li John Smith
+	.row.clearfix
+		.block
+			.title
+				%h5 active
+				%h6 Has an active offer
+			%ul
+				%li John Smith
+		.block
+			.title
+				%h5 active_30
+				%h6 Had an active offer for 30 days
+			%ul
+				%li John Smith
+		.block
+			.title
+				%h5 archived
+				%h6 Has an archived offer
+			%ul
+				%li John Smith
+	.row.clearfix
+		.block
+			.title
+				%h5 archived_60
+				%h6 Had an archived offer for 60 days
+			%ul
+				%li John Smith
+		.block
+			.title
+				%h5 commented
+				%h6 Has left a comment
+			%ul
+				%li John Smith
+		.block
+			.title
+				%h5 rejected
+				%h6 Has a rejected offer
+			%ul
+				%li John Smith

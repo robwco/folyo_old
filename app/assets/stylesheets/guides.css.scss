@@ -1,0 +1,266 @@
+@font-face {
+    font-family: 'FunktionRegular';
+    src: asset-url('funktion-webfont.eot', font);
+    src: asset-url('funktion-webfont.eot', font) format('embedded-opentype'),
+         asset-url('funktion-webfont.woff', font) format('woff'),
+         asset-url('funktion-webfont.ttf', font) format('truetype'),
+         asset-url('funktion-webfont.svg', font) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import "partials/colors";
+@import "partials/mixins";
+
+$blueprint_grid_columns: 12;
+$blueprint_grid_width: 22px;
+$blueprint_grid_margin: 60px;
+@import "blueprint";
+
+h2, h3, .to-do, .presents, #intro p, .note h4{
+	font-family:"FunktionRegular";
+}
+html, body{
+	padding:0;
+	margin:0;
+}
+body{
+	background:$darkgrey1 image-url('blackboard-bg.png') center center;
+	color:#eaeef2;
+	font-size:19px;
+	line-height:1.5;
+}
+p{
+	line-height:1.7;
+	margin:0 0 25px 0;
+}
+p.small{
+	font-size:14px;
+	color:$lightgrey5;
+}
+a{
+	color:$blue1;
+	text-decoration:none;
+	font-weight:bold;
+	&:hover{
+		color:white;
+	}
+}
+h2{
+	text-transform:uppercase;
+	text-shadow:3px 3px 0px black(0.35);
+	margin:0 0 10px 0;
+	font-weight:normal;
+}
+#container{
+	text-shadow:0px 1px 1px black(0.55);
+	
+	width:924px;
+	margin:0 auto;
+	#page{
+		
+/*		@include prepend(1);
+		@include column(8, true);
+		@include append(3);	*/
+			
+		width:span(8);
+	}
+}
+#header{
+	margin-bottom:100px;
+	background:image-url('header-bg.png') no-repeat;
+	height:55px;
+	line-height:55px;
+	
+	.logo{
+		float:left;
+		h1{
+			margin:0 0 0 8px;
+			display:inline-block;
+			a{
+				background:image-url('guide-logo.png') no-repeat left center;
+				display:inline-block;
+				width:90px;
+				height:55px;
+				text-indent:-900px;
+				overflow:hidden;
+			}
+		}
+		.presents{
+			font-size:14px;
+			display:inline-block;
+			height:55px;
+			vertical-align:top;
+		}
+	}
+	.social{
+		float:right;
+		padding-right:10px;		
+	}
+}
+.social{
+	.twitter, .facebook, .google{
+		float:left;
+		margin-left:5px;
+	}
+	.twitter{
+		margin-top:4px;
+	}
+	.facebook{
+		margin-top:-1px;
+	}
+	.google{
+		margin-top:5px;
+	}
+}
+#intro{
+	margin-bottom:100px;
+	h1.title{
+		overflow:hidden;
+		text-indent:-9000px;
+		margin-bottom:5px;
+	}
+	p{
+		font-size:18px;
+		color:$lightgrey5;
+	}
+}
+.block{
+	margin-bottom:100px;
+	position:relative;
+	p{
+		position:relative;
+	
+		.callout{
+			position:absolute;
+			top:0px;
+			right:-302px;
+			width:198px;
+			font-size:15px;
+			color:$lightgrey5;
+			quote{
+				font-style:italic;
+				display:block;
+				margin-bottom:10px;
+				strong{
+					color:#c8d7e0;
+				}
+			}
+			cite{
+				font-style:normal;
+				display:block;
+				text-align:right;
+				color:white;
+			}
+			a{
+				display:block;
+				text-align:right;	
+			}
+		}
+	}
+}
+.extra .social{
+	background:image-url('header-bg.png') no-repeat;
+	height:55px;
+	line-height:55px;
+	padding-left:10px;
+}
+
+
+
+.to-do{
+	ul{
+		list-style-type:none;
+		padding:0;
+		margin:0;
+		li{
+			background:image-url('green-checkmark.png') no-repeat top left;
+			padding:2px 0 5px 34px;
+			margin-bottom:10px;
+			font-size:14px;
+			line-height:1.7;
+		}
+	}
+	h3{
+		background:image-url('to-do-separator.png') no-repeat bottom center;
+		padding-bottom:10px;
+		margin-bottom:10px;
+		text-shadow:none;
+		color:$green1;
+		font-weight:normal;
+		text-transform:uppercase;
+		font-size:18px;
+	}
+	em{
+		background:image-url('green-highlight.png') no-repeat center center;
+		padding:4px 5px;
+		font-style:normal;
+	}
+}
+#extra-credit{
+	margin-bottom:100px;
+	.links{
+		list-style-type:none;
+		padding:0px;
+		
+		li{
+			padding:2px 0 5px 35px;
+			background:image-url('green-link.png') no-repeat  left 5px;
+			
+			margin-bottom:15px;
+			a{
+				display:block;
+				font-size:19px;
+			}
+			span{
+				font-size:16px;
+				display:block;
+				color:$lightgrey5;
+				strong{
+					color:#c8d7e0;
+				}
+				&:before{
+					content:"–  ";
+				}
+			}
+		}
+	}
+}
+#toc{
+	display:none;
+	position:fixed;
+	top:10px;
+	left:10px;
+	width:150px;
+	background:black(0.2);
+}
+.extra{
+	margin-bottom:100px;
+	h3{
+		background:image-url('to-do-separator.png') no-repeat bottom center;
+		padding-bottom:10px;
+		margin-bottom:10px;
+	}
+}
+.dsq-trackback-url, #dsq-sort-by, #dsq-global-toolbar, #dsq-subscribe{
+	display:none;
+}
+#dsq-content h3{
+	font-size:14px;
+	text-transform:uppercase;
+	background:none;
+	color:$lightgrey5;
+}
+.dsq-comment-footer{
+	font-size:14px;
+	color:$lightgrey5;
+}
+#colophon{
+	h4{
+		margin:0 0 5px 0;
+	}
+	ul{
+		font-size:16px;
+		margin:0 0 30px 0;
+	}
+}

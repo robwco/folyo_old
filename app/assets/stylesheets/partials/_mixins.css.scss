@@ -1,0 +1,76 @@
+@mixin nav-ul {
+	list-style-type:none;
+	@include clearfix;
+	& li{
+		display:block;
+		float:left;
+		&:last-child{
+			margin-right:0px;
+		}
+	}
+}
+@mixin hide-text{
+	overflow:hidden;
+	text-indent:-9000px;
+	display:block;	
+}
+@function black($opacity){
+	@return rgba(0,0,0,$opacity)
+}
+@function white($opacity){
+	@return rgba(255,255,255,$opacity)
+}
+@mixin letterpress($opacity){
+	text-shadow:white($opacity) 0 1px 0;
+}
+@mixin box-emboss($opacity, $opacity2){
+	box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
+}
+@mixin button{
+	display:block;
+	background:$blue1;
+	@include background-image(linear-gradient(#59aad1, #3680a3));
+	@include box-shadow(
+		inset white(0.4) 0px 1px 0px 0px	);
+	text-shadow: 0px 1px 1px rgba(0,0,0,0.35);
+	color:white;
+	border:1px solid #36667d;
+	font-weight:bold;
+	text-align:center;
+	@include border-radius(3px);
+	height:28px;
+	line-height:28px;
+	font-size:13px;
+	cursor:pointer;
+	padding:0 15px;
+	
+	&:hover{
+		text-decoration:none;
+		@include background-image(linear-gradient(#75c9f1, #3c98c3));
+		@include box-shadow(
+			inset rgba(255,255,255,0.4) 0px 1px 0px 0px,
+			inset rgba(255,255,255,0.6) 0px 0px 5px 0px
+		);
+	}
+	&:active{
+		@include background-image(linear-gradient(adjust-lightness(#75c9f1,-10), adjust-lightness(#3c98c3,-10)));
+		position:relative;
+		top:1px;
+	}
+}
+@mixin note{
+	background:$lightgrey2;
+	padding:20px;
+	line-height:1.5;
+	color:$blue3;
+	font-size:14px;
+	@include letterpress(0.8);
+	margin-bottom:40px;
+	@include border-radius(3px);
+	@include box-shadow(
+		inset white 0 1px 0 0,
+		rgba(0,0,0,0.05) 0 1px 2px 0
+	);
+	border: 1px solid $blue2;
+	@include background-image(linear-gradient($lightgrey2, adjust-lightness($lightgrey2,-1)));
+}

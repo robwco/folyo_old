@@ -1,0 +1,13 @@
+= content_for :title, '[Admin] Designer Posts'
+= content_for :subnav do
+	= render :partial => '/admin/designers/designers_nav'
+
+.block
+	%ul
+		- @designer_posts.ordered.each do |p|
+			%li
+				%h4
+					= link_to p.designer.full_name, edit_designer_post_path(p.designer, p)
+					%span.small= time_ago_in_words(p.created_at)+" ago"
+				.comment= p.comment.html_safe
+	= paginate @designer_posts

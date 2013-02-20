@@ -1,0 +1,13 @@
+@import "partials/colors";
+
+body{
+	font-family:"Proxima Nova", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+	line-height:1.5;
+	font-size:14px;
+	color:$darkgrey1;
+	border:0;
+	padding:10px;
+}
+p, div{
+	margin:0 0 15px 0;
+}

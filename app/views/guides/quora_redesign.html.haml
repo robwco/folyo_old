@@ -1,0 +1,126 @@
+= content_for :title, "Quora Redesign"
+= content_for :add_css_to_head do
+	= stylesheet_link_tag 'redesign', :media => 'screen'
+
+:javascript
+	$(document).ready(function(){
+		$('.lightbox').colorbox();
+	});
+#container.write-job-offer
+	.notes-arrow
+	#header
+		.logo
+			%h1
+				= link_to "Folyo", "http://folyo.me"
+			%span.presents helping startups find great designers
+		= render "/guides/social"
+	#page
+
+		#intro
+			%h1.title Quora Redesign
+			%a.screenshot{:href => "/guides/quora_redesign_screenshot", :target => "_blank"}
+				= image_tag 'quora/quora-screenshot.png'
+			%p Every month, one of <a href="http://folyo.me/designers">Folyo's designers</a> redesigns a popular site or app. For the first issue, <a href="http://sachagreif.com">Sacha Greif</a> (UI Designer and creator of Folyo) takes on the <a href="http://quora.com">Quora</a> home page.
+		#content
+			.block
+				.image
+					%a.lightbox{:href => "/images/quora/header-big.png", :title => "Header"}
+						= image_tag 'quora/header.png'
+						%span Compare changes
+					.poll
+						%h4 What do you think?
+						:plain
+							<script type="text/javascript" charset="utf-8" src="http://static.polldaddy.com/p/5627061.js"></script>
+							<noscript><a href="http://polldaddy.com/poll/5627061/">Header Changes</a></noscript>
+				.details
+					%h2 Header
+					%p I tried to streamline the site's header without departing too much from the current look and feel.
+					%p The main difference is the elimination of the main menu. Links like "Settings" or "Log Out" are not often accessed, so it doesn't make sense to show them permanently in such a visible location.
+					%p I also tweaked the look of the header a little to make it more appealing, giving the background a subtle texture.
+					%p The tab shape protruding from the page also reinforces the search box's association with the rest of the page.
+					%p Finally, I got rid of the prominent "Add Question" and "Write Post" links, since "Add Question" is redundant with the search field, and "Write Post" is more of a power user feature.
+			.block
+				.image
+					%a.lightbox{:href => "/images/quora/feed-big.png", :title => "Feed"}
+						= image_tag 'quora/feed.png'
+						%span Compare changes
+					.poll
+						%h4 What do you think?
+						:plain
+							<script type="text/javascript" charset="utf-8" src="http://static.polldaddy.com/p/5627064.js"></script>
+							<noscript><a href="http://polldaddy.com/poll/5627064/">Feed Changes</a></noscript>
+				.details
+					%h2 Feed
+					%p The main activity feed is the heart of the site. It aggregates all the updates to questions, topics, and people you're following.
+					%p I didn't stray much from the current layout, but I tried to make the feed less cluttered, and give it more breathing room.
+					%p When you need to show a lot of repeating information like this, it's important to give each element a distinct look (by tweaking font weights, colors, backgrounds, etc.) to avoid having everything blend together. This also reinforces the rhythm of the layout.
+
+			.block
+				.image
+					%a.lightbox{:href => "/images/quora/sidebar-big.png", :title => "Sidebar"}
+						= image_tag 'quora/sidebar.png'
+						%span Compare changes
+					.poll
+						%h4 What do you think?
+						:plain
+							<script type="text/javascript" charset="utf-8" src="http://static.polldaddy.com/p/5627024.js"></script>
+							<noscript><a href="http://polldaddy.com/poll/5627024/">Sidebar Changes</a></noscript>
+				.details
+					%h2 Sidebar
+					%p The current Quora sidebar is confusing. It includes both ways to browse content (such as groups) and unrelated actions (such as accessing your saved drafts or inviting someone to Quora) with very little separation or organization. And on top of that, those are not features that most people use regularly.
+					%p I thought it was a shame to waste prime real estate, so I decided to create a new "Recommended" section that includes a mix of topics, questions, and people that Quora thinks you should follow.
+					%p This feature already exists for people, so it seemed natural to extend it to topics and questions. This could help solve one of Quora's problem, which is the lack of a good content discovery mechanism.
+					%p With the current design, you need to actively seek out new topics to follow, which means you will often miss out on interesting threads.
+			.block
+				.image
+					%a.lightbox{:href => "/images/quora/notifications-big.png", :title => "Notifications"}
+						= image_tag 'quora/notifications.png'
+						%span Compare changes
+					.poll
+						%h4 What do you think?
+						:plain
+							<script type="text/javascript" charset="utf-8" src="http://static.polldaddy.com/p/5627069.js"></script>
+							<noscript><a href="http://polldaddy.com/poll/5627069/">Notifications Changes</a></noscript>
+				.details
+					%h2 Notifications
+					%p This is probably the part of the design that's most different from the original. Quora notifications are obvious on the homepage, but hard to access from other pages since you need to <a class="lightbox" href="/images/quora/quora-notifications.png">hover precisely over the notification indicator</a> to display them.
+					%p There is also the problem of the notification indicator being associated with the "home" menu item, which implies that notifications are only visible on the homepage.
+					%p My solution was to display them in a pop-over that you access by clicking on your own name. The pop-over also includes less frequently accessed links such as profile, settings, and log out.
+					%p While hiding away links can be bad for usability, I feel this solution works well because in this case there is only a single place to look for them.
+		#note.extra
+			%h3 A note on unsolicited redesigns
+			%p Quora's design solves very specific problems, and it would be very arrogant of me to declare myself able to solve those problems better than Quora's own design team over a single week-end. I fully realize that there are a lot of hidden constraints that shaped the site into its present state.
+			%p And although I feel like my changes would probably improve my own experience (and I can't even be sure of that!), they might very well detract from yours.
+			%p So that's why I think redesigns are interesting. They're a good opportunity to try out new ideas and compare point of views. And if you think that my design sucks, you're welcome to tell me why in the comments!
+			/ %p So please do not take this redesign for something it's not. I'm not proclaiming this version any better than the real deal, it's just a different solution to the same problem.
+			/ %p In fact, calling this a "redesign" might be a little misleading, so maybe we should call it a "remix" instead. After all, when a DJ remixes an old standard we can all appreciate the creativity involved without anybody thinking that the artist is trying to "improve" on the original.
+			= render "guides/social"
+		#reactions.extra
+			%h3 Reactions
+			:plain
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+				    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				    var disqus_shortname = 'folyoguides'; // required: replace example with your forum shortname
+
+				    /* * * DON'T EDIT BELOW THIS LINE * * */
+				    (function() {
+				        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+				        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				    })();
+				</script>
+				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		#colophon.extra
+			%h3 Colophon
+			%h4 Fonts
+			%ul
+				%li <a href="http://www.ms-studio.com/FontSales/proximanova.html">Proxima Nova</a> by <strong>Mark Simonson</strong>, served by <a href="http://typekit.com">Typekit</a>
+				%li <a href="http://funktion.kylesteed.com/">Funktion</a> by <strong>Kyle Steed</strong>
+				%li <a href="http://losttype.com/font/?name=homestead">Homestead</a> by <strong>Luke Lisi</strong>
+			%h4 Polls
+			%ul
+				%li Polls by <a href="http://www.polldaddy.com">Polldaddy</a>
+			%h4 Credits
+			%ul
+				%li Written and designed by <a href="http://twitter.com/SachaGreif">@SachaGreif</a> for <a href="http://folyo.me">Folyo</a>

@@ -1,0 +1,3 @@
+%li.status-selector
+	= select_tag d.id, options_from_collection_for_select(Designer.statuses, 'to_sym', 'to_s', d.status)
+	%span.hidden.checkmark OK!

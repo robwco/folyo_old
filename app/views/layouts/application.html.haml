@@ -1,0 +1,36 @@
+!!!
+%html
+  = render :partial => '/site/header'
+  %body{:class=> yield(:body_class)}
+    #header
+      = render_site_nav
+    #page
+      - if yield(:header).blank?
+        #page-header
+          #page-title
+            .title
+              - unless yield(:parent_level).blank?
+                .breadcrumbs
+                  = yield(:parent_level)
+              %h1
+                = yield(:title)
+            - unless yield(:subtitle).blank?
+              %h2
+                = yield(:subtitle)
+          - unless yield(:subnav).blank?
+            = yield(:subnav)
+          - unless yield(:mainaction).blank?
+            .main-action
+              =yield(:mainaction)
+      - else
+        = yield(:header)
+      #page-content
+        #main
+          = render :partial => '/site/flash', :locals => {:flash => flash}
+          = content_for?(:content) ? yield(:content) : yield
+        - unless yield(:sidebar).blank?
+          #sidebar
+            = content_for(:sidebar)
+      = render :partial => '/site/footer'
+
+= javascript_include_tag "wysiwyg"

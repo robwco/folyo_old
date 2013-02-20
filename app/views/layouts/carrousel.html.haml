@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %title
+      Folyo -
+      = yield(:title)
+
+    = stylesheet_link_tag 'carrousel', :media => 'screen'
+
+    = javascript_include_tag :vendor
+
+    = csrf_meta_tag
+
+  %body.carrousel
+    #page-content
+      #main
+        = yield

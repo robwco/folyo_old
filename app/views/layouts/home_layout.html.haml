@@ -1,0 +1,9 @@
+!!!
+%html
+  = render :partial => '/site/header'
+  %body{:class=> yield(:body_class)}
+    #header
+      = render_site_nav
+    #page
+      = content_for?(:content) ? yield(:content) : yield
+      = render :partial => '/site/footer'

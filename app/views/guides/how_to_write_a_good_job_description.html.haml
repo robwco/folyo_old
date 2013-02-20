@@ -1,0 +1,153 @@
+= content_for :title, "How to write a good job description"
+= content_for :add_css_to_head do
+	= stylesheet_link_tag 'write_job_description', :media => 'screen'
+
+		
+#container.write-job-offer
+	.notes-arrow
+	#header
+		.logo
+			%h1
+				= link_to "Folyo", "http://folyo.me"
+			%span.presents presents…
+		.social
+			.twitter
+				:plain
+					<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="YoFolyo">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+			.facebook
+				:plain
+					<div id="fb-root"></div>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) {return;}
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-like" data-href="http://folyo.me/guides/how_to_pick_a_designer" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true"></div>
+			.google
+				:plain
+					<!-- Place this tag where you want the +1 button to render -->
+					<g:plusone size="medium"></g:plusone>
+
+					<!-- Place this render call where appropriate -->
+					<script type="text/javascript">
+					  (function() {
+					    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					    po.src = 'https://apis.google.com/js/plusone.js';
+					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+					  })();
+					</script>
+	#page
+		
+		#intro
+			%h1.title How to write a good job offer
+			%p When you're hiring someone, you're often unfamiliar with their domain of expertise. This can make writing a good job description quite hard.
+			%p So here are a couple pointers, in the form of a fake job offer for a fake company (no need to apply!).
+		#content
+			.block
+				%h2 The Company
+				.section.who 
+					%p FeedMeow is a small 3-person startup based out of San Francisco. We’re one coder, one biz dev guy, and one cat food expert.
+					.note
+						%h4 About you
+						%p Quickly explain who you are and where you're located.
+				.section.what
+					%p Our app lets you order great-tasting, healthy cat food online and then monitor how much food your cat eats throughout the week via a sleek web app.
+					.note
+						%h4 What you do
+						%p Clearly explain what you do in simple terms.
+				.section.story 
+					%p It all started about 6 months ago when Ben (our coder) started blogging about cat nutrition on his blog, UCannotHazCheezburger. Pretty soon all his friends were asking him for cat nutrition advice, and he realized that cat lover's needs were not being met by the corrupt cat food industry.
+					.note 
+						%h4 The story
+						%p If you're a young company, you can give a little backstory.
+				.section.why 
+					%p This problem concerns us all directly, because the rampant cat obesity epidemic is endangering the poor critters’ health. The NICH (National Institute for Cat Health) estimates that by 2020, half of US cats will be overweight, costing US taxpayers more than $2 trillion annually in veterinarian costs.
+					.note 
+						%h4 The reason
+						%p Explain <em>why</em> you're doing what you do, and make people care.
+				.section.users 
+					%p So we decided to do something about it, and our app is now used by more than 3,000 cat lovers throughout the country.
+					.note 
+						%h4 Your users
+						%p If you already have users, let people know to show you've got traction.
+				.section.special
+					%p We’re pretty nice guys to work with, as long as you love cats like us of course (dog people need not apply, sorry!).
+					.note 
+						%h4 What makes you special?
+						%p Don't be afraid of explaining what makes your company special.
+				%h2 The Project
+				.section.goal
+					%p We’re looking for someone to help us design our upcoming iPhone app. We've noticed a lot of people are using the site from their mobile phones, so we decided it was time to build a mobile app. The app will let you order cat food on the go, and even check-in at specific cat food places to get special discounts and win badges. So you could say it combines social commerce, geolocalisation, and gamification. And cats.
+					.note
+						%h4 Goals
+						%p Lay out the goals of the project, what the end product will be and why you're doing it now.
+				.section.details
+					%p The app will have the following screens:
+					%ul
+						%li Home screen
+						%li Cat food listing
+						%li Single product page
+						%li Category page
+						%li Place page
+					%p In addition, there will be about 10 badges to design (to start off), and we’ll also need an icon for the app itself. 
+					.note
+						%h4 Details
+						%p Give more details on the actual work involved. This will help the designer make his estimate.
+				.section.skills 
+					%p We’re looking for someone with a fresh and vibrant style, but who also has experience designing mobile apps and a good sense of usability and user experience. Having previously designed cat websites is not required, but it’s definitely a plus.
+					.note
+						%h4 Who you're looking for
+						%p Describe the ideal profile you're looking for.
+				.section.inspiration
+					%p Here are a couple other sites and apps that we like:
+					%ul
+						%li Gowalla
+						%li Foursquare
+						%li CatFoodEmporium.com
+						%li Catfoodia
+						%li ICanHazCheezBurger.com
+					.note
+						%h4 Inspiration
+						%p Give out a couple examples of things that you like.
+				.section.timeframe
+					%p We’re hoping to launch the app in time for Christmas, so we really want to get it done in the next month or so.
+					.note
+						%h4 Timeframe
+						%p Don't forget to provide a timeframe, especially for urgent projects.
+				%p We look forward to hearing from you!
+		#donot.to-do.extra
+			%h3 Do not:
+			%ul
+				%li Mark specific skills or experiences as mandatory. Mention them as nice-to-have pluses instead to avoid restricting the field of applicants.
+				%li Assume people are familiar with your industry or what you're doing.
+				%li Use industry-specific jargon or acronyms.
+				%li Focus too much on the technology behind your project.
+				%li Explain only the "how" and not the "why".
+		#reactions.extra
+			%h3 Reactions
+			:plain
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+				    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				    var disqus_shortname = 'folyoguides'; // required: replace example with your forum shortname
+
+				    /* * * DON'T EDIT BELOW THIS LINE * * */
+				    (function() {
+				        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+				        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				    })();
+				</script>
+				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		#colophon.extra
+			%h3 Colophon
+			%h4 Fonts
+			%ul
+				%li <a href="http://www.ms-studio.com/FontSales/proximanova.html">Proxima Nova</a> by <strong>Mark Simonson</strong>, served by <a href="http://typekit.com">Typekit</a>
+				%li <a href="http://funktion.kylesteed.com/">Funktion</a> by <strong>Kyle Steed</strong>
+				%li <a href="http://losttype.com/font/?name=homestead">Homestead</a> by <strong>Luke Lisi</strong>
+			%h4 Credits
+			%ul
+				%li Written and designed by <a href="http://twitter.com/SachaGreif">@SachaGreif</a> for <a href="http://folyo.me">Folyo</a>

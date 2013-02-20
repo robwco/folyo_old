@@ -1,0 +1,17 @@
+= content_for :title, @client.user.full_name
+= content_for :subtitle, @client.company_name
+= content_for :body_class, "client-profile"
+
+.block
+	.client
+		%h3= link_to @client.company_name, edit_client_path(@client)
+		%h4= @client.user.full_name
+		%p
+			= @client.user.email
+		%ul
+			- @client.job_offers.ordered_by_status.each do |job|
+				%li
+					%span{:class => "status "+job.status.name.downcase}= job.status.name
+					= link_to job.title, client_offer_path(job)
+					- if job.status_id==4
+						%span.num-replies= "#{job.designer_replies.count} Replies"

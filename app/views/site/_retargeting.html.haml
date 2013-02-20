@@ -1,0 +1,16 @@
+:javascript
+    (function() {
+
+    var protocol  = (("https:" === document.location.protocol) ? "https://secure" : "http://ib");
+    var segmentId = "298085";
+
+    var t   = document.createElement("script");
+    t.type  = "text/javascript";
+    t.async = true;
+    t.src   = protocol + ".adnxs.com/seg?t=1&add=" + segmentId;
+    t.id    = "nowspots-retargeting";
+
+    var s   = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(t, s);
+
+    })();

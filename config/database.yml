@@ -1,0 +1,13 @@
+development:
+  host: localhost
+  adapter: postgresql
+  database: folyo_development
+  username: folyo
+  password:
+  encoding: unicode
+
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000

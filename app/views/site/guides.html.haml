@@ -1,0 +1,26 @@
+= content_for :title, "Guides"
+
+.block
+	%p Here are a couple guides and articles that will help you in the process of finding and working with a designer.
+	%ul
+		%li
+			%h5= link_to "How to write a good job description", "/guides/how_to_write_a_good_job_description"
+			%p.small How do you make your project sound appealing and interesting?
+		%li
+			%h5= link_to "How to pick a great designer", "/guides/how_to_pick_a_great_designer"
+			%p.small What to look for when choosing a designer for your project.
+		%li
+			%h5= link_to "Should designers have to implement their own layouts?", "http://blog.folyo.me/post/10974734328"
+			%p.small Should you require that your designer also code their design?
+		%li
+			%h5= link_to "\"How much does a website cost?\" and other pricing questions", "http://blog.folyo.me/post/10723370923/how-much-does-a-website-cost"
+			%p.small 40 designers answer a survey about their pricing practices.
+		%li
+			%h5= link_to "Full-time vs freelance", "http://blog.folyo.me/post/10474313550"	
+			%p.small Which is better for your project, a full-time or freelance designer?
+= content_for :sidebar do
+	%h3 For Designers
+	%ul
+		%li
+			%h5
+				= link_to "Common portfolio mistakes (and how to fix them)", "http://blog.folyo.me/post/11907860364/common-portfolio-mistakes"

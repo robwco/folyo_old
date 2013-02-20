@@ -1,0 +1,35 @@
+.block, #sidebar .note{
+	ul, ol{
+		padding:0 0 10px 40px;
+	}
+	ul{
+		li{
+			position:relative;
+		}
+		li:before{
+			content:" ";
+			display:block;
+			height:5px;
+			width:5px;
+			background-color:$green1;
+			@include border-radius(5px);
+			position:absolute;
+			top:11px;
+			left:-13px;
+		}
+		li.pro:before, li.cons:before{
+			background:transparent image-url("check-small.png") no-repeat;
+			height:12px;
+			width:12px;
+			@include border-radius(0px);
+			top:5px;
+			left:-20px;
+		}
+		li.cons:before{
+			background-image:image-url("cross-small.png");
+		}
+	}
+	ol{
+		list-style-type:decimal;
+	}
+}

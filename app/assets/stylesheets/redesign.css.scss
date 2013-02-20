@@ -1,0 +1,258 @@
+@import "partials/colors";
+@import "partials/mixins";
+$blueprint_grid_columns: 12;
+$blueprint_grid_width: 22px;
+$blueprint_grid_margin: 60px;
+@import "blueprint";
+@import "compass/css3";
+
+#container{
+/*	@include container;*/
+	width:span(12);
+	#intro{
+		@include column(12, true);
+		text-align:center;
+		h1.title{
+			background-image:image-url('quora/quora-title.png');
+			width:596px;
+			height:70px;
+			margin:0 auto 40px auto;
+		}
+		.screenshot{
+			display:block;
+			padding:0;
+			margin-bottom:40px;
+			@include transition-property(all);
+		  	@include transition-duration(400ms);
+			img{
+				display:block;
+			}
+			&:hover{
+				@include box-shadow(white(0.5) 0 0 10px);
+			}
+		}
+	}	
+	.block{
+		@include column(12, true);
+		.image{
+			@include column(3);
+		}
+		.details{
+			@include column(9, true);
+		}
+	}
+	.extra{
+		@include prepend(3);
+		@include column(9,true);
+	}
+}
+
+.image{
+	padding-top:170px;
+	position:relative;
+	a.lightbox{
+		background:image-url('screenshot-bg.png') no-repeat left top;
+		position:absolute;
+		height:106px;
+		width:186px;
+		top:-7px;
+		left:-12px;
+		display:block;
+		padding:11px 12px 3px 12px;
+		img{
+			display:block;
+			margin-bottom:8px;
+		}
+		span{
+			font-family:"FunktionRegular";
+			text-align:center;
+			margin:0;
+			font-size:14px;
+			text-shadow:none;
+			color:$darkgrey2;
+			display:block;
+			font-weight:normal;
+		}
+	}
+	a:hover{
+		background-position:left -180px;
+		span{
+			color:#c9d4da;
+		}
+	}
+}
+.poll{
+	font-size:14px;
+	h4{
+		font-family:"FunktionRegular";
+		text-transform:uppercase;
+		font-weight:normal;
+		margin:0 0 10px 0;
+		text-align:center;
+	}
+	.pds-question{
+		display:none;
+	}
+	.pds-answer{
+		border-top:1px white(0.2) solid;
+		border-bottom:1px black(0.5) solid;
+		margin-bottom:10px;
+		background:white(0.1);
+		padding:5px 0px;
+	}
+	.pds-answer-group{
+		cursor:pointer;
+		display:block;
+		padding:5px 10px;
+		overflow:hidden;
+		&:hover{
+			background:white(0.2);
+		}
+		.pds-clear, br{
+			display:none;
+		}
+	}
+	.pds-answer-input{
+		display:block;
+		float:left;
+		margin-right:5px;
+		cursor:pointer;		
+	}
+	.pds-input-label{
+		cursor:pointer;
+		display:block;
+		//float:left;
+	}
+	.pds-vote-button{
+		@include button;
+		display:inline-block;
+		font-size:14px;
+		margin-right:10px;
+	}
+	.pds-view-results{
+		display:inline-block;
+		font-size:13px;
+		padding-left:5px;
+	}
+	.pds-links:before{
+		font-size:13px;
+		content:" or   ";
+	}
+	.pds-pd-link{
+		display:none;
+	}
+	.pds-feedback-group{
+		padding:5px 10px;
+	}
+	.pds-total-votes{
+		padding:5px 10px;
+	}
+	.pds-admin-bar{
+		display:none;
+	}
+	.pds-answer-feedback{
+		@include box-shadow(inset white(0.2) 0 1px 0 0, black(0.55) 0 1px 1px 0);
+		background:white(0.1);
+		display:block;
+		width:100%;
+		height:20px;
+	}
+	.pds-answer-feedback-bar{
+		@include box-shadow(inset white(0.6) 0 1px 0 0, black(0.55) 0 1px 1px 0);
+		background:white(0.6);
+		background:$blue1;
+		display:block;
+		height:100%;
+	}
+}
+html.screenshot, body.screenshot, #frame{
+	width:100%;
+	height:100%;
+	background:white;	
+}
+#frame{
+	position:relative;
+	a{
+		width:100%;
+		height:1287px;
+		display:block;
+		position:absolute;
+		top:0px;
+		left:0px;
+		overflow:hidden;
+		img{
+			display:block;
+		}
+	}
+	#message{
+		position:absolute;
+		bottom:20%;
+		left:50%;
+		padding:10px;
+		@include border-radius(3px);
+		background:black(0.8);
+		color:white;
+		width:450px;
+		height:50px;
+		line-height:50px;
+		margin-left:-225px;
+		margin-top:-25px;
+		z-index:3;
+		text-align:center;
+	}
+}
+#img1{
+	background:image-url('quora/quora-screenshot2.png') no-repeat top center;
+	z-index:1;
+}
+#img2{
+	background:image-url('quora/quora-screenshot1.png') no-repeat top center;
+	z-index:2;
+}
+#img3{
+	background:image-url('quora/quora-screenshot3.png') no-repeat top center;
+	z-index:0;
+}
+.transparent{
+	opacity:0;
+}
+.hidden{
+	display:none;
+}
+/*
+    ColorBox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto;}
+#cboxTitle{margin:0;opacity:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block;}
+.cboxIframe{width:100%; height:100%; display:block; border:0;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#000;}
+#colorbox{}
+    #cboxContent{margin-top:20px;}
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxLoadedContent{border:5px solid #000; background:#fff;}
+        #cboxTitle{position:absolute; top:-20px; left:0; color:#ccc;}
+        #cboxCurrent{position:absolute; top:-20px; right:0px; color:#ccc;}
+        #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
+        //#cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
+        #cboxPrevious:hover{background-position:bottom left;}
+        //#cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
+        #cboxNext:hover{background-position:bottom right;}
+        #cboxLoadingOverlay{background:#000;}
+        //#cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
+       // #cboxClose{position:absolute; top:5px; right:5px; display:block; background:url(images/controls.png) no-repeat top center; width:38px; height:19px; text-indent:-9999px;}
+        #cboxClose:hover{background-position:bottom center;}

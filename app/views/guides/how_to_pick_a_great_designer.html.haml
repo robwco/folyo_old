@@ -1,0 +1,253 @@
+= content_for :title, "How to Pick a Great Designer"
+= content_for :add_css_to_head do
+	= stylesheet_link_tag 'pick_designer', :media => 'screen'
+	
+#toc
+	%ul
+		%li= link_to "Visuals", "#visuals"
+		%li= link_to "Structure", "#structure"
+		%li= link_to "Insight", "#insight"
+		%li= link_to "Style", "#style"
+		%li= link_to "Communication", "#communication"
+		%li= link_to "Education & Experience", "#experience"
+		%li= link_to "Passion", "#passion"
+		%li= link_to "Personality", "#personality"
+		%li= link_to "Evaluation", "#evaluation"
+		%li= link_to "Extra Credit", "#extra-credit"
+		
+#container.pick-designer
+	#header
+		.logo
+			%h1
+				= link_to "Folyo", "http://folyo.me"
+			%span.presents presents…
+		.social
+			.twitter
+				:plain
+					<a href="https://twitter.com/share" data-url="http://folyo.me/guides/how_to_pick_a_great_designer/" class="twitter-share-button" data-count="horizontal" data-via="YoFolyo">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+			.facebook
+				:plain
+					<div id="fb-root"></div>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) {return;}
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-like" data-href="http://folyo.me/guides/how_to_pick_a_designer" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true"></div>
+			.google
+				:plain
+					<!-- Place this tag where you want the +1 button to render -->
+					<g:plusone size="medium"></g:plusone>
+
+					<!-- Place this render call where appropriate -->
+					<script type="text/javascript">
+					  (function() {
+					    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					    po.src = 'https://apis.google.com/js/plusone.js';
+					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+					  })();
+					</script>
+	#page
+		
+		#intro
+			%h1.title How to pick a great designer
+			%p How do you know if a designer is any good? And how do you know if they're the right person for your project? Here's a short guide to help you find out. 
+		#content
+			.block.visuals
+				%h2#visuals Visuals
+				%p
+					%span.callout
+						%quote "You shouldn’t worry about experience, or what school [a designer] went to, but <strong>you should be very impressed with his portfolio</strong>. Otherwise, I would keep looking."
+						%cite
+							<strong>Aaron Patzer</strong>, Mint.com
+						= link_to "How not to recruit for a startup", "http://blog.wepay.com/2011/09/21/how-not-to-recruit-for-a-startup/"
+					Recognizing good visual design can be tricky for non-designers, but there are a few key elements to look for. Does the text have enough breathing room? Is the page laid out on a grid? Do the visuals match the content's message?
+				%p After browsing a couple <a href="http://bestwebgallery.com">site galleries</a>, you should start having a better feel for what constitutes a good design.
+				%p In the end, it's mostly about trusting your instincts and going "wow!" when you see somebody's work. 
+				.to-do
+					%h3 To-do
+					%ul
+						%li Ask <em>another designer</em> to help you evaluate the designer's work
+						%li Look for someone who pays attention to <em>small details</em>
+						%li Compare their work with <em>other well-designed sites</em>
+			.block.structure
+				%h2#structure Structure
+				%p
+					%span.callout
+						%quote "My first filters are <strong>information priority, information organization</strong>, intuitiveness, and clarity of copy"
+						%cite
+							<strong>Jason Putorti</strong>, Votizen
+						= link_to "How to Interview a Designer", "http://www.quora.com/Jason-Putorti/How-to-Interview-a-Designer"
+					Good designers establish a strong visual hierarchy. The most important things on a page should pop out. After all, design is not just making things pretty, it’s also making them work well.
+				%p A great way to evalute a design is to check it against each of the <a href="http://astheria.com/design/the-elements-of-design-applied-totheweb">design principles</a>.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Look for clear <em>call to actions</em> that tell the user what to do next
+						%li Look for a strong <em>information hierarchy</em> throughout the page
+			.block.insight
+				%h2#insight Insight
+				%p 
+					%span.callout
+						%quote "[Designers should have] <strong>a rational, thoughtful design process</strong> that balances business needs with user needs— and empathy with those users."
+						%cite
+							<strong>Jason Putorti</strong>, Votizen
+						= link_to "How to Interview a Designer", "http://www.quora.com/Jason-Putorti/How-to-Interview-a-Designer"
+					Design is not just about the "how", but also about the "why". It's important that a designer be able to justify every design decisions they make, and be aware of these decisions' consequences for users. 
+				%p This is a hard skill to quantify, but is very important especially for sites or apps with lots of interactions.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Read previous projects' <em>case studies</em>
+						%li Ask the designer to <em>analyze</em> your current design
+						%li Ask them to <em>justify</em> their choices for a previous design
+			.block.style
+				%h2#style Style
+				%p 
+					%span.callout
+						%quote "I cannot stress this enough: <strong>designers don’t morph their style</strong> to match yours."
+						%cite
+							<strong>Jason Cohen</strong>, A Smart Bear
+							= link_to "How to get quality freelance graphics design work on a budget","http://blog.asmartbear.com/how-to-get-quality-freelance-graphics-design-work-on-a-budget.html"
+					Style is often overlooked when picking a designer, and that can often lead to trouble down the road. Sure, some designers will be happy to adapt their style to match your project, but you shouldn't count on it. 
+				%p So if what you need is a glossy, gradient-heavy iPhone-style mobile app, don't hire someone who specializes in minimalist typographical layouts, no matter how beautiful their work looks. 
+				%p Instead, pick someone whose current style is already a good fit for your needs. If you find yourself wishing you could just take their previous work and stick your logo on it, you're on the right track.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Make sure the designer works in <em>the right field</em> (i.e. print, web, mobile, etc.)
+						%li Ask yourself <em>which style</em> (i.e. retro, grunge, minimalist, etc. ) the designer's work evokes
+						%li Think of <em>a few adjectives</em> that describe their work and see if they apply to your project
+			.block.communication
+				%h2#communication Communication
+				%p 
+					%span.callout
+						%quote "[Good writing] is <strong>extremely important</strong>. A cover letter will help you determine this, but also look for the copy in the designs."
+						%cite
+							<strong>Ryan Singer</strong>, 37Signals
+					Good communication is very important for any project, and even more so when working remotely.
+				%p Just like in romantic relationships, most problems in a work relationship can usually be traced back to a lack of communication.
+				%p And since interfaces are mostly text, it's absolutely vital for user interface designers to have a good grasp of language.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Evaluate the <em>copy</em> inside the designs
+						%li Check out the designer's <em>blog</em>
+						%li See if they ask <em>a lot of questions</em> about your project
+			.block.experience
+				%h2#experience Education & Experience
+				%p 
+					%span.callout
+						%quote "<strong>Get references!</strong> There are great designers out there that are terrible to work with and miss deadlines."
+						%cite
+							<strong>Sheel Mohnot</strong>, FeeFighters
+							= link_to "Sheel Mohnot's tips on picking a designer", "http://blog.folyo.me/post/11278565589"
+					Past experience is not a fail-safe indicator of design skills: after all, some newcomers have outstanding talent – and you'll have no trouble finding experienced people that still suck.
+				%p And a lot of designers are autodidacts anyway, so you don't want to discard someone just because they didn't go to design school. 
+				%p Of course, that doesn't mean having a degree is not a plus. Education and experience are things you want to consider, if only to get a feel for a designer's background.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Ask if they've worked on <em>similar projects</em> in the past.
+						%li Ask for <em>references</em> from past employers
+						%li Check if their portfolio is filled with <em>real client work</em>, or mostly personal projects
+			.block.passion
+				%h2#passion Passion
+				%p 
+					%span.callout
+						%quote "Have you <strong>designed projects in your spare time</strong>? Have you lead projects before? Both big plusses for me."
+						%cite
+							<strong>Daniel Burka</strong>, Milk
+						= link_to "How do you choose/hire a good web designer?", "http://www.quora.com/How-do-you-choose-hire-a-good-web-designer/answer/Daniel-Burka"
+					It's always nicer to collaborate with someone who's passionate about their work, and luckily most designers are. 
+				%p You want someone who's not afraid to take risks and come up with ideas by themselves, and who really cares about the work they take on.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Find out if they've launched <em>personal projects</em>.
+						%li Find out <em>their motivations</em> for taking on past client projects.
+			.block.personality
+				%h2#personality Personality
+				%p 
+					%span.callout
+						%quote "Are you <strong>a cool person to work with</strong>? This sort of thing can come out in a personal interview but it can also come through blog entries, [or] tweets."
+						%cite
+							<strong>Mike Davidson</strong>, Newsvine
+						= link_to "How to properly apply for a design position", "http://www.mikeindustries.com/blog/archive/2010/09/how-to-properly-apply-for-a-design-position"
+					Working with a designer is often a long-term commitment, so you don't want to hire someone if you don't get along with them.
+				%p Although working mainly through email or project management software can be convenient, it won't bring you the same personal contact as a real-life or even Skype interview. 
+				%p At least for the first contact, getting some face-to-face time in is worth it.
+				.to-do
+					%h3 To-do
+					%ul
+						%li Read what they're saying on <em>Twitter</em>.
+						%li Make time for an <em>interview</em> on Skype or in real life
+			.block.evaluation
+				%h2#evaluation Evaluation
+				%p 
+					%span.callout
+						%quote "We generally just try lots of people. […] <strong>Paying for a couple hours of work</strong> is the easiest way to see how they work in practice."
+						%cite
+							<strong>Steve Huffman</strong>, Hipmunk
+					Nobody said you had to take the big leap right away. Why not start out small, by hiring the designer for a couple hours to work on a side project?
+				%p But don't make the mistake of asking the designer to work for free: if you expect them to do their best, it's only fair to compensate them for their time.
+				%p 
+				.to-do
+					%h3 To-do
+					%ul
+						%li Have the designer do a <em>2-hour redesign</em> of your homepage.
+						%li Hire him for a <em>smaller project</em> (blog theme, slides, banner, etc.)
+			#extra-credit.extra
+				%h3 Extra Credit
+				%ul.links
+					%li
+						= link_to "How not to recruit for a startup", "http://blog.wepay.com/2011/09/21/how-not-to-recruit-for-a-startup/"
+						%span <strong>Rich Aberman</strong>, WePay Blog
+					%li 
+						= link_to "How to Interview a Designer", "http://www.quora.com/Jason-Putorti/How-to-Interview-a-Designer"
+						%span <strong>Jason Putorti</strong>, Quora
+					%li	
+						= link_to "How to get quality freelance graphics design work on a budget","http://blog.asmartbear.com/how-to-get-quality-freelance-graphics-design-work-on-a-budget.html"
+						%span <strong>Jason Cohen</strong>, A Smart Bear
+					%li
+						= link_to "How to properly apply for a design position", "http://www.mikeindustries.com/blog/archive/2010/09/how-to-properly-apply-for-a-design-position"
+						%span <strong>Mike Davidson</strong>, Mike Industries
+					%li
+						= link_to "How do you choose/hire a good web designer?", "http://www.quora.com/How-do-you-choose-hire-a-good-web-designer/"
+						%span <strong>Various People</strong>, Quora
+					%li
+						= link_to "Sheel Mohnot's tips on picking a designer", "http://blog.folyo.me/post/11278565589"
+						%span <strong>Sheel Mohnot</strong>, Folyo Blog
+		#reactions.extra
+			%h3 Reactions
+			:plain
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+				    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				    var disqus_shortname = 'folyoguides'; // required: replace example with your forum shortname
+
+				    /* * * DON'T EDIT BELOW THIS LINE * * */
+				    (function() {
+				        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+				        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				    })();
+				</script>
+				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		#colophon.extra
+			%h3 Colophon
+			%h4 Fonts
+			%ul
+				%li <a href="http://www.ms-studio.com/FontSales/proximanova.html">Proxima Nova</a> by <strong>Mark Simonson</strong>, served by <a href="http://typekit.com">Typekit</a>
+				%li <a href="http://funktion.kylesteed.com/">Funktion</a> by <strong>Kyle Steed</strong>
+				%li <a href="http://losttype.com/font/?name=homestead">Homestead</a> by <strong>Luke Lisi</strong>
+			%h4 Icons
+			%ul
+				%li <a href="http://geomicons.com/">Geomicons</a> by <strong>Brent Jackson</strong>
+			%h4 Credits
+			%ul
+				%li Thanks to <a href="http://twitter.com/#!/rjs">Ryan Singer</a>, <a href="http://www.hipmunk.com/">Steve Huffman</a>, <a href="http://twitter.com/#!/RichAberman">Rich Aberman</a>, and <a href="http://twitter.com/#!/pitdesi">Sheel Mohnot</a> for their contribution.
+				%li Written and designed by <a href="http://twitter.com/SachaGreif">@SachaGreif</a> for <a href="http://folyo.me">Folyo</a>
+				

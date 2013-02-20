@@ -1,0 +1,69 @@
+/= content_for :title, "Put your project in front of the world's best designers"
+/= content_for :title, "Ridding the world of bad design, one company at a time"
+/ = content_for :title, "Looking for a great designer? You've found 250 of them."
+= content_for :title, "Helping startups find great designers"
+= content_for :body_class, "home"
+= content_for :add_to_head, :home
+
+:javascript
+	$(function(){
+			$('#slideshow').cycle({
+			fx:    'fade',
+			height: 240,
+		    timeout:  5000,
+			speed: 1000,
+			pager:  '#pager'
+		});
+	});
+
+#page-content
+	#title
+		%h1 Looking for a great designer? You've found 400 of them.
+	#main
+		.primary
+			%h2.tagline	Folyo is a private designer community. Post your project, and we'll send it to a list of hand-picked designers all over the world.
+			.cta
+				%a{:href => '/learn-more', :class => "button big-button post-offer"} Learn More
+		.secondary
+			.block.guarantee
+				%h4 Satisfaction guaranteed
+				%h5.money-back Money back guarantee
+				%p If you can't find a designer through Folyo, we'll refund the fee, no questions asked!
+			.block.designers
+				%h4 Get the best
+				%ul.featured-designers.clearfix
+					- @featured_designers.each do |d|
+						%li= link_to d.full_name, d, :class => "#{d.full_name.gsub(/ /,'-').downcase} #{d.id} tooltip", :title => d.full_name
+				%p Designers on Folyo are all vetted and selected for their skills and experience.
+				=link_to 'See all designers →', designers_path
+			.block.help
+				%h4 Get design help
+				%p Maybe you don't know a lot about design, but we do. Ask us any question, or check out these guides:
+				%ul
+					%li= link_to "How to write a good job description", "http://folyo.me/guides/how_to_write_a_good_job_description"
+					%li= link_to "How to pick a great designer", "http://folyo.me/guides/how_to_pick_a_great_designer"
+					/ %li= link_to "Full-time vs freelance", "http://blog.folyo.me/post/10474313550"
+			.block.testimonials
+				%h4 What companies are saying
+				#slideshow
+					.testimonial
+						%a.logo{:href=>"http://wepay.com", :target => "_blank"}
+							= image_tag "wepay-logo.png"
+						%q "[Folyo has] sent more quality leads (and faster) than any other channel I've tried"
+						%cite – Rich Aberman, CEO, WePay
+					.testimonial
+						%a.logo{:href=>"http://spanishdict.com", :target => "_blank"}
+							= image_tag "spanishdict-logo.png"
+						%q "I searched high and low for great designer talent and Folyo was the best source of qualified leads. I would highly recommend them."
+						%cite – Chris Cummings, SpanishDict
+					.testimonial
+						%a.logo{:href=>"http://www.acitywithquirk.com.au", :target => "_blank"}
+							= image_tag "city-with-quirk-logo.png"
+						%q "Folyo really fills a gap - people sourcing a quality designer that's interested in your project"
+						%cite – Aliki Komps, A City With Quirk
+					.testimonial
+						%a.logo{:href=>"http://www.voiturelib.com", :target => "_blank"}
+							= image_tag "voiturelib-logo.png"
+						%q "We had 7 very good leads through Folyo, so our main problem was picking one!"
+						%cite – Nicolas Mondollot, VoitureLib
+				#pager

@@ -1,0 +1,31 @@
+= content_for :title, "Press"
+
+.block
+  %ul
+    %li
+      %h5
+        = link_to "Folyo, a marketplace for the world's best designers [french]", "http://frenchweb.fr/start-up-folyo-place-de-marche-des-meilleurs-designers-du-monde/"
+      %p <strong>Frenchweb</strong>, October 10th, 2011
+    %li
+      %h5
+        = link_to "Folyo discloses how much websites cost", "http://boss.blogs.nytimes.com/2011/10/03/this-week-in-small-business-america-for-sale/"
+      %p <strong>New York Times</strong>, "You're The Boss" Blog, October 3rd 2011
+    %li
+      %h5
+        = link_to "Curated design jobs site Folyo launches", "http://www.netmagazine.com/news/curated-design-jobs-site-folyo-launches-111406"
+      %p <strong>Net Magazine</strong>, September 19th 2011
+
+= content_for :sidebar do
+  .block
+    %h4 Logo
+    %ul
+      %li= link_to "Logo (black)", asset_path("folyo-logo-big1.png")
+      %li= link_to "Logo (white)", asset_path("folyo-logo-big2.png")
+  %hr
+  .block
+    %h4 Screenshots
+    %ul
+      %li= link_to "Job offers", asset_path("folyo-job-offers.png")
+      %li= link_to "Job offer", asset_path("folyo-job-offer.png")
+      %li= link_to "Designer replies", asset_path("folyo-designer-replies.png")
+      %li= link_to "Designer profile", asset_path("folyo-profile.png")

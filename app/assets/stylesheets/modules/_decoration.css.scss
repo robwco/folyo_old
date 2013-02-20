@@ -1,0 +1,6 @@
+.money-back{
+	background:image-url('money-back.png') no-repeat top center;
+	@include hide-text;
+	height:70px;
+	margin-bottom:10px;
+}
