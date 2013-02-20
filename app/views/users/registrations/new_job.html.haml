@@ -1,0 +1,60 @@
+:javascript
+	$(document).ready(function(){
+		if(ref_user_cookie=$.cookie('ref_user')){
+			$("#user_referrer_designer").each(function(){
+					$(this).val(ref_user_cookie);
+			});
+		}
+	});
+
+= content_for :title, "Submit a Job Offer"
+
+= content_for :body_class, " with-wizard"
+= content_for :subnav do
+	%ol.wizard
+		%li.active Your Company
+		%li Your Project
+
+= content_for :error_messages do
+	= devise_error_messages!
+
+= render :partial => "/site/wysiwyg"
+
+=content_for :company_hint do
+	%span.title Things to mention:
+	%span <strong>About you</strong>: what's your story? where are you based?
+	%span <strong>What you do</strong>: clearly explain what you do in simple terms.
+	%span <strong>Why you do it</strong>: tell us the motivations behind your project.
+	%span <strong>Your users</strong>: who uses your service?
+	%span.bottom For more ideas, check out our guide on <a target="_blank" href="http://folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+
+/http://stackoverflow.com/questions/4307743/profile-model-for-devise-users
+- resource.build_client unless resource.client
+
+.notices
+	.notice
+		%h5 When do I pay?
+		%p The first step is submitting an offer, and it's free. If your offer is accepted, you'll then be able to pay the <strong>$100</strong> fee to activate it.
+
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "new-client-form"}) do |f|
+	.section
+		%h3 Your Account
+		= f.input :full_name
+		= f.input :email
+		= f.input :password, :as => :password
+		= f.input :initial_role, :as => :hidden, :input_html => {:value => "client"}
+		= f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
+		= f.input :referrer_designer, :as => :hidden
+	.section
+		%h3 Your Company
+		= f.semantic_fields_for :client do |client|
+			= client.input :company_name
+			= client.input :company_url
+			= client.input :company_description, :hint => yield(:company_hint), :input_html => {:class => "wysiwyg"}
+			= client.input :location
+
+	= f.submit "Next: Your Project", :class => "button big-button"
+
+= content_for :sidebar do
+	%p.note
+		<strong>NEW!</strong> Check out our guide about <a target="_blank" href="http://folyo.me/guides/how_to_write_a_good_job_description">writing a good job description</a>.

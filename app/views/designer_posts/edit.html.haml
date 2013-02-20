@@ -5,6 +5,6 @@
 = render :partial => "/site/wysiwyg"
 
 .block
-= simple_form_for @designer_post do |f|
+= simple_form_for @designer_post, url: designer_post_path(@designer, @designer_post) do |f|
 	= render :partial => "form", :locals => {:f => f, :edit => true}
 	= f.submit "Update", :class => "button big-button"

@@ -1,0 +1,11 @@
+= content_for :title, "Log In"
+= content_for :body_class, "no-sidebar log-in"
+
+= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = f.input :email
+  = f.input :password,:wrapper_html => { :class => "small-margin" }
+  - if devise_mapping.rememberable?
+    = f.input :remember_me, :as=> 'hidden', :value => "1"
+  %li
+    = link_to "Forgot your password?", new_password_path(resource_name), :class=>"forgot-password"
+  = f.submit "Sign In", :class=>"button big-button"

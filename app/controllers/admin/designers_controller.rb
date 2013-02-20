@@ -8,8 +8,8 @@ class Admin::DesignersController < Admin::BaseController
        if params[:featured_shot_url]
          @designer.featured_shot_url = params[:featured_shot_url]
        end
-       if params[:status_id]
-         @designer.status_id = params[:status_id]
+       if params[:status]
+         @designer.status = params[:status]
        end
        if params[:coordinates]
          @designer.coordinates = params[:coordinates]

@@ -25,25 +25,25 @@ $.ajaxSetup({
 });
 
 $(document).ready(function(){
-	
+
 	// open all external links in a new tab
 	// $("a").click(function() {
 	//     link_host = this.href.split("/")[2];
 	//     document_host = document.location.href.split("/")[2];
-	// 
+	//
 	//     if (link_host != document_host) {
 	//       window.open(this.href);
 	//       return false;
 	//     }
 	//   });
-		
+
 	// if(typeof(console) === 'undefined') {
 	//     var console = {}
 	//     console.log = function() {};
 	// };
-	
+
    //just a comment
-  
+
   $('.tooltip, .wysiwyg .toolbar li').not('.separator').qtip({
     position: {
         my: 'bottom center'  // Position my bottom center...
@@ -135,7 +135,7 @@ $(document).ready(function(){
 	    });
 	});
 
-	
+
 	function setCookie(){
 		//console.log($.cookie('discount'))
 		if($.cookie('discount')==null){
@@ -147,17 +147,17 @@ $(document).ready(function(){
 			var myCookie=$.cookie('discount', 'HN20', { expires: 30});
 		}
 	};
-	
+
 	function clearCookie(){
 		$.cookie('discount', null);
 	};
-	
+
 	var referrer= parseUri(document.referrer).host;
 	//console.log(referrer);
 	if(referrer=="news.ycombinator.com"){
 		setCookie();
 	}
-	
+
 	var ref_user=$.getUrlVar("ref");
 	if (ref_user != null) {
 		ref_number=parseInt(ref_user)/3487;
@@ -165,40 +165,36 @@ $(document).ready(function(){
 		var clicky_custom = {};
 	  	clicky_custom.goal = { name: 'Referred_by_designer', revenue: ref_number };
 	}
-	
+
 	// $(".autoselect").focus(function(){
 	// 	$(this).select();
 	// });
-	
+
 	$('h1').click(function(){
 		setCookie();
 		//console.log("cookie set");
 	});
-	
+
 	$('.status-selector select').change(function(){
 		var status_select=$(this);
 		var designer_id=status_select.attr("name");
 		var new_status=status_select.val();
-		// $.put('/designers/'+designer_id+'?status_id='+status_id, function(data) {
-		//   $('.result').html(data);
-		//   alert('Load was performed.');
-		// });
 		$.update(
-		  	'/admin/designers/'+designer_id,
-		  	{ status_id: new_status },
-		  	function (response) {
+		  '/admin/designers/'+designer_id,
+		  { status: new_status },
+		  function (response) {
 				//console.log(response.designer.status_id);
 				status_select.parent().find(".checkmark").removeClass("hidden").fadeOut("slow");
 			},
 			function (response) {
 				console.log("error");
-				console.log(response.designer.status_id);
+				console.log(response.designer.status);
 			}
 		);
 	});
-	
+
 	$(".collapse").click(function(){
-		
+
 		var link=$(this);
 		var li=link.parent();
 		var url=document.URL;
@@ -208,7 +204,7 @@ $(document).ready(function(){
 			url = url.substring(0, url.length-1);
 		}
 		var designer_reply_url=url+"/"+designer_reply_id;
-		
+
 		if(li.hasClass("collapsed")){
 			li.removeClass("collapsed");
 			$.update(
@@ -227,7 +223,7 @@ $(document).ready(function(){
 		}
 		return false;
 	});
-	
+
 	$(".message").each(function(){
 		var msg=$(this);
 		var p=$(this).find("p");
@@ -236,12 +232,12 @@ $(document).ready(function(){
 		}
 	});
 	$("#designer_reply_message").autoGrow();
-	
-	
+
+
 	$('.limit').one("keydown",function(){
 		$('.remaining').fadeIn("fast");
 	});
-	
+
 	$(".coding-note").hide();
 	$('input[name="job_offer[coding]"]').change(function(){
 		if($(this).val()=="3"){
@@ -250,11 +246,11 @@ $(document).ready(function(){
 			$(".coding-note").fadeOut("fast");
 		}
 	});
-	
+
 	$(".lightbox").fancybox({
 		maxWidth:400
 	});
-	
+
 	$(".fancybox").each(function(){
 		var link=$(this).attr("href")+".js";
 		$(this).fancybox({

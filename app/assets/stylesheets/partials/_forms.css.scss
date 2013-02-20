@@ -1,27 +1,27 @@
-.inputs ol{
+form{
 	list-style-type:none;
-	
-	li{
+
+	.input{
 		margin-bottom:20px;
 		position:relative;
 	}
-	li.small-margin{
+	.input.small-margin{
 		margin-bottom:10px;
 	}
-	li.error {
-		
+	.input.error {
+
 		input, textarea{
 			background:#fedee3;
 			color:#c62910;
 			border-color:#dd887a;
 			@include box-shadow(inset #ffc5bb  0px 0px 0px 3px);
 		}
-		
+
 		&.check_boxes, &.radio{
 			background:#fedee3;
-			padding:10px;			
+			padding:10px;
 		}
-		
+
 		.inline-errors{
 			display:block;
 			line-height:30px;
@@ -60,7 +60,7 @@ input:focus, .text textarea:focus{
 	outline:none;
 	background:#f1f6f8;
 	//border:1px solid $blue1;
-	@include box-shadow(inset $lightgrey4  0px 0px 0px 3px);	
+	@include box-shadow(inset $lightgrey4  0px 0px 0px 3px);
 }
 label{
 	display:block;
@@ -83,7 +83,7 @@ label{
 	font-size:13px;
 	@include letterpress(0.8);
 	color:rgba(122,141,153, 0.75);
-	@include transition-property(all); 
+	@include transition-property(all);
 	@include transition-duration(500ms);
 	span{
 		display:block;
@@ -102,28 +102,27 @@ label{
 .inline-hints.in-focus{
 	background:white(0.9);
 	color:$darkgrey1;
-	//@include box-shadow( inset black(0.1) 0px 1px 0px 0px, white(1) 0px 1px 0px 0px);	
+	//@include box-shadow( inset black(0.1) 0px 1px 0px 0px, white(1) 0px 1px 0px 0px);
 	@include box-shadow(black(0.15) 0px 1px 1px 0px);
 }
 .forgot-password{
 	font-size:13px;
 	display:block;
 }
-.radio, .check_boxes{
-	legend{
+.radio_buttons, .check_boxes{
+
+	label {
+		border-bottom:1px $lightgrey2 solid;
+		padding-top:5px;
 		display:block;
 	}
-	ol{
-		border-top:1px $lightgrey2 solid;
-		padding-top:5px;		
-		li{
-			margin-bottom:5px;
-			border-bottom:1px $lightgrey2 solid;
-			padding-bottom:5px;
-			label{
-				color:$darkgrey1;
-				margin:0;
-			}
+	.radio{
+		margin-bottom:5px;
+		border-bottom:1px $lightgrey2 solid;
+		padding-bottom:5px;
+		label{
+			color:$darkgrey1;
+			margin:0;
 		}
 	}
 }

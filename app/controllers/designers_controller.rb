@@ -1,8 +1,8 @@
 class DesignersController < ApplicationController
 
   inherit_resources
-  #before_filter :check_user_access
-  #load_and_authorize_resource
+  before_filter :check_user_access
+  load_and_authorize_resource
 
   layout 'carrousel'
 
@@ -12,7 +12,7 @@ class DesignersController < ApplicationController
   end
 
   def show
-    #track_event("Viewing Designer", {:mp_note => 'Viewing profile for '+@designer.user.full_name, :name => @designer.user.full_name, "$bucket" => @designer.user.email})
+    render layout: 'application'
   end
 
   def update

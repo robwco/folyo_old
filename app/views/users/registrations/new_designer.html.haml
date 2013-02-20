@@ -1,0 +1,86 @@
+:javascript
+	$(document).ready(function(){
+		if(ref_user_cookie=$.cookie('ref_user')){
+			$("#user_referrer_designer").each(function(){
+					$(this).val(ref_user_cookie);
+			});
+		}
+
+		$("#user_designer_attributes_dribble_username").change(function(){
+			var username=$(this).val();
+			var parentLi=$(this).parent();
+			var $errorDiv=$("#bad_dribbble_username");
+			if(username!=""){
+				$.jsonp({
+					url: "http://api.dribbble.com/players/"+username+"/shots?callback=?",
+					success: function(data, textStatus) {
+						parentLi.removeClass("loading");
+						//console.log(data);
+						if(!$errorDiv.hasClass("hidden")){
+							$errorDiv.fadeOut("fast").addClass("hidden");
+						}
+						if(data.shots[0]){
+							$("#user_designer_attributes_featured_shot_url").val(data.shots[0].image_url);
+						}else{
+							//prospect
+						}
+					},
+					error: function(){
+						$errorDiv.addClass("hidden").fadeIn("fast").removeClass("hidden");
+					}
+				});
+			}
+		});
+
+	});
+
+= content_for :title, "Sign Up"
+
+= content_for :error_messages do
+	= devise_error_messages!
+
+= render :partial => "/site/wysiwyg"
+
+= content_for :profile_type_hint do
+	<strong>Public:</strong> anybody can see your profile (and <a href="http://twitter.com/YoFolyo">we'll tweet</a> that you signed up).</br><strong>Private:</strong> only registered clients can see your profile.</br><strong>Hidden:</strong> nobody can see your profile (unless you reply to them directly)
+
+/ http://stackoverflow.com/questions/4307743/profile-model-for-devise-users
+- resource.build_designer unless resource.designer
+
+- if true || params[:code]=="fx13lx84"
+	%p.note
+		Folyo aims to feature only the best designers. You're welcome to apply no matter your experience, just know that you may not be accepted on the first try.
+	= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "new-designer-form"}) do |f|
+		.section
+			%h3 Your Account
+			= f.input :full_name
+			= f.input :email
+			= f.input :password
+			= f.input :initial_role, :as => :hidden, :value => "designer"
+			= f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
+			= f.input :referrer_designer, :as => :hidden
+		= f.semantic_fields_for :designer do |designer|
+			.section
+				%h3 About You
+				= designer.input :profile_type, :as => :radio, :label => 'Profile Type', :hint => yield(:profile_type_hint)
+				= designer.input :short_bio, :label => 'Short Bio (Tagline)', :hint => "Short descriptive phrase (i.e. \"I design functional and beautiful user interfaces\")"
+				=# designer.input :long_bio, :as => :text, :label => 'Biography', :input_html => {:class => "wysiwyg"}
+				= designer.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
+			.section
+				%h3 Your Work
+				= designer.input :portfolio_url
+			.section
+				%h3 Social Media
+				= designer.input :dribble_username, :required => false, :label => "Dribbble Username", :hint => "Having a Dribbble profile to showcase your work raises your chances of being accepted"
+				#bad_dribbble_username.ajax-error.hidden
+					Can't find anybody with this Dribbble username… Better double check!
+				= designer.input :featured_shot_url, :as => :hidden
+				= designer.input :twitter_username, :required => false, :hint => "Enter your Twitter username if you want a link to your profile to be tweeted out when you're accepted (public profiles only)"
+		= f.submit "Apply to join Folyo", :class => "button big-button"
+- else
+	%p Sorry, but designer sign ups are temporarily closed. <a href="http://twitter.com/yofolyo">Follow us on Twitter</a>, if you want to know when you can sign up again.
+
+= content_for :sidebar do
+	.notices
+		.notice
+			%p <strong>Do not apply</strong> if you do not have a <strong>portfolio</strong> or showcase of your work. You will not be accepted.

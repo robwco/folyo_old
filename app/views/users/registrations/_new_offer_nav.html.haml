@@ -1,0 +1,7 @@
+= content_for :body_class, " with-subnav"
+#subnav
+	%ul
+		%li
+			= current_link_to '1. You & Your Company', account_path
+		%li
+			= current_link_to '2. The Project', edit_user_registration_path(current_user)
