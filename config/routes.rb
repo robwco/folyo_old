@@ -1,4 +1,4 @@
-Folyo2::Application.routes.draw do
+Folyo::Application.routes.draw do
 
   match 'press' => 'site#press'
   match 'learn-more' => 'site#learn_more'

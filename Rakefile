@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Folyo2::Application.load_tasks
+Folyo::Application.load_tasks
