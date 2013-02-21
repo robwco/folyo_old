@@ -2,7 +2,7 @@
 	- if edit
 		= f.input :status, :label => "Status", :as => :radio, :label => 'Are you still looking for a job?', :collection => { "Actively looking" => 3, "Not looking anymore" => 5 }
 	- else
-		= f.input :status_id, :as => :hidden, :value => 3
+		= f.input :status, :as => :hidden, :value => 3
 	= f.input :comment, :label => "I'm looking for…", :as => :text, :hint => "Explain what kind of job you're looking for", :input_html => {:id => "wysiwyg", :class => "wysiwyg"}
 	= f.input :availability_date, :label => "Availability Date", :hint => "When you can start working"
 	= f.input :duration, :label => "Project Duration", :hint => "How long you'd like the project to last", :as => :select, :collection =>["Under one week", "1-2 weeks", "2-4 weeks", "1-2 months", "2-3 months", "4-5 months", "6 months", "1 year", "1 year+"]

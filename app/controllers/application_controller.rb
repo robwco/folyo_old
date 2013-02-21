@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
     if session[:previous_url]
       session[:previous_url]
     elsif current_user.is_a? Designer
-      designer_offers_path(:signin => true)
+      designer_path(current_user)
     elsif current_user.is_a? Client
-      client_offers_path(:signin => true)
+      client_path(current_user)
     else
       root_path(:signin => true)
     end

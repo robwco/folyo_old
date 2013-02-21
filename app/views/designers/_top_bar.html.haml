@@ -1,0 +1,12 @@
+%h1#logo
+  = link_to 'Folyo', root_path, :title => 'Home'
+#top-bar
+  %ul
+    %li
+    - if current_user.accepted?
+      %li.new
+        = current_link_to "I'm Available", designer_posts_path(current_user)
+    %li
+      = current_link_to "My Account", edit_designer_path(current_user)
+    %li.sign-out
+      = link_to_unless_current "Sign Out", destroy_user_session_path, :method => :delete, :title => "Sign Out"

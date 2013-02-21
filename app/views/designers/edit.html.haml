@@ -1,0 +1,65 @@
+- if current_user.is_a? Admin
+  = content_for :title, "#{@designer.full_name} account"
+- else
+  = content_for :title, "My Account"
+
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render :partial => '/designers/account_nav'
+
+= render :partial => "/site/wysiwyg"
+
+= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
+= javascript_include_tag 'designer_account'
+
+= content_for :profile_type_hint do
+  %span <strong>Public:</strong> anybody can see your profile.
+  %span <strong>Private:</strong> only registered clients can see your profile.
+  %span <strong>Hidden:</strong> nobody can see your profile (unless you reply to them directly)
+
+= content_for :featured_shot_hint do
+  %span Enter the <a href="http://blog.folyo.me/post/11096321674">Dribbble ID</a> of the shot you want to feature on your profile. Leave blank to use your latest shot.
+
+.note.referral
+  %h4 Your referral URL: <input type="text" class="autoselect" value="http://folyo.me/?ref=#{@designer.id}"/>
+  %p Every client you refer will get <strong>10% off</strong>, and you'll also earn <strong>10%</strong> of every job offer they post.
+
+- if current_user.is_a? Admin
+  %p Profile for #{@designer.email}
+= simple_form_for(@designer) do |f|
+  - if current_user.is_a? Admin
+    .section
+      %h3 Status
+      = f.input :status, :as => :radio, :label => 'Status'
+  .section
+    %h3 Settings
+    = f.input :profile_type, :as => :radio, :label => 'Profile Type', :hint => yield(:profile_type_hint)
+  .section
+    %h3 About You
+    = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :input_html=> {:class => "limit limit-80"}
+    %p.remaining.small <span class="chars-left">80</span> characters remaining
+    = f.input :long_bio, :as => :text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :input_html => {:class => "wysiwyg"}
+    = f.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
+    #ambiguous_location.ajax-error.hidden
+      We can't seem to find this place… Maybe add your state or country?
+    = f.input :coordinates, :as => :hidden
+  .section
+    %h3 Your Work
+    = f.input :portfolio_url
+    = f.input :skills, :as => :check_boxes
+    = f.input :featured_shot, :label => 'Featured shot ID', :hint => yield(:featured_shot_hint)
+    #bad_shot.ajax-error.hidden
+      Are you sure this is the right ID? We can't find your shot :(
+    = f.input :featured_shot_url, :as => :hidden
+  .section
+    %h3 Social Media
+    = f.input :twitter_username, :required => false
+    = f.input :skype_username, :required => false
+    = f.input :dribbble_username, :required => false
+    / = f.input :linkedin_url, :required => false
+    = f.input :zerply_username, :required => false
+    = f.input :behance_username, :required => false
+  .section
+    %h3 Pricing
+    = f.input :rate, :label => "Hourly rate", :hint => "Your hourly rate. For statistical purpose only, will not be displayed on the site."
+  = f.submit "Update Profile", :class => "button big-button"

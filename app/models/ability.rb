@@ -8,7 +8,7 @@ class Ability
     if user.is_a? Admin
       can :manage, :all
     elsif user.is_a? Designer
-      if user.designer.accepted?
+      if user.accepted?
         can :read, Client
         can :manage, DesignerPost
       end

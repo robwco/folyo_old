@@ -1,0 +1,13 @@
+= content_for :body_class, " with-subnav"
+- if current_user.is_a? Designer
+  #subnav
+    %ul
+      %li
+        = current_link_to 'Edit Profile', edit_designer_path(current_user)
+      %li
+        = current_link_to 'Edit Info', edit_user_registration_path
+      - if current_user.accepted?
+        %li
+          = link_to 'View Your Profile', designer_path(current_user)
+        %li
+          = current_link_to 'Notifications', '/notifications'

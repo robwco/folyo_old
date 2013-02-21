@@ -4,15 +4,10 @@ class DesignersController < ApplicationController
   before_filter :check_user_access
   load_and_authorize_resource
 
-  layout 'carrousel'
-
   def index
     @search = DesignerSearch.create(user: current_user, public_only: current_user.nil?)
     @designer = @search.sample
-  end
-
-  def show
-    render layout: 'application'
+    render layout: 'carrousel'
   end
 
   def update

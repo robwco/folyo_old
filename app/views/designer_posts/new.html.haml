@@ -1,12 +1,12 @@
 = content_for :title, "Post New Notice"
-=content_for :parent_level do
+= content_for :parent_level do
 	= link_to "I'm Available", designer_posts_path
 
 = render :partial => "/site/wysiwyg"
 
 .block
 	%p.note This is where you tell the world (or more accurately, a group of hand-picked companies) that you're ready for a new challenge!
-= semantic_form_for @designer_post, :url => designer_posts_path do |f|
-			
-	= render :partial => "designer/designer_posts/form", :locals => {:f => f, :edit => false}
+= simple_form_for @designer_post, :url => designer_posts_path do |f|
+
+	= render :partial => "form", :locals => {:f => f, :edit => false}
 	= f.submit "Submit Post", :class => "button big-button"

@@ -18,7 +18,7 @@ module ApplicationHelper
   def render_site_nav
     if current_user
       if current_user.is_a? Designer
-        render '/designer/top_bar'
+        render '/designers/top_bar'
       elsif current_user.is_a? Client
         render '/client/top_bar'
       elsif current_user.is_a? Admin
