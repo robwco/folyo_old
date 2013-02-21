@@ -27,10 +27,7 @@ Folyo::Application.routes.draw do
 
   namespace :admin do
     resources :designers do
-      get 'find_coordinates', :on => :collection
-      get 'shot_url', :on => :collection
-      get 'most_active', :on => :collection
-      get 'designer_posts', :on => :collection
+      get 'posts', :on => :collection
       get 'messages', :on => :collection
     end
     resources :clients

@@ -20,20 +20,12 @@ class Admin::DesignersController < Admin::BaseController
    end
   end
 
-  def designer_posts
+  def posts
     @designer_posts = DesignerPost.ordered.page(params[:page]).per(10)
   end
 
   def messages
     @designer_messages = Message.ordered.page(params[:page]).per(10)
-  end
-
-  def find_coordinates
-    @designers=Designer.accepted.find(:all, :conditions => [ "(location IS NOT NULL AND location!='') AND (coordinates IS NULL OR coordinates='' OR coordinates LIKE ? )", '%undefined%'], :joins =>:user, :include => :user)
-  end
-
-  def shot_url
-    @designers=Designer.accepted.find(:all, :conditions => [ "(dribble_username IS NOT NULL AND dribble_username!='') AND (featured_shot_url IS NULL OR featured_shot_url='')"], :joins =>:user, :include => :user)
   end
 
   protected
