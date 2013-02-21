@@ -31,7 +31,7 @@ Folyo::Application.routes.draw do
       get 'shot_url', :on => :collection
       get 'most_active', :on => :collection
       get 'designer_posts', :on => :collection
-      get 'designer_messages', :on => :collection
+      get 'messages', :on => :collection
     end
     resources :clients
   end
