@@ -61,6 +61,14 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     debug_inspector (0.0.2)
+    delayed_job (3.0.5)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.4.1)
+      activerecord (>= 2.1.0, < 4)
+      delayed_job (~> 3.0)
+    delayed_job_mongoid (1.0.8)
+      delayed_job (~> 3.0.0)
+      mongoid (>= 2.0)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -122,6 +130,7 @@ GEM
     moped (1.4.2)
     multi_json (1.6.1)
     netrc (0.7.5)
+    newrelic_rpm (3.4.0.1)
     nokogiri (1.5.6)
     origin (1.0.11)
     orm_adapter (0.4.0)
@@ -203,6 +212,11 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vero (0.1.1)
+      delayed_job
+      delayed_job_active_record
+      delayed_job_mongoid
+      rest-client
     warden (1.2.1)
       rack (>= 1.0)
     zeus (0.13.2)
@@ -228,6 +242,7 @@ DEPENDENCIES
   kaminari
   meta_request
   mongoid (~> 3.1)
+  newrelic_rpm
   pg
   pry-rails
   rails (= 3.2.11)
@@ -237,4 +252,5 @@ DEPENDENCIES
   taps
   uglifier (>= 1.0.3)
   unicorn
+  vero
   zeus
