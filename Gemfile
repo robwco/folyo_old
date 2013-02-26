@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
+gem 'heroku'
 gem 'unicorn'
 gem 'pg'
 
@@ -30,7 +31,6 @@ group :assets do
 end
 
 group :development do
-  # gem 'rails-footnotes', '>= 3.7' #performance footnotes on every page
   gem 'taps'
   gem 'foreman'
   gem 'zeus'
@@ -39,6 +39,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'taps'
 end
 
 
