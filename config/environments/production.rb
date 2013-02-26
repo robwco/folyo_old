@@ -61,6 +61,29 @@ Folyo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # Devise default URL for this environment
+  config.action_mailer.default_url_options = { :host => 'folyo.me' }
+
+  # SendGrid settings
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address        => "smtp.sendgrid.net",
+    :port           => "587",
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com'
+  }
+
+  config.after_initialize do
+      paypal_options = {
+        :login => 'info_api1.sachagreif.com',
+        :password => 'J2N2Z5KPNTS4UG47',
+        :signature => 'ABMZ5SZxLcwyoF0Iq9XT2kfzFbxWAWGx2dQzspqwg20J7AlXLp11ISj2'
+      }
+      ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5

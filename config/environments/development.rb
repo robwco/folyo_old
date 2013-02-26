@@ -29,6 +29,27 @@ Folyo::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :domain => 'localhost.localdomain',
+    :user_name => 'folyologs',
+    :password => 'folyo3737',
+    :authentication => 'plain',
+    :enable_starttls_auto => true
+  }
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+      paypal_options = {
+        :login => 'seller_1316348277_biz_api1.folyo.me',
+        :password => '1316348312',
+        :signature => 'AFcWxV21C7fd0v3bYYYRCpSSRl31Au0.buBFTsIwAdXXksLgqQtE3rbA'
+      }
+      ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
+
   # Do not compress assets
   config.assets.compress = false
 

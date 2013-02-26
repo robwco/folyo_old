@@ -61,6 +61,21 @@ Folyo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+    # Devise default URL for this environment
+  config.action_mailer.default_url_options = { :host => 'folyo-staging.herokuapp.com/' }
+
+  # SendGrid settings
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address        => "smtp.sendgrid.net",
+    :port           => "587",
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => ENV['SENDGRID_DOMAIN']
+    :domain         => 'heroku.com'
+  }
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
