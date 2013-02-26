@@ -21,13 +21,14 @@ gem 'sanitize'
 
 gem 'airbrake'
 
+gem 'compass' #CSS framework for Sass
+gem 'compass-rails' #CSS framework for Sass
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'compass' #CSS framework for Sass
-  gem 'compass-rails' #CSS framework for Sass
   gem 'uglifier', '>= 1.0.3'
 end
 
