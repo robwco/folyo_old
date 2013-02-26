@@ -1,12 +1,16 @@
 production:
   sessions:
     default:
-      uri: <%= ENV['MONGO_URI'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      skip_version_check: true
+      safe: true
 
 staging:
   sessions:
     default:
-      uri: <%= ENV['MONGO_URI'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      skip_version_check: true
+      safe: true
 
 development:
   # Configure available database sessions. (required)
