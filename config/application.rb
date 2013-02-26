@@ -60,5 +60,9 @@ module Folyo
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # adding all files located to root of app/assets/stylesheets, vendor/assets/stylesheets, app/assets/javascripts, vendor/assets/javascripts for precompilation
+    config.assets.precompile += Dir.glob(File.join(Rails.root, "*", "assets", "stylesheets", "*.css*")).map { |f| f[/([^\/]*)\.css/] }
+    config.assets.precompile += Dir.glob(File.join(Rails.root, "*", "assets", "javascripts", "*.js*")).map { |f| f[/([^\/]*)\.js/] }
   end
 end

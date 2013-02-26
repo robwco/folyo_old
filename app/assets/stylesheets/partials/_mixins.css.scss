@@ -12,7 +12,7 @@
 @mixin hide-text{
 	overflow:hidden;
 	text-indent:-9000px;
-	display:block;	
+	display:block;
 }
 @function black($opacity){
 	@return rgba(0,0,0,$opacity)
@@ -43,7 +43,7 @@
 	font-size:13px;
 	cursor:pointer;
 	padding:0 15px;
-	
+
 	&:hover{
 		text-decoration:none;
 		@include background-image(linear-gradient(#75c9f1, #3c98c3));

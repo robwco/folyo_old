@@ -218,7 +218,6 @@ DEPENDENCIES
   bson_ext
   cancan
   coffee-rails (~> 3.2.1)
-  compass
   compass-rails
   devise
   foreman
