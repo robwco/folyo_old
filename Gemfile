@@ -9,6 +9,7 @@ gem 'unicorn'
 gem 'pg'
 gem 'mongoid', '~> 3.1'
 gem 'bson_ext'
+gem 'delayed_job_mongoid'
 
 # UI
 gem 'haml-rails'
@@ -30,7 +31,7 @@ gem 'vero'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'compass-rails' #CSS framework for Sass
+  gem 'compass-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 
