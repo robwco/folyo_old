@@ -39,7 +39,7 @@ Folyo::Application.routes.draw do
   end
 
   scope '/designers' do
-    resources :designer_search, path: 'search' do
+    resources :designer_searches, path: 'search' do
       put 'accept', on: :member
       put 'reject', on: :member
       get 'next',   on: :member

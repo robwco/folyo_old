@@ -26,7 +26,7 @@ class Designer < User
   field :featured_shot_url,   type: String
   field :featured_shot_page,  type: String
 
-  field :skills,              type: Array
+  field :skills,              type: Array, default: []
 
   field :randomization_key,   type: Float # used to get a pseudo-random order of designers
 
@@ -34,7 +34,6 @@ class Designer < User
 
   ## validations ##
   validates_presence_of :portfolio_url
-  validates_format_of   :portfolio_url, :with => URI::regexp(%w(http https))
 
   ## scopes ##
   scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
@@ -47,6 +46,7 @@ class Designer < User
   scope :public_private,    where(:profile_type.in => [:public, :private])
 
   ## callbacks ##
+  before_save   :remove_empty_skills
   before_save   :generate_mongoid_random_key
   before_update :tweet_out, :accept_reject_mailer
 
@@ -78,6 +78,10 @@ class Designer < User
     [:accepted, :pending, :rejected]
   end
 
+  def self.profile_types
+    [:public, :private, :hidden]
+  end
+
   def dribbble_url
     "http://dribbble.com/#{dribbble_username}" unless dribbble_username.blank?
   end
@@ -86,15 +90,11 @@ class Designer < User
     "http://www.behance.net/#{behance_username}" unless behance_username.blank?
   end
 
-  def first_showcase_url
-
-  end
-
-  def showcase_urls
-    {}.tap do |urls|
-      urls[:dribbble] = dribbble_url if dribbble_username
-      urls[:behance] = behance_url if behance_username
-      urls[:portfolio] = portfolio_url if portfolio_url
+  def resources
+    @resources ||= {}.tap do |resources|
+      resources[:dribbble] = dribbble_url unless dribbble_username.blank?
+      resources[:behance] = behance_url unless behance_username.blank?
+      resources[:portfolio] = portfolio_url unless portfolio_url.blank?
     end
   end
 
@@ -114,6 +114,10 @@ class Designer < User
         DesignerMailer.rejected_mail(self).deliver
       end
     end
+  end
+
+  def remove_empty_skills
+    self.skills.reject!(&:blank?) if self.skills_changed?
   end
 
   def generate_mongoid_random_key

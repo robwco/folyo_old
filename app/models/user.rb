@@ -36,4 +36,7 @@ class User
   ## Scopes ##
   scope :ordered, order_by(:created_at => :desc)
 
+  ## Validation ##
+  validates_presence_of :full_name
+
 end

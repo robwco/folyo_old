@@ -1,8 +1,0 @@
-= content_for :title, @designer.user.full_name
-= content_for :subtitle, @designer.short_bio
-= content_for :body_class, "designer-profile"
-
-.block.about
-	%h3 About Me
-	-if @designer.long_bio
-		%p= @designer.long_bio.html_safe

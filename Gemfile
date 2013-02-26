@@ -31,7 +31,6 @@ end
 
 group :development do
   # gem 'rails-footnotes', '>= 3.7' #performance footnotes on every page
-  gem 'heroku' #application server
   gem 'taps'
   gem 'foreman'
   gem 'zeus'

@@ -1,0 +1,21 @@
+#carrousel-resources{style: "width: #{carrousel_width(designer)};"}
+  - designer.resources.each_with_index do |(url_key, url_value), i|
+    %iframe{class: url_key, src: url_value, style: "width: #{carrousel_entry_width(designer)};", "data-scroll" => carrousel_entry_scroll(i)}
+
+#carrousel-nav-bar
+  .designer{ data: { id: designer.id } }
+    .full-name= designer.full_name
+
+    = link_to 'Accept', accept_designer_search_path(search, designer_id: designer.id), id: 'accept'
+    = link_to 'Reject', reject_designer_search_path(search, designer_id: designer.id), id: 'reject'
+    = link_to 'Skip', next_designer_search_path(search, designer_id: designer.id), id: 'skip'
+
+    - if designer.dribbble_url
+      = link_to 'Dribbble', designer.dribbble_url, class: 'resource', 'data-kind' => 'dribbble'
+    - if designer.behance_url
+      = link_to 'Behance', designer.behance_url, class: 'resource', 'data-kind' => 'behance'
+    - if designer.portfolio_url
+      = link_to 'Portfolio', designer.portfolio_url, class: 'resource', 'data-kind' => 'portfolio'
+
+  = simple_form_for search do |f|
+    = f.submit

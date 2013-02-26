@@ -6,38 +6,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
     # make sure new users are not redirected to some random page
     session.delete :previous_url
-
-    resource = build_resource({})
-
     case params[:initial_role]
     when 'designer'
-      track_event("Viewing #{params[:initial_role]} Sign Up")
-      resource.initial_role = params[:initial_role]
-      respond_with_navigational(resource){ render "new_#{resource.initial_role}" }
+      @user = Designer.new
     when 'client'
-      resource.initial_role = params[:initial_role]
-      if params[:job]
-        track_event("Viewing #{params[:initial_role]} Sign Up (Job)")
-        respond_with_navigational(resource) { render "new_job" }
-      else
-        track_event("Viewing #{params[:initial_role]} Sign Up")
-        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
-      end
+      @user = Client.new
     else
-      flash[:error] = 'Can only create designer and client accounts'
       redirect_to :root
     end
+    track_event("Viewing #{params[:initial_role]} Sign Up")
+    respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
   end
 
   # POST /resource
   # note: create method copied from the normal Devise one
   def create
-    build_resource
-    case params[:user][:initial_role]
+    case params[:initial_role]
     when 'designer'
-      resource.designer ||= Designer.new
+      @user = Designer.new(params[:user])
     when 'client'
-      resource.client ||= Client.new
+      @user = Client.new(params[:user])
     end
     if resource.save
       if resource.active_for_authentication?
@@ -45,7 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_in(resource_name, resource)
         # respond_with resource, :location => redirect_location(resource_name, resource)
 
-        track_event("Signed Up", {:role => resource.initial_role})
+        track_event("Signed Up", {:role => params[:initial_role]})
 
         respond_with resource, :location => after_sign_up_path_for(resource)
       else
@@ -55,14 +43,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords(resource)
-      case params[:user][:initial_role]
-      when 'designer'
-        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
-      when 'client'
-        respond_with_navigational(resource) { render "new_job" }
-      else
-        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
-      end
+      respond_with_navigational(resource) { render "new_#{params[:initial_role]}" }
     end
   end
 
@@ -90,12 +71,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    if current_user.role? :designer
-      #root_path(:signup => true)
-      designer_offers_path(:signup => true)
-    elsif current_user.role? :client
-      # client_root_path
-      new_client_offer_path(:signup => true)
+    if current_user.is_a? Designer
+      designer_path(current_user)
+    elsif current_user.is_a? Client
+      client_path(current_user)
     end
   end
 end

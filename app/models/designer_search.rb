@@ -22,6 +22,7 @@ class DesignerSearch
   # Returns all designers matching the search criteria.
   # If with_processed is not true, designers already accepted or rejected are not returned.
   def apply(with_processed = true)
+    designers = Designer.accepted
     designers = self.public_only ? Designer.public_only : Designer.public_private
     if skills && skills.length > 0
       designers = designers.all_in(skills: self.skills)

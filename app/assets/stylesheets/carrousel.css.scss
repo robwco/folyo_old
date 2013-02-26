@@ -7,14 +7,28 @@
 
 body.carrousel {
   background: none;
+  overflow: hidden;
 }
 
-#main, #portfolio-preview {
+#main, #carrousel {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-#designer-search-bar {
+ #carrousel-resources {
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  // left: 0, -100% ou -200%;
+
+  iframe {
+    float: left;
+    height: 100%;
+  }
+}
+
+#carrousel-nav-bar {
   position: fixed;
   bottom: 0;
   height: 80px;

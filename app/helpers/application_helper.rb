@@ -20,7 +20,7 @@ module ApplicationHelper
       if current_user.is_a? Designer
         render '/designers/top_bar'
       elsif current_user.is_a? Client
-        render '/client/top_bar'
+        render '/clients/top_bar'
       elsif current_user.is_a? Admin
         render '/admin/top_bar'
       else
@@ -35,6 +35,10 @@ module ApplicationHelper
     default_url = request.protocol+request.host_with_port+asset_path('default-avatar.png')
     gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=120&d=#{CGI.escape(default_url)}"
+  end
+
+  def sym_label_method
+    ->(sym){sym.to_s.humanize}
   end
 
 end

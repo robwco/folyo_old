@@ -33,7 +33,7 @@
       = f.input :status, :as => :radio, :label => 'Status'
   .section
     %h3 Settings
-    = f.input :profile_type, :as => :radio, :label => 'Profile Type', :hint => yield(:profile_type_hint)
+    = f.input :profile_type, as: :radio, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
   .section
     %h3 About You
     = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :input_html=> {:class => "limit limit-80"}
@@ -46,7 +46,7 @@
   .section
     %h3 Your Work
     = f.input :portfolio_url
-    = f.input :skills, :as => :check_boxes
+    = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, :hint => yield(:profile_type_hint)
     = f.input :featured_shot, :label => 'Featured shot ID', :hint => yield(:featured_shot_hint)
     #bad_shot.ajax-error.hidden
       Are you sure this is the right ID? We can't find your shot :(

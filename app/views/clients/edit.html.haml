@@ -1,0 +1,30 @@
+= content_for :title, "My Account"
+= content_for :subnav do
+  = render :partial => '/clients/account_nav'
+
+= render :partial => "/site/wysiwyg"
+
+= content_for :company_hint do
+  %span.title Things to mention:
+  %span <strong>About you</strong>: what's your story? where are you based?
+  %span <strong>What you do</strong>: clearly explain what you do in simple terms.
+  %span <strong>Why you do it</strong>: tell us the motivations behind your project.
+  %span <strong>Your users</strong>: who uses your service?
+  %span.bottom For more ideas, check out our guide on <a target="_blank" href="http://folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+
+- if current_user.is_a? Admin
+  .block
+    %ul
+      %li= link_to @client.user.email, "mailto:#{@client.email}Subject=Your%20job%20offer%20on%20Folyo"
+      %li Referral info: #{@client.user.referrer}
+      - unless @client.referrer_designer.blank?
+        %li Referring designer: #{@client.referrer_designer}
+
+= simple_fields_for(@client, :url => @update_url) do |f|
+  .section
+    %h3 Your Company
+    = f.input :company_name
+    = f.input :company_url
+    = f.input :company_description, :hint => yield(:company_hint), :input_html => {:class => "wysiwyg"}
+    = f.input :location
+  = f.submit "Update Profile", :class => "button big-button"

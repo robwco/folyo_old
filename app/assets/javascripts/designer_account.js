@@ -51,33 +51,33 @@ function hideError(errorDiv){
 }
 
 $(document).ready(function(){
-	
+
 	if($('.limit-80').length){
 		$('.limit-80').limit('80','.chars-left');
 	}
-	
+
 	$("#designer_location").change(function(){
 		var address=$(this).val();
 		$(this).parent().addClass("loading");
 		$errorDiv=$("#ambiguous_location");
 		get_coordinates(
-			address, 
+			address,
 			function(results){
 				//success
 				$("#designer_coordinates").val(results[0].geometry.location.Ma+","+results[0].geometry.location.Na);
 				hideError($errorDiv);
-			}, 
+			},
 			function(){
 				//error
-				showError($errorDiv);	
+				showError($errorDiv);
 			}
 		);
 	});
-	
+
 	$("#designer_featured_shot").change(function(){
 		var shot_id=$(this).val();
-		var parentLi=$(this).parent();		
-		
+		var parentLi=$(this).parent();
+
 		if(shot_id!=""){
 			$errorDiv=$("#bad_shot");
 			get_shot_url(
@@ -85,10 +85,10 @@ $(document).ready(function(){
 				function(data){
 					//success
 					$("#designer_featured_shot_url").val(data.image_url);
-					hideError($errorDiv);	
+					hideError($errorDiv);
 				},
 				function(){
-					//error	
+					//error
 					showError($errorDiv);
 				}
 			);
@@ -96,16 +96,16 @@ $(document).ready(function(){
 			// if designer removes their featured shot ID, replace the URL with the latest shot by default
 			if(player_name=$("#designer_dribble_username").val()){
 				get_last_shot_url(
-					player_name, 
+					player_name,
 					function(data){
 						//success
 						$("#designer_featured_shot_url").val(data.shots[0].image_url);
-					}, 
+					},
 					function(){
 						//error
 					}
 				);
 			}
-		}	
+		}
 	});
 });
