@@ -14,6 +14,17 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_utils (1.0.3)
+      activesupport (>= 2.3.11)
+      i18n
+    activemerchant (1.25.0)
+      active_utils (>= 1.0.2)
+      activesupport (>= 2.3.11)
+      builder (>= 2.0.0)
+      i18n
+      json (>= 1.5.1)
+      money
+      nokogiri
     activemodel (3.2.11)
       activesupport (= 3.2.11)
       builder (~> 3.0.0)
@@ -122,6 +133,9 @@ GEM
       rails
     method_source (0.8.1)
     mime-types (1.21)
+    money (5.0.0)
+      i18n (~> 0.4)
+      json
     mongoid (3.1.2)
       activemodel (~> 3.2)
       moped (~> 1.4.2)
@@ -226,6 +240,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemerchant
   airbrake
   better_errors
   binding_of_caller

@@ -27,6 +27,7 @@ gem 'sanitize'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'vero'
+gem 'activemerchant'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

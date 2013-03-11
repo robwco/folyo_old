@@ -34,6 +34,7 @@ Folyo::Application.routes.draw do
   end
 
   resources :designers do
+    get 'map', on: :collection
     resources :messages
     resources :designer_posts, :path => 'posts', :as => 'posts'
   end

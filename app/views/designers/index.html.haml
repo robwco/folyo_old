@@ -1,44 +1,43 @@
-= content_for :title, "Browse Designers"
+- if @skill
+  = content_for :body_class, 'has-breadcrumbs'
+  = content_for :title, "Designers specialized in #{@skill.to_s.humanize}"
+  = content_for :parent_level do
+    = link_to "All Designers", designers_path
+- else
+  = content_for :title, 'Browse Designers'
+= content_for :subnav do
+  = render :partial => 'designers_nav'
 
-#carrousel
-  = render 'designer_searches/carrousel', search: @search, designer: @designer
+%ul.designers(data-swiftype-index='false')
+  - @designers.each do |d|
+    = render "designer_card", :d => d
+= paginate @designers
 
-:coffeescript
+= content_for :sidebar do
+  - unless current_user
+    %p.note Some designers only make their profile available to registered users. Submit a job offer to get access to more profiles.
 
-  resizeCarrousel = -> $('#carrousel').css(height: $(document).height() - $('#carrousel-nav-bar').height())
+  %p.browse-map.block=link_to "Browse the map →", map_designers_path
 
-  refreshCarrousel = (html) -> $('#carrousel').html(html)
+  .search.block
+    %form
+      %input#st-search-input.st-search-input{:type => "text"}/
+    #st-results-container
+    :javascript
+      var Swiftype = window.Swiftype || {};
+      (function() {
+      Swiftype.key = 'RyighWemkiBzUmrCRfbY';
+      Swiftype.inputElement = '#st-search-input';
+      Swiftype.resultContainingElement = '#st-results-container';
+      Swiftype.attachElement = '#st-search-input';
+      Swiftype.renderStyle = "overlay";
 
-  $ ->
-    $el = $('#carrousel')
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = "//swiftype.com/embed.js";
+      var entry = document.getElementsByTagName('script')[0];
+      entry.parentNode.insertBefore(script, entry);
+      }());
 
-    resizeCarrousel()
-    $(window).resize(resizeCarrousel)
-
-    $el.on 'click', 'a.resource',  (e) ->
-      e.preventDefault()
-      kind = $(this, $el).attr('data-kind')
-      scroll = $("iframe.\#{kind}", $el).attr('data-scroll')
-      $('#carrousel-resources', $el).animate(left: scroll)
-
-    $el.on 'click', '#accept,#reject', (e) ->
-      e.preventDefault()
-      url = $(e.target).attr('href')
-      $.ajax
-        type: 'POST'
-        url: url
-        data: { '_method': 'PUT' }
-        success: refreshCarrousel
-
-    $el.on 'click', '#skip', (e) ->
-      e.preventDefault()
-      url = $(e.target).attr('href')
-      $.ajax
-        type: 'GET'
-        url: url
-        success: refreshCarrousel
-
-
-
-
-
+  = render 'skill_filters', :current_skill => @skill

@@ -1,6 +1,12 @@
 class DesignerSearchesController < ApplicationController
 
-  before_filter :set_designer_search
+  before_filter :set_designer_search, except: :new
+
+  def new
+    @search = DesignerSearch.create(user: current_user, public_only: current_user.nil?)
+    @designer = @search.sample
+    render layout: 'carrousel'
+  end
 
   def accept
     designer = Designer.find(params[:designer_id])

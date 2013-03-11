@@ -8,7 +8,7 @@ class Designer < User
   field :short_bio,           type: String
   field :long_bio,            type: String
   field :location,            type: String
-  field :coordinates,         type: String
+  field :coordinates,          type: Array
 
   field :minimum_budget,      type: Integer
   field :rate,                type: Integer
@@ -49,6 +49,9 @@ class Designer < User
   before_save   :remove_empty_skills
   before_save   :generate_mongoid_random_key
   before_update :tweet_out, :accept_reject_mailer
+
+  ## indexes ##
+  index coordinates: '2d'
 
   def role_name
     'designer'

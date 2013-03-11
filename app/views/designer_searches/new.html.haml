@@ -1,0 +1,39 @@
+= content_for :title, "Browse Designers"
+
+#carrousel
+  = render 'designer_searches/carrousel', search: @search, designer: @designer
+
+:coffeescript
+
+  resizeCarrousel = -> $('#carrousel').css(height: $(document).height() - $('#carrousel-nav-bar').height())
+
+  refreshCarrousel = (html) -> $('#carrousel').html(html)
+
+  $ ->
+    $el = $('#carrousel')
+
+    resizeCarrousel()
+    $(window).resize(resizeCarrousel)
+
+    $el.on 'click', 'a.resource',  (e) ->
+      e.preventDefault()
+      kind = $(this, $el).attr('data-kind')
+      scroll = $("iframe.\#{kind}", $el).attr('data-scroll')
+      $('#carrousel-resources', $el).animate(left: scroll)
+
+    $el.on 'click', '#accept,#reject', (e) ->
+      e.preventDefault()
+      url = $(e.target).attr('href')
+      $.ajax
+        type: 'POST'
+        url: url
+        data: { '_method': 'PUT' }
+        success: refreshCarrousel
+
+    $el.on 'click', '#skip', (e) ->
+      e.preventDefault()
+      url = $(e.target).attr('href')
+      $.ajax
+        type: 'GET'
+        url: url
+        success: refreshCarrousel

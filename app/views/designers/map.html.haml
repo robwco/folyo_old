@@ -1,0 +1,18 @@
+:plain
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+:javascript
+  designers=#{@designers.to_json(:include => :user)};
+
+= javascript_include_tag 'map'
+
+= content_for :title, 'Designers Map'
+= content_for :body_class, ' no-sidebar'
+= content_for :subnav do
+  = render 'designers_nav'
+
+#map_canvas
+
+.block
+  %h2 What's this?
+  %p Folyo is a community that includes some of the world's best freelance designers. Every week, Folyo members receive a newsletter featuring interesting job offers.

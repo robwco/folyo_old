@@ -14,12 +14,12 @@ function markerCenterMap(map, marker){ // center the map around a marker
 }
 $(document).ready(function(){
 	var gm=google.maps; // shortcut to google maps object
-	var markersArray = [];	
+	var markersArray = [];
 	var maxZoomLevel = 9; // This is the maximum zoom level for the clusters
 	var mapHeight=500;
 	var mapWidth=920;
 	var centerMap=true;
-	var latlng = new gm.LatLng(40.7143528,-74.0059731);		
+	var latlng = new gm.LatLng(40.7143528,-74.0059731);
 
 	// ------------------------------ GOOGLE MAPS -------------------------------
 	var myOptions = {
@@ -68,32 +68,30 @@ $(document).ready(function(){
 
 	// ------------------------------ ITERATE OVER DESIGNERS -------------------------------
 	// designers is a JSON object with all the designers ( designers=#{@designers.to_json(:include => :user)} )
-	$.each(designers, function(i, val) {
-		var locArray=val.designer.coordinates.split(",");
-		var latlng=new gm.LatLng(locArray[0], locArray[1]);
-		var designer=val.designer;
+	$.each(designers, function(i, designer) {
+		var latlng=new gm.LatLng(designer.coordinates[0], designer.coordinates[1]);
 		var image_content="";
 		var location_content='<p>'+toTitleCase(designer.location)+'</p>';
-		var info_content='<h4><a href="/designers/'+designer.id+'">'+designer.user.full_name+'</a></h4>';
+		var info_content='<h4><a href="/designers/'+designer.id+'">'+designer.full_name+'</a></h4>';
 		var shot_url=designer.featured_shot_url;
 		if(shot_url){
 			// if designer has a Dribbble shot, add it to the map tooltip content
 			image_content='<a href="/designers/'+designer.id+'"><img style="width:160px;" src="'+shot_url+'"/></a>'+
-			'<h6 class="small">(Image via <a href="http://dribbble.com/'+designer.dribble_username+'">Dribbble</a>)</h6>'
+			'<h6 class="small">(Image via <a href="http://dribbble.com/'+designer.dribbble_username+'">Dribbble</a>)</h6>'
 		}
 
-		var marker = new gm.Marker({				
-			position: latlng, 
-			map: map, 
-			title:val.designer.location
+		var marker = new gm.Marker({
+			position: latlng,
+			map: map,
+			title: designer.location
 		});
 		marker.desc=location_content+info_content+image_content;
 		// marker.infoWindow=infoWindow;
 		markersArray.push(marker);
 		// also add Marker to OverlappingMarkerSpiderify
-		oms.addMarker(marker);  
+		oms.addMarker(marker);
 	});
-	
+
 	// ------------------------------ MARKER CLUSTERER -------------------------------
 	var markerClusterOptions = {maxZoom: maxZoomLevel};
 	var markerCluster = new MarkerClusterer(map, markersArray, markerClusterOptions);

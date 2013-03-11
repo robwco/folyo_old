@@ -31,7 +31,7 @@ namespace :migration do
       mongo_designer.password = 'foobarfoo'
       mongo_designer.password_confirmation = 'foobarfoo'
 
-      %w(created_at updated_at short_bio long_bio location coordinates minimum_budget rate portfolio_url linkedin_url twitter_username
+      %w(created_at updated_at short_bio long_bio location minimum_budget rate portfolio_url linkedin_url twitter_username
         behance_username skype_username zerply_username featured_shot featured_shot_url featured_shot_page).each do |attr|
         ar_attribute = ar_designer.send(attr)
         mongo_designer.send("#{attr}=", ar_attribute)
@@ -42,6 +42,8 @@ namespace :migration do
       mongo_designer.dribbble_username = ar_designer.dribble_username
 
       mongo_designer.skills = ar_designer.skills.map { |skill| skill.name.parameterize.underscore.to_sym }
+
+      mongo_designer.coordinates = ar_designer.coordinates.split(',') unless ar_designer.coordinates.nil?
 
       ar_designer.designer_posts.each do |ar_post|
         mongo_post = ::DesignerPost.new

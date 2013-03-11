@@ -1,0 +1,14 @@
+%li.designer
+  .bio
+    %h2
+      = link_to d.full_name, d
+    %h4
+      = d.short_bio
+    %p= first_words(Sanitize.clean(d.long_bio), 50)
+
+  .col2
+    = render :partial => 'featured_work', :locals => {:designer => d}
+    %ul.actions
+      %li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url, :target => "_blank"
+      - unless d.dribbble_url.blank?
+        %li.dribbble= link_to "Dribbble", d.dribbble_url, :target => "_blank"
