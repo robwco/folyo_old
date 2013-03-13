@@ -9,7 +9,7 @@
 
 = content_for :title, "Submit a Job Offer"
 
-= content_for :body_class, " with-wizard"
+= content_for :body_class, "with-wizard"
 = content_for :subnav do
 	%ol.wizard
 		%li.active Your Company
@@ -20,16 +20,13 @@
 
 = render :partial => "/site/wysiwyg"
 
-=content_for :company_hint do
+= content_for :company_hint do
 	%span.title Things to mention:
 	%span <strong>About you</strong>: what's your story? where are you based?
 	%span <strong>What you do</strong>: clearly explain what you do in simple terms.
 	%span <strong>Why you do it</strong>: tell us the motivations behind your project.
 	%span <strong>Your users</strong>: who uses your service?
 	%span.bottom For more ideas, check out our guide on <a target="_blank" href="http://folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
-
-/http://stackoverflow.com/questions/4307743/profile-model-for-devise-users
-- resource.build_client unless resource.client
 
 .notices
 	.notice
@@ -47,7 +44,7 @@
 		= f.input :referrer_designer, :as => :hidden
 	.section
 		%h3 Your Company
-		= f.semantic_fields_for :client do |client|
+		= f.simple_fields_for :client do |client|
 			= client.input :company_name
 			= client.input :company_url
 			= client.input :company_description, :hint => yield(:company_hint), :input_html => {:class => "wysiwyg"}

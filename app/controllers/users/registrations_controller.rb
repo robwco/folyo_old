@@ -9,13 +9,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     case params[:initial_role]
     when 'designer'
       @user = Designer.new
+      track_event("Viewing #{params[:initial_role]} Sign Up")
+      respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
     when 'client'
       @user = Client.new
+      if params[:job]
+        track_event("Viewing #{params[:initial_role]} Sign Up (Job)")
+        respond_with_navigational(resource) { render "new_job" }
+      else
+        track_event("Viewing #{params[:initial_role]} Sign Up")
+        respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
+      end
     else
       redirect_to :root
     end
-    track_event("Viewing #{params[:initial_role]} Sign Up")
-    respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
   end
 
   # POST /resource
@@ -33,13 +40,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_in(resource_name, resource)
         # respond_with resource, :location => redirect_location(resource_name, resource)
 
-        track_event("Signed Up", {:role => params[:initial_role]})
+        track_event("Signed Up", role: params[:initial_role])
 
-        respond_with resource, :location => after_sign_up_path_for(resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
         expire_session_data_after_sign_in!
-        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
     else
       clean_up_passwords(resource)

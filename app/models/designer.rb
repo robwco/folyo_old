@@ -8,7 +8,7 @@ class Designer < User
   field :short_bio,           type: String
   field :long_bio,            type: String
   field :location,            type: String
-  field :coordinates,          type: Array
+  field :coordinates,         type: Array
 
   field :minimum_budget,      type: Integer
   field :rate,                type: Integer
