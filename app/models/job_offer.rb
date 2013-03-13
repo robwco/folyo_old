@@ -11,7 +11,7 @@ class JobOffer
   field :comp_high,        type: Integer
   field :coding,           type: Symbol
   field :budget_range,     type: String
-  field :budget_type,      type: Symbol,  default: :medium
+  field :budget_type,      type: Symbol,   default: :medium
   field :skills,           type: Array
 
   field :discount,         type: String
@@ -32,20 +32,38 @@ class JobOffer
   belongs_to  :client
   embeds_many :designer_replies
   embeds_one  :order
-  #has_many                :evaluations
+
+  ## Reference data ##
+  def self.coding_options
+    [:not_needed, :optional, :mandatory]
+  end
+
+  def self.budget_ranges
+    ["Under $1000", "$1000-$1500", "$1500-$2000", "$2000-$3000", "$3000-$4000", "$4000-$5000", "$5000-$6000", "$6000-$7500", "$7500-$10000", "$10000-$15000", "$15000-$20000", "$20000+"]
+  end
+
+  def self.budget_types
+    [:low, :medium, :high]
+  end
 
   ## validations ##
-  validates_presence_of     :title, :full_description, :skills
+  validates_presence_of     :title, :full_description
   validates_numericality_of :compensation, :allow_nil => true
+  validates_inclusion_of    :coding,       in: JobOffer.coding_options, allow_blank: true
+  validates_inclusion_of    :budget_range, in: JobOffer.budget_ranges,  allow_blank: true
+  validates_inclusion_of    :budget_type,  in: JobOffer.budget_types,   allow_blank: true
+  validates                 :skills, length: { minimum: 1, message: 'select 1 skill at least' }, array: { inclusion: { in: Designer.skills.map(&:to_s)} }
 
   ## callbacks ##
-  before_save   :sanitize_attributes
-  before_update :status_changed
-  after_create  :send_offer_notification, :new_job_offer_event
+  before_validation :remove_empty_skills
+  before_create     :set_sent_out_at
+  after_create      :send_offer_notification, :new_job_offer_event, :track_creation_event
+  before_save       :sanitize_attributes
+  before_update     :status_changed
 
   ## scopes ##
-  scope :ordered, order_by(refunded_at: :desc, archived_at: :desc, paid_at: :desc, approved_at: :desc, created_at: :desc) # still need to put
-  #scope :ordered, :order => 'refunded_at IS NULL, refunded_at DESC, archived_at IS NULL, archived_at DESC, paid_at IS NULL, paid_at DESC, approved_at IS NULL, approved_at DESC, created_at IS NULL, created_at DESC'
+  # TODO: still need to put null values at the end
+  scope :ordered, order_by(refunded_at: :desc, archived_at: :desc, paid_at: :desc, approved_at: :desc, created_at: :desc)
   scope :ordered_by_status, order_by(status: :asc)
 
   scope :pending,  where(status: :pending)
@@ -89,20 +107,32 @@ class JobOffer
     [:paid, :archived, :refunded].include? self.status
   end
 
-  protected
-
-  def sanitize_attributes
-    %w(full_description).each do |attribute|
-      self.send(:"#{attribute}=", Sanitize.clean(self.send(attribute.to_sym), Sanitize::Config::BASIC))
-    end
-  end
-
   def accepted?
     self.status == :accepted
   end
 
   def archived?
     self.status == :archived
+  end
+
+  def rejected?
+    self.status == :rejected
+  end
+
+  def paid?
+    self.status == :paid
+  end
+
+  def refunded?
+    self.status == :refunded
+  end
+
+  protected
+
+  def sanitize_attributes
+    %w(full_description).each do |attribute|
+      self.send(:"#{attribute}=", Sanitize.clean(self.send(attribute.to_sym), Sanitize::Config::BASIC))
+    end
   end
 
   def new_job_offer_event
@@ -135,6 +165,18 @@ class JobOffer
       end
       self.client.track_user_action("Job Offer #{event}", {job_offer_id: self.id, job_offer_title: self.title})
     end
+  end
+
+  def set_sent_out_at
+    self.sent_out_at = Time.now
+  end
+
+  def track_creation_event
+    # track_event 'New Job Offer', mp_note: title, job_offer_title: title, job_offer_id: id
+  end
+
+  def remove_empty_skills
+    self.skills.reject!(&:blank?) if self.skills_changed?
   end
 
 end

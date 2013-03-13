@@ -37,10 +37,10 @@ class ApplicationController < ActionController::Base
     unless current_user
       redirect_to :root
     else
-      if current_user.role? :designer
-        redirect_to designer_root_path
-      elsif current_user.role? :client
-        redirect_to client_root_path
+      if current_user.is_a? Designer
+        redirect_to offers_path
+      elsif current_user.is_a? Client
+        redirect_to offers_path
       else
         root_path
       end

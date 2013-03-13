@@ -29,6 +29,9 @@ gem 'newrelic_rpm'
 gem 'vero'
 gem 'activemerchant'
 
+# Misc
+gem 'rails_autolink'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

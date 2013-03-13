@@ -44,11 +44,10 @@
 		= f.input :referrer_designer, :as => :hidden
 	.section
 		%h3 Your Company
-		= f.simple_fields_for :client do |client|
-			= client.input :company_name
-			= client.input :company_url
-			= client.input :company_description, :hint => yield(:company_hint), :input_html => {:class => "wysiwyg"}
-			= client.input :location
+		= f.input :company_name
+		= f.input :company_url
+		= f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: "wysiwyg"}
+		= f.input :location
 
 	= f.submit "Next: Your Project", :class => "button big-button"
 

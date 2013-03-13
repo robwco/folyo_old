@@ -1,0 +1,6 @@
+.block.company-info
+  %h3 Company Info
+  %p!= auto_link(job_offer.client.company_description.html_safe)
+.block.project-info
+  %h3 Project Info
+  %p!= auto_link(job_offer.full_description.html_safe)

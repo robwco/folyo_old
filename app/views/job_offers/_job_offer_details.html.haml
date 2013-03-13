@@ -1,0 +1,48 @@
+%ul.offer-details
+  - if current_user.is_a? Admin
+    %li.email
+      %h3 Email
+      = link_to job_offer.client.user.email, "mailto:"+job_offer.client.user.email+"?Subject=Your%20job%20offer%20on%20Folyo"
+  %li.company
+    %h3 Company
+    - if current_user.is_a? Admin
+      %p= link_to job_offer.client.company_name, admin_client_path(job_offer.client)
+    - else
+      %p= job_offer.client.company_name
+  %li.site
+    %h3 Site
+    = link_to job_offer.client.company_url, job_offer.client.company_url, :title => "Site"
+  %li.location
+    %h3 Company Location
+    %p= job_offer.client.location
+  %li.skills
+    %h3 Categories
+    %ul.skills-list
+      - job_offer.skills.each do |s|
+        %li{:class => s.to_s}= s.humanize
+  - if job_offer.coding
+    %li.coding
+      %h3 Coding
+      %p= job_offer.coding.to_s.humanize
+  %li.budget
+    %h3 Budget
+    %p
+      - if job_offer.budget_range
+        %span= job_offer.budget_range
+      - else
+        %span= job_offer.compensation
+      - if job_offer.budget_type
+        %br
+        %span.budget-type <strong>#{job_offer.budget_type.to_s.humanize}</strong> (#{link_to "More info…", "#pricing", :class => "lightbox"})
+
+.hidden
+  #pricing.block
+    %h2 Folyo's job offers fall into 3 budget categories:
+    %h5 Low
+    %p The client needs a solid, good-looking design but doesn't have that many resources. They're willing to give a less experienced designer their chance.
+    %hr
+    %h5 Medium
+    %p The client is looking for a great design, and have a comfortable budget. They want a skilled designer with a lot of experience.
+    %hr
+    %h5 High
+    %p The client wants to invest in an outstanding design. They're looking for the absolute best designer they can get.

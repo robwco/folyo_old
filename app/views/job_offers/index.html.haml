@@ -1,0 +1,87 @@
+= content_for :title, "My Offers"
+
+= render :partial => "/site/wysiwyg"
+
+- if @job_offers.empty?
+  %p.note You don't have any job offers yet. Why not #{link_to 'submit one', new_offer_path}?
+- else
+  - unless @job_offers.pending.empty? && @job_offers.rejected.empty?
+    .pending
+      %h3.pending Pending
+      %ul.offer-list
+        - @job_offers.pending.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, offer_path(job)
+            %ul.controls
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit', edit_offer_path(job)
+        - @job_offers.rejected.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, offer_path(job)
+            %ul.controls
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit', edit_offer_path(job)
+  - unless @job_offers.accepted.empty?
+    .unpaid
+      %h3.unpaid Unpaid
+      %ul.offer-list
+        - @job_offers.accepted.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, offer_path(job)
+            %ul.controls
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit job', edit_offer_path(job)
+              %li.pay= link_to 'Pay for this offer', offer_orders_path(job)
+  - unless @job_offers.paid.empty?
+    .accepted
+      %h3.active Active
+      %ul.offer-list
+        - @job_offers.paid.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, offer_path(job)
+              %span.num-replies= "#{job.designer_replies.count} Replies"
+            %p.status
+              %span.posted= "Posted #{time_ago_in_words(job.created_at.to_date)} ago, "
+              %span.last-reply= last_reply_text_for_job_offer(job)
+            %ul.controls
+              %li= link_to 'View designer replies', offer_replies_path(job)
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit', edit_offer_path(job)
+              %li= link_to 'Payment info', offer_orders_path(job)
+              %li.archive= link_to 'Archive', show_archive_offer_path(job), :title =>"Archive the offer once you've picked a designer", :class => 'tooltip'
+              =#%li= link_to 'Close job offer', '#'
+  - unless @job_offers.archived.empty?
+    .archived
+      %h3.archived Archived
+      %ul.offer-list
+        - @job_offers.archived.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, offer_path(job)
+              %span.num-replies= "#{job.designer_replies.count} Replies"
+            %p.status
+              %span.posted= "Posted #{time_ago_in_words(job.created_at.to_date)} ago, "
+              %span.last-reply= last_reply_text_for_job_offer(job)
+            %ul.controls
+              %li= link_to 'View designer replies', offer_replies_path(job)
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit', edit_offer_path(job)
+              %li= link_to 'Payment info', offer_orders_path(job)
+              -#%li.archive= link_to 'Rate Designer', edit_offer_evaluations_path(job), :title =>"Let us know how it went!", :class => 'tooltip'
+
+
+  = paginate @job_offers
+
+= content_for :mainaction do
+  = link_to 'Submit new job offer', new_offer_path, :id => "new-offer", :class => "button big-button"
+
+= content_for :sidebar do
+  .notices
+    - unless @job_offers.pending.empty?
+      .notice You have job offers pending review. You will receive a notification if they're accepted, or if we need more info from you.
+    - unless @job_offers.accepted.empty?
+      .notice You have unpaid job offers. They will not be published until you complete the payment.

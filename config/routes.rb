@@ -37,17 +37,37 @@ Folyo::Application.routes.draw do
     get 'map', on: :collection
     resources :messages
     resources :designer_posts, :path => 'posts', :as => 'posts'
-  end
-
-  scope '/designers' do
-    resources :designer_searches, path: 'search' do
-      put 'accept', on: :member
-      put 'reject', on: :member
-      get 'next',   on: :member
+    resources :job_offers, :path => 'offers', :as => 'offers' do
+      get 'history',  on: :collection
+      get 'archives', on: :collection
+      resources :designer_replies, :path => 'replies', :as => 'replies'
     end
   end
 
   resources :clients
+
+  resources :job_offers, :path => 'offers', :as => 'offers' do
+    get 'show_archive', on: :member
+    put 'archive',      on: :member
+    resources :orders do
+      get 'checkout', on: :collection
+      get 'confirm',  on: :collection
+    end
+    resources :designer_replies, :path => 'replies', :as => 'replies' do
+      get 'pick',        on: :member
+      put 'update_pick', on: :member
+    end
+  end
+
+  resources :designer_posts, :path => 'posts', :as => 'posts'
+
+  #scope '/designers' do
+  #  resources :designer_searches, path: 'search' do
+  #    put 'accept', on: :member
+  #    put 'reject', on: :member
+  #    get 'next',   on: :member
+  #  end
+  #end
 
   root :to => "site#home"
 

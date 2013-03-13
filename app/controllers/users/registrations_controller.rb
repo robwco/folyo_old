@@ -28,11 +28,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   # note: create method copied from the normal Devise one
   def create
-    case params[:initial_role]
+    @user = case params[:user][:initial_role]
     when 'designer'
-      @user = Designer.new(params[:user])
+      Designer.new(params[:user])
     when 'client'
-      @user = Client.new(params[:user])
+      Client.new(params[:user])
     end
     if resource.save
       if resource.active_for_authentication?
@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_in(resource_name, resource)
         # respond_with resource, :location => redirect_location(resource_name, resource)
 
-        track_event("Signed Up", role: params[:initial_role])
+        track_event("Signed Up", role: params[:user][:initial_role])
 
         respond_with resource, location: after_sign_up_path_for(resource)
       else
@@ -50,7 +50,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords(resource)
-      respond_with_navigational(resource) { render "new_#{params[:initial_role]}" }
+      case params[:user][:initial_role]
+      when 'designer'
+        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
+      when 'client'
+        respond_with_navigational(resource) { render "new_job" }
+      else
+        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
+      end
     end
   end
 
@@ -79,9 +86,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     if current_user.is_a? Designer
-      designer_path(current_user)
+      designer_offers_path(signup: true)
     elsif current_user.is_a? Client
-      client_path(current_user)
+      new_offer_path(signup: true)
     end
   end
 end

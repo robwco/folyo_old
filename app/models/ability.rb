@@ -26,6 +26,12 @@ class Ability
       can :manage, Client do |client|
         client.id == user.id
       end
+      can :manage, JobOffer do |job_offer|
+        job_offer.client_id == user.id
+      end
+      can [:read, :new, :create, :checkout], Order do |order|
+        order.job_offer.client_id == user.id
+      end
       can :read, Designer
 
     else

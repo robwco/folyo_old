@@ -10,6 +10,8 @@ class Client < User
 
   validates_presence_of :company_name, :company_description
 
+  has_many :job_offers
+
   def role_name
     'client'
   end
