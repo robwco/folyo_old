@@ -11,7 +11,7 @@
   - if current_user.is_a? Admin
     .section
       %h3 Status
-      = f.input :status, :as => :radio, :label => 'Status'
+      = f.input :status, as: :radio, label: 'Status', collection: JobOffer.statuses, label_method: sym_label_method
 
   = render 'form', :f => f
 

@@ -2,16 +2,7 @@ class DesignerPostsController < ApplicationController
 
   inherit_resources
 
-  before_filter :check_designer_access
-  before_filter :set_designer
-
   load_and_authorize_resource
-
-  actions :index, :show, :new, :create, :update, :edit
-
-  def index
-    @designer_posts = @designer.posts
-  end
 
   def update
     update! {designer_posts_path}
@@ -26,14 +17,23 @@ class DesignerPostsController < ApplicationController
 
   protected
 
-  def set_designer
-    @designer = if current_user.is_a?(Admin)
+  def designer
+    @designer ||= if current_user.is_a?(Admin)
        Designer.find(params[:designer_id])
     elsif current_user.is_a?(Designer)
       current_user
     else
       nil
     end
+  end
+
+  def collection
+    @designer_posts = if current_user.is_a?(Admin) || current_user.is_a?(Designer)
+      designer.posts
+    else
+      DesignerPost.all
+    end
+    @designer_posts = @designer_posts.page(params[:page]).per(10).ordered
   end
 
 end

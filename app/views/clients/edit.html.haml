@@ -17,10 +17,10 @@
     %ul
       %li= link_to @client.user.email, "mailto:#{@client.email}Subject=Your%20job%20offer%20on%20Folyo"
       %li Referral info: #{@client.user.referrer}
-      - unless @client.referrer_designer.blank?
+      - if @client.referrer_designer
         %li Referring designer: #{@client.referrer_designer}
 
-= simple_fields_for(@client, :url => @update_url) do |f|
+= simple_form_for(@client, :url => @update_url) do |f|
   .section
     %h3 Your Company
     = f.input :company_name

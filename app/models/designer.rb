@@ -32,6 +32,9 @@ class Designer < User
 
   field :designer_pg_id # id of the designer in postgresql. Will be removed someday
 
+  ## relations ##
+  has_many :posts, class_name: 'DesignerPost'
+
   ## validations ##
   validates_presence_of :portfolio_url
 

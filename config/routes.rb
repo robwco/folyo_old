@@ -16,50 +16,57 @@ Folyo::Application.routes.draw do
     get 'quora_redesign_screenshot'
   end
 
-  devise_for :users, :controllers => {:registrations => 'users/registrations'}
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   devise_scope :user do
-    get "sign_in", :to => "devise/sessions#new"
-    get "sign_up", :to => "users/registrations#new"
-    match "/sign_up/:initial_role/job" => 'users/registrations#new', :as => 'new_user_with_role', :job => true
-    match "/sign_up/:initial_role" => 'users/registrations#new', :as => 'new_user_with_role'
+    get "sign_in", to: 'devise/sessions#new'
+    get "sign_up", to: 'users/registrations#new'
+    match "/sign_up/:initial_role/job" => 'users/registrations#new', as: 'new_user_with_role', job: true
+    match "/sign_up/:initial_role" => 'users/registrations#new', as: 'new_user_with_role'
   end
 
   namespace :admin do
     resources :designers do
-      get 'posts', :on => :collection
-      get 'messages', :on => :collection
+      get 'posts', on: :collection
+      get 'messages', on: :collection
     end
     resources :clients
+    resources :job_offers, path: 'offers', as: 'offers' do
+      resources :replies
+      get 'active', :on => :collection
+      get 'archived', :on => :collection
+      get 'rejected', :on => :collection
+      get 'refunded', :on => :collection
+    end
   end
 
   resources :designers do
     get 'map', on: :collection
     resources :messages
-    resources :designer_posts, :path => 'posts', :as => 'posts'
-    resources :job_offers, :path => 'offers', :as => 'offers' do
+    resources :designer_posts, path: 'posts', as: 'posts'
+    resources :job_offers, path: 'offers', as: 'offers' do
       get 'history',  on: :collection
       get 'archives', on: :collection
-      resources :designer_replies, :path => 'replies', :as => 'replies'
+      resources :designer_replies, path: 'replies', as: 'replies'
     end
   end
 
   resources :clients
 
-  resources :job_offers, :path => 'offers', :as => 'offers' do
+  resources :job_offers, path: 'offers', as: 'offers' do
     get 'show_archive', on: :member
     put 'archive',      on: :member
     resources :orders do
       get 'checkout', on: :collection
       get 'confirm',  on: :collection
     end
-    resources :designer_replies, :path => 'replies', :as => 'replies' do
+    resources :designer_replies, path: 'replies', as: 'replies' do
       get 'pick',        on: :member
       put 'update_pick', on: :member
     end
   end
 
-  resources :designer_posts, :path => 'posts', :as => 'posts'
+  resources :designer_posts, path: 'posts', as: 'posts'
 
   #scope '/designers' do
   #  resources :designer_searches, path: 'search' do

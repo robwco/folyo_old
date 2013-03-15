@@ -59,7 +59,7 @@
     .section
     %h3 Admin
     = f.input :discount, :input_html => {:id => "discount-code"}
-    = f.input :location_type, :label => "Work Location", :as => :radio, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. '
-    = f.input :work_type, :label => "Contract Type", :as => :radio, :hint => "Please consider that freelance offers generally get a lot more replies."
+    = f.input :location_type, :label => "Work Location", :as => :radio, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. ', collection: JobOffer.location_types, label_method: sym_label_method
+    = f.input :work_type, :label => "Contract Type", :as => :radio, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
   - else
     = f.input :discount, :as => :hidden, :input_html => {:id => "discount-code"}

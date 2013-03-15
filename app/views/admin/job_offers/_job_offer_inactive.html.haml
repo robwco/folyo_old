@@ -1,0 +1,11 @@
+%li
+	.client
+		%h4
+			= link_to job.client.company_name, edit_client_path(job.client)
+			%span.name #{job.client.user.full_name}
+	%h2{:class => job.status.name.downcase}
+		= link_to job.title, client_offer_path(job), :class => 'title'
+	%ul.controls
+		%li= link_to 'Preview job offer', client_offer_path(job)
+		%li= link_to 'Edit job offer', edit_client_offer_path(job)
+		%li.delete= link_to 'Delete offer', admin_offer_path(job), :confirm => "Delete?", :method => :delete

@@ -1,0 +1,37 @@
+%li{:class => job.status.to_s}
+	.client
+		%h4
+			= link_to job.client.company_name, admin_client_path(job.client)
+			= link_to "[edit]", edit_client_path(job.client)
+			%span.name= job.client.full_name
+	%h2{:class => job.status.to_s }
+		= link_to job.title, offer_path(job), :class => 'title'
+		- if job.live?
+			%span.num-replies= "#{job.designer_replies.count} Replies"
+	%ul.timeline
+		%li.posted_at
+			%label Posted
+			%span= job.created_at.strftime("%B %e, %Y")
+		- if job.approved_at
+			%li.approved_at
+				%label Approved
+				%span= job.approved_at.strftime("%B %e, %Y")
+		- if job.paid_at
+			%li.paid_at
+				%label Paid
+				%span= job.paid_at.strftime("%B %e, %Y")
+		- if job.archived_at
+			%li.archived_at
+				%label Archived
+				%span= job.archived_at.strftime("%B %e, %Y")
+		- if job.refunded_at
+			%li.refunded_at
+				%label Refunded
+				%span= job.refunded_at.strftime("%B %e, %Y")
+	%ul.controls
+		%li= link_to 'Preview job offer', offer_path(job)
+		%li= link_to 'Edit job offer', edit_offer_path(job)
+		- if job.live?
+			%li= link_to 'View replies', offer_replies_path(job)
+			%li= link_to 'Payment info', offer_orders_path(job)
+		%li.delete= link_to 'Delete offer', admin_offer_path(job), :confirm => "Delete?", :method => :delete

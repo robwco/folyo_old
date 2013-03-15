@@ -1,0 +1,13 @@
+= content_for :body_class, " with-subnav"
+#subnav
+	%ul
+		%li
+			= current_link_to 'Inactive', admin_offers_path
+		%li
+			= current_link_to 'Active', active_admin_offers_path
+		%li
+			= current_link_to 'Archived', archived_admin_offers_path
+		%li
+			= current_link_to 'Refunded', refunded_admin_offers_path	
+		%li
+			= current_link_to 'Rejected', rejected_admin_offers_path

@@ -8,17 +8,18 @@ class JobOffersController < ApplicationController
   end
 
   def update
-    update! { offer_path(@job_offer)}
+    update! { edit_offer_path(@job_offer)}
   end
 
   protected
 
-  def begin_of_association_chain
-    current_user
-  end
-
   def collection
-    @job_offers = end_of_association_chain.page(params[:page]).per(10).ordered
+    @job_offers = if current_user.is_a? Client
+      current_user.job_offers
+    else
+      JobOffer.all
+    end
+    @job_offers = @job_offers.page(params[:page]).per(10).ordered
   end
 
 end

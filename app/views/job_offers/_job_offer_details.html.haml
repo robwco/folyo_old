@@ -2,7 +2,7 @@
   - if current_user.is_a? Admin
     %li.email
       %h3 Email
-      = link_to job_offer.client.user.email, "mailto:"+job_offer.client.user.email+"?Subject=Your%20job%20offer%20on%20Folyo"
+      = link_to job_offer.client.email, "mailto:#{job_offer.client.email}?Subject=Your%20job%20offer%20on%20Folyo"
   %li.company
     %h3 Company
     - if current_user.is_a? Admin

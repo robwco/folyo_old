@@ -34,12 +34,25 @@ class JobOffer
   embeds_one  :order
 
   ## Reference data ##
+
+  def self.statuses
+    [:pending, :rejected, :accepted, :paid, :archived, :refunded]
+  end
+
   def self.coding_options
     [:not_needed, :optional, :mandatory]
   end
 
   def self.budget_ranges
     ["Under $1000", "$1000-$1500", "$1500-$2000", "$2000-$3000", "$3000-$4000", "$4000-$5000", "$5000-$6000", "$6000-$7500", "$7500-$10000", "$10000-$15000", "$15000-$20000", "$20000+"]
+  end
+
+  def self.work_types
+    [:freelance, :full_time]
+  end
+
+  def self.location_types
+    [:local, :remote]
   end
 
   def self.budget_types
@@ -49,9 +62,12 @@ class JobOffer
   ## validations ##
   validates_presence_of     :title, :full_description
   validates_numericality_of :compensation, :allow_nil => true
-  validates_inclusion_of    :coding,       in: JobOffer.coding_options, allow_blank: true
-  validates_inclusion_of    :budget_range, in: JobOffer.budget_ranges,  allow_blank: true
-  validates_inclusion_of    :budget_type,  in: JobOffer.budget_types,   allow_blank: true
+  validates_inclusion_of    :status,        in: JobOffer.statuses,       allow_blank: false
+  validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true
+  validates_inclusion_of    :work_type,     in: JobOffer.work_types,     allow_blank: true
+  validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true
+  validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
+  validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
   validates                 :skills, length: { minimum: 1, message: 'select 1 skill at least' }, array: { inclusion: { in: Designer.skills.map(&:to_s)} }
 
   ## callbacks ##
@@ -163,7 +179,7 @@ class JobOffer
         self.refunded_at = Time.now
         event = "Refunded"
       end
-      self.client.track_user_action("Job Offer #{event}", {job_offer_id: self.id, job_offer_title: self.title})
+      # self.client.track_user_action("Job Offer #{event}", {job_offer_id: self.id, job_offer_title: self.title})
     end
   end
 

@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
     return unless check_user_access
     unless current_user.is_a?(Designer) || current_user.is_a?(Admin)
       flash[:error] = "You must be signed in as a designer to view that page"
-      redirect_to client_root_path
+      redirect_to offers_path
     end
   end
 
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 
     unless current_user.is_a?(Client) || current_user.is_a?(Admin)
       flash[:error] = "You must be signed in as a client to view that page"
-      redirect_to designer_root_path
+      redirect_to offers_path
     end
   end
 

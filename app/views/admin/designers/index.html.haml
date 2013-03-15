@@ -35,4 +35,4 @@
 = paginate @designers
 
 = content_for :sidebar do
-	= render :partial => 'designers/skill_filters'
+	= render 'designers/skill_filters', current_skill: params[:skill].try(:to_sym)
