@@ -1,0 +1,5 @@
+.block
+	%h2 Pick #{@designer_reply.designer.user.full_name}?
+	%p Picking this designer will archive the offer and send a notification to all other applicants letting them know they were not chosen.
+	.button-bar
+		= link_to "Pick #{@designer_reply.designer.user.full_name}", update_pick_client_offer_reply_path(@job_offer, @designer_reply), :class=>"button confirm", :method => :put

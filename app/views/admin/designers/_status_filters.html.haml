@@ -1,0 +1,9 @@
+.filters
+  %h4
+    %span Filter by status
+    - if current_status
+      %span.show-all
+        = link_to 'Show all'
+  %ul.filter
+    - Designer.statuses.each do |s|
+      %li{:class => current_status == s ? 'selected' : ''}= link_to(s.to_s.humanize, :status => s)

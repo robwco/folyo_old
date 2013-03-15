@@ -1,0 +1,9 @@
+= content_for :body_class, " with-subnav"
+#subnav
+  %ul
+    %li
+      = current_link_to 'Active', offers_path
+    %li
+      = current_link_to 'Archived', archives_offers_path
+    %li
+      = current_link_to 'History', history_offers_path

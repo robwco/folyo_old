@@ -1,12 +1,20 @@
 = content_for :parent_level do
   = link_to "My Offers", offers_path
 
-= content_for :title, @job_offer.title
-= content_for :body_class, "offer-client"
-= content_for :subnav do
-  = render 'offer_nav', job_offer: @job_offer
+= content_for :title, @job_offer.client.company_name
+= content_for :subtitle, @job_offer.title
+= content_for :body_class, "offer-designer"
 
 = render 'job_offer_main', job_offer: @job_offer
 
 = content_for :sidebar do
+  - if @job_offer.designer_replies.any? {|reply| reply.designer == current_user}
+    .alert
+      .notice You have previously replied to this job offer.
+  - elsif @job_offer.archived?
+    .alert
+      .notice This job offer is no longer active.
+  - elsif current_user.is_a? Designer
+    = render 'job_offers/client/reply', job_offer: @job_offer
+
   = render 'job_offer_details', job_offer: @job_offer

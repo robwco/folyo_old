@@ -1,0 +1,23 @@
+=content_for :parent_level do
+  = link_to "My Offers", offers_path
+=content_for :title, @job_offer.title
+=content_for :body_class, "offer-client"
+=content_for :subnav do
+  = render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
+
+.block
+  .note
+    %h5 Archiving a job offer will:
+    %ul
+      %li Hide it from designers, so you won't receive any more replies.
+      %li Send a notification to all the designers who have already replied letting them know that the position has been filled.
+  %h3 Who did you pick?
+  %p If you don't mind, we'd like to know which designer (if any) you chose to work with:
+  = form_tag archive_offer_path(@job_offer) do
+    %ul.designers-replied
+      - @designers_who_replied.each_with_index do |d, index|
+        %li
+          = radio_button_tag "designer_users", d.id
+          %label{:for => "designer_users_#{d.id}"}= d.full_name
+          = link_to "(view profile)", d
+    = submit_tag "Archive Offer", :class => "button"

@@ -44,16 +44,13 @@ Folyo::Application.routes.draw do
     get 'map', on: :collection
     resources :messages
     resources :designer_posts, path: 'posts', as: 'posts'
-    resources :job_offers, path: 'offers', as: 'offers' do
-      get 'history',  on: :collection
-      get 'archives', on: :collection
-      resources :designer_replies, path: 'replies', as: 'replies'
-    end
   end
 
   resources :clients
 
   resources :job_offers, path: 'offers', as: 'offers' do
+    get 'history',      on: :collection
+    get 'archives',     on: :collection
     get 'show_archive', on: :member
     put 'archive',      on: :member
     resources :orders do

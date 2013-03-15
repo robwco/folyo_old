@@ -12,17 +12,26 @@ class Ability
     elsif user.is_a? Designer
       if user.accepted?
         can :read, Client
+        can :create, DesignerReply
         can :manage, DesignerPost
       end
+      can :history, JobOffer
+      can :archives, JobOffer
       can :read, Designer do |designer|
         designer.public?
       end
       can :manage, Designer do |designer|
         designer.id == user.id
       end
+      can :read, JobOffer
 
     elsif user.is_a? Client
       can :read, DesignerPost
+      can :read, DesignerReply
+      can :pick, DesignerReply
+      can :update_pick, DesignerReply do |reply|
+        reply.job_offer.client_id == user.id
+      end
       can :manage, Client do |client|
         client.id == user.id
       end

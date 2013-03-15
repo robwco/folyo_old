@@ -62,6 +62,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
+    if params[:user][:password].blank?
+      params[:user].delete("password")
+      params[:user].delete("password_confirmation")
+    end
+
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
     if resource.update_attributes(params[resource_name])
@@ -86,7 +91,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     if current_user.is_a? Designer
-      designer_offers_path(signup: true)
+      offers_path(signup: true)
     elsif current_user.is_a? Client
       new_offer_path(signup: true)
     end

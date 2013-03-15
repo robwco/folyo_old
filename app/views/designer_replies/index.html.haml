@@ -1,0 +1,46 @@
+= content_for :parent_level do
+	= link_to "My Offers", offers_path
+= content_for :title, @job_offer.title
+= content_for :body_class, "no-sidebar offer-client"
+= content_for :subnav do
+	= render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
+
+- if @job_offer.archived?
+	= content_for :body_class, " offer-archived"
+
+- if @designer_replies.empty?
+	%p.note Sorry, you haven't received any replies yet
+- else
+	%ul.replies
+		- @designer_replies.each do |r|
+			-if r.collapsed == true
+				- @class = "collapsed"
+			-else
+				- @class = ""
+			-if r.picked
+				- @class += " picked"
+			%li.reply{:class => @class+" new"}
+				.col1
+					= render '/designers/featured_work', designer: r.designer
+				.message
+					%h2
+						= link_to r.designer.user.full_name, r.designer
+					%p!= auto_link(Sanitize.clean(r.message))
+				%ul.actions
+					%li.site= link_to 'Site', r.designer.portfolio_url, :class => "tooltip", :title => r.designer.portfolio_url
+					- unless r.designer.dribble_username.blank?
+						%li.dribbble= link_to "Dribbble", "http://www.dribbble.com/"+r.designer.dribble_username
+					%li.email
+						= link_to 'Email', 'mailto:'+r.designer.user.email
+					%li.location
+						= r.designer.location
+					%li.profile
+						= link_to 'View full profile', r.designer
+					%li.pick
+						- if @job_offer.status_id == JobOffer::Status_Keys::ARCHIVED
+							- if r.picked
+								%strong Your pick
+						- else
+							= link_to 'Pick this designer', pick_offer_reply_path(@job_offer, r), :class => "fancybox fancybox.ajax"
+				%a.collapse{:href => "\##{r.id}"}
+					%span Collapse

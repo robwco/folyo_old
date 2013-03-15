@@ -2,8 +2,8 @@ class Designer < User
 
   has_many :posts, class_name: 'DesignerPost', dependent: :destroy
 
-  field :status,              type: Symbol
-  field :profile_type,        type: Symbol
+  field :status,              type: Symbol, default: :pending
+  field :profile_type,        type: Symbol, default: :public
 
   field :short_bio,           type: String
   field :long_bio,            type: String
@@ -35,8 +35,25 @@ class Designer < User
   ## relations ##
   has_many :posts, class_name: 'DesignerPost'
 
+  ## reference data ##
+
+   def self.skills
+    [:icon_design, :illustration, :logo_identity_design, :mobile_design, :print_design, :ui_design, :ux_interaction_design, :web_design]
+  end
+
+  def self.statuses
+    [:accepted, :pending, :rejected]
+  end
+
+  def self.profile_types
+    [:public, :private, :hidden]
+  end
+
   ## validations ##
-  validates_presence_of :portfolio_url
+  validates_presence_of     :portfolio_url
+  validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
+  validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
+  validates                 :skills, array: { inclusion: { in: Designer.skills.map(&:to_s)} }
 
   ## scopes ##
   scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
@@ -60,6 +77,10 @@ class Designer < User
     'designer'
   end
 
+  def pending?
+    self.status == :pending
+  end
+
   def accepted?
     self.status == :accepted
   end
@@ -74,18 +95,6 @@ class Designer < User
 
   def profile_url
     "http://folyo.me/designers/#{self.id}"
-  end
-
-  def self.skills
-    [:icon_design, :illustration, :logo_identity_design, :mobile_design, :print_design, :ui_design, :ux_interaction_design, :web_design]
-  end
-
-  def self.statuses
-    [:accepted, :pending, :rejected]
-  end
-
-  def self.profile_types
-    [:public, :private, :hidden]
   end
 
   def dribbble_url

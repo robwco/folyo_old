@@ -88,6 +88,7 @@ class JobOffer
   scope :paid,     where(status: :paid)
   scope :archived, where(status: :archived)
   scope :refunded, where(status: :refunded)
+  scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
 
   def get_budget_type(index)
     if index.nil?

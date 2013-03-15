@@ -1,0 +1,21 @@
+= content_for :title, "Job Offers"
+=content_for :subnav do
+  = render 'job_offers/designer/nav'
+
+- if current_user.accepted?
+  %p.note These job offers are no longer active.
+  %ul.offer-list
+    - @job_offers.each do |job|
+      %li
+        = render 'job_offers/designer/job_offer', job: job
+
+  = paginate @job_offers
+
+- elsif current_user.pending?
+  .notices
+    .notice Your profile is currently being reviewed, you will get access to the job offers if you're accepted. Thanks for your patience!
+- elsif current_user.rejected?
+  %h4 You didn't make it :(
+  %p Sorry but you weren't selected for Folyo this time. <a href="http://blog.folyo.me/post/10308130522">Here are a couple reasons</a> why that might be the case.
+- else
+  %p Nothing here…

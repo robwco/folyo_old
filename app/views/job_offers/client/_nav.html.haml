@@ -9,7 +9,7 @@
       = current_link_to 'View', offer_path(job_offer)
     %li.edit-offer
       = current_link_to 'Edit', edit_offer_path(job_offer)
-    - if job_offer.paid? || job_offer.archived? || job_offer.refunded?
+    - if job_offer.accepted? || job_offer.paid? || job_offer.archived? || job_offer.refunded?
       %li.payment
         = current_link_to 'Payment', offer_orders_path(job_offer)
     - if job_offer.paid?

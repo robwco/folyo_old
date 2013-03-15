@@ -1,0 +1,17 @@
+= content_for :title, "Job Offers"
+= content_for :subnav do
+  = render 'job_offers/designer/nav'
+
+- if @job_offers.empty?
+  %p.note Sorry, looks like you haven't replied to any job offers yet
+- else
+  %p.note Here are the job offers you've previously replied to.
+  %ul.offer-list
+    - @job_offers.each do |job|
+      %li
+        = render '/job_offers/designer/job_offer',  job: job
+        %ul.messages
+          - job.designer_replies.where(designer_id: current_user.id).each do |reply|
+            %li
+              %p.date #{time_ago_in_words(reply.created_at.to_date)} ago
+              %p= reply.message

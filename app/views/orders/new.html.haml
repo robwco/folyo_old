@@ -1,0 +1,20 @@
+=content_for :parent_level do
+	= link_to "My Offers", client_offers_path
+	=content_for :title, @job_offer.title
+=content_for :body_class, "offer-client"
+=content_for :subnav do
+	= render :partial => '/client/job_offers/offer_nav', :locals => {:job_offer => @job_offer}
+
+:javascript
+	$(document).ready(function(){
+		$('.confirm-payment').click(function(){
+			_kmq.push(['set', {'Billing Amount':#{@order.total}}]);
+		});
+	});
+	
+%h2 Confirm Payment
+%p You're one step away from posting a job offer to Folyo for <strong>$#{@order.total}</strong>:
+
+= form_for @order, :url => client_offer_orders_path do |f|
+	= f.hidden_field :express_token
+	= f.submit "Confirm Payment", :class => "button big-button confirm-payment"

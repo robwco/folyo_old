@@ -20,7 +20,7 @@
       - if @client.referrer_designer
         %li Referring designer: #{@client.referrer_designer}
 
-= simple_form_for(@client, :url => @update_url) do |f|
+= simple_form_for(@client) do |f|
   .section
     %h3 Your Company
     = f.input :company_name
