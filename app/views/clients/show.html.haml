@@ -11,7 +11,7 @@
     %ul
       - @client.job_offers.paid.each do |job|
         %li
-          = link_to job.title, designer_offer_path(job)
+          = link_to job.title, offer_path(job)
 
 = content_for :sidebar do
   %ul.offer-details

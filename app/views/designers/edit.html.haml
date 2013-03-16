@@ -46,7 +46,7 @@
   .section
     %h3 Your Work
     = f.input :portfolio_url
-    = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, :hint => yield(:profile_type_hint)
+    = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method
     = f.input :featured_shot, :label => 'Featured shot ID', :hint => yield(:featured_shot_hint)
     #bad_shot.ajax-error.hidden
       Are you sure this is the right ID? We can't find your shot :(

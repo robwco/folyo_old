@@ -61,6 +61,7 @@ Folyo::Application.routes.draw do
       get 'pick',        on: :member
       put 'update_pick', on: :member
     end
+    resource :evaluations
   end
 
   resources :designer_posts, path: 'posts', as: 'posts'

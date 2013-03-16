@@ -2,8 +2,13 @@
   = link_to "My Offers", offers_path
 
 = content_for :title, @job_offer.client.company_name
-= content_for :subtitle, @job_offer.title
 = content_for :body_class, "offer-designer"
+
+- if current_user.is_a? Designer
+  = content_for :subtitle, @job_offer.title
+- else
+  = content_for :subnav do
+    = render :partial => '/job_offers/client/nav', :locals => {:job_offer => @job_offer}
 
 = render 'job_offer_main', job_offer: @job_offer
 

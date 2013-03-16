@@ -108,7 +108,7 @@ class JobOffer
     save!
 
     self.designer_replies.each do |reply|
-      if reply.user_id == picked_designer_id.to_i
+      if reply.designer_id == picked_designer_id
         reply.picked = true
       else
         reply.picked = false
@@ -116,7 +116,7 @@ class JobOffer
           DesignerMailer.rejected_reply(reply.designer, self).deliver
         end
       end
-      reply.save!
+      save!
     end
   end
 

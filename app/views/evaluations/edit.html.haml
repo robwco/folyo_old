@@ -1,0 +1,26 @@
+=content_for :parent_level do
+  = link_to "My Offers", offers_path
+= content_for :title, @job_offer.title
+= content_for :body_class, "offer-client"
+= content_for :subnav do
+  = render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
+
+= render '/site/wysiwyg'
+
+= content_for :evaluation_hint do
+  %span You can also include links to examples of work done for you by the designer, or any other relevant information.
+
+
+%h2 How did it go?
+
+- if @reply
+  = simple_form_for @reply, url: offer_evaluations_path(@job_offer, reply_id: @reply.id) do |f|
+    = f.input :evaluation, :as => :text, :hint => yield(:evaluation_hint), :input_html => {:id => "wysiwyg", :class => "wysiwyg"}, label: "Please leave a short evaluation to let us know if you enjoyed working with #{link_to @designer.full_name, @designers}."
+    %hr
+    = simple_fields_for @folyo_evaluation do |f_e|
+      = f_e.input :evaluation, :as => :text, :input_html => {:id => "wysiwyg", :class => "wysiwyg"}, label: "What did you think of Folyo? Do you have any comments to help us improve the service?"
+    = f.submit "Submit Evaluation", :class => "button big-button"
+
+- else
+  %p It seems you didn't pick a designer. If you couldn't find a suitable designer through Folyo, please get in touch with us at <a href="mailto:hello@folyo.me">hello@folyo.me</a> to get a refund.
+

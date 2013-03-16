@@ -42,7 +42,7 @@ class Ability
         order.job_offer.client_id == user.id
       end
       can :read, Designer
-
+      can :map, Designer
     else
       can :read, Designer do |designer|
         designer.public? && designer.accepted?

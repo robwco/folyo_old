@@ -36,4 +36,3 @@
 
 = content_for :sidebar do
 	= render 'status_filters', current_status: params[:status].try(:to_sym)
-	= render 'designers/skill_filters', current_skill: params[:skill].try(:to_sym)

@@ -24,20 +24,20 @@
 					= render '/designers/featured_work', designer: r.designer
 				.message
 					%h2
-						= link_to r.designer.user.full_name, r.designer
+						= link_to r.designer.full_name, r.designer
 					%p!= auto_link(Sanitize.clean(r.message))
 				%ul.actions
 					%li.site= link_to 'Site', r.designer.portfolio_url, :class => "tooltip", :title => r.designer.portfolio_url
-					- unless r.designer.dribble_username.blank?
-						%li.dribbble= link_to "Dribbble", "http://www.dribbble.com/"+r.designer.dribble_username
+					- unless r.designer.dribbble_username.blank?
+						%li.dribbble= link_to "Dribbble", "http://www.dribbble.com/"+r.designer.dribbble_username
 					%li.email
-						= link_to 'Email', 'mailto:'+r.designer.user.email
+						= link_to 'Email', 'mailto:'+r.designer.email
 					%li.location
 						= r.designer.location
 					%li.profile
 						= link_to 'View full profile', r.designer
 					%li.pick
-						- if @job_offer.status_id == JobOffer::Status_Keys::ARCHIVED
+						- if @job_offer.archived?
 							- if r.picked
 								%strong Your pick
 						- else

@@ -5,7 +5,7 @@ class DesignerReply
 
   field :message,    type: String
   field :collapsed,  type: Boolean
-  field :picked,     type: Boolean
+  field :picked,     type: Boolean, default: false
   field :evaluation, type: String
 
   field :pg_id
