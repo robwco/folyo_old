@@ -169,9 +169,9 @@ namespace :migration do
       end
 
       mongo_offer.skills = ar_offer.skills.map { |skill| skill.name.parameterize.underscore.to_sym }
-      mongo_offer.location_type = ar_offer.location_type.name.downcase.to_sym if ar_offer.location_type
-      mongo_offer.work_type = ar_offer.work_type.name.downcase.to_sym if ar_offer.work_type
-      mongo_offer.status = ar_offer.status.name.downcase.to_sym if ar_offer.status
+      mongo_offer.location_type = ar_offer.location_type.name.downcase.underscore.to_sym if ar_offer.location_type
+      mongo_offer.work_type = ar_offer.work_type.name.downcase.underscore.to_sym if ar_offer.work_type
+      mongo_offer.status = ar_offer.status.name.downcase.underscore.to_sym if ar_offer.status
 
       mongo_offer.coding = :not_needed  if ar_offer.coding == 1
       mongo_offer.coding = :optional    if ar_offer.coding == 2

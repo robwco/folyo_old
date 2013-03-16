@@ -23,6 +23,7 @@ class JobOffersController < ApplicationController
   end
 
   def create
+    @job_offer.client = current_user
     create! { offers_path }
   end
 

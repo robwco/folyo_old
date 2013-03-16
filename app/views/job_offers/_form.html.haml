@@ -36,7 +36,7 @@
     %span <strong>BAD:</strong> "UI/UX for a mobile app"<br/>
     %span <strong>GOOD:</strong> "Design a new UI for a movie review site"
   = f.input :full_description, :as => :text, :hint => yield(:description_hint), :input_html => {:id => "wysiwyg", :class => "wysiwyg"}
-  = f.input :skills, :as => :check_boxes, collection: Designer.skills, :label => "Categories", :hint => yield(:categories_hint), label_method: sym_label_method
+  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Categories', hint: yield(:categories_hint), label_method: sym_label_method, value_method: :to_sym
   = f.input :coding, collection: JobOffer.coding_options, as: :radio, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.
 .section

@@ -53,7 +53,7 @@ class Designer < User
   validates_presence_of     :portfolio_url
   validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
-  validates                 :skills, array: { inclusion: { in: Designer.skills.map(&:to_s)} }
+  validates                 :skills, array: { inclusion: { in: Designer.skills} }
 
   ## scopes ##
   scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
@@ -66,9 +66,9 @@ class Designer < User
   scope :public_private,    where(:profile_type.in => [:public, :private])
 
   ## callbacks ##
-  before_save   :remove_empty_skills
-  before_save   :generate_mongoid_random_key
-  before_update :tweet_out, :accept_reject_mailer
+  before_validation  :process_skills
+  before_save        :generate_mongoid_random_key
+  before_update      :tweet_out, :accept_reject_mailer
 
   ## indexes ##
   index coordinates: '2d'
@@ -131,8 +131,9 @@ class Designer < User
     end
   end
 
-  def remove_empty_skills
+  def process_skills
     self.skills.reject!(&:blank?) if self.skills_changed?
+    self.skills.map!(&:to_sym)
   end
 
   def generate_mongoid_random_key

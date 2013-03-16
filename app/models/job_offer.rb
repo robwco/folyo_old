@@ -68,10 +68,10 @@ class JobOffer
   validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true
   validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
   validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
-  validates                 :skills, length: { minimum: 1, message: 'select 1 skill at least' }, array: { inclusion: { in: Designer.skills.map(&:to_s)} }
+  validates                 :skills, length: { minimum: 1, message: 'select 1 skill at least' }, array: { inclusion: { in: Designer.skills } }
 
   ## callbacks ##
-  before_validation :remove_empty_skills
+  before_validation :process_skills
   before_create     :set_sent_out_at
   after_create      :send_offer_notification, :new_job_offer_event, :track_creation_event
   before_save       :sanitize_attributes
@@ -192,8 +192,9 @@ class JobOffer
     # track_event 'New Job Offer', mp_note: title, job_offer_title: title, job_offer_id: id
   end
 
-  def remove_empty_skills
+  def process_skills
     self.skills.reject!(&:blank?) if self.skills_changed?
+    self.skills.map!(&:to_sym)
   end
 
 end
