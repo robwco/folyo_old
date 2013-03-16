@@ -7,7 +7,7 @@
     %li
     - if current_user.accepted?
       %li
-        = current_link_to "I'm Available", designer_posts_path(current_user)
+        = current_link_to "I'm Available", posts_path
     %li
       = current_link_to "My Account", edit_designer_path(current_user)
     %li.sign-out

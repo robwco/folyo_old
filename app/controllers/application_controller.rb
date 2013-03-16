@@ -11,12 +11,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if session[:previous_url]
       session[:previous_url]
-    elsif current_user.is_a? Designer
-      designer_path(current_user)
-    elsif current_user.is_a? Client
-      client_path(current_user)
     else
-      root_path(:signin => true)
+      offers_path
     end
   end
 

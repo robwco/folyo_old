@@ -5,14 +5,14 @@ class DesignerPostsController < ApplicationController
   load_and_authorize_resource
 
   def update
-    update! {designer_posts_path}
+    update! {posts_path}
   end
 
   def create
-    @designer_post = current_user.designer.designer_posts.build(params[:designer_post])
+    @designer_post = current_user.posts.build(params[:designer_post])
     track_event("New Designer Post")
-    current_user.track_user_action("New Designer Post")
-    create! {designer_posts_path}
+    #current_user.track_user_action("New Designer Post")
+    create! {posts_path}
   end
 
   protected
