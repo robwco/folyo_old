@@ -90,6 +90,9 @@ class JobOffer
   scope :refunded, where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
 
+  ## indexes ##
+  index pg_id: 1
+
   def get_budget_type(index)
     if index.nil?
       return "Medium"

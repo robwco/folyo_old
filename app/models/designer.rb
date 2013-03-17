@@ -72,6 +72,7 @@ class Designer < User
 
   ## indexes ##
   index coordinates: '2d'
+  index pg_id: 1
 
   def role_name
     'designer'

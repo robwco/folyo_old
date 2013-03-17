@@ -1,7 +1,13 @@
 class JobOffersController < ApplicationController
 
-  load_and_authorize_resource
   inherit_resources
+  load_and_authorize_resource except: :show_by_pg_id
+
+  def show_by_pg_id
+    @job_offer = JobOffer.where(pg_id: params[:id].to_i).first
+    raise Mongoid::Errors::DocumentNotFound.new(JobOffer, pg_id: params[:id].to_i) if @job_offer.nil?
+    redirect_to offer_url(@job_offer), status: :moved_permanently
+  end
 
   def index
     @job_offers = collection

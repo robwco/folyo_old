@@ -40,6 +40,8 @@ Folyo::Application.routes.draw do
     end
   end
 
+  match 'designers/:id' => 'designers#show_by_pg_id', :id => /\d{1,4}/
+
   resources :designers do
     get 'map', on: :collection
     resources :messages
@@ -47,6 +49,8 @@ Folyo::Application.routes.draw do
   end
 
   resources :clients
+
+  match 'client/offers/:id' => 'job_offers#show_by_pg_id', :id => /\d{1,4}/
 
   resources :job_offers, path: 'offers', as: 'offers' do
     get 'history',      on: :collection
