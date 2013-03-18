@@ -76,7 +76,7 @@ class JobOffer
   ## callbacks ##
   before_validation :process_skills
   before_create     :set_sent_out_at
-  after_create      :send_offer_notification, :new_job_offer_event, :track_creation_event
+  after_create      :send_offer_notification, :track_event
   before_save       :sanitize_attributes
   before_update     :status_changed
 
@@ -158,8 +158,8 @@ class JobOffer
     end
   end
 
-  def new_job_offer_event
-    # self.client.track_user_action("New Job Offer", {:job_offer_title => self.title, :job_offer_id => self.id})
+  def track_event
+    self.client.track_user_action("New Job Offer", job_offer_title: self.title, job_offer_id: self.id)
   end
 
   def send_offer_notification
@@ -186,16 +186,12 @@ class JobOffer
         self.refunded_at = Time.now
         event = "Refunded"
       end
-      # self.client.track_user_action("Job Offer #{event}", {job_offer_id: self.id, job_offer_title: self.title})
+      self.client.track_user_action("Job Offer #{event}", job_offer_id: self.id, job_offer_title: self.title)
     end
   end
 
   def set_sent_out_at
     self.sent_out_at = Time.now
-  end
-
-  def track_creation_event
-    # track_event 'New Job Offer', mp_note: title, job_offer_title: title, job_offer_id: id
   end
 
   def process_skills

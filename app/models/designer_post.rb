@@ -20,7 +20,8 @@ class DesignerPost
   validates_presence_of :relocate, :minimum_budget, :availability_date
 
   ## callbacks ##
-  before_save :sanitize_attributes
+  after_create  :track_event
+  before_save   :sanitize_attributes
 
   ## scopes ##
   scope :ordered, order_by(created_at: :desc)
@@ -31,6 +32,10 @@ class DesignerPost
     %w(comment).each do |attribute|
       self.send(:"#{attribute}=", Sanitize.clean(self.send(attribute.to_sym), Sanitize::Config::BASIC))
     end
+  end
+
+  def track_event
+    designer.track_user_action('New Designer Post')
   end
 
 end

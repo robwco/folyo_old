@@ -8,6 +8,14 @@ module ApplicationHelper
     end
   end
 
+  def section_link_to(title, target, section)
+    if section == @section || (section.is_a?(Array) && section.include?(@section))
+      link_to title, target, class: 'current'
+    else
+      link_to title, target
+    end
+  end
+
   def first_words(s, n)
     if s
       a = s.split(/\s/) # or /[ ]+/ to only split on spaces

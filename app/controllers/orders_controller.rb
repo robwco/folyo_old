@@ -37,8 +37,6 @@ class OrdersController < ApplicationController
 
         track_event("Payment", {:mp_note => @job_offer.title, :job_offer_title => @job_offer.title, :job_offer_id => @job_offer.id})
 
-        @job_offer.client.user.track_user_action("Payment", {:job_offer_title => @job_offer.title, :job_offer_id => @job_offer.id})
-
         render :action => "index"
       else
         render :action => "failure"

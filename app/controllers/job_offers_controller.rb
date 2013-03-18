@@ -3,6 +3,8 @@ class JobOffersController < ApplicationController
   inherit_resources
   load_and_authorize_resource except: :show_by_pg_id
 
+  section :job_offers
+
   def show_by_pg_id
     @job_offer = JobOffer.where(pg_id: params[:id].to_i).first
     raise Mongoid::Errors::DocumentNotFound.new(JobOffer, pg_id: params[:id].to_i) if @job_offer.nil?

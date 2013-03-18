@@ -2,6 +2,8 @@ class Admin::JobOffersController < Admin::BaseController
 
   actions :index, :show, :destroy
 
+  section :job_offers
+
   def destroy
     destroy!{ admin_offers_path }
   end

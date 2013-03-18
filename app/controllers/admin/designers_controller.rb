@@ -2,6 +2,8 @@ class Admin::DesignersController < Admin::BaseController
 
   respond_to :html, :json
 
+  section :designers
+
   def update
    update! do |format|
      format.json do

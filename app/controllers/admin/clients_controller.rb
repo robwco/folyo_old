@@ -2,6 +2,8 @@ class Admin::ClientsController < Admin::BaseController
 
   actions :index, :show
 
+  section :clients
+
   protected
 
     def collection

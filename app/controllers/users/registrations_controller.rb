@@ -3,6 +3,9 @@
 #and https://github.com/plataformatec/devise/wiki/How-To%3a-Allow-users-to-edit-their-account-without-providing-a-password
 
 class Users::RegistrationsController < Devise::RegistrationsController
+
+  section :account
+
   def new
     # make sure new users are not redirected to some random page
     session.delete :previous_url

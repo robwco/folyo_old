@@ -23,10 +23,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def after_sign_in_path_for(resource)
-  #     stored_location_for(resource) || root_path
-  # end
-
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
 
@@ -90,11 +86,13 @@ class ApplicationController < ActionController::Base
   end
 
   def track_event(event, properties="")
-
-    # Mixpanel
     (session[:mixpanel_events] ||= "") << 'mixpanel.track( "'+event+'", '+properties.to_json+' );'
-
   end
 
+  def self.section(section_name)
+    before_filter do |c|
+      c.instance_variable_set(:@section, section_name.to_sym)
+    end
+  end
 
 end

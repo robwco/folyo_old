@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     @message.to_user = @to_user
     @message.from_user = current_user
     @message.save
-#    current_user.track_user_action("New message", {:from_user_id => current_user.id, :from_user_name => current_user.full_name, :to_user_id => @to_user.id, :to_user_name => @to_user.full_name})
+
     create! do |success, failure|
       if session[:return_to]
         success.html { redirect_to session[:return_to] }

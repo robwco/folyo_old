@@ -3,6 +3,8 @@ class DesignersController < ApplicationController
   inherit_resources
   load_and_authorize_resource except: :show_by_pg_id
 
+  section :designers
+
   def show_by_pg_id
     @designer = Designer.where(pg_id: params[:id].to_i).first
     raise Mongoid::Errors::DocumentNotFound.new(Designer, pg_id: params[:id].to_i) if @designer.nil?

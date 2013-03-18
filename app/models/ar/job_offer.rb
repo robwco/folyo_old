@@ -23,7 +23,7 @@ class AR::JobOffer < ActiveRecord::Base
   ## callbacks ##
   before_save   :sanitize_attributes
   before_update :test_if_status_changed
-  after_create  :send_offer_notification, :new_job_offer_event
+  after_create  :send_offer_notification, :track_event
 
   # status foreign keys
   class Status_Keys
@@ -105,8 +105,8 @@ class AR::JobOffer < ActiveRecord::Base
     self.status_id == Status_Keys::ARCHIVED
   end
 
-  def new_job_offer_event
-    self.client.user.track_user_action("New Job Offer", {:job_offer_title => self.title, :job_offer_id => self.id})
+  def track_event
+    self.client.track_user_action("New Job Offer", job_offer_title: self.title, job_offer_id: self.id)
   end
 
   def send_offer_notification
@@ -133,7 +133,7 @@ class AR::JobOffer < ActiveRecord::Base
         self.refunded_at = Time.now
         event = "Refunded"
       end
-      self.client.user.track_user_action("Job Offer "+event, {:job_offer_id => self.id, :job_offer_title => self.title})
+      self.client.track_user_action("Job Offer #{event}", job_offer_id: self.id, job_offer_title: self.title)
     end
   end
 

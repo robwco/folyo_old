@@ -2,11 +2,12 @@ class User
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Vero::Trackable
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  trackable :email, :full_name, :role, :created_at
 
   field :full_name, type: String
-  field :role,      type: Symbol
   field :referrer,  type: String
 
   ## Database authenticatable
@@ -38,5 +39,13 @@ class User
 
   ## Validation ##
   validates_presence_of :full_name
+
+  def role
+    _type.downcase
+  end
+
+  def track_user_action(event, properties = {})
+    self.becomes(User).track(event, properties)
+  end
 
 end

@@ -5,12 +5,12 @@
 		%li.username
 			Admin
 		%li
-			= current_link_to "Offers", admin_offers_path
+			= section_link_to "Offers", admin_offers_path, :job_offers
 		%li
-			= current_link_to "Clients", admin_clients_path
+			= section_link_to "Clients", admin_clients_path, :clients
 		%li
-			= current_link_to "Designers", admin_designers_path
+			= section_link_to "Designers", admin_designers_path, :designers
 		%li
-			= current_link_to "Account", '/users/edit'
+			= section_link_to "Account", '/users/edit', :account
 		%li.sign-out
 			= link_to "Sign Out", destroy_user_session_path, :method => :delete
