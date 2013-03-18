@@ -1,5 +1,9 @@
 class Designer < User
 
+  include Mongoid::Slug
+
+  slug :full_name, history: true
+
   has_many :posts, class_name: 'DesignerPost', dependent: :destroy
 
   field :status,              type: Symbol, default: :pending

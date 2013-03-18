@@ -2,6 +2,7 @@ class JobOffer
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
 
   field :title,            type: String
   field :full_description, type: String
@@ -25,6 +26,8 @@ class JobOffer
   field :paid_at,          type: DateTime
   field :archived_at,      type: DateTime
   field :refunded_at,      type: DateTime
+
+  slug :title, history: true
 
   field :pg_id # id in postgresql. Will be removed someday
 

@@ -31,6 +31,7 @@ gem 'activemerchant'
 
 # Misc
 gem 'rails_autolink'
+gem 'mongoid_slug'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
