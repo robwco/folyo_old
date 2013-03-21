@@ -160,15 +160,10 @@ $(document).ready(function(){
 
 	var ref_user=$.getUrlVar("ref");
 	if (ref_user != null) {
-		ref_number=parseInt(ref_user)/3487;
-		$.cookie('ref_user', ref_number, { expires: 30});
+		$.cookie('ref_user', ref_user, { expires: 30});
 		var clicky_custom = {};
-	  	clicky_custom.goal = { name: 'Referred_by_designer', revenue: ref_number };
+	  	clicky_custom.goal = { name: 'Referred_by_designer', revenue: ref_user };
 	}
-
-	// $(".autoselect").focus(function(){
-	// 	$(this).select();
-	// });
 
 	$('h1').click(function(){
 		setCookie();

@@ -45,7 +45,7 @@ class User
   end
 
   def track_user_action(event, properties = {})
-    self.becomes(User).track(event, properties)
+    self.becomes(User).track(event, properties) unless Rails.env.test?
   end
 
 end

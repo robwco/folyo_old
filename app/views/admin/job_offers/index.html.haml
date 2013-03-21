@@ -1,16 +1,16 @@
 = content_for :title, "Job Offers"
 = content_for :subnav do
 	= render :partial => '/admin/job_offers/job_offers_nav'
-	
+
 - unless @job_offers.pending.empty?
 	.pending
 		%h3.pending Pending
 		%ul.offer-list
-			- @job_offers.pending.each do |job|
+			- @job_offers.pending.ordered.each do |job|
 				= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job}
 - unless @job_offers.accepted.empty?
 	.unpaid
 		%h3.unpaid Unpaid
 		%ul.offer-list
-			- @job_offers.accepted.each do |job|
+			- @job_offers.accepted.ordered.each do |job|
 				= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job}

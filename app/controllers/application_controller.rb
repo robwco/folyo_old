@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = exception.message
 
     unless current_user
-      redirect_to :root
+      redirect_to sign_in_path
     else
       if current_user.is_a? Designer
         redirect_to offers_path
