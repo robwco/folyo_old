@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'Signup as a designer', :type => :feature do
+describe 'Signup as a designer', type: :feature do
 
   let(:full_name)     { 'Bobby Joe' }
-  let(:email)         { 'bobby.joe@gmail.com' }
+  let(:email)         { FactoryGirl.generate :email }
   let(:password)      { 'password' }
   let(:portfolio_url) { 'http://www.google.fr' }
 
@@ -15,7 +15,7 @@ describe 'Signup as a designer', :type => :feature do
       fill_in 'Password',       with: password
 
       click_button 'Apply to join Folyo'
-      page.should have_content 'errors prohibited this user from being saved'
+      page.should have_content 'error prohibited this designer from being saved'
 
       fill_in 'Password',       with: password
       fill_in 'Portfolio url',  with: portfolio_url
@@ -24,8 +24,8 @@ describe 'Signup as a designer', :type => :feature do
     }.to change {Designer.count}.by(1)
 
     designer = Designer.last
-    designer.user.full_name.should == full_name
-    designer.user.email.should == email
+    designer.full_name.should == full_name
+    designer.email.should == email
     designer.portfolio_url.should == portfolio_url
   end
 

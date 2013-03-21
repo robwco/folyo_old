@@ -30,10 +30,10 @@
   - if current_user.is_a? Admin
     .section
       %h3 Status
-      = f.input :status, :as => :radio, :label => 'Status', collection: Designer.statuses, label_method: sym_label_method
+      = f.input :status, :as => :radio_buttons, :label => 'Status', collection: Designer.statuses, label_method: sym_label_method
   .section
     %h3 Settings
-    = f.input :profile_type, as: :radio, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
+    = f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
   .section
     %h3 About You
     = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :input_html=> {:class => "limit limit-80"}

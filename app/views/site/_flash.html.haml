@@ -2,6 +2,4 @@
 	- flash.each do |key, value|
 		= content_tag :div, value, :class => "flash #{key}" unless value.blank?
 
-	-#= error_messages_for @job_offer
-
 	= yield :error_messages

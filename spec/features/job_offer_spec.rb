@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Posting a job offer', :type => :feature do
 
   let(:full_name)     { 'Bobby Joe' }
-  let(:email)         { 'bobby.joe@gmail.com' }
+  let(:email)         { FactoryGirl.generate :email }
   let(:password)      { 'password' }
   let(:company_name)  { 'Big corporation' }
   let(:company_desc)  { 'Big corporation description' }
@@ -17,11 +17,13 @@ describe 'Posting a job offer', :type => :feature do
       click_link 'Post a Job'
       page.should have_content '3 Good Reasons to Use Folyo'
 
-      click_link 'Get Started'
+      within '#intro-header' do
+        click_link 'Get Started'
+      end
       page.should have_content 'Submit a Job Offer'
 
       click_button 'Next: Your Project'
-      page.should have_content 'errors prohibited this user from being saved'
+      page.should have_content 'errors prohibited this client from being saved'
 
       within '#new-client-form' do
         fill_in 'Full name', with: full_name
@@ -29,7 +31,7 @@ describe 'Posting a job offer', :type => :feature do
         fill_in 'Password',  with: password
       end
       click_button 'Next: Your Project'
-      page.should have_content 'errors prohibited this user from being saved'
+      page.should have_content 'errors prohibited this client from being saved'
 
       within '#new-client-form' do
         fill_in 'Password',            with: password
@@ -40,16 +42,15 @@ describe 'Posting a job offer', :type => :feature do
       page.should have_content 'Welcome! You have signed up successfully.'
     }.to change { User.count }.by(1)
 
-    u = User.last
-    u.full_name.should == full_name
-    u.email.should == email
-    u.role.should == 'client'
-    u.client.company_name.should == company_name
-    u.client.company_description.should == company_desc
+    c = Client.last
+    c.full_name.should == full_name
+    c.email.should == email
+    c.company_name.should == company_name
+    c.company_description.should == company_desc
 
     expect {
       click_button 'Submit Job Offer'
-      page.should have_content 'errors prohibited this job offer from being saved'
+      page.should have_content 'Please review the problems below'
 
       within '#new_job_offer' do
         fill_in 'Title', with: title

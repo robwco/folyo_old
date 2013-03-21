@@ -6,6 +6,9 @@
 /   });
 = render :partial => "/site/wysiwyg"
 
+= content_for :error_messages do
+  = f.error_notification
+
 = content_for :description_hint do
   %span.title Things to mention:
   %span <strong>Project goals</strong>: what you're looking to produce.
@@ -37,14 +40,14 @@
     %span <strong>GOOD:</strong> "Design a new UI for a movie review site"
   = f.input :full_description, :as => :text, :hint => yield(:description_hint), :input_html => {:id => "wysiwyg", :class => "wysiwyg"}
   = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Categories', hint: yield(:categories_hint), label_method: sym_label_method, value_method: :to_sym
-  = f.input :coding, collection: JobOffer.coding_options, as: :radio, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method
+  = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.
 .section
   %h3 Budget
   - if @job_offer.compensation
     = f.input :compensation, :label => "Budget (in USD)", :hint => yield(:budget_hint)
 
-  = f.input :budget_type, as: :radio, collection: JobOffer.budget_types, :label => "Budget Category", label_method: sym_label_method
+  = f.input :budget_type, as: :radio_buttons, collection: JobOffer.budget_types, :label => "Budget Category", label_method: sym_label_method
   .note
     %h5 Folyo's 3 budget categories lets us match you with the right designers:
     %br
@@ -59,7 +62,7 @@
     .section
     %h3 Admin
     = f.input :discount, :input_html => {:id => "discount-code"}
-    = f.input :location_type, :label => "Work Location", :as => :radio, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. ', collection: JobOffer.location_types, label_method: sym_label_method
-    = f.input :work_type, :label => "Contract Type", :as => :radio, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
+    = f.input :location_type, :label => "Work Location", :as => :radio_buttons, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. ', collection: JobOffer.location_types, label_method: sym_label_method
+    = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
   - else
     = f.input :discount, :as => :hidden, :input_html => {:id => "discount-code"}

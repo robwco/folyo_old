@@ -1,13 +1,13 @@
 .section
 	- if edit
-		= f.input :status, :label => "Status", :as => :radio, :label => 'Are you still looking for a job?', :collection => { "Actively looking" => 3, "Not looking anymore" => 5 }
+		= f.input :status, :label => "Status", :as => :radio_buttons, :label => 'Are you still looking for a job?', :collection => { "Actively looking" => 3, "Not looking anymore" => 5 }
 	- else
 		= f.input :status, :as => :hidden, :value => 3
 	= f.input :comment, :label => "I'm looking for…", :as => :text, :hint => "Explain what kind of job you're looking for", :input_html => {:id => "wysiwyg", :class => "wysiwyg"}
 	= f.input :availability_date, :label => "Availability Date", :hint => "When you can start working"
 	= f.input :duration, :label => "Project Duration", :hint => "How long you'd like the project to last", :as => :select, :collection =>["Under one week", "1-2 weeks", "2-4 weeks", "1-2 months", "2-3 months", "4-5 months", "6 months", "1 year", "1 year+"]
 	= f.input :weekly_hours, :label => "Hours per Week", :hint => "How many hours you'll be available each week", :as => :select, :collection =>["1-5", "5-10", "10-15", "15-20", "20-25", "25-30", "30-40", "40-50", "50+"]
-	= f.input :relocate, :as => :radio, :collection =>["Cannot relocate", "Might consider it", "Willing to relocate", "Happy to relocate"], :label => "Would you consider relocating?"
-	= f.input :job_type, :as => :radio, :collection =>["Freelance only", "Full-time only", "Both OK"], :label => "What kind of job are you looking for?"
-	= f.input :coding, :as => :radio, :collection =>["I don't code", "I can code but I'd prefer not to", "Coding is not a problem", "I love coding!"], :label => "Can you code HTML/CSS?"
+	= f.input :relocate, :as => :radio_buttons, :collection =>["Cannot relocate", "Might consider it", "Willing to relocate", "Happy to relocate"], :label => "Would you consider relocating?"
+	= f.input :job_type, :as => :radio_buttons, :collection =>["Freelance only", "Full-time only", "Both OK"], :label => "What kind of job are you looking for?"
+	= f.input :coding, :as => :radio_buttons, :collection =>["I don't code", "I can code but I'd prefer not to", "Coding is not a problem", "I love coding!"], :label => "Can you code HTML/CSS?"
 	= f.input :minimum_budget, :as => :select, :collection =>["Under $1000", "$1000-$1500", "$1500-$2000", "$2000-$3000", "$3000-$4000", "$4000-$5000", "$5000-$6000", "$6000-$7500", "$7500-$10000", "$10000-$15000", "$15000-$20000", "$20000+"], :label => "Minimum budget", :hint => "The minimum budget you'll consider"
