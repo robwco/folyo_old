@@ -58,9 +58,9 @@ class AR::User < ActiveRecord::Base
 
   def profile_url
     if self.role? :client
-      "http://folyo.me/clients/#{self.client.id}"
+      "http://www.folyo.me/clients/#{self.client.id}"
     elsif self.role? :designer
-      "http://folyo.me/designers/#{self.designer.id}"
+      "http://www.folyo.me/designers/#{self.designer.id}"
     else
       "n/a"
     end

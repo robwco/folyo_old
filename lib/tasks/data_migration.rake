@@ -21,7 +21,7 @@ namespace :migration do
       mongo_designer.pg_id = ar_designer.user.id
       mongo_designer.designer_pg_id = ar_designer.id
 
-      %w(full_name role referrer email reset_password_token reset_password_sent_at
+      %w(full_name referrer email reset_password_token reset_password_sent_at
         remember_created_at sign_in_count current_sign_in_at current_sign_in_ip last_sign_in_at last_sign_in_ip).each do |attr|
         ar_attribute = ar_designer.user.send(attr)
         mongo_designer.send("#{attr}=", ar_attribute)
@@ -76,7 +76,7 @@ namespace :migration do
       mongo_client.pg_id = ar_client.user.id
       mongo_client.client_pg_id = ar_client.id
 
-      %w(full_name role referrer email reset_password_token reset_password_sent_at
+      %w(full_name referrer email reset_password_token reset_password_sent_at
         remember_created_at sign_in_count current_sign_in_at current_sign_in_ip last_sign_in_at last_sign_in_ip).each do |attr|
         ar_attribute = ar_client.user.send(attr)
         mongo_client.send("#{attr}=", ar_attribute)
@@ -111,7 +111,7 @@ namespace :migration do
 
       mongo_admin.pg_id = ar_admin.id
 
-      %w(created_at updated_at full_name role referrer email reset_password_token reset_password_sent_at
+      %w(created_at updated_at full_name referrer email reset_password_token reset_password_sent_at
         remember_created_at sign_in_count current_sign_in_at current_sign_in_ip last_sign_in_at last_sign_in_ip).each do |attr|
         ar_attribute = ar_admin.send(attr)
         mongo_admin.send("#{attr}=", ar_attribute)

@@ -95,7 +95,7 @@ class Designer < User
   end
 
   def profile_url
-    "http://folyo.me/designers/#{self.id}"
+    "http://www.folyo.me/designers/#{self.id}"
   end
 
   def dribbble_url
@@ -118,7 +118,7 @@ class Designer < User
 
   def tweet_out
     if Rails.env.production? && self.status_changed? && self.profile_type == :public && self.status == :accepted && !self.twitter_username.blank?
-      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://folyo.me/designers/#{self.id}")
+      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://www.folyo.me/designers/#{self.id}")
     end
   end
 

@@ -41,7 +41,7 @@ class AR::Designer < ActiveRecord::Base
 
   def tweet_out
     if Rails.env.production? && self.status_id_changed? && self.profile_type_id==1 && self.status_id==3 && !self.twitter_username.blank?
-      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://folyo.me/designers/#{self.id}")
+      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://www.folyo.me/designers/#{self.id}")
     end
   end
 

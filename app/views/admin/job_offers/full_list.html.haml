@@ -6,10 +6,10 @@
 		%h3.company-name
 			= job.client.company_name
 		%h2
-			= link_to job.title, "http://folyo.me"+designer_offer_path(job)
+			= link_to job.title, "http://www.folyo.me"+designer_offer_path(job)
 		= link_to job.client.company_url, job.client.company_url
 		%ul.project-info
-			%li	
+			%li
 				Project Budget: #{job.budget_range} (#{job.get_budget_type(job.budget_type)})
 			%li
 				Skills:
@@ -20,7 +20,7 @@
 						#{s.name},
 		= job.client.company_description.gsub(/<p>[\s$]*<\/p>/, '').html_safe
 		= job.full_description.gsub(/<p>[\s$]*<\/p>/, '').html_safe
-		%a{:href=>"http://folyo.me"+designer_offer_path(job)}
-			%img{:src => "http://folyo.me/assets/email-read-more.png", :height => "28px", :width => "115px", :alt => "Read more…"}
+		%a{:href=>"http://www.folyo.me"+designer_offer_path(job)}
+			%img{:src => "http://www.folyo.me/assets/email-read-more.png", :height => "28px", :width => "115px", :alt => "Read more…"}
 		%br
 		%hr

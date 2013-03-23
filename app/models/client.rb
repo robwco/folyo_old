@@ -19,7 +19,7 @@ class Client < User
   end
 
   def profile_url
-    "http://folyo.me/clients/#{self.id}"
+    "http://www.folyo.me/clients/#{self.id}"
   end
 
 end
