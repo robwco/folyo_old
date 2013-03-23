@@ -25,6 +25,6 @@
     %h3 Your Company
     = f.input :company_name
     = f.input :company_url
-    = f.input :company_description, :hint => yield(:company_hint), :input_html => {:class => "wysiwyg"}
+    = f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: "wysiwyg"}
     = f.input :location
   = f.submit "Update Profile", :class => "button big-button"
