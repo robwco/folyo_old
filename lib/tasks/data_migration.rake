@@ -183,7 +183,7 @@ namespace :migration do
 
       mongo_offer.sent_out_at = ar_offer.date_sent_out
 
-      mongo_offer.client = ::Client.where(client_pg_id: ar_offer.id).first
+      mongo_offer.client = ::Client.where(client_pg_id: ar_offer.client_id).first
 
       mongo_offer.save!
     end
