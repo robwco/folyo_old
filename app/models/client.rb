@@ -1,5 +1,7 @@
 class Client < User
 
+  slug :full_name, history: true
+
   field :location,            type: String
   field :company_name,        type: String
   field :company_url,         type: String

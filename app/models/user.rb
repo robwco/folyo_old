@@ -2,9 +2,11 @@ class User
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
   include Vero::Trackable
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+  slug      :full_name, history: true
+  devise    :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   trackable :email, :full_name, :role, :created_at
 
   field :full_name, type: String
