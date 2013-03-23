@@ -6,7 +6,7 @@ class DesignersController < ApplicationController
   section :designers
 
   def show_by_pg_id
-    @designer = Designer.where(pg_id: params[:id].to_i).first
+    @designer = Designer.where(designer_pg_id: params[:id].to_i).first
     raise Mongoid::Errors::DocumentNotFound.new(Designer, pg_id: params[:id].to_i) if @designer.nil?
     redirect_to designer_url(@designer), status: :moved_permanently
   end

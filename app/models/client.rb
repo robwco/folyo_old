@@ -1,6 +1,6 @@
 class Client < User
 
-  slug :full_name, history: true
+  trackable :email, :full_name, :role, :created_at
 
   field :location,            type: String
   field :company_name,        type: String

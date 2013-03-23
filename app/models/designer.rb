@@ -1,5 +1,7 @@
 class Designer < User
 
+  trackable :email, :full_name, :role, :created_at
+
   has_many :posts, class_name: 'DesignerPost', dependent: :destroy
 
   field :status,              type: Symbol, default: :pending

@@ -7,7 +7,6 @@ class User
 
   slug      :full_name, history: true
   devise    :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
-  trackable :email, :full_name, :role, :created_at
 
   field :full_name, type: String
   field :referrer,  type: String
@@ -47,7 +46,7 @@ class User
   end
 
   def track_user_action(event, properties = {})
-    self.becomes(User).track(event, properties) unless Rails.env.test?
+    self.track(event, properties) unless Rails.env.test?
   end
 
 end

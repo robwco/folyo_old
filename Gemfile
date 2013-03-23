@@ -9,7 +9,6 @@ gem 'unicorn'
 gem 'pg'
 gem 'mongoid', '~> 3.1'
 gem 'bson_ext'
-gem 'delayed_job_mongoid'
 
 # UI
 gem 'haml-rails'

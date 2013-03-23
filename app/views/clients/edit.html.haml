@@ -15,10 +15,9 @@
 - if current_user.is_a? Admin
   .block
     %ul
-      %li= link_to @client.user.email, "mailto:#{@client.email}Subject=Your%20job%20offer%20on%20Folyo"
-      %li Referral info: #{@client.user.referrer}
+      %li= link_to @client.email, "mailto:#{@client.email}Subject=Your%20job%20offer%20on%20Folyo"
       - if @client.referrer_designer
-        %li Referring designer: #{@client.referrer_designer}
+        %li Referring designer: #{@client.referrer_designer.email}
 
 = simple_form_for(@client) do |f|
   .section
