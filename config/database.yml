@@ -1,6 +1,3 @@
-staging:
-
-
 development:
   host: localhost
   adapter: postgresql
