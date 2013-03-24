@@ -119,8 +119,8 @@ class Designer < User
   protected
 
   def tweet_out
-    if Rails.env.production? && self.status_changed? && self.profile_type == :public && self.status == :accepted && !self.twitter_username.blank?
-      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://www.folyo.me/designers/#{self.id}")
+    if Rails.env.production? && self.status_changed? && self.public? && self.accepted? && !self.twitter_username.blank?
+      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://www.folyo.me/designers/#{self.to_param}")
     end
   end
 
