@@ -159,7 +159,7 @@ class JobOffer
   end
 
   def track_event
-    self.client.track_user_action("New Job Offer", job_offer_title: self.title, job_offer_id: self.id)
+    self.client.track_user_action("New Job Offer", job_offer_title: self.title, job_offer_id: self.id, company_name: client.company_name)
   end
 
   def send_offer_notification
@@ -186,7 +186,7 @@ class JobOffer
         self.refunded_at = Time.now
         event = "Refunded"
       end
-      self.client.track_user_action("Job Offer #{event}", job_offer_id: self.id, job_offer_title: self.title)
+      self.client.track_user_action("Job Offer #{event}", job_offer_id: self.id, job_offer_title: self.title, company_name: client.company_name)
     end
   end
 

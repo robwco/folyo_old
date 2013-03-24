@@ -35,7 +35,7 @@ class DesignerPost
   end
 
   def track_event
-    designer.track_user_action('New Designer Post')
+    designer.track_user_action('New Designer Post', comment: comment)
   end
 
 end
