@@ -1,0 +1,11 @@
+:plain
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
+	= render :partial => '/mailers/header'
+	%body
+		.email_body
+			%p.intro <strong>#{@designer_reply.designer.full_name}</strong> has just replied to your job offer, "#{@designer_reply.job_offer.title}":
+			.message
+				%p= @designer_reply.message
+				= link_to "View #{@designer_reply.designer.full_name}\'s Profile", designer_url(@designer_reply.designer), :class=>"button"
+				%span or just reply to this email to get in touch

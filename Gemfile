@@ -27,6 +27,7 @@ gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'vero'
 gem 'activemerchant'
+gem 'twitter'
 
 # Misc
 gem 'rails_autolink'

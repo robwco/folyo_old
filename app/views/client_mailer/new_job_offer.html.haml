@@ -1,0 +1,10 @@
+:plain
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
+	= render :partial => '/mailers/header'
+	%body
+		.email_body
+			%p.intro New job offer
+			.message
+				%h2 #{@job_offer.title}
+				%a{class: 'button', href: offer_url(@job_offer)} Read more
