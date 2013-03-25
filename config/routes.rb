@@ -1,8 +1,8 @@
 Folyo::Application.routes.draw do
 
-  #constraints(host: /folyo.me/) do
-  #  match "/*path" => redirect {|params, req| "http://www.folyo.me/#{params[:path]}"}
-  #end
+  constraints(host: /^folyo.me$/) do
+    match "/*path" => redirect {|params, req| "http://www.folyo.me/#{params[:path]}"}
+  end
 
   match 'press' => 'site#press'
   match 'learn-more' => 'site#learn_more'
