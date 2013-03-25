@@ -19,7 +19,7 @@ class DesignerPostsController < ApplicationController
   protected
 
   def designer
-    @designer ||= if current_user.is_a?(Admin)
+    @designer ||= if params[:designer_id]
        Designer.find(params[:designer_id])
     elsif current_user.is_a?(Designer)
       current_user
@@ -29,7 +29,7 @@ class DesignerPostsController < ApplicationController
   end
 
   def collection
-    @designer_posts = if current_user.is_a?(Admin) || current_user.is_a?(Designer)
+    @designer_posts = if designer
       designer.posts
     else
       DesignerPost.all
