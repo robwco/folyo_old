@@ -13,6 +13,8 @@ namespace :migration do
 
     puts "Removing #{::Designer.count} existing designers from MongoDB"
     ::Designer.destroy_all
+    puts "Removing #{::DesignerPost.count} existing designers posts from MongoDB"
+    ::DesignerPost.destroy_all
 
     AR::Designer.order('created_at ASC').all.each_with_index do |ar_designer, i|
       puts "#{i} - Migrating #{ar_designer.user.full_name}"
