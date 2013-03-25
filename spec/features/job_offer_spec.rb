@@ -50,7 +50,7 @@ describe 'Posting a job offer', :type => :feature do
 
     expect {
       click_button 'Submit Job Offer'
-      page.should have_content 'Please review the problems below'
+      page.should have_content 'errors prohibited this job offer from being saved'
 
       within '#new_job_offer' do
         fill_in 'Title', with: title

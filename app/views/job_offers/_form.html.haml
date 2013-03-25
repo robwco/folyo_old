@@ -7,7 +7,7 @@
 = render :partial => "/site/wysiwyg"
 
 = content_for :error_messages do
-  = f.error_notification
+  = error_messages(job_offer)
 
 = content_for :description_hint do
   %span.title Things to mention:

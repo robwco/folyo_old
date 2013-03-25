@@ -9,6 +9,6 @@
 
 = simple_form_for @job_offer, :url => offers_path do |f|
 
-  = render 'form', :f => f
+  = render 'form', :f => f, job_offer: @job_offer
 
   = f.submit "Submit Job Offer", :class => "button big-button"

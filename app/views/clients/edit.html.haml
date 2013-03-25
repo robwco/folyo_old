@@ -20,6 +20,10 @@
         %li Referring designer: #{@client.referrer_designer.email}
 
 = simple_form_for(@client) do |f|
+
+  = content_for :error_messages do
+    = error_messages(@client)
+
   .section
     %h3 Your Company
     = f.input :company_name

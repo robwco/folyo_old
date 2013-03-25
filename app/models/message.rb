@@ -24,7 +24,7 @@ class Message
   end
 
   def track_event
-    from_user.track_user_action("New message", {:from_user => from_user.id, :from_user_name => from_user.full_name, :to_user_id => to_user.id, :to_user_name => to_user.full_name})
+    from_user.track_user_action("New message", {:from_user => from_user.id, :from_user_name => from_user.full_name, :to_user_id => to_user.id, :to_user_name => to_user.full_name, comment: comment})
   end
 
 end

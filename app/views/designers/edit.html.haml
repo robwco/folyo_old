@@ -27,6 +27,10 @@
 - if current_user.is_a? Admin
   %p Profile for #{@designer.email}
 = simple_form_for(@designer) do |f|
+
+  = content_for :error_messages do
+    = error_messages(@designer)
+
   - if current_user.is_a? Admin
     .section
       %h3 Status
