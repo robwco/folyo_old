@@ -4,6 +4,6 @@ class ContactMailer < ActionMailer::Base
   def contact_form(user, designer, message)
     subject = "[Folyo] A message from #{user.full_name} (#{user.client.company_name})"
 
-    mail :subject => subject, :from => user.email, :to => designer.useremail
+    mail :subject => subject, :from => user.email, :to => designer.useremail, bcc: Admin.all.map(&:email)
   end
 end

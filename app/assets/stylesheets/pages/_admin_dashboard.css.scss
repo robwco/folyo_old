@@ -6,23 +6,22 @@
   }
 
   .metric {
-    clear: both;
     display: inline-block;
     width: 150px;
     height: 120px;
-    background-color: #232526;
-    color: white;
     margin: 9px;
     text-align: center;
+    background-color: #232526;
+    color: white;
     border: 1px solid #323434;
     border-radius: 3px;
 
     .name {
       font-size: 12px;
-      text-transform: uppercase;
-      border-bottom: 1px solid #151617;
       height: 17px;
       padding: 10px 15px 11px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #151617;
     }
 
     .value {

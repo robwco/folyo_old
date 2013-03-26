@@ -40,6 +40,7 @@ RSpec.configure do |config|
 
   config.before(:each) do |group|
     DatabaseCleaner.clean
+    FactoryGirl.create :admin
   end
 
 end

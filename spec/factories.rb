@@ -110,6 +110,13 @@ FactoryGirl.define do
     association :client
   end
 
+  factory :admin do |admin|
+    email {FactoryGirl.generate(:email)}
+    full_name {FactoryGirl.generate(:full_name)}
+    password 'password'
+    password_confirmation 'password'
+  end
+
   factory :client do |client|
     email {FactoryGirl.generate(:email)}
     full_name {FactoryGirl.generate(:full_name)}
