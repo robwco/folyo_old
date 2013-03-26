@@ -6,7 +6,6 @@ gem 'rails', '3.2.13'
 # Core components
 gem 'heroku'
 gem 'unicorn'
-gem 'pg'
 gem 'mongoid', '~> 3.1'
 gem 'bson_ext'
 
@@ -64,5 +63,4 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'lorem'
-  gem 'sqlite3'
 end
