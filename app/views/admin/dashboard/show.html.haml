@@ -1,5 +1,12 @@
-= content_for :title, '[Admin]Dashboard'
-= content_for :body_class, 'admin-dashboard'
+= content_for :title, '[Admin] Dashboard'
+= content_for :body_class, 'admin-dashboard with-subnav'
+
+= content_for :subnav do
+  #subnav
+    %ul
+      %li= current_link_to 'Metrics', admin_dashboard_path
+      %li= link_to "Vero Dashboard", 'http://www.getvero.com/dashboard', target: '_blank'
+      %li= link_to "Vero Event Log", 'http://www.getvero.com/event_log', target: '_blank'
 
 %h3= @start_date.strftime('%B %Y')
 
@@ -29,16 +36,16 @@
     .value= @picked_designer_replies_count
 
   .metric
-    .name= "new posts"
-    .value= @new_posts.count
-
-  .metric
     .name= "new designers"
     .value= @new_designers.count
 
   .metric
     .name= "new clients"
     .value= @new_clients.count
+
+  .metric
+    .name= "new posts"
+    .value= @new_posts.count
 
 %p.text-center
   = link_to '<< Previous month', admin_dashboard_path(year: @month == 1 ?  @year - 1 : @year, month: @month == 1 ? 12 : @month - 1)
