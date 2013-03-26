@@ -1,8 +1,0 @@
-%html
-  = render :partial => '/mailers/header'
-  %body
-    .email_body
-      %p.intro <strong>#{@message.from_user.full_name}</strong> just sent you a message:
-      .message
-        %p= @message.comment.html_safe
-        = Just reply to this email to get in touch

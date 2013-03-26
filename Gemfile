@@ -34,7 +34,7 @@ gem 'rails_autolink'
 gem 'mongoid_slug'
 
 # Email
-gem 'premailer'
+gem 'premailer-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -1,14 +1,8 @@
-:plain
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
-	= render :partial => '/mailers/header'
-	%body
-		.email_body
-			%p.intro A message from <a href="http://www.folyo.me">Folyo</a>
-			.message
-				%h2 Your job offer was accepted
-				%p Your job offer ("#{@job_offer.title}") was accepted on Folyo. Now all that's left is to pay to activate it.<br/>
-				%a{class: 'button', href: offer_orders_url(@job_offer)} Complete Payment
+= content_for :intro, raw("A message from <a href=\"http://www.folyo.me\">Folyo</a>")
+
+%h2 Your job offer was accepted
+%p Your job offer ("#{@job_offer.title}") was accepted on Folyo. Now all that's left is to pay to activate it.<br/>
+%a{class: 'button', href: offer_orders_url(@job_offer)} Complete Payment
 
 
 

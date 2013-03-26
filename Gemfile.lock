@@ -176,6 +176,9 @@ GEM
     premailer (1.7.3)
       css_parser (>= 1.1.9)
       htmlentities (>= 4.0.0)
+    premailer-rails (1.3.2)
+      premailer (~> 1.7)
+      rails (>= 3)
     pry (0.9.11.4)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -320,7 +323,7 @@ DEPENDENCIES
   mongoid_slug
   newrelic_rpm
   pg
-  premailer
+  premailer-rails
   pry-rails
   rails (= 3.2.13)
   rails_autolink

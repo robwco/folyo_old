@@ -1,11 +1,7 @@
-%html
-	= render :partial => '/mailers/header'
-	%body
-		.email_body
-			%p.intro A message from <a href="http://www.folyo.me">Folyo</a>
-			.message
-				%h2 Sorry, you didn't make it :(
-				%p Sorry, but your application to Folyo was rejected. If you'd like to learn more, you can read about some <a href="http://blog.folyo.me/post/10308130522/so-you-didnt-make-it">common causes for rejection here</a>.
+= content_for :intro, raw('A message from <a href="http://www.folyo.me">Folyo</a>')
+
+%h2 Sorry, you didn't make it :(
+%p Sorry, but your application to Folyo was rejected. If you'd like to learn more, you can read about some <a href="http://blog.folyo.me/so-your-job-offer-was-rejected/">common causes for rejection here</a>.
 
 
 
