@@ -31,6 +31,7 @@ gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'vero'
 gem 'activemerchant'
+gem 'hominid'
 gem 'twitter'
 
 # Misc

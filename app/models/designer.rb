@@ -120,19 +120,27 @@ class Designer < User
 
   def tweet_out
     if Rails.env.production? && self.status_changed? && self.public? && self.accepted? && !self.twitter_username.blank?
-      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: http://www.folyo.me/designers/#{self.to_param}")
+      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
+  handle_asynchronously :tweet_out
 
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
         DesignerMailer.delay.accepted_mail(self)
+        subscribe_to_newsletter
       elsif self.rejected?
         DesignerMailer.delay.rejected_mail(self)
       end
     end
   end
+
+  def subscribe_to_newsletter
+    hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
+    h = hominidapi.listsubscribe('d2a9f4aa7d', self.user.email, {}, 'html', false, true, true, false)
+  end
+  handle_asynchronously :subscribe_to_newsletter
 
   def process_skills
     self.skills.reject!(&:blank?) if self.skills_changed?
