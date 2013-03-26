@@ -1,6 +1,6 @@
 class Client < User
 
-  trackable :email, :full_name, :role, :created_at
+  trackable :email, :full_name, :role, :company_name, :created_at
 
   field :location,            type: String
   field :company_name,        type: String

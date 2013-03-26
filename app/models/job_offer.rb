@@ -159,7 +159,7 @@ class JobOffer
   end
 
   def track_event
-    self.client.track_user_action("New Job Offer", job_offer_title: self.title, job_offer_id: self.id, company_name: client.company_name)
+    self.client.track_user_action("New Job Offer", job_offer_title: self.title, job_offer_id: self.id)
   end
 
   def send_offer_notification
