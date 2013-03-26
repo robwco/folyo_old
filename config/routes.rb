@@ -37,10 +37,11 @@ Folyo::Application.routes.draw do
     resources :clients
     resources :job_offers, path: 'offers', as: 'offers' do
       resources :replies
-      get 'active', :on => :collection
-      get 'archived', :on => :collection
-      get 'rejected', :on => :collection
-      get 'refunded', :on => :collection
+      get 'active',           on: :collection
+      get 'archived',         on: :collection
+      get 'rejected',         on: :collection
+      get 'refunded',         on: :collection
+      get 'newsletter_setup', on: :collection
     end
     resource :dashboard, controller: 'Dashboard'
   end

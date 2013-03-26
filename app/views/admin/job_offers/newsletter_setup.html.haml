@@ -1,4 +1,6 @@
 = content_for :title, "Newsletter Setup"
+= content_for :subnav do
+	= render :partial => '/admin/job_offers/job_offers_nav'
 
 - @job_offers.ordered.paid.each do |job|
 	%h3 #{job.client.company_name}: #{job.title}
@@ -6,21 +8,16 @@
 		%h3.company-name
 			= job.client.company_name
 		%h2
-			= link_to job.title, "http://www.folyo.me"+designer_offer_path(job)
+			= link_to job.title, offer_url(job)
 		= link_to job.client.company_url, job.client.company_url
 		%ul.project-info
 			%li
-				Project Budget: #{job.budget_range} (#{job.get_budget_type(job.budget_type)})
+				Project Budget: #{job.budget_range} (#{job.budget_type})
 			%li
-				Skills:
-				- job.skills.each do |s|
-					- if s==job.skills.last
-						#{s.name}
-					- else
-						#{s.name},
+				Skills: #{job.skills.map{|s| s.to_s.humanize}.join(',')}
 		= job.client.company_description.gsub(/<p>[\s$]*<\/p>/, '').html_safe
 		= job.full_description.gsub(/<p>[\s$]*<\/p>/, '').html_safe
-		%a{:href=>"http://www.folyo.me"+designer_offer_path(job)}
+		= link_to offer_url(job) do
 			%img{:src => "http://www.folyo.me/assets/email-read-more.png", :height => "28px", :width => "115px", :alt => "Read more…"}
 		%br
 		%hr

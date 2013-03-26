@@ -96,14 +96,6 @@ class JobOffer
   ## indexes ##
   index pg_id: 1
 
-  def get_budget_type(index)
-    if index.nil?
-      return "Medium"
-    else
-      return Array["Low", "Medium", "High"][index-1]
-    end
-  end
-
   def client_email
     self.client.email
   end
