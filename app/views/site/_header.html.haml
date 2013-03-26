@@ -2,22 +2,22 @@
 	- if ENV['RAILS_ENV'] == "production"
 		/ = render :partial => "/site/kissmetrics"
 	%title
-		Folyo - 
+		Folyo -
 		= yield(:title)
-	
+
 	%meta{:name => "description", :content => "Folyo helps startups find great designers by connecting them with a curated list of talented freelancers."}
 	%meta{:name => "keywords", :content => "san francisco, startup, bay area, UI, GUI, design, designer, hire, find"}
-	
+
 	= stylesheet_link_tag 'screen', :media => 'screen, projection'
 	= stylesheet_link_tag 'jquery.wysiwyg', :media => 'screen'
-		
+
 	/[if lt IE 8]
 	/	= stylesheet_link_tag 'ie.css', :media => 'screen, projection'
 
 	= javascript_include_tag :vendor, :application
-	
+
 	= csrf_meta_tag
-	
+
 	- if protect_against_forgery?
 		:javascript
 			var AUTH_TOKEN = #{form_authenticity_token.inspect};
@@ -40,5 +40,4 @@
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		})();
 
-	= render :partial => '/site/mixpanel'	
-	=# render :partial => '/site/klaviyo'
+	= render :partial => '/site/mixpanel'

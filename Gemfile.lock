@@ -85,6 +85,11 @@ GEM
       addressable
     database_cleaner (0.9.1)
     debug_inspector (0.0.2)
+    delayed_job (3.0.5)
+      activesupport (~> 3.0)
+    delayed_job_mongoid (2.0.0)
+      delayed_job (~> 3.0)
+      mongoid (~> 3.0)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -309,6 +314,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
+  delayed_job
+  delayed_job_mongoid
   devise
   factory_girl_rails
   foreman

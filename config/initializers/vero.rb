@@ -3,7 +3,7 @@
     config.api_key = "f35fcb3f3333cc79c22684becb2e3b8c83b56ff7"
     config.secret = "4208b8c3c3e0daf865f8287f22efab2403148c44"
 
-    config.async = :thread
+    config.async = :delayed_job
 
     if Rails.env.test?
       config.async = :none

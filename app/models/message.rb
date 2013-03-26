@@ -20,7 +20,7 @@ class Message
   protected
 
   def send_notification!
-    MessageMailer.send_message(self).deliver
+    MessageMailer.delay.send_message(self)
   end
 
   def track_event

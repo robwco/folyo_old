@@ -111,7 +111,7 @@ class JobOffer
       else
         reply.picked = false
         if send_email
-          DesignerMailer.rejected_reply(reply.designer, self).deliver
+          DesignerMailer.delay.rejected_reply(reply.designer, self)
         end
       end
     end
@@ -155,7 +155,7 @@ class JobOffer
   end
 
   def send_offer_notification
-    ClientMailer.new_job_offer(self).deliver
+    ClientMailer.delay.new_job_offer(self)
   end
 
   def status_changed
@@ -165,10 +165,10 @@ class JobOffer
       when :accepted
         self.approved_at = Time.now
         event = "Accepted"
-        ClientMailer.job_offer_accepted_mail(self).deliver
+        ClientMailer.delay.job_offer_accepted_mail(self)
       when :rejected
         event = "Rejected"
-        ClientMailer.job_offer_rejected_mail(self).deliver
+        ClientMailer.delay.job_offer_rejected_mail(self)
       when :paid
         self.paid_at = Time.now
         event = "Paid"

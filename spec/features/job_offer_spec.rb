@@ -49,17 +49,19 @@ describe 'Posting a job offer', :type => :feature do
     c.company_description.should == company_desc
 
     expect {
-      click_button 'Submit Job Offer'
-      page.should have_content 'errors prohibited this job offer from being saved'
+      expect {
+        click_button 'Submit Job Offer'
+        page.should have_content 'errors prohibited this job offer from being saved'
 
-      within '#new_job_offer' do
-        fill_in 'Title', with: title
-        fill_in 'Full description' , with: full_desc
-        check 'Icon design'
-      end
-      click_button 'Submit Job Offer'
-      page.should have_content 'Job offer was successfully created.'
-    }.to change { JobOffer.count }.by(1)
+        within '#new_job_offer' do
+          fill_in 'Title', with: title
+          fill_in 'Full description' , with: full_desc
+          check 'Icon design'
+        end
+        click_button 'Submit Job Offer'
+        page.should have_content 'Job offer was successfully created.'
+      }.to change { JobOffer.count }.by(1)
+    }.to change { ActionMailer::Base.deliveries.size }.by(1)
 
     offer = JobOffer.last
     offer.title.should == title

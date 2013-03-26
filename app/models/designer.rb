@@ -97,7 +97,7 @@ class Designer < User
   end
 
   def profile_url
-    "http://www.folyo.me/designers/#{self.id}"
+    "http://www.folyo.me/designers/#{self.to_param}"
   end
 
   def dribbble_url
@@ -127,9 +127,9 @@ class Designer < User
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
-        DesignerMailer.accepted_mail(self).deliver
+        DesignerMailer.delay.accepted_mail(self)
       elsif self.rejected?
-        DesignerMailer.rejected_mail(self).deliver
+        DesignerMailer.delay.rejected_mail(self)
       end
     end
   end

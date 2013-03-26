@@ -24,7 +24,7 @@ class DesignerReply
   scope :ordered, order_by(created_at: :desc)
 
   def send_notification!
-    ClientMailer.job_offer_replied(self).deliver
+    ClientMailer.delay.job_offer_replied(self)
   end
 
 end
