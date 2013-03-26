@@ -8,7 +8,7 @@
     elsif Rails.env.staging?
       config.async = :thread
     else
-      config.async = :delayed_job
+      config.async = :thread #:delayed_job
     end
 
     if Rails.env.development? || Rails.env.test? || Rails.env.staging?
