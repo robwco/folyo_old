@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     if session[:previous_url]
       session[:previous_url]
     elsif current_user.is_a?(Admin)
-      admin_offers_path
+      admin_dashboard_path
     else
       offers_path
     end

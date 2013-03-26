@@ -1,0 +1,47 @@
+= content_for :title, '[Admin]Dashboard'
+= content_for :body_class, 'admin-dashboard'
+
+%h3= @start_date.strftime('%B %Y')
+
+.metrics
+  .metric
+    .name revenue
+    .value= "$#{@revenue}"
+
+  .metric
+    .name= "new offers"
+    .value= @new_job_offer.count
+
+  .metric
+    .name= "paid offers"
+    .value= @paid_job_offer.count
+
+  .metric
+    .name= "refunded offers"
+    .value= @refunded_job_offer.count
+
+  .metric
+    .name= "new replies"
+    .value= @designer_replies_count
+
+  .metric
+    .name= "picked replies"
+    .value= @picked_designer_replies_count
+
+  .metric
+    .name= "new posts"
+    .value= @new_posts.count
+
+  .metric
+    .name= "new designers"
+    .value= @new_designers.count
+
+  .metric
+    .name= "new clients"
+    .value= @new_clients.count
+
+%p.text-center
+  = link_to '<< Previous month', admin_dashboard_path(year: @month == 1 ?  @year - 1 : @year, month: @month == 1 ? 12 : @month - 1)
+  = '  |  '
+  = link_to 'Next month >>'    , admin_dashboard_path(year: @month == 12 ? @year + 1 : @year, month: @month == 12 ? 1 : @month + 1)
+

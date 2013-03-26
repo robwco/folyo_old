@@ -31,7 +31,7 @@ Folyo::Application.routes.draw do
 
   namespace :admin do
     resources :designers do
-      get 'posts', on: :collection
+      get 'posts',    on: :collection
       get 'messages', on: :collection
     end
     resources :clients
@@ -42,8 +42,10 @@ Folyo::Application.routes.draw do
       get 'rejected', :on => :collection
       get 'refunded', :on => :collection
     end
+    resource :dashboard, controller: 'Dashboard'
   end
 
+  # supporting old Folyo url with PostgreSQL ids
   match 'designers/:id' => 'designers#show_by_pg_id', :id => /\d{1,4}/
 
   resources :designers do
@@ -54,6 +56,7 @@ Folyo::Application.routes.draw do
 
   resources :clients
 
+  # supporting old Folyo url with PostgreSQL ids
   match 'client/offers/:id' => 'job_offers#show_by_pg_id', :id => /\d{1,4}/
 
   resources :job_offers, path: 'offers', as: 'offers' do
