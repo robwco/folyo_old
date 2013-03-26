@@ -4,6 +4,11 @@ class Admin::JobOffersController < Admin::BaseController
 
   section :job_offers
 
+  def update
+    update! { edit_admin_offer_path(@job_offer)}
+  end
+
+
   def destroy
     destroy!{ admin_offers_path }
   end

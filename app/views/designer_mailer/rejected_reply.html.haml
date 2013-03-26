@@ -1,0 +1,11 @@
+%html
+	= render :partial => '/mailers/header'
+	%body
+		.email_body
+			%p.intro A message from <a href="http://www.folyo.me">Folyo</a>
+			.message
+				%h2 You didn't get the job
+				%p You're receiving this message because you applied for this project: <a href="#{offer_url(@job_offer)}">#{@job_offer.title}</a>. We're sorry, but the client didn't pick your profile. Better luck next time!
+
+
+

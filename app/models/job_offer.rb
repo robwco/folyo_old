@@ -168,6 +168,7 @@ class JobOffer
         ClientMailer.job_offer_accepted_mail(self).deliver
       when :rejected
         event = "Rejected"
+        ClientMailer.job_offer_rejected_mail(self).deliver
       when :paid
         self.paid_at = Time.now
         event = "Paid"

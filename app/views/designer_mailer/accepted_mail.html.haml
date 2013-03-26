@@ -1,0 +1,8 @@
+%html
+	= render :partial => '/mailers/header'
+	%body
+		.email_body
+			%p.intro A message from <a href="http://www.folyo.me">Folyo</a>
+			.message
+				%h2 Welcome to Folyo!
+				%p I'm very glad to welcome you to Folyo. Now that you're an official member, you should go ahead and <a href="#{edit_designer_url(@designer)}">complete your profile</a>.

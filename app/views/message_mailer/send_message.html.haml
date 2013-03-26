@@ -1,0 +1,6 @@
+%html
+	= render :partial => '/mailers/header'
+	%body
+		.email_body
+			%p.intro #{link_to @message.from_user.full_name, @message.from_user.profile_url} wrote you a message from your Folyo profile:
+			.message #{@message.comment}

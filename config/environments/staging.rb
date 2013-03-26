@@ -61,7 +61,6 @@ Folyo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-    # Devise default URL for this environment
   config.action_mailer.default_url_options = { :host => 'folyo-staging.herokuapp.com/' }
 
   # SendGrid settings

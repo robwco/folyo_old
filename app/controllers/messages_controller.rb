@@ -2,6 +2,8 @@ class MessagesController < ApplicationController
 
   inherit_resources
 
+  section :designers
+
   before_filter :set_to_user
   before_filter :get_referer, only: :new
 
