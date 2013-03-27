@@ -287,7 +287,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    vero (0.5.3)
+    vero (0.5.4)
       girl_friday
       json
       rest-client

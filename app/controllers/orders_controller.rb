@@ -32,8 +32,8 @@ class OrdersController < ApplicationController
     @order.ip_address = request.remote_ip
     if @order.save
       if @order.purchase(@job_offer)
-        @job_offer.status_id = JobOffer::Status_Keys::PAID
-        @job_offer.save
+        @job_offer.status = :paid
+        @job_offer.save!
 
         track_event("Payment", {:mp_note => @job_offer.title, :job_offer_title => @job_offer.title, :job_offer_id => @job_offer.id})
 
