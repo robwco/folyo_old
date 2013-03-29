@@ -5,8 +5,6 @@
 
     if Rails.env.test?
       config.async = :none
-    elsif Rails.env.staging?
-      config.async = :thread
     else
       config.async = :delayed_job
     end

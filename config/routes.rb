@@ -64,7 +64,7 @@ Folyo::Application.routes.draw do
     get 'history',      on: :collection
     get 'archives',     on: :collection
     get 'show_archive', on: :member
-    put 'archive',      on: :member
+    post 'archive',      on: :member
     resources :orders do
       get 'checkout', on: :collection
       get 'confirm',  on: :collection
