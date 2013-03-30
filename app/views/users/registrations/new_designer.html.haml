@@ -3,8 +3,6 @@
 = content_for :error_messages do
 	= devise_error_messages!
 
-= render :partial => "/site/wysiwyg"
-
 = content_for :profile_type_hint do
 	<strong>Public:</strong> anybody can see your profile (and <a href="http://twitter.com/YoFolyo">we'll tweet</a> that you signed up).</br><strong>Private:</strong> only registered clients can see your profile.</br><strong>Hidden:</strong> nobody can see your profile (unless you reply to them directly)
 
@@ -45,53 +43,54 @@
 			%p <strong>Do not apply</strong> if you do not have a <strong>portfolio</strong> or showcase of your work. You will not be accepted.
 
 :javascript
-	$(document).ready(function(){
-		if(ref_user_cookie=$.cookie('ref_user')){
-			$("#user_referrer_designer").each(function(){
-					$(this).val(ref_user_cookie);
-			});
-		}
+	head(function(){
+		$(function() {
 
-		$("#user_dribbble_username").change(function(){
-			var username=$(this).val();
-			var parentLi=$(this).parent();
-			var $errorDiv=$("#bad_dribbble_username");
-			$("#user_featured_shot_url").val('');
-			if(username!=""){
-				$.jsonp({
-					url: "http://api.dribbble.com/players/"+username+"/shots?callback=?",
-					success: function(data, textStatus) {
-						parentLi.removeClass("loading");
-						if(!$errorDiv.hasClass("hidden")){
-							$errorDiv.fadeOut("fast").addClass("hidden");
-						}
-						if(data.shots[0]){
-							$("#user_featured_shot_url").val(data.shots[0].image_url);
-						}
-					},
-					error: function(){
-						$errorDiv.addClass("hidden").fadeIn("fast").removeClass("hidden");
-					}
+			if(ref_user_cookie=$.cookie('ref_user')){
+				$("#user_referrer_designer").each(function(){
+						$(this).val(ref_user_cookie);
 				});
 			}
-		});
 
-		$("#user_location").change(function(){
-			var address=$(this).val();
-			$(this).parent().addClass("loading");
-			$errorDiv=$("#ambiguous_location");
-			get_coordinates(
-				address,
-				function(results){
-					//success
-					$("#designer_coordinates").val(results[0].geometry.location.Ma+","+results[0].geometry.location.Na);
-					hideError($errorDiv);
-				},
-				function(){
-					//error
-					showError($errorDiv);
+			$("#user_dribbble_username").change(function(){
+				var username=$(this).val();
+				var parentLi=$(this).parent();
+				var $errorDiv=$("#bad_dribbble_username");
+				$("#user_featured_shot_url").val('');
+				if(username!=""){
+					$.jsonp({
+						url: "http://api.dribbble.com/players/"+username+"/shots?callback=?",
+						success: function(data, textStatus) {
+							parentLi.removeClass("loading");
+							if(!$errorDiv.hasClass("hidden")){
+								$errorDiv.fadeOut("fast").addClass("hidden");
+							}
+							if(data.shots[0]){
+								$("#user_featured_shot_url").val(data.shots[0].image_url);
+							}
+						},
+						error: function(){
+							$errorDiv.addClass("hidden").fadeIn("fast").removeClass("hidden");
+						}
+					});
 				}
-			);
+			});
+
+			$("#user_location").change(function(){
+				var address=$(this).val();
+				$(this).parent().addClass("loading");
+				$errorDiv=$("#ambiguous_location");
+				get_coordinates(
+					address,
+					function(results){
+						$("#designer_coordinates").val(results[0].geometry.location.Ma+","+results[0].geometry.location.Na);
+						hideError($errorDiv);
+					},
+					function(){
+						showError($errorDiv);
+					}
+				);
+			});
 		});
 
 	});

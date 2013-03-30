@@ -2,8 +2,6 @@
 = content_for :parent_level do
   = link_to "I'm Available", posts_path
 
-= render :partial => "/site/wysiwyg"
-
 .block
 = simple_form_for @designer_post, url: post_path(@designer_post) do |f|
   = render 'form', f: f, edit: true, designer_post: @designer_post

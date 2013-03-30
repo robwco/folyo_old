@@ -1,12 +1,3 @@
-:javascript
-	$(document).ready(function(){
-		if(ref_user_cookie=$.cookie('ref_user')){
-			$("#user_referrer_designer").each(function(){
-					$(this).val(ref_user_cookie);
-			});
-		}
-	});
-
 = content_for :title, "Submit a Job Offer"
 
 = content_for :body_class, "with-wizard"
@@ -17,8 +8,6 @@
 
 = content_for :error_messages do
 	= devise_error_messages!
-
-= render :partial => "/site/wysiwyg"
 
 = content_for :company_hint do
 	%span.title Things to mention:

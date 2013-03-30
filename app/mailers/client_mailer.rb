@@ -1,7 +1,6 @@
 class ClientMailer < ActionMailer::Base
 
   default from: 'hello@folyo.com'
-  default bcc:  Admin.all.map(&:email)
 
   layout 'mailer'
 

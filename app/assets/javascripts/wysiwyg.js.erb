@@ -2,28 +2,30 @@
 //= require jwysiwyg/controls/wysiwyg.link.js
 //= require_self
 
-$(document).ready(function(){
-	$('.wysiwyg').wysiwyg({
-	    controls: {
-			justifyLeft: { visible: false },
-			justifyCenter: { visible: false },
-			justifyRight: { visible: false },
-			justifyFull: { visible: false },
-			strikeThrough: { visible: false },
-			underline: { visible: false },
-			indent: { visible: false },
-			outdent: { visible: false },
-			subscript: { visible: false },
-			superscript: { visible: false },
-			insertTable: { visible: false },
-			insertImage: { visible: false },
-			h1: { visible: false },
-			h2: { visible: false },
-			h3: { visible: false },
-			code: {visible: false}
-	      },
-		autoSave: true,
-	    css: "<%= asset_path 'iframe.css' %>",
-	    initialContent: ""
-	  });
+head(function(){
+	$(function() {
+		$('.wysiwyg').wysiwyg({
+		  controls: {
+				justifyLeft: { visible: false },
+				justifyCenter: { visible: false },
+				justifyRight: { visible: false },
+				justifyFull: { visible: false },
+				strikeThrough: { visible: false },
+				underline: { visible: false },
+				indent: { visible: false },
+				outdent: { visible: false },
+				subscript: { visible: false },
+				superscript: { visible: false },
+				insertTable: { visible: false },
+				insertImage: { visible: false },
+				h1: { visible: false },
+				h2: { visible: false },
+				h3: { visible: false },
+				code: {visible: false}
+		  },
+			autoSave: true,
+		  css: "<%= asset_path 'iframe.css' %>",
+		  initialContent: ""
+		});
+	});
 });

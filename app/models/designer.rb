@@ -24,9 +24,8 @@ class Designer < User
   field :dribbble_username,   type: String
   field :zerply_username,     type: String
 
-  field :featured_shot,       type: String
+  field :featured_shot_id,       type: String
   field :featured_shot_url,   type: String
-  field :featured_shot_page,  type: String
 
   field :skills,              type: Array, default: []
 
@@ -71,6 +70,7 @@ class Designer < User
   before_validation  :process_skills
   before_save        :generate_mongoid_random_key
   before_update      :tweet_out, :accept_reject_mailer
+  after_save         :geocode, if: :location_changed?
 
   ## indexes ##
   index coordinates: '2d'
@@ -139,6 +139,12 @@ class Designer < User
   def subscribe_to_newsletter
     hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
     h = hominidapi.listsubscribe('d2a9f4aa7d', self.user.email, {}, 'html', false, true, true, false)
+  end
+  handle_asynchronously :subscribe_to_newsletter
+
+  def geocode
+    self.coordinates = Geocoder.coordinates(self.location)
+    self.save!
   end
   handle_asynchronously :subscribe_to_newsletter
 

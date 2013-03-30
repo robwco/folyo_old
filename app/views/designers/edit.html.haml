@@ -7,11 +7,6 @@
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
-= render :partial => "/site/wysiwyg"
-
-= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=false'
-= javascript_include_tag 'designer_account'
-
 = content_for :profile_type_hint do
   %span <strong>Public:</strong> anybody can see your profile.
   %span <strong>Private:</strong> only registered clients can see your profile.
@@ -51,10 +46,7 @@
     %h3 Your Work
     = f.input :portfolio_url
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, value_method: :to_sym
-    = f.input :featured_shot, :label => 'Featured shot ID', :hint => yield(:featured_shot_hint)
-    #bad_shot.ajax-error.hidden
-      Are you sure this is the right ID? We can't find your shot :(
-    = f.input :featured_shot_url, :as => :hidden
+    = f.input :featured_shot_id, label: 'Featured shot ID', hint: yield(:featured_shot_hint)
   .section
     %h3 Social Media
     = f.input :twitter_username, :required => false
@@ -67,3 +59,5 @@
     %h3 Pricing
     = f.input :rate, :label => "Hourly rate", :hint => "Your hourly rate. For statistical purpose only, will not be displayed on the site."
   = f.submit "Update Profile", :class => "button big-button"
+
+

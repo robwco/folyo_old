@@ -1,11 +1,3 @@
-/ :javascript
-/   $(document).ready(function(){
-/   var myCookie=$.cookie('discount');
-/   if(myCookie)
-/     $("#discount-code").val(myCookie);
-/   });
-= render :partial => "/site/wysiwyg"
-
 = content_for :error_messages do
   = error_messages(job_offer)
 

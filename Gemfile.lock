@@ -111,6 +111,7 @@ GEM
     foreman (0.61.0)
       thor (>= 0.13.6)
     fssm (0.2.10)
+    geocoder (1.1.6)
     girl_friday (0.11.2)
       connection_pool (~> 1.0)
       rubinius-actor
@@ -122,6 +123,8 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     has_scope (0.5.1)
+    headjs-rails (0.4.1)
+      rails (>= 3.0.0)
     heroku (2.28.8)
       heroku-api (~> 0.2.6)
       launchy (>= 0.3.2)
@@ -141,6 +144,8 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-turbolinks (0.2.1)
+      rails (>= 3.1.0)
     json (1.7.7)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
@@ -275,6 +280,8 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (1.1.0)
+      coffee-rails
     twitter (4.6.2)
       faraday (~> 0.8, < 0.10)
       multi_json (~> 1.0)
@@ -318,11 +325,14 @@ DEPENDENCIES
   devise
   factory_girl_rails
   foreman
+  geocoder
   haml-rails
+  headjs-rails
   heroku
   hominid
   inherited_resources
   jquery-rails (= 2.1.4)
+  jquery-turbolinks
   kaminari
   lorem
   meta_request
@@ -338,6 +348,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form
   taps
+  turbolinks
   twitter
   uglifier (>= 1.0.3)
   unicorn

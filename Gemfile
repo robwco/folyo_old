@@ -16,6 +16,9 @@ gem 'delayed_job_mongoid'
 # UI
 gem 'haml-rails'
 gem 'jquery-rails', '2.1.4'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'headjs-rails'
 gem 'simple_form'
 gem 'inherited_resources'
 gem 'kaminari'
@@ -32,6 +35,7 @@ gem 'vero'
 gem 'activemerchant'
 gem 'hominid'
 gem 'twitter'
+gem 'geocoder'
 
 # Misc
 gem 'rails_autolink'

@@ -1,18 +1,23 @@
-:plain
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
-:javascript
-  designers=#{@designers.to_json(:include => :user)};
-
-= javascript_include_tag 'map'
-
 = content_for :title, 'Designers Map'
 = content_for :body_class, ' no-sidebar'
 = content_for :subnav do
   = render 'designers_nav'
+
+= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?sensor=false&callback=googleMapsLoaded'
 
 #map_canvas
 
 .block
   %h2 What's this?
   %p Folyo is a community that includes some of the world's best freelance designers. Every week, Folyo members receive a newsletter featuring interesting job offers.
+
+:javascript
+  googleMapsLoaded = function() {
+    head(function() {
+      head.js("#{asset_path('map.js')}", function() {
+        var designers = #{@designers.to_json(only: [:id, :coordinates, :full_name, :dribbble_username, :featured_shot_url, :location])};
+        renderDesignerMap(designers);
+      });
+    });
+
+  };

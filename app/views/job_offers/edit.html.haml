@@ -5,8 +5,6 @@
 = content_for :subnav do
   = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
 
-= render :partial => "/site/wysiwyg"
-
 = simple_form_for @job_offer, url: offer_path(@job_offer) do |f|
   - if current_user.is_a? Admin
     .section

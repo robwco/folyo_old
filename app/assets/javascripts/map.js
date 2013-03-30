@@ -1,18 +1,7 @@
 //= require misc/markerclusterer_compiled.js
 //= require misc/oms.min.js
-function toTitleCase(str){
-	// see http://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript/196991#196991
-    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
-function markerCenterMap(map, marker){ // center the map around a marker
-	// get pixel coordinates of the clicked marker and substract 150px to account for the infoWindow
-	pixelCoord=overlay.getProjection().fromLatLngToContainerPixel(marker.position);
-	centerCoord=new google.maps.Point(pixelCoord.x,pixelCoord.y-150);
-	// center map on clicked marker (minus 150px)
-	newCoord=overlay.getProjection().fromContainerPixelToLatLng(centerCoord);
-	map.setCenter(newCoord);
-}
-$(document).ready(function(){
+
+var renderDesignerMap = function (designers) {
 	var gm=google.maps; // shortcut to google maps object
 	var markersArray = [];
 	var maxZoomLevel = 9; // This is the maximum zoom level for the clusters
@@ -21,12 +10,27 @@ $(document).ready(function(){
 	var centerMap=true;
 	var latlng = new gm.LatLng(40.7143528,-74.0059731);
 
+	var toTitleCase = function(str){
+		// see http://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript/196991#196991
+  	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	}
+
+	var markerCenterMap = function(map, marker){ // center the map around a marker
+		// get pixel coordinates of the clicked marker and substract 150px to account for the infoWindow
+		pixelCoord=overlay.getProjection().fromLatLngToContainerPixel(marker.position);
+		centerCoord=new google.maps.Point(pixelCoord.x,pixelCoord.y-150);
+		// center map on clicked marker (minus 150px)
+		newCoord=overlay.getProjection().fromContainerPixelToLatLng(centerCoord);
+		map.setCenter(newCoord);
+	}
+
 	// ------------------------------ GOOGLE MAPS -------------------------------
 	var myOptions = {
 		zoom: 2,
 		center: latlng,
 		mapTypeId: gm.MapTypeId.ROADMAP
 	};
+
 	var map = new gm.Map(document.getElementById("map_canvas"),myOptions);
 	// close the infowindow when people click anywhere on the map
 	gm.event.addListener(map, 'click', function(){
@@ -46,6 +50,7 @@ $(document).ready(function(){
 	var iw = new gm.InfoWindow({
 		disableAutoPan: true
 	});
+
 	oms.addListener('click', function(marker) {
 		iw.setContent(marker.desc);
 		iw.open(map, marker);
@@ -53,6 +58,7 @@ $(document).ready(function(){
 			markerCenterMap(map, marker);
 		}
 	});
+
 	oms.addListener('spiderfy', function(spiderfiedMarkers, unspiderfiedMarkers) {
 		// do not center map on invididual markers as long as spiderfy is active
 		centerMap=false;
@@ -60,11 +66,14 @@ $(document).ready(function(){
 		markerCenterMap(map, spiderfiedMarkers[0]);
 		console.log("stop centering map");
 	});
+
 	oms.addListener('unspiderfy', function(spiderfiedMarkers, unspiderfiedMarkers) {
 		centerMap=true;
 		// resume centering map on normal markers
 		console.log("start centering map again");
 	});
+
+
 
 	// ------------------------------ ITERATE OVER DESIGNERS -------------------------------
 	// designers is a JSON object with all the designers ( designers=#{@designers.to_json(:include => :user)} )
@@ -97,4 +106,4 @@ $(document).ready(function(){
 	var markerCluster = new MarkerClusterer(map, markersArray, markerClusterOptions);
 	markerCluster.onClick = function() { return multiChoice(markerCluster); }
 
-});
+};
