@@ -2,8 +2,8 @@
   = link_to 'Folyo', root_path, :title => 'Home'
 #top-bar
   %ul
-    %li
-      = section_link_to "Job Offers", offers_path, :job_offers
+    %li= section_link_to "Job Offers", offers_path, :job_offers
+    %li= section_link_to "All Designers", designers_path, :designers
     %li
     - if current_user.accepted?
       %li

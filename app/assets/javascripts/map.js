@@ -73,19 +73,18 @@ var renderDesignerMap = function (designers) {
 		console.log("start centering map again");
 	});
 
-
-
 	// ------------------------------ ITERATE OVER DESIGNERS -------------------------------
 	// designers is a JSON object with all the designers ( designers=#{@designers.to_json(:include => :user)} )
 	$.each(designers, function(i, designer) {
-		var latlng=new gm.LatLng(designer.coordinates[0], designer.coordinates[1]);
-		var image_content="";
-		var location_content='<p>'+toTitleCase(designer.location)+'</p>';
-		var info_content='<h4><a href="/designers/'+designer.id+'">'+designer.full_name+'</a></h4>';
-		var shot_url=designer.featured_shot_url;
-		if(shot_url){
+		var latlng = new gm.LatLng(designer.coordinates[0], designer.coordinates[1]);
+		var image_content = "";
+		var location_content = '<p>'+toTitleCase(designer.location)+'</p>';
+		var info_content = '<h4><a href="/designers/'+designer.id+'">'+designer.full_name+'</a></h4>';
+		var shot_url = designer.featured_shot_url;
+		var shot_image_url = designer.featured_shot_image_url;
+		if (shot_image_url !== undefined && shot_image_url !== null && shot_image_url.length > 0) {
 			// if designer has a Dribbble shot, add it to the map tooltip content
-			image_content='<a href="/designers/'+designer.id+'"><img style="width:160px;" src="'+shot_url+'"/></a>'+
+			image_content='<a href="/designers/'+designer.id+'"><img style="width:160px;" src="'+shot_image_url+'"/></a>'+
 			'<h6 class="small">(Image via <a href="http://dribbble.com/'+designer.dribbble_username+'">Dribbble</a>)</h6>'
 		}
 

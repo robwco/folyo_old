@@ -2,7 +2,6 @@
 //= require jquery.turbolinks
 //= require misc/parseURI.js
 //= require map
-//= require designer_account
 //= require wysiwyg
 
 //= require_self

@@ -16,7 +16,7 @@ class Ability
         can :manage, DesignerPost
       end
       can [:history, :archives], JobOffer
-      can :read, Designer do |designer|
+      can [:read, :map], Designer do |designer|
         designer.public?
       end
       can :manage, Designer do |designer|

@@ -15,7 +15,7 @@
   googleMapsLoaded = function() {
     head(function() {
       head.js("#{asset_path('map.js')}", function() {
-        var designers = #{@designers.to_json(only: [:id, :coordinates, :full_name, :dribbble_username, :featured_shot_url, :location])};
+        var designers = #{@designers.to_json(only: [:id, :coordinates, :full_name, :dribbble_username, :featured_shot_url, :featured_shot_image_url, :location])};
         renderDesignerMap(designers);
       });
     });
