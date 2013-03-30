@@ -4,32 +4,33 @@ class Designer < User
 
   has_many :posts, class_name: 'DesignerPost', dependent: :destroy
 
-  field :status,              type: Symbol, default: :pending
-  field :profile_type,        type: Symbol, default: :public
+  field :status,                  type: Symbol, default: :pending
+  field :profile_type,            type: Symbol, default: :public
 
-  field :short_bio,           type: String
-  field :long_bio,            type: String
-  field :location,            type: String
-  field :coordinates,         type: Array
+  field :short_bio,               type: String
+  field :long_bio,                type: String
+  field :location,                type: String
+  field :coordinates,             type: Array
 
-  field :minimum_budget,      type: Integer
-  field :rate,                type: Integer
+  field :minimum_budget,          type: Integer
+  field :rate,                    type: Integer
 
-  field :portfolio_url,       type: String
-  field :linkedin_url,        type: String
+  field :portfolio_url,           type: String
+  field :linkedin_url,            type: String
 
-  field :twitter_username,    type: String
-  field :behance_username,    type: String
-  field :skype_username,      type: String
-  field :dribbble_username,   type: String
-  field :zerply_username,     type: String
+  field :twitter_username,        type: String
+  field :behance_username,        type: String
+  field :skype_username,          type: String
+  field :dribbble_username,       type: String
+  field :zerply_username,         type: String
 
-  field :featured_shot_id,       type: String
-  field :featured_shot_url,   type: String
+  field :featured_shot_id,        type: String
+  field :featured_shot_url,       type: String
+  field :featured_shot_image_url, type: String
 
-  field :skills,              type: Array, default: []
+  field :skills,                  type: Array, default: []
 
-  field :randomization_key,   type: Float # used to get a pseudo-random order of designers
+  field :randomization_key,       type: Float # used to get a pseudo-random order of designers
 
   field :designer_pg_id # id of the designer in postgresql. Will be removed someday
 
@@ -69,8 +70,10 @@ class Designer < User
   ## callbacks ##
   before_validation  :process_skills
   before_save        :generate_mongoid_random_key
-  before_update      :tweet_out, :accept_reject_mailer
-  after_save         :geocode, if: :location_changed?
+  after_save         :accept_reject_mailer, if: :status_changed?
+  after_save         :tweet_out,            if: :status_changed?
+  after_save         :geocode,              if: :location_changed?
+  after_save         :update_dribbble_info, if: :dribbble_info_changed?
 
   ## indexes ##
   index coordinates: '2d'
@@ -138,15 +141,30 @@ class Designer < User
 
   def subscribe_to_newsletter
     hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
-    h = hominidapi.listsubscribe('d2a9f4aa7d', self.user.email, {}, 'html', false, true, true, false)
+    h = hominidapi.listsubscribe('d2a9f4aa7d', self.email, {}, 'html', false, true, true, false)
   end
   handle_asynchronously :subscribe_to_newsletter
 
   def geocode
-    self.coordinates = Geocoder.coordinates(self.location)
-    self.save!
+    unless Rails.env.test?
+      self.coordinates = Geocoder.coordinates(self.location)
+      save!
+    end
   end
-  handle_asynchronously :subscribe_to_newsletter
+  handle_asynchronously :geocode
+
+  def update_dribbble_info
+    unless Rails.env.test?
+      shot = featured_shot_id.blank? ? Dribbble::Player.find(dribbble_username).shots.first : Dribbble::Shot.find(featured_shot_id)
+      if shot
+        self.featured_shot_image_url = shot.image_url
+        self.featured_shot_url = shot.url
+        self.featured_shot_id = shot.id
+        save!
+      end
+    end
+  end
+  handle_asynchronously :update_dribbble_info
 
   def process_skills
     self.skills.reject!(&:blank?) if self.skills_changed?
@@ -155,6 +173,10 @@ class Designer < User
 
   def generate_mongoid_random_key
     self.randomization_key = rand
+  end
+
+  def dribbble_info_changed?
+    self.dribbble_username_changed? || self.featured_shot_id_changed?
   end
 
 end

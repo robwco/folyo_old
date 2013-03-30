@@ -32,10 +32,11 @@ gem 'sanitize'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'vero'
-gem 'activemerchant'
-gem 'hominid'
 gem 'twitter'
 gem 'geocoder'
+gem 'activemerchant' # paypal
+gem 'hominid' # mailchimp
+gem 'swish' # dribbble
 
 # Misc
 gem 'rails_autolink'

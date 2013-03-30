@@ -70,44 +70,6 @@ head(function() {
       });
     });
 
-    function shot_callback(shot, img, link, caption){
-          var shotIMGURL=shot.image_url;
-          var shotURL=shot.url;
-          img.attr("src", shotIMGURL);
-          link.attr("href", shotURL);
-          caption.html('<a href="'+shotURL+'">'+shot.title+'</a>');
-    };
-    $(".featured-work").each(function(){
-      var $figure=$(this);
-      var $link=$figure.find("a");
-      var $img=$figure.find("img");
-      var $caption=$figure.find(".caption");
-      var $input=$figure.find("input");
-      if($input.length>0){
-          $.getJSON("http://api.dribbble.com/shots/"+$input.val()+"?callback=?", function(data){
-          shot_callback(data, $img, $link, $caption);
-          });
-      }else{
-          $.getJSON("http://api.dribbble.com/players/"+$link.attr("title")+"/shots?callback=?", function(data){
-          shot_callback(data.shots[0], $img, $link, $caption);
-          });
-      }
-    });
-
-    $(".dribbble-work").each(function(){
-      $(this).find("li").each(function(index, element){
-        var $figure=$(this);
-        var $link=$figure.find("a");
-        var $img=$figure.find("img");
-        var $caption=$figure.find(".caption");
-        $.getJSON("http://api.dribbble.com/players/"+$link.attr("title")+"/shots?callback=?", function(data){
-          if(data.shots && data.shots.length>=index){
-            shot_callback(data.shots[index], $img, $link, $caption);
-          }
-        });
-      });
-    });
-
     $(".mailchimp-text").focus(function(){
       $this = $(this);
         $this.select();

@@ -1,8 +1,4 @@
-- unless designer.dribbble_username.blank?
+- unless designer.featured_shot_image_url.blank?
   %figure.featured-work
-    - unless designer.featured_shot.blank?
-      = hidden_field_tag("featured_shot_#{designer.id}", designer.featured_shot)
-    %a.image{:target => "_blank", :title => designer.dribbble_username}
-      %img
-    / %figcaption.caption
-    /   Loading…
+    = link_to  designer.featured_shot_url, class: 'image' do
+      = image_tag designer.featured_shot_image_url
