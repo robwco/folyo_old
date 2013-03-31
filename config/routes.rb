@@ -18,6 +18,7 @@ Folyo::Application.routes.draw do
     get 'quora-redesign' => redirect('/guides/quora_redesign')
     get 'quora_redesign'
     get 'quora_redesign_screenshot'
+    get 'quora-redesign-screenshot' => redirect('/guides/quora_redesign_screenshot')
   end
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
