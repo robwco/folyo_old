@@ -140,8 +140,10 @@ class Designer < User
   end
 
   def subscribe_to_newsletter
-    hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
-    h = hominidapi.listsubscribe('d2a9f4aa7d', self.email, {}, 'html', false, true, true, false)
+    if Rails.env.production?
+      hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
+      h = hominidapi.listsubscribe('d2a9f4aa7d', self.email, {}, 'html', false, true, true, false)
+    end
   end
   handle_asynchronously :subscribe_to_newsletter
 
