@@ -22,6 +22,6 @@
     %script{:type=>"text/javascript", :src=>"http://use.typekit.com/tpm6qxy.js"}
     :javascript
       try{Typekit.load();}catch(e){}
-  %body{:class=> yield(:body_class)}
+  %body{:class=> yield(:body_class), data: { 'no-turbolink' => true }}
     = content_for?(:content) ? yield(:content) : yield
     = render :partial => '/site/clicky'
