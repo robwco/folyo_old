@@ -12,6 +12,7 @@ gem 'bson_ext'
 #DJ
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
+gem 'delayed-plugins-airbrake'
 
 # UI
 gem 'haml-rails'
