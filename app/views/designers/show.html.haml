@@ -2,9 +2,13 @@
 = content_for :subtitle, @designer.short_bio.truncate(70)
 = content_for :body_class, "designer-profile"
 
--if current_user
-  = content_for :mainaction do
-    = link_to 'Get in Touch', new_designer_message_path(@designer), :id => "get-in-touch", :class => "button big-button"
+- if current_user
+  - if current_user.id == @designer.id
+    = content_for :subnav do
+      = render :partial => '/designers/account_nav'
+  - else
+    = content_for :mainaction do
+      = link_to 'Get in Touch', new_designer_message_path(@designer), :id => "get-in-touch", :class => "button big-button"
 
 .block.about
   %h3 About Me

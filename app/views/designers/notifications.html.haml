@@ -1,0 +1,20 @@
+= content_for :title, "Notifications"
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render :partial => '/designers/account_nav'
+
+.block
+  %h3 Unsubscribe
+  %p If you'd like to stop receiving the weekly newsletter, you can <a href="http://sachagreif.us2.list-manage.com/unsubscribe?u=b5af47765edbd2fc173dbf27a&id=d2a9f4aa7d">unsubscribe here</a>.
+.block
+  %h3 Sign Up
+  %p If you've previously unsubscribed from the newsletter, you can sign up to start receiving it again (you may need to reconfirm your email):
+  #mc_embed_signup.mailchimp
+    %form#mc-embedded-subscribe-form.validate{:action => "http://sachagreif.us2.list-manage.com/subscribe/post?u=b5af47765edbd2fc173dbf27a&id=d2a9f4aa7d", :method => "post", :name => "mc-embedded-subscribe-form", :target => "_blank"}
+      .mc-field-group
+        %input#mce-EMAIL.required.email{:name => "EMAIL", :type => "hidden", :value => current_user.email}
+      #mce-responses.clear
+        #mce-error-response.response{:style => "display:none"}
+        #mce-success-response.response{:style => "display:none"}
+      .clear
+        %input#mc-embedded-subscribe.button{:name => "Subscribe", :type => "submit", :value => "Subscribe"}

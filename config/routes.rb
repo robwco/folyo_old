@@ -51,7 +51,8 @@ Folyo::Application.routes.draw do
   match 'designers/:id' => 'designers#show_by_pg_id', :id => /\d{1,4}/
 
   resources :designers do
-    get 'map', on: :collection
+    get 'map',            on: :collection
+    get  'notifications', on: :member
     resources :messages
     resources :designer_posts, path: 'posts', as: 'posts'
   end

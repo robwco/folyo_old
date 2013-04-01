@@ -91,8 +91,8 @@ class ApplicationController < ActionController::Base
     (session[:mixpanel_events] ||= "") << 'mixpanel.track( "'+event+'", '+properties.to_json+' );'
   end
 
-  def self.section(section_name)
-    before_filter do |c|
+  def self.section(section_name, params = {})
+    before_filter(params) do |c|
       c.instance_variable_set(:@section, section_name.to_sym)
     end
   end
