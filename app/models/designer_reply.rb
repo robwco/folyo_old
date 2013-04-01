@@ -18,13 +18,23 @@ class DesignerReply
   validates_presence_of :job_offer, :designer
 
   ## callbacks ##
-  after_create :send_notification!
+  after_create :send_notification!, :track_event
 
   ## scopes ##
   scope :ordered, order_by(created_at: :desc)
 
   def send_notification!
     ClientMailer.delay.job_offer_replied(self)
+  end
+
+  def track_event
+    self.client.track_user_action('Job Offer Reply',
+      job_offer_title:    job_offer.title,
+      job_offer_id:       job_offer.id,
+      designer_id:        designer.id,
+      designer_full_name: designer.full_name,
+      message:            message
+    )
   end
 
 end
