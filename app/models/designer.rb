@@ -67,6 +67,9 @@ class Designer < User
   scope :public_only,       where(:profile_type => :public)
   scope :public_private,    where(:profile_type.in => [:public, :private])
 
+  scope :san_francisco,     where(location: /San Francisco/i)
+  scope :palo_alto,         where(location: /Palo Alto/i)
+
   ## callbacks ##
   before_validation  :process_skills
   before_save        :generate_mongoid_random_key

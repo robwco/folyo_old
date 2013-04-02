@@ -1,0 +1,25 @@
+= content_for :title, 'San Francisco & Bay Area UI/UX Designers'
+= content_for :body_class, 'has-breadcrumbs'
+= content_for :parent_level do
+  = link_to "All Designers", designers_path
+
+%div(data-swiftype-index='false')
+  .block
+    %p San Francisco and the Bay Area have tons of talented designers, and due to Silicon Valley's proximity, a lot of them specialize in fields like mobile design, user interface design, and user experience design.
+
+  %h3 San Francisco
+  %ul.designers
+    - @designers.san_francisco.each do |d|
+      = render "/designers/designer_card", :d => d
+
+  %h3 Palo Alto
+  %ul.designers
+    - @designers.palo_alto.each do |d|
+      = render "/designers/designer_card", :d => d
+
+
+  = content_for :sidebar do
+    - unless current_user
+      %p.note Some designers only make their profile available to registered users. Submit a job offer to get access to more profiles.
+
+    %p.browse-map=link_to "Browse the map →", map_designers_path

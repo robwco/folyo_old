@@ -16,7 +16,7 @@ class Ability
         can :manage, DesignerPost
       end
       can [:history, :archives], JobOffer
-      can [:read, :map], Designer do |designer|
+      can [:read, :map, :san_francisco_bay_area], Designer do |designer|
         designer.public?
       end
       can :manage, Designer do |designer|
@@ -40,13 +40,13 @@ class Ability
       can [:read, :new, :create, :checkout], Order do |order|
         order.job_offer.client_id == user.id
       end
-      can [:read, :map], Designer
+      can [:read, :map, :san_francisco_bay_area], Designer
 
     else
       can :read, Designer do |designer|
         designer.public? && designer.accepted?
       end
-      can :map, Designer
+      can [:map, :san_francisco_bay_area], Designer
     end
 
   end

@@ -20,6 +20,10 @@ class DesignersController < ApplicationController
     @designers = Designer.accepted.public_only.where(:coordinates.ne => nil)
   end
 
+  def san_francisco_bay_area
+    @designers = Designer.accepted.public_only
+  end
+
   def update
     update! { edit_designer_path(@designer) }
   end
