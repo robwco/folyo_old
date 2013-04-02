@@ -179,22 +179,6 @@ head(function() {
       return false;
     });
 
-    $(".designer-post .excerpt").removeClass("hidden");
-    $(".designer-post .full").hide();
-    $(".read-more").click(function(){
-      $post=$(this).parents(".designer-post");
-      $post.find(".excerpt").hide().end().find(".full").slideDown("fast");
-      return false;
-    });
-
-    $(".hide").click(function(){
-      $post=$(this).parents(".designer-post");
-      $post.find(".full").slideUp("fast", function(){
-        $post.find(".excerpt").show();
-      });
-      return false;
-    });
-
   });
 
 });

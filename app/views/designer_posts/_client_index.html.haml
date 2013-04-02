@@ -47,7 +47,7 @@
               %strong Looking for:
               =first_words(strip_tags(dp.comment), 15).html_safe
               =link_to "Read more…", "#", :class => "read-more"
-          .full
+          .full.hidden
             .comment
               %strong Looking for:
               =dp.comment.html_safe
@@ -76,3 +76,37 @@
             =link_to "Hide", "#", :class => "hide"
 
 = paginate @designer_posts
+
+:coffeescript
+  head ->
+    $(".designer-post .excerpt").removeClass("hidden")
+
+    $(".designer-post .full").hide()
+
+    $(".read-more").click ->
+      $post = $(this).parents(".designer-post")
+      $post.find(".excerpt").hide().end().find(".full").slideDown("fast")
+      false
+
+    $(".hide").click ->
+      $post = $(this).parents(".designer-post")
+      $post.find(".full").slideUp "fast", ->
+        $post.find(".excerpt").show()
+      false
+
+    $(".dribbble-work").each ->
+
+      $(this).find("li").each (index, element) ->
+        $figure= $(this)
+        $link = $figure.find("a");
+        $img = $figure.find("img")
+        $caption = $figure.find(".caption")
+
+        $.getJSON "http://api.dribbble.com/players/\#{$link.attr('title')}/shots?callback=?", (data) ->
+          if data.shots && data.shots.length >= index
+            shot = data.shots[index]
+            shotIMGURL = shot.image_url
+            shotURL = shot.url
+            $img.attr("src", shotIMGURL)
+            $link.attr("href", shotURL)
+            $caption.html("<a href='\#{shotURL}'>\#{shot.title}</a>")
