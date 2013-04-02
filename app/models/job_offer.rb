@@ -142,6 +142,11 @@ class JobOffer
     self.status == :refunded
   end
 
+  def send_job_offer_reply_notification(reply_id)
+    reply = self.designer_replies.find(reply_id)
+    ClientMailer.job_offer_replied(reply).deliver
+  end
+
   protected
 
   def sanitize_attributes

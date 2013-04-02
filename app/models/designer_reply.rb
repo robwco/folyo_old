@@ -24,7 +24,8 @@ class DesignerReply
   scope :ordered, order_by(created_at: :desc)
 
   def send_notification!
-    ClientMailer.job_offer_replied(self).deliver # temp fix, delayed job seems to crash in embedded class
+    # indirection here because we cannot directly use an embedded instance with delayed_job
+    job_offer.delay.send_job_offer_reply_notification(self.id)
   end
 
   def track_event
