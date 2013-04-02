@@ -1,7 +1,5 @@
 = content_for :title, "My Offers"
 
-= render 'site/wysiwyg'
-
 - if @job_offers.empty?
   %p.note You don't have any job offers yet. Why not #{link_to 'submit one', new_offer_path}?
 - else

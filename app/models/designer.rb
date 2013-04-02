@@ -158,7 +158,7 @@ class Designer < User
   def update_dribbble_info
     unless Rails.env.test?
       shot = featured_shot_id.blank? ? Dribbble::Player.find(dribbble_username).shots.first : Dribbble::Shot.find(featured_shot_id)
-      if shot
+      if shot && !shot.respond_to?(:message) # to handle a #<Dribbble::Shot:0x007fee5f1bde10 @created_at=nil, @message="Not found">
         self.featured_shot_image_url = shot.image_url
         self.featured_shot_url = shot.url
         self.featured_shot_id = shot.id

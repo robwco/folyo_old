@@ -5,8 +5,6 @@
 = content_for :subnav do
   = render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
 
-= render '/site/wysiwyg'
-
 = content_for :evaluation_hint do
   %span You can also include links to examples of work done for you by the designer, or any other relevant information.
 

@@ -24,7 +24,7 @@ class DesignerReply
   scope :ordered, order_by(created_at: :desc)
 
   def send_notification!
-    ClientMailer.delay.job_offer_replied(self)
+    ClientMailer.job_offer_replied(self).deliver # temp fix, delayed job seems to crash in embedded class
   end
 
   def track_event
