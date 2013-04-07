@@ -24,7 +24,7 @@
   - if Rails.env.production?
     :coffeescript
       head.js '//www.google-analytics.com/ga.js', ->
-        _gaq = _gaq || []
+        window._gaq = _gaq || []
         _gaq.push ['_setAccount', 'UA-32751793-1']
         _gaq.push ['_setDomainName', 'www.folyo.me']
         # handling turbolinks page changes
