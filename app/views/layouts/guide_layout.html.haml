@@ -13,15 +13,24 @@
 
     = csrf_meta_tag
 
-    - if protect_against_forgery?
-      :javascript
-        var AUTH_TOKEN = #{form_authenticity_token.inspect};
-
     %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
 
     %script{:type=>"text/javascript", :src=>"http://use.typekit.com/tpm6qxy.js"}
     :javascript
       try{Typekit.load();}catch(e){}
+
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-32751793-1']);
+      _gaq.push(['_setDomainName', 'folyo.me']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
   %body{:class=> yield(:body_class), data: { 'no-turbolink' => true }}
     = content_for?(:content) ? yield(:content) : yield
     = render :partial => '/site/clicky'

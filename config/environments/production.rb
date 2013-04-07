@@ -84,6 +84,8 @@ Folyo::Application.configure do
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end
 
+  config.middleware.use "Mixpanel::Middleware", "2388395228d8868aafa56bed6e5df55c", {}
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5

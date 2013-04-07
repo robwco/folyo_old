@@ -35,6 +35,7 @@ gem 'newrelic_rpm'
 gem 'vero'
 gem 'twitter'
 gem 'geocoder'
+gem 'mixpanel'
 gem 'activemerchant' # paypal
 gem 'hominid' # mailchimp
 gem 'swish' # dribbble

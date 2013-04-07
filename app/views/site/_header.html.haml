@@ -9,23 +9,37 @@
   = stylesheet_link_tag 'screen', :media => 'screen, projection'
 
   = javascript_include_tag 'head.min'
-  = headjs_include_tag 'vendor', 'application', 'http://use.typekit.com/tpm6qxy.js'
+  = headjs_include_tag 'vendor', 'application'
 
   = csrf_meta_tag
 
-  - if protect_against_forgery?
-    :javascript
-      var AUTH_TOKEN = #{form_authenticity_token.inspect};
+  %link{ rel: "shortcut icon", href: "/favicon.ico" }
 
-  %link{:rel=>"shortcut icon", :href=>"/favicon.ico"}
+  :coffeescript
+    head.js '//use.typekit.com/tpm6qxy.js', ->
+      try
+        Typekit.load()
+      catch e
 
-  :javascript
-    head(function() {
-      try{Typekit.load();}catch(e){};
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-32751793-1']);
-      _gaq.push(['_setDomainName', 'folyo.me']);
-      document.addEventListener('page:change', function() {
-        _gaq.push(['_trackPageview']);
-      })
-    });
+  - if Rails.env.production?
+    :coffeescript
+      head.js '//www.google-analytics.com/ga.js', ->
+        _gaq = _gaq || []
+        _gaq.push ['_setAccount', 'UA-32751793-1']
+        _gaq.push ['_setDomainName', 'folyo.me']
+        # handling turbolinks page changes
+        document.addEventListener 'page:change', ->
+          _gaq.push ['_trackPageview']
+
+  - if Rails.env.production?
+    :coffeescript
+      head.js '//static.getclicky.com/js', ->
+        try
+          clicky.init(66478127)
+          # handling turbolinks page changes
+          document.addEventListener 'page:change', (data, data2) ->
+            clicky.log document.location.href, document.title
+        catch e
+
+    %noscript
+      %img{alt: "Clicky", width: "1", height: "1", src: "//in.getclicky.com/66478127ns.gif"}
