@@ -38,7 +38,7 @@
         try
           clicky.init(66478127)
           # handling turbolinks page changes
-          document.addEventListener 'page:change', (data, data2) ->
+          document.addEventListener 'page:change', ->
             clicky.log document.location.href, document.title
         catch e
 
