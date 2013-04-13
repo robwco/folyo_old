@@ -98,7 +98,8 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.2.3)
     erubis (2.7.0)
-    excon (0.20.1)
+    escape (0.0.4)
+    excon (0.14.2)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -166,9 +167,15 @@ GEM
       rack-contrib
       railties
     method_source (0.8.1)
-    mime-types (1.22)
-    money (5.1.1)
-      i18n (~> 0.6.0)
+
+    mime-types (1.21)
+    mixpanel (3.5.2)
+      escape
+      json
+      rack
+    money (5.0.0)
+      i18n (~> 0.4)
+      json
     mongoid (3.1.2)
       activemodel (~> 3.2)
       moped (~> 1.4.2)
@@ -338,6 +345,7 @@ DEPENDENCIES
   kaminari
   lorem
   meta_request
+  mixpanel
   mongoid (~> 3.1)
   mongoid_slug
   newrelic_rpm

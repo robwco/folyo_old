@@ -9,3 +9,6 @@
 			%li= link_to 'Blog', 'http://blog.folyo.me'
 			%li= link_to 'Follow us on Twitter', 'http://twitter.com/YoFolyo'
 			%li= link_to 'Suggest features', 'http://folyo.uservoice.com/forums/134595-general'
+
+- if ENV['RAILS_ENV'] == "production"
+	= render :partial => '/site/clicky'
