@@ -37,7 +37,7 @@ gem 'twitter'
 gem 'geocoder'
 gem 'mixpanel'
 gem 'activemerchant' # paypal
-gem 'hominid' # mailchimp
+gem 'hominid', github: 'psachs/hominid' # mailchimp
 gem 'swish' # dribbble
 
 # Misc
