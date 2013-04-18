@@ -6,7 +6,7 @@ class SiteController < ApplicationController
   end
 
   def learn_more
-    # track_event("Viewing Learn More", {:mp_note => 'viewing learn more note'})
+    track_event("Viewing Learn More", {:mp_note => 'viewing learn more note'})
   end
 
 end

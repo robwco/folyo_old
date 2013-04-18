@@ -12,7 +12,6 @@ class DesignerPostsController < ApplicationController
 
   def create
     @designer_post = current_user.posts.build(params[:designer_post])
-    track_event("New Designer Post")
     create! {posts_path}
   end
 

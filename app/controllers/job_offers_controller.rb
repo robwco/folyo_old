@@ -44,8 +44,6 @@ class JobOffersController < ApplicationController
   end
 
   def archive
-    track_event("Job Offer Archived", {mp_note: @job_offer.title, job_offer_id: @job_offer.id, job_offer_title: @job_offer.title})
-
     if current_user.is_a? Admin
       @job_offer.archive!(params['designer_users'], false)
     else

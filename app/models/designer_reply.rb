@@ -29,7 +29,7 @@ class DesignerReply
   end
 
   def track_event
-    self.designer.track_user_action('Job Offer Reply',
+    self.designer.track_user_event('Job Offer Reply',
       job_offer_title:    job_offer.title,
       job_offer_id:       job_offer.id,
       message:            message

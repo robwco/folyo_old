@@ -13,7 +13,6 @@ class DesignerRepliesController < ApplicationController
     @designer_reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
     @designer_reply.designer = current_user
     @designer_reply.save
-    track_event("New designer reply", {:mp_note => "Replying to '#{@designer_reply.job_offer.title}", designer_id: current_user.id, job_offer_title: @designer_reply.job_offer.title, job_offer_id:  @designer_reply.job_offer.id})
 
     create! do |success, failure|
       success.html { redirect_to :back }
@@ -28,7 +27,6 @@ class DesignerRepliesController < ApplicationController
   end
 
   def update_pick
-    track_event("Job Offer Archived", {mp_note: @job_offer.title, job_offer_id: @job_offer.id, job_offer_title: @job_offer.title})
     @job_offer.archive!(@designer_reply.designer_id)
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Excellent, you just picked a designer! Once you're done working with them, you can come back here to let us know how it went :)"
   end

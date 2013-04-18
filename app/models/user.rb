@@ -38,6 +38,8 @@ class User
   ## Scopes ##
   scope :ordered, order_by(:created_at => :desc)
 
+  after_create :track_signup_event
+
   ## Validation ##
   validates_presence_of :full_name
 
@@ -45,8 +47,12 @@ class User
     _type.downcase
   end
 
-  def track_user_action(event, properties = {})
-    self.track(event, properties) unless Rails.env.test?
+  def track_user_event(event, properties = {})
+    EventTracker.track_user_action(self, event, properties)
+  end
+
+  def track_signup_event
+    track_user_event('Signup')
   end
 
 end

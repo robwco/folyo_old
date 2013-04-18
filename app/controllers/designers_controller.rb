@@ -12,11 +12,13 @@ class DesignersController < ApplicationController
   end
 
   def index
+    track_event("Viewing Designers")
     @skill = params[:skill].try(:to_sym)
     index!
   end
 
   def map
+    track_event("Viewing Designer Map")
     @designers = Designer.accepted.public_only.where(:coordinates.ne => nil)
   end
 

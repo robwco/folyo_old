@@ -1,8 +1,10 @@
+require "event_tracker"
+
 class ApplicationController < ActionController::Base
 
-  # see http://lyconic.com/blog/2010/08/03/dry-up-your-ajax-code-with-the-jquery-rest-plugin
-  before_filter :correct_safari_and_ie_accept_headers, :store_location #, :initialize_mixpanel
-  after_filter :set_xhr_flash
+  before_filter :initialize_env
+  before_filter :store_location
+  after_filter  :set_xhr_flash
 
   protect_from_forgery
 
@@ -82,19 +84,31 @@ class ApplicationController < ActionController::Base
     flash.discard if request.xhr?
   end
 
-  def correct_safari_and_ie_accept_headers
-    ajax_request_types = ['text/javascript', 'application/json', 'text/xml']
-    request.accepts.sort! { |x, y| ajax_request_types.include?(y.to_s) ? 1 : -1 } if request.xhr?
-  end
-
-  def track_event(event, properties="")
-    (session[:mixpanel_events] ||= "") << 'mixpanel.track( "'+event+'", '+properties.to_json+' );'
+  def track_event(event, properties = {})
+    if current_user
+      EventTracker.track_user_action(current_user, event, properties, @request_env)
+    else
+      EventTracker.track_action(event, properties, @request_env)
+    end
   end
 
   def self.section(section_name, params = {})
     before_filter(params) do |c|
       c.instance_variable_set(:@section, section_name.to_sym)
     end
+  end
+
+  private
+
+  def initialize_env
+    # Similar to the Resque problem above, we need to help DJ serialize the
+    # request object.
+    @request_env = {
+      'REMOTE_ADDR' => request.env['REMOTE_ADDR'],
+      'HTTP_X_FORWARDED_FOR' => request.env['HTTP_X_FORWARDED_FOR'],
+      'rack.session' => request.env['rack.session'].to_hash,
+      'mixpanel_events' => request.env['mixpanel_events']
+    }
   end
 
 end
