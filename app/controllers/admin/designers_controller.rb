@@ -33,7 +33,7 @@ class Admin::DesignersController < Admin::BaseController
   protected
 
   def collection
-    @designers = Designer.page(params[:page]).per(10).ordered
+    @designers = Designer.page(params[:page]).per(10).ordered_by_status
     unless params[:skill].blank?
       @designers = @designers.any_in(skills: params[:skill].to_sym)
     end
