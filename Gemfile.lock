@@ -167,7 +167,6 @@ GEM
       rack-contrib
       railties
     method_source (0.8.1)
-
     mime-types (1.21)
     mixpanel (3.5.2)
       escape

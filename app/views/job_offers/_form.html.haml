@@ -20,7 +20,7 @@
   %span Should the designer also code their design?
 
 = hidden_field_tag :signup, params[:signup]
-- if @job_offer.rejected?
+- if @job_offer.rejected? && !current_user.is_a?(Admin)
   = f.input :status, :as => :hidden, :value => :pending
 .section
   %h3 Project Info
