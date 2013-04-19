@@ -14,8 +14,7 @@
 - elsif current_user.pending?
   .notices
     .notice Your profile is currently being reviewed, you will get access to the job offers if you're accepted. Thanks for your patience!
-- elsif current_user.rejected?
-  %h4 You didn't make it :(
-  %p Sorry but you weren't selected for Folyo this time. <a href="http://blog.folyo.me/post/10308130522">Here are a couple reasons</a> why that might be the case.
+- elsif current_user.is_a?(Designer) && current_user.rejected?
+  = render 'job_offers/designer/rejected'
 - else
   %p Nothing here…

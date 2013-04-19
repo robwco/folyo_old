@@ -30,6 +30,8 @@
     .section
       %h3 Status
       = f.input :status, :as => :radio_buttons, :label => 'Status', collection: Designer.statuses, label_method: sym_label_method
+  - else
+    = f.input :status, as: :hidden
   .section
     %h3 Settings
     = f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
@@ -52,12 +54,11 @@
     = f.input :twitter_username, :required => false
     = f.input :skype_username, :required => false
     = f.input :dribbble_username, :required => false
-    / = f.input :linkedin_url, :required => false
     = f.input :zerply_username, :required => false
     = f.input :behance_username, :required => false
   .section
     %h3 Pricing
     = f.input :rate, :label => "Hourly rate", :hint => "Your hourly rate. For statistical purpose only, will not be displayed on the site."
-  = f.submit "Update Profile", :class => "button big-button"
+  = f.submit @submit_label || "Update Profile", :class => "button big-button"
 
 

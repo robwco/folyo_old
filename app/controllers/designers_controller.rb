@@ -30,6 +30,13 @@ class DesignersController < ApplicationController
     update! { edit_designer_path(@designer) }
   end
 
+  def reapply
+    @designer.status = :pending
+    @reapplying = true
+    @submit_label = 'Reapply'
+    render 'edit'
+  end
+
   protected
 
   def collection

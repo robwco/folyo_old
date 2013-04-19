@@ -54,6 +54,7 @@ Folyo::Application.routes.draw do
     get 'map',                    on: :collection
     get 'san_francisco_bay_area', on: :collection
     get 'notifications',          on: :member
+    get 'reapply',                on: :member
     resources :messages
     resources :designer_posts, path: 'posts', as: 'posts'
   end
