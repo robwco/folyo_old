@@ -185,7 +185,7 @@ class Designer < User
   end
 
   def fix_portfolio_url(force = false)
-    if self.portfolio_url_changed? || (self.portfolio_url && force)
+    if !self.portfolio_url.blank? && (self.portfolio_url_changed? || force)
       unless self.portfolio_url[/^http:\/\//] || self.portfolio_url[/^https:\/\//]
         self.portfolio_url = "http://#{self.portfolio_url}"
       end
