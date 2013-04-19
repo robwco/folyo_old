@@ -184,10 +184,10 @@ class Designer < User
     self.dribbble_username_changed? || self.featured_shot_id_changed?
   end
 
-  def fix_portfolio_url
-    if self.portfolio_url_changed?
+  def fix_portfolio_url(force = false)
+    if self.portfolio_url_changed? || (self.portfolio_url && force)
       unless self.portfolio_url[/^http:\/\//] || self.portfolio_url[/^https:\/\//]
-        self.portfolio_url = 'http://' + self.portfolio_url
+        self.portfolio_url = "http://#{self.portfolio_url}"
       end
     end
   end
