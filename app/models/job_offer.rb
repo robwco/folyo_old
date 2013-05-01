@@ -178,7 +178,6 @@ class JobOffer
         event_options[:action_link] = offer_orders_url(self)
       when :rejected
         event_name = "Rejected"
-        ClientMailer.delay.job_offer_rejected_mail(self)
       when :paid
         self.paid_at = Time.now
         event_name = "Paid"
