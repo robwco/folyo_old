@@ -48,6 +48,7 @@ class User
   end
 
   def track_user_event(event, properties = {})
+    Rails.logger.debug "tracking event #{event} with properties #{properties.inspect}"
     EventTracker.track_user_action(self, event, properties)
   end
 

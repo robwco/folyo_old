@@ -4,6 +4,10 @@ class JobOffer
   include Mongoid::Timestamps
   include Mongoid::Slug
 
+  # using routes for Event tracking
+  include Rails.application.routes.url_helpers
+  default_url_options[:host] = HOST
+
   field :title,            type: String
   field :full_description, type: String
   field :compensation,     type: Integer
@@ -164,27 +168,29 @@ class JobOffer
   end
 
   def status_changed
-    event = "Not Modified"
+    event_name = "Not Modified"
+    event_options = { job_offer_id: self.id, job_offer_title: self.title, company_name: client.company_name }
     if self.status_changed?
       case self.status
       when :accepted
         self.approved_at = Time.now
-        event = "Accepted"
-        ClientMailer.delay.job_offer_accepted_mail(self)
+        event_name = "Accepted"
+        event_options[:action_link] = offer_orders_url(self)
       when :rejected
-        event = "Rejected"
+        event_name = "Rejected"
         ClientMailer.delay.job_offer_rejected_mail(self)
       when :paid
         self.paid_at = Time.now
-        event = "Paid"
+        event_name = "Paid"
+        event_options[:action_link] = show_archive_offer_url(self)
       when :archived
         self.archived_at = Time.now
-        event = "Archived"
+        event_name = "Archived"
       when :refunded
         self.refunded_at = Time.now
-        event = "Refunded"
+        event_name = "Refunded"
       end
-      self.client.track_user_event("Job Offer #{event}", job_offer_id: self.id, job_offer_title: self.title, company_name: client.company_name)
+      self.client.track_user_event("Job Offer #{event_name}", event_options)
     end
   end
 

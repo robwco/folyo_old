@@ -41,7 +41,7 @@
 				-else
 					%span.number $100
 			.paypal
-				= link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), :action => 'checkout'
+				= link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), checkout_offer_orders_path(@job_offer), data: {'no-turbolink' => true}
 	- if @job_offer.discount && @job_offer.discount == "HN20"
 		- content_for :sidebar do
 			%p.note You're getting the Hacker News discount, <strong>20%</strong> off!

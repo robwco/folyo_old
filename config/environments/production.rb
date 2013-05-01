@@ -61,8 +61,10 @@ Folyo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  HOST = 'www.folyo.me'
+
   # Devise default URL for this environment
-  config.action_mailer.default_url_options = { :host => 'www.folyo.me' }
+  config.action_mailer.default_url_options = { :host => HOST }
 
   # SendGrid settings
   config.action_mailer.delivery_method = :smtp
