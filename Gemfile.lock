@@ -217,6 +217,8 @@ GEM
       rack (>= 0.4)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
+    rack-mini-profiler (0.1.26)
+      rack (>= 1.1.3)
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -357,6 +359,7 @@ DEPENDENCIES
   newrelic_rpm
   premailer-rails
   pry-rails
+  rack-mini-profiler
   rails (= 3.2.13)
   rails_autolink
   rspec-rails

@@ -1,3 +1,4 @@
+
 source "https://rubygems.org"
 ruby "2.0.0"
 
@@ -6,10 +7,14 @@ gem 'rails', '3.2.13'
 # Core components
 gem 'heroku'
 gem 'unicorn'
-gem 'mongoid', '~> 3.1'
 gem 'bson_ext'
 
-#DJ
+# Persistence
+gem 'mongoid', '~> 3.1'
+gem 'rails_autolink'
+gem 'mongoid_slug'
+
+# DJ
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
 gem 'delayed-plugins-airbrake'
@@ -24,14 +29,17 @@ gem 'simple_form'
 gem 'inherited_resources'
 gem 'kaminari'
 
+# Monitoring
+gem 'rack-mini-profiler'
+gem 'airbrake'
+gem 'newrelic_rpm'
+
 # Security
 gem 'devise'
 gem 'cancan'
 gem 'sanitize'
 
 # External APIs
-gem 'airbrake'
-gem 'newrelic_rpm'
 gem 'vero'
 gem 'twitter'
 gem 'geocoder'
@@ -39,10 +47,6 @@ gem 'mixpanel'
 gem 'activemerchant' # paypal
 gem 'hominid', github: 'psachs/hominid' # mailchimp
 gem 'swish' # dribbble
-
-# Misc
-gem 'rails_autolink'
-gem 'mongoid_slug'
 
 # Email
 gem 'premailer-rails'
