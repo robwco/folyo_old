@@ -9,16 +9,15 @@ class OrdersController < ApplicationController
       price = 10000
     end
     setup_response = EXPRESS_GATEWAY.setup_purchase(price,
-      :items => [
-          {
-            :name => "Job Offer on Folyo",
-            :quantity => 1,
-            :amount => price
-          }
-        ],
-      :ip                => request.remote_ip,
-      :return_url        => new_offer_order_url,
-      :cancel_return_url => url_for(:action => 'index', :only_path => false)
+      items: [ {
+        name:     'Job Offer on Folyo',
+        quantity: 1,
+        amount:   price
+      }],
+      locale:            'en_us',
+      ip:                request.remote_ip,
+      return_url:        new_offer_order_url,
+      cancel_return_url: url_for(:action => 'index', :only_path => false)
     )
     redirect_to EXPRESS_GATEWAY.redirect_url_for(setup_response.token)
   end
