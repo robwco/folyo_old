@@ -12,14 +12,14 @@ class DesignerMailer < ActionMailer::Base
 
   def rejected_mail(designer)
     @designer = designer
-    subject = "Sorry, you didn't make it"
+    subject = "Folyo: sorry, you didn't make it"
     mail :subject => subject, :from => "Folyo <hello@folyo.me>", :to => designer.email
   end
 
   def rejected_reply(designer, job_offer)
     @designer = designer
     @job_offer = job_offer
-    subject = "[Folyo] Sorry, you didn't get the job"
+    subject = "Folyo: sorry, you didn't get the job"
     mail :subject => subject, :from => "Folyo <hello@folyo.me>", :to => designer.email
   end
 
