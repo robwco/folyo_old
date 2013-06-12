@@ -125,7 +125,7 @@ class Designer < User
   protected
 
   def tweet_out
-    if Rails.env.production? && self.status_changed? && self.public? && self.accepted? && !self.twitter_username.blank?
+    if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
       Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
