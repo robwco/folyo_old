@@ -3,17 +3,23 @@
 - if @job_offers.empty?
   %p.note You don't have any job offers yet. Why not #{link_to 'submit one', new_offer_path}?
 - else
-  - unless @job_offers.pending.empty? && @job_offers.rejected.empty?
-    .pending
-      %h3.pending Pending
+  - unless @job_offers.waiting_for_payment.empty?
+    .waiting_for_payment
+      %h3.waiting_for_payment Unpaid
       %ul.offer-list
-        - @job_offers.pending.each do |job|
+        - @job_offers.waiting_for_payment.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_path(job)
             %ul.controls
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
+              %li.pay= link_to 'Pay for this offer', new_offer_order_path(job)
+
+  - unless @job_offers.rejected.empty?
+    .rejected
+      %h3.rejected Need update
+      %ul.offer-list
         - @job_offers.rejected.each do |job|
           %li
             %h2.title
@@ -21,23 +27,27 @@
             %ul.controls
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-  - unless @job_offers.accepted.empty?
-    .unpaid
-      %h3.unpaid Unpaid
+              %li= link_to 'Payment info', offer_order_path(job)
+              %li.pay= link_to 'Update this offer', edit_offer_path(job)
+
+  - unless @job_offers.waiting_for_review.empty?
+    .pending
+      %h3.pending Waiting for review
       %ul.offer-list
-        - @job_offers.accepted.each do |job|
+        - @job_offers.waiting_for_review.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_path(job)
             %ul.controls
               %li= link_to 'View', offer_path(job)
-              %li= link_to 'Edit job', edit_offer_path(job)
-              %li.pay= link_to 'Pay for this offer', offer_orders_path(job)
-  - unless @job_offers.paid.empty?
+              %li= link_to 'Edit', edit_offer_path(job)
+              %li= link_to 'Payment info', offer_order_path(job)
+
+  - unless @job_offers.accepted.empty?
     .accepted
       %h3.active Active
       %ul.offer-list
-        - @job_offers.paid.each do |job|
+        - @job_offers.accepted.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_path(job)
@@ -49,9 +59,9 @@
               %li= link_to 'View designer replies', offer_replies_path(job)
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-              %li= link_to 'Payment info', offer_orders_path(job)
-              %li.archive= link_to 'Archive', show_archive_offer_path(job), :title =>"Archive the offer once you've picked a designer", :class => 'tooltip'
-              =#%li= link_to 'Close job offer', '#'
+              %li= link_to 'Payment info', offer_order_path(job)
+              %li.archive= link_to 'Archive', show_archive_offer_path(job), title: "Archive the offer once you've picked a designer", class: 'tooltip'
+
   - unless @job_offers.archived.empty?
     .archived
       %h3.archived Archived
@@ -68,18 +78,19 @@
               %li= link_to 'View designer replies', offer_replies_path(job)
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-              %li= link_to 'Payment info', offer_orders_path(job)
-              -#%li.archive= link_to 'Rate Designer', edit_offer_evaluations_path(job), :title =>"Let us know how it went!", :class => 'tooltip'
-
+              %li= link_to 'Payment info', offer_order_path(job)
+              %li.archive= link_to 'Rate Designer', edit_offer_evaluations_path(job), :title =>"Let us know how it went!", :class => 'tooltip'
 
   = paginate @job_offers
 
 = content_for :mainaction do
-  = link_to 'Submit new job offer', new_offer_path, :id => "new-offer", :class => "button big-button"
+  = link_to 'Submit new job offer', new_offer_path, id: 'new-offer', class: 'button big-button'
 
 = content_for :sidebar do
   .notices
-    - unless @job_offers.pending.empty?
+    - unless @job_offers.waiting_for_payment.empty?
+      .notice You have unpaid job offers. They will not be reviewed nor published until you complete the payment.
+    - unless @job_offers.rejected.empty?
+      .notice You have some offers needing update. As soon as you update it, we will review it again for publication.
+    - unless @job_offers.waiting_for_review.empty?
       .notice You have job offers pending review. You will receive a notification if they're accepted, or if we need more info from you.
-    - unless @job_offers.accepted.empty?
-      .notice You have unpaid job offers. They will not be published until you complete the payment.

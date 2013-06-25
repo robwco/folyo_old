@@ -11,20 +11,8 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  # == Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
+
   config.mock_with :rspec
-
-  # Use color in STDOUT
-  config.color_enabled = true
-
-  # Use color not only in STDOUT but also in pagers and files
-  config.tty = true
 
   DatabaseCleaner[:mongoid].strategy = :truncation
 

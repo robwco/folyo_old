@@ -1,0 +1,5 @@
+= content_for :body_class, " with-wizard"
+= content_for :subnav do
+  %ol.wizard
+    %li{class: (active == :offer ? 'active' : '')} Your Project
+    %li{class: (active == :order ? 'active' : '')} Payment

@@ -1,5 +1,4 @@
-= content_for :parent_level do
-  = link_to "My Offers", offers_path
+= render '/job_offers/breadcrumb'
 
 = content_for :title, @job_offer.client.company_name
 = content_for :body_class, "offer-designer"
@@ -8,18 +7,22 @@
   = content_for :subtitle, @job_offer.title
 - else
   = content_for :subnav do
-    = render :partial => '/job_offers/client/nav', :locals => {:job_offer => @job_offer}
+    = render '/job_offers/client/nav', job_offer: @job_offer
+
+- if @job_offer.rejected? && !@job_offer.review_comment.blank?
+  = render 'review_comment', job_offer: @job_offer
 
 = render 'job_offer_main', job_offer: @job_offer
 
 = content_for :sidebar do
-  - if @job_offer.designer_replies.any? {|reply| reply.designer == current_user}
-    .alert
-      .notice You have previously replied to this job offer.
-  - elsif @job_offer.archived?
-    .alert
-      .notice This job offer is no longer active.
-  - elsif current_user.is_a? Designer
-    = render 'job_offers/client/reply', job_offer: @job_offer
+  - if current_user.is_a? Designer
+    - if @job_offer.designer_replies.any? {|reply| reply.designer == current_user}
+      .alert
+        .notice You have previously replied to this job offer.
+    - elsif @job_offer.archived?
+      .alert
+        .notice This job offer is no longer active.
+    - else
+      = render '/job_offers/designer/reply', job_offer: @job_offer
 
   = render 'job_offer_details', job_offer: @job_offer

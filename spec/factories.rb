@@ -88,9 +88,7 @@ FactoryGirl.define do
   sequence :created_at do |n|
     rand_from_list((5..25).to_a).days.ago.to_date
   end
-  sequence :sent_out_at do |n|
-    rand_from_list((1..4).to_a).days.ago.to_date
-  end
+
   sequence :short_description do |n|
     RandomText.new('paragraphs').output(8).capitalize + "."
   end
@@ -102,11 +100,15 @@ end
 FactoryGirl.define do
   factory :job_offer do
     title {FactoryGirl.generate(:job_offer_title)}
-    full_description {FactoryGirl.generate(:description)}
+    project_summary {FactoryGirl.generate(:description)}
+    project_details {FactoryGirl.generate(:description)}
     compensation {FactoryGirl.generate(:compensation)}
-    sent_out_at {FactoryGirl.generate(:sent_out_at)}
     skills { [Designer.skills.sample, Designer.skills.sample] }
-    status :paid
+    status :accepted
+    location {FactoryGirl.generate(:location)}
+    company_name {FactoryGirl.generate(:company_name)}
+    company_url {FactoryGirl.generate(:url)}
+    company_description {FactoryGirl.generate(:description)}
     association :client
   end
 
@@ -122,10 +124,7 @@ FactoryGirl.define do
     full_name {FactoryGirl.generate(:full_name)}
     password 'password'
     password_confirmation 'password'
-    location {FactoryGirl.generate(:location)}
-    company_name {FactoryGirl.generate(:company_name)}
-    company_url {FactoryGirl.generate(:url)}
-    company_description {FactoryGirl.generate(:description)}
+
   end
 
   factory :designer do |designer|

@@ -1,0 +1,25 @@
+= render '/job_offers/breadcrumb'
+
+= content_for :title, @job_offer.title
+= content_for :body_class, "offer-client"
+
+= content_for :subnav do
+  = render '/job_offers/client/nav', job_offer: @job_offer
+
+= content_for :sidebar do
+  .note
+    %h5 Not satisfied?
+    %p If you're not satisfied with our service <a href="mailto:hello@folyo.me">contact us</a> to get a full refund.
+
+.notices
+  .notice
+    %h4 Order details
+    %ul
+      %li <strong>Job Offer:</strong> #{@job_offer.title}
+      %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
+      %li <strong>Amount:</strong> $#{@job_offer.order.total}
+
+%h2 Thanks for buying a job offer on Folyo!
+%p We will now review your offer. It will then be displayed to all designers on the site, and they will also receive it by email in the next newsletter.
+%p You should start receiving designer's replies in your inbox very soon!
+

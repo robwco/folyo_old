@@ -1,0 +1,32 @@
+@import "compass/css3";
+
+@import "partials/colors";
+
+html {
+  width: 520px;
+  background-color: white;
+}
+
+body {
+  border: 1px solid $lightgrey4;
+  @include border-radius(3px);
+  @include box-shadow(inset $lightgrey2  0px 0px 0px 3px);
+  background:#fcfcfc;
+  font-family:monospace;
+  font-size:14px;
+  padding:10px;
+  line-height:1.35em;
+  margin:0;
+  &:focus {
+    outline:none;
+    background:#f1f6f8;
+    @include box-shadow(inset $lightgrey4  0px 0px 0px 3px);
+  }
+  &.error {
+    background:#fedee3;
+    color:#c62910;
+    border-color:#dd887a;
+    @include box-shadow(inset #ffc5bb  0px 0px 0px 3px);
+  }
+}
+

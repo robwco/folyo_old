@@ -37,7 +37,8 @@ class Ability
       can :manage, JobOffer do |job_offer|
         job_offer.client_id == user.id
       end
-      can [:read, :new, :create, :checkout], Order do |order|
+      can :create, Order
+      can [:read, :confirm, :checkout], Order do |order|
         order.job_offer.client_id == user.id
       end
       can [:read, :map, :san_francisco_bay_area], Designer
@@ -46,6 +47,7 @@ class Ability
       can :read, Designer do |designer|
         designer.public? && designer.accepted?
       end
+      can :create, JobOffer
       can [:map, :san_francisco_bay_area], Designer
     end
 

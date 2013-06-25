@@ -36,7 +36,8 @@ class User
   belongs_to  :referrer_designer, class_name: 'Designer'
 
   ## Scopes ##
-  scope :ordered, order_by(:created_at => :desc)
+  scope :ordered,   order_by(created_at: :desc)
+  scope :for_email, ->(email){ where(email: email) }
 
   after_create :track_signup_event
 

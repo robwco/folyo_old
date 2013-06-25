@@ -19,7 +19,7 @@
     %h3 Categories
     %ul.skills-list
       - job_offer.skills.each do |s|
-        %li{:class => s.to_s}= s.to_s.humanize
+        %li{class:s.to_s}= s.to_s.humanize
   - if job_offer.coding
     %li.coding
       %h3 Coding

@@ -30,6 +30,10 @@ form{
 			margin:0;
 		}
 	}
+	input.readonly {
+		color: #628B9E;
+		background: rgba(198, 210, 216, 0.29);
+	}
 }
 .section{
 	margin-bottom:40px;
@@ -85,6 +89,9 @@ label{
 	color:rgba(122,141,153, 0.75);
 	@include transition-property(all);
 	@include transition-duration(500ms);
+	&.with-title {
+		top: 0px;
+	}
 	span{
 		display:block;
 		margin-bottom:10px;

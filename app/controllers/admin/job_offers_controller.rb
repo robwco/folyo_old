@@ -5,12 +5,31 @@ class Admin::JobOffersController < Admin::BaseController
   section :job_offers
 
   def update
-    update! { edit_admin_offer_path(@job_offer)}
+    update! { edit_offer_path(@job_offer)}
   end
 
+  def accept
+    @job_offer.accept
+    redirect_to edit_offer_path(@job_offer), notice: 'Offer has been successfully accepted'
+  end
+
+  def reject
+    @job_offer.reject(params[:job_offer][:review_comment])
+    redirect_to edit_offer_path(@job_offer), notice: 'Offer has been rejected'
+  end
+
+  def newsletter_setup
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted
+  end
 
   def destroy
     destroy!{ admin_offers_path }
+  end
+
+  def to_markdown
+    @client.to_markdown!
+    @job_offer.to_markdown!
+    redirect_to offer_path(@job_offer), notice: 'Successfully converted to markdown'
   end
 
   def full_list
@@ -18,7 +37,7 @@ class Admin::JobOffersController < Admin::BaseController
   end
 
   def active
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.paid
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted
   end
 
   def archived

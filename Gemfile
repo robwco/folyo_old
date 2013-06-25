@@ -13,6 +13,9 @@ gem 'bson_ext'
 gem 'mongoid', '~> 3.1'
 gem 'rails_autolink'
 gem 'mongoid_slug'
+gem 'mongoid_rails_migrations'
+gem 'state_machine'
+gem 'reverse_markdown'
 
 # DJ
 gem 'delayed_job'
@@ -28,9 +31,9 @@ gem 'headjs-rails'
 gem 'simple_form'
 gem 'inherited_resources'
 gem 'kaminari'
+gem 'redcarpet'
 
 # Monitoring
-gem 'rack-mini-profiler'
 gem 'airbrake'
 gem 'newrelic_rpm'
 

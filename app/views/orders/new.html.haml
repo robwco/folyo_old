@@ -1,20 +1,22 @@
-=content_for :parent_level do
-	= link_to "My Offers", offers_path
-	=content_for :title, @job_offer.title
-=content_for :body_class, "offer-client"
-=content_for :subnav do
-	= render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
+= render '/job_offers/breadcrumb'
 
-:javascript
-	$(document).ready(function(){
-		$('.confirm-payment').click(function(){
-			_kmq.push(['set', {'Billing Amount':#{@order.total}}]);
-		});
-	});
+= content_for :title, "Submit a Job Offer"
 
-%h2 Confirm Payment
-%p You're one step away from posting a job offer to Folyo for <strong>$#{@order.total}</strong>:
+= render 'job_offers/wizard', active: :order
 
-= form_for @order, :url => offer_orders_path do |f|
-	= f.hidden_field :express_token
-	= f.submit "Confirm Payment", :class => "button big-button confirm-payment"
+.block
+  %p Buying a job offer on Folyo means we will:
+  %ul
+    %li <strong>Display your job offer</strong> on the site
+    %li <strong>Send it</strong> to every designer in the next newsletter
+    %li Send you designer's replies <strong>straight to your inbox</strong>
+  .notices
+    .notice
+      %h4 Our money back guarantee
+      %p If after 30 days you haven't found a suitable designer, <strong>you'll be able to get a full refund</strong>.
+  %p You will be redirected to Paypal for authentication, then come back on this site to confirm the payment:
+  .pay
+    .price
+      %span.number= "$#{@job_offer.price / 100}"
+    .paypal
+      = link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), checkout_offer_order_path(@job_offer), data: {'no-turbolink' => true}

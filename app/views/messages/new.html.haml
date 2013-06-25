@@ -1,7 +1,7 @@
 = content_for :title, "Get in Touch"
 
 .get-in-touch
-  %h2 Get in touch with #{link_to @to_user.full_name, @to_user}
+  %h2 Get in touch with #{link_to @to_user.full_name, @to_user.is_a?(Client) ? client_path(@to_user) : designer_path(@to_user)}
   %form
   = form_for @message, url: designer_messages_path(@to_user) do |f|
     .text

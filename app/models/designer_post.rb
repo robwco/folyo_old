@@ -38,4 +38,8 @@ class DesignerPost
     designer.track_user_event('New Designer Post', comment: comment)
   end
 
+  def text_format
+    :markdown
+  end
+
 end

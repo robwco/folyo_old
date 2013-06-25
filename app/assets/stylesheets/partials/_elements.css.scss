@@ -21,11 +21,18 @@ li{
 .tagline .date{
 	color:$darkgrey2;
 }
+.inline-block {
+	display: inline-block !important;
+}
 label{
 	font-size:16px;
 }
 .small{
 	font-size:14px;
+}
+
+hr {
+	margin: 20px 0;
 }
 
 .reply-offer{
@@ -247,20 +254,20 @@ h3{
 	margin:0 10px 10px -40px;
 	display:inline-block;
 
-	&.pending{
+	&.waiting_for_review{
 		background:$lightgrey4;
 	}
-	&.unpaid{
+	&.waiting_for_payment{
 		background:$yellow1;
 	}
 	&.rejected{
-		background:$red1;
+		background:$yellow1;
 	}
 	&.archived{
 		background:$green3;
 	}
 	&.refunded{
-		background:$yellow1;
+		background:$red1
 	}
 	a{
 		color:white;
@@ -624,6 +631,10 @@ ul.offer-list{
 		//@include background-image(linear-gradient(#ffc5bb, adjust-lightness(#ffc5bb,-1)));
 		color:#c62910;
 		border-color:#dd887a;
+		a {
+			color:#c62910;
+			text-decoration: underline;
+		}
 	}
 	&#error_explanation, &#errorExplanation{
 		h2{
@@ -640,6 +651,10 @@ ul.offer-list{
 		background:#faf9d6 image-url('info24.png') no-repeat 15px center;
 		color:#9d9b69;
 		border-color:#ded0aa;
+		a {
+			color: #9d9b69;
+			text-decoration: underline;
+		}
 	}
 }
 /*------------------- Tooltips ------------------ */
@@ -1103,20 +1118,23 @@ h2.pending a{
 	color:white;
 	margin-right:5px;
 
-	&.pending{
+	&.waiting_for_review{
 		background:$lightgrey4;
 	}
-	&.rejected{
-		background:$red1;
-	}
-	&.accepted{
+	&.waiting_for_payment{
 		background:$yellow1;
 	}
-	&.paid{
+	&.accepted{
 		background:$green1;
 	}
+	&.rejected{
+		background:$yellow1;
+	}
 	&.archived{
-		background:$green3;
+		background:$green2;
+	}
+	&.refunded{
+		background:$red1;
 	}
 }
 

@@ -3,7 +3,7 @@
 = content_for :subnav do
   - if current_user.is_a? Designer
     = render :partial => '/designers/account_nav'
-  - elsif current_user.is_a? Client
+  - if current_user.is_a? Client
     = render :partial => '/clients/account_nav'
 
 #flash

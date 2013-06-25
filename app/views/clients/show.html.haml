@@ -2,14 +2,19 @@
 = content_for :subtitle, @client.company_name
 = content_for :body_class, "client-profile"
 
+- if current_user.is_a?(Admin)
+  = content_for :parent_level do
+    = link_to "Clients", admin_clients_path
+
 .block.client-info
   %h3 Company Info
-  %p!= auto_link(@client.company_description.html_safe)
-- if @client.job_offers.paid.count > 0
+  %p!= format_text(@client, :company_description)
+
+- if @client.job_offers.accepted.count > 0
   .block.job-offers
     %h3 Active Job Offers
     %ul
-      - @client.job_offers.paid.each do |job|
+      - @client.job_offers.accepted.each do |job|
         %li
           = link_to job.title, offer_path(job)
 

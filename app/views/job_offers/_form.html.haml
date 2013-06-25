@@ -1,16 +1,29 @@
-= content_for :error_messages do
-  = error_messages(job_offer)
-
-= content_for :description_hint do
+= content_for :company_hint do
   %span.title Things to mention:
-  %span <strong>Project goals</strong>: what you're looking to produce.
-  %span <strong>Details</strong>: for example, what pages or screens you'll need.
-  %span <strong>Desired skills</strong>: the type of designer you're looking for.
-  %span <strong>Inspiration</strong>: other sites, logos, etc. that you like.
-  %span <strong>Timeframe</strong>: starting date, deadline, etc.
-  %span.bottom For more info, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+  %span <strong>About you</strong>: what's your story? where are you based?
+  %span <strong>What you do</strong>: clearly explain what you do in simple terms.
+  %span <strong>Why you do it</strong>: tell us the motivations behind your project.
+  %span <strong>Your users</strong>: who uses your service?
+  %span.bottom For more ideas, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
-= content_for :budget_range_hint do
+= content_for :summary_hint do
+  %span What you're looking to produce
+  %span For more info, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+
+= content_for :details_hint do
+  %span For example, what pages or screens you'll need
+
+= content_for :inspiration_hint do
+  %span Other sites, logos, etc. that you like
+
+= content_for :timeframe_hint do
+  %span Starting date, deadline, etc.
+
+= content_for :budget_type_hint do
+  %span.title Folyo's 3 budget categories
+  %span <strong>Low:</strong> You need a solid, good-looking design but don't have that many resources. You're willing to give a less experienced designer their chance.
+  %span <strong>Medium:</strong> You're looking for a great design, and you have a comfortable budget. You want a skilled designer with a lot of experience.
+  %span <strong>High:</strong> You want to invest in an outstanding design. You're looking for the absolute best designer you can get.
   %span For more info on pricing, you can also check out <a href="http://blog.folyo.me/post/10723370923/how-much-does-a-website-cost" target="_blank">our survey of web design prices</a>
 
 = content_for :title_hint do
@@ -22,6 +35,15 @@
 = hidden_field_tag :signup, params[:signup]
 - if @job_offer.rejected? && !current_user.is_a?(Admin)
   = f.input :status, :as => :hidden, :value => :pending
+
+.section
+  %h3 Your Company
+  = simple_fields_for client do |client_f|
+    = client_f.input :company_name
+    = client_f.input :company_url
+    = client_f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: textarea_type(client)}, hint_html: {class: 'with-title'}
+    = client_f.input :location
+
 .section
   %h3 Project Info
   = f.input :title, :hint => yield(:title_hint)
@@ -30,8 +52,14 @@
     %span <strong>BAD:</strong> "Loremipsum Co."<br/>
     %span <strong>BAD:</strong> "UI/UX for a mobile app"<br/>
     %span <strong>GOOD:</strong> "Design a new UI for a movie review site"
-  = f.input :full_description, :as => :text, :hint => yield(:description_hint), :input_html => {:id => "wysiwyg", :class => "wysiwyg"}
-  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Categories', hint: yield(:categories_hint), label_method: sym_label_method, value_method: :to_sym
+
+  = f.input :project_summary, as: :text, hint: yield(:summary_hint),     input_html: {class: textarea_type(client)}
+  = f.input :project_details, as: :text, hint: yield(:details_hint),     input_html: {class: textarea_type(client)}
+  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), input_html: {class: textarea_type(client)}
+  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   input_html: {class: textarea_type(client)}
+
+  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', hint: yield(:categories_hint), label_method: sym_label_method, value_method: :to_sym
+
   = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.
 .section
@@ -39,22 +67,12 @@
   - if @job_offer.compensation
     = f.input :compensation, :label => "Budget (in USD)", :hint => yield(:budget_hint)
 
-  = f.input :budget_type, as: :radio_buttons, collection: JobOffer.budget_types, :label => "Budget Category", label_method: sym_label_method
-  .note
-    %h5 Folyo's 3 budget categories lets us match you with the right designers:
-    %br
-    %ul
-      %li <strong>Low:</strong> You need a solid, good-looking design but don't have that many resources. You're willing to give a less experienced designer their chance.
-      %li <strong>Medium:</strong> You're looking for a great design, and you have a comfortable budget. You want a skilled designer with a lot of experience.
-      %li <strong>High:</strong> You want to invest in an outstanding design. You're looking for the absolute best designer you can get.
+  = f.input :budget_type, as: :radio_buttons, collection: JobOffer.budget_types, :label => "Budget Category", label_method: sym_label_method, hint: yield(:budget_type_hint), hint_html: {class: 'with-title'}
 
-  = f.input :budget_range, :as => :select, :collection => JobOffer.budget_ranges, :label => "Budget Range", :hint => yield(:budget_range_hint)
+  = f.input :budget_range, :as => :select, :collection => JobOffer.budget_ranges, :label => "Budget Range"#, :hint => yield(:budget_range_hint)
 
   - if current_user.is_a? Admin
     .section
     %h3 Admin
-    = f.input :discount, :input_html => {:id => "discount-code"}
     = f.input :location_type, :label => "Work Location", :as => :radio_buttons, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. ', collection: JobOffer.location_types, label_method: sym_label_method
     = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
-  - else
-    = f.input :discount, :as => :hidden, :input_html => {:id => "discount-code"}

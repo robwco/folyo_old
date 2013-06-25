@@ -28,6 +28,10 @@ class DesignerReply
     job_offer.delay.send_job_offer_reply_notification(self.id)
   end
 
+  def text_format
+    :markdown
+  end
+
   def track_event
     self.designer.track_user_event('Job Offer Reply',
       job_offer_title:    job_offer.title,

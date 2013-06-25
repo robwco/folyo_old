@@ -8,8 +8,8 @@
       - d = dp.designer
       .designer-profile
         %p.date #{time_ago_in_words(dp.created_at)} ago
-        = link_to image_tag(avatar_url(d)), dp.designer, :class=>"designer-avatar"
-        %h2.name= link_to d.full_name, d
+        = link_to image_tag(avatar_url(d)), designer_path(dp.designer), :class=>"designer-avatar"
+        %h2.name= link_to d.full_name, designer_path(d)
         %h5.short-bio= d.short_bio
         = link_to 'Get in Touch', new_designer_message_path(d), :id => "get-in-touch", :class => "button get-in-touch"
         %ul.social-media.hidden

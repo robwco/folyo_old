@@ -16,11 +16,13 @@ class Order
   embedded_in :job_offer
 
   def purchase(job_offer)
-    response = process_purchase(job_offer)
-    track_event
-    #transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
-    #cart.update_attribute(:purchased_at, Time.now) if response.success?
-    response.success?
+    if process_purchase(job_offer).success?
+      job_offer.pay
+      track_event
+      true
+    else
+      false
+    end
   end
 
   def express_token=(token)
@@ -37,15 +39,9 @@ class Order
   private
 
   def process_purchase(job_offer)
-    if job_offer.discount && job_offer.discount == "HN20"
-      price = 8000
-    else
-      price = 10000
-    end
-
-    EXPRESS_GATEWAY.purchase(price, {
-      ip: ip_address,
-      token: express_token,
+    EXPRESS_GATEWAY.purchase(job_offer.price, {
+      ip:       ip_address,
+      token:    express_token,
       payer_id: express_payer_id
     })
   end

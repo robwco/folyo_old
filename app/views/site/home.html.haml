@@ -33,7 +33,7 @@
 				%h4 Get the best
 				%ul.featured-designers.clearfix
 					- @featured_designers.each do |d|
-						%li= link_to d.full_name, d, :class => "#{d.full_name.gsub(/ /,'-').downcase} #{d.id} tooltip", :title => d.full_name
+						%li= link_to d.full_name, designer_path(d), :class => "#{d.full_name.gsub(/ /,'-').downcase} #{d.id} tooltip", :title => d.full_name
 				%p Designers on Folyo are all vetted and selected for their skills and experience.
 				=link_to 'See all designers →', designers_path
 			.block.help

@@ -4,6 +4,11 @@ class Admin::ClientsController < Admin::BaseController
 
   section :clients
 
+  def to_markdown
+    @client.to_markdown!
+    redirect_to client_path(@client), notice: 'Successfully converted to markdown'
+  end
+
   protected
 
     def collection

@@ -14,7 +14,7 @@
 		}
 	}
 }
-.pending .posted_at, .unpaid .approved_at, .active .paid_at, .archived .archived_at, .refunded .refunded_at{
+.waiting_for_payment .posted_at, .waiting_for_review .paid_at, .accepted .accepted_at, .archived .archived_at, .refunded .refunded_at{
 	// background:$lightgrey2;
 	font-weight:bold;
 	opacity:1;

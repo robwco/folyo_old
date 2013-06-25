@@ -3,15 +3,19 @@
 .block
 	- @clients.each do |client|
 		.client
-			%h3= link_to client.company_name, edit_client_path(client)
-			%h4= client.full_name
-			%p= client.email
+			%h3
+				= link_to client.company_name, client_path(client)
+				= link_to '[edit]', edit_client_path(client)
+			%h4
+				= link_to client.full_name, client_path(client)
+				= " - "
+				= mail_to client.email
 			%ul
 				- client.job_offers.ordered_by_status.each do |job|
 					%li
-						%span{:class => "status #{job.status.to_s}"}= job.status.to_s.humanize
+						%span{class: "status #{job.status.to_s}"}= job.status.to_s.humanize
 						= link_to job.title, offer_path(job)
-						- if job.paid?
+						- if job.accepted?
 							%span.num-replies= "#{job.designer_replies.count} Replies"
 
 	= paginate @clients
