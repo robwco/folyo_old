@@ -174,6 +174,12 @@ class JobOffer
     fire_events(:reject)
   end
 
+  def refund
+    if order.refund
+      fire_events(:refund)
+    end
+  end
+
   def send_job_offer_reply_notification(reply_id)
     reply = self.designer_replies.find(reply_id)
     ClientMailer.job_offer_replied(reply).deliver

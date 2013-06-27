@@ -1,5 +1,7 @@
 class Html::Client < ::Client
 
+  trackable :email, :full_name, :role, :company_name, :created_at
+
   def text_format
     :html
   end

@@ -41,6 +41,9 @@ Folyo::Application.routes.draw do
     end
     resources :job_offers, path: 'offers', as: 'offers' do
       resources :replies
+      resource :order do
+        put 'refund'
+      end
       get 'active',           on: :collection
       get 'archived',         on: :collection
       get 'rejected',         on: :collection

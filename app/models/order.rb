@@ -9,6 +9,8 @@ class Order
   field :email,             type: String
   field :details,           type: String
   field :total,             type: Integer
+  field :refunded_at,       type: DateTime
+  field :error_message,     type: String
 
   field :pg_id
 
@@ -33,6 +35,18 @@ class Order
       self.email = details.params["PayerInfo"]["Payer"]
       self.total = details.params["order_total"]
       self.details = details
+    end
+  end
+
+  def refund
+    response = EXPRESS_GATEWAY.transfer(job_offer.price, self.email, subject: "Folyo refund - #{@job_offer.title}")
+    if response.success?
+      self.refunded_at = DateTime.now
+      save
+    else
+      self.error_message = response.message
+      save
+      false
     end
   end
 
