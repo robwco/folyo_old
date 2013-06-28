@@ -7,8 +7,7 @@
   %span.bottom For more ideas, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
 = content_for :summary_hint do
-  %span What you're looking to produce
-  %span For more info, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+  %span A two-sentence description of what you're trying to accomplish. 
 
 = content_for :details_hint do
   %span For example, what pages or screens you'll need
@@ -27,7 +26,10 @@
   %span For more info on pricing, you can also check out <a href="http://blog.folyo.me/post/10723370923/how-much-does-a-website-cost" target="_blank">our survey of web design prices</a>
 
 = content_for :title_hint do
-  %span A one-line description of your project
+  %span 
+    Explain the project!<br/>
+    <strong>BAD:</strong> "Loremipsum Co."<br/>
+    <strong>GOOD:</strong> "Design a new UI for a movie review site"
 
 = content_for :coding_hint do
   %span Should the designer also code their design?
@@ -45,13 +47,14 @@
     = client_f.input :location
 
 .section
+
   %h3 Project Info
-  = f.input :title, :hint => yield(:title_hint)
+  
   .note
-    %h4 Be explicit!
-    %span <strong>BAD:</strong> "Loremipsum Co."<br/>
-    %span <strong>BAD:</strong> "UI/UX for a mobile app"<br/>
-    %span <strong>GOOD:</strong> "Design a new UI for a movie review site"
+    %h4 Need help?
+    For more help, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+
+  = f.input :title, :hint => yield(:title_hint)
 
   = f.input :project_summary, as: :text, hint: yield(:summary_hint),     input_html: {class: textarea_type(client)}
   = f.input :project_details, as: :text, hint: yield(:details_hint),     input_html: {class: textarea_type(client)}
