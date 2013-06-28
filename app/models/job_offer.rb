@@ -63,7 +63,7 @@ class JobOffer
   end
 
   def self.budget_types
-    [:low, :medium, :high]
+    [:junior, :senior, :superstar]
   end
 
   def price
