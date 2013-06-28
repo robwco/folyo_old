@@ -18,17 +18,14 @@
 = simple_form_for @job_offer, :url => offers_path do |f|
 
   = simple_fields_for @client do |user_f|
-    .section
-      %h3 Your Account
-      = user_f.input :initial_role, as: :hidden, input_html: {value: "client"}
-      - if current_user
-        = user_f.input :full_name, readonly: true
-      - else
+    - unless current_user
+      .section
+        %h3 Your Account
+        = user_f.input :initial_role, as: :hidden, input_html: {value: "client"}
         = user_f.input :full_name
         = user_f.input :email, required: true
         = user_f.input :password, as: :password, required: true
         = user_f.input :referrer, label: "How did you hear about Folyo?", hint: "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
-        = user_f.input :referrer_designer, as: :hidden
 
   = render 'form', f: f, job_offer: @job_offer, client: @client
 

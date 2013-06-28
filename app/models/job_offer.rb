@@ -71,6 +71,10 @@ class JobOffer
     10000
   end
 
+  def display_price
+    "$#{price / 100}"
+  end
+
   ## validations ##
   validates_presence_of     :title, :project_summary, :project_details, :coding, :budget_range, :budget_type
   validates_presence_of     :review_comment,  if: 'self.status == :rejected'

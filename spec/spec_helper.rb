@@ -14,6 +14,9 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
 
+  config.include Warden::Test::Helpers, devise: true
+  config.include RSpec::Rails::RequestExampleGroup, type: :feature
+
   DatabaseCleaner[:mongoid].strategy = :truncation
 
   config.before(:each) do
@@ -23,6 +26,15 @@ RSpec.configure do |config|
   config.before(:each) do |group|
     DatabaseCleaner.clean
     FactoryGirl.create :admin
+    ActionMailer::Base.deliveries = []
+  end
+
+  config.before(:all, devise: true) do
+    Warden.test_mode!
+  end
+
+  config.after(:each, devise: true) do
+    Warden.test_reset!
   end
 
 end

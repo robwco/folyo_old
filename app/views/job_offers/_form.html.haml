@@ -68,7 +68,7 @@
   = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), input_html: {class: textarea_type(client)}
   = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   input_html: {class: textarea_type(client)}
 
-  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', hint: yield(:categories_hint), label_method: sym_label_method, value_method: :to_sym
+  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', label_method: sym_label_method, value_method: :to_sym
 
   = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.
