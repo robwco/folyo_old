@@ -5,6 +5,7 @@ class Order
 
   field :express_token,     type: String
   field :express_payer_id,  type: String
+  field :transaction_id,    type: String
   field :ip_address,        type: String
   field :email,             type: String
   field :details,           type: String
@@ -16,6 +17,21 @@ class Order
 
   ## associations ##
   embedded_in :job_offer
+
+  def setup_purchase(return_url, cancel_return_url, remote_ip)
+    setup_response = EXPRESS_GATEWAY.setup_purchase(job_offer.price,
+      items: [ {
+        name:     'Job Offer on Folyo',
+        quantity: 1,
+        amount:   job_offer.price
+      }],
+      locale:            'en_us',
+      ip:                remote_ip,
+      return_url:        return_url,
+      cancel_return_url: cancel_return_url
+    )
+    EXPRESS_GATEWAY.redirect_url_for(setup_response.token)
+  end
 
   def purchase(job_offer)
     if process_purchase(job_offer).success?
@@ -39,13 +55,16 @@ class Order
   end
 
   def refund
-    response = EXPRESS_GATEWAY.transfer(job_offer.price, self.email, subject: "Folyo refund - #{@job_offer.title}")
+    if self.transaction_id.nil?
+      self.update_attribute(:error_message , 'No transaction id saved for this order. Please do a manual refund')
+      return false
+    end
+
+    response = EXPRESS_GATEWAY.refund(nil, self.transaction_id)
     if response.success?
-      self.refunded_at = DateTime.now
-      save
+      self.update_attribute(:refunded_at, DateTime.now)
     else
-      self.error_message = response.message
-      save
+      self.update_attribute(:error_message, response.message)
       false
     end
   end
@@ -53,11 +72,13 @@ class Order
   private
 
   def process_purchase(job_offer)
-    EXPRESS_GATEWAY.purchase(job_offer.price, {
+    response = EXPRESS_GATEWAY.purchase(job_offer.price, {
       ip:       ip_address,
       token:    express_token,
       payer_id: express_payer_id
     })
+    self.update_attribute(:transaction_id, response.params['transaction_id'])
+    response
   end
 
   def track_event

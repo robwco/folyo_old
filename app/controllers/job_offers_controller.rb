@@ -88,10 +88,10 @@ class JobOffersController < ApplicationController
   end
 
   def archive
-    if current_user.is_a? Admin
-      @job_offer.archive!(params['designer_users'], false)
+    if current_user.is_a?(Admin)
+      @job_offer.archive(params['designer_users'], false)
     else
-      @job_offer.archive!(params['designer_users'])
+      @job_offer.archive(params['designer_users'])
     end
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Your job offer has been archived. Once you're done working with the designer, you can come back here to let us know how it went :)"
   end

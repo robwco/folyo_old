@@ -27,7 +27,7 @@ class DesignerRepliesController < ApplicationController
   end
 
   def update_pick
-    @job_offer.archive!(@designer_reply.designer_id)
+    @job_offer.archive(@designer_reply.designer_id)
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Excellent, you just picked a designer! Once you're done working with them, you can come back here to let us know how it went :)"
   end
 

@@ -59,7 +59,7 @@ describe JobOffer do
 
       let(:job_offer) { FactoryGirl.create(:job_offer, status: :waiting_for_review) }
 
-      subject { ->{ job_offer.reject } }
+      subject { ->{ job_offer.reject('rejection comment') } }
 
       it { should change{job_offer.reload.status}.from(:waiting_for_review).to(:rejected)}
 
@@ -76,7 +76,7 @@ describe JobOffer do
 
       context 'when job offer is accepted' do
 
-        let(:job_offer) { FactoryGirl.create(:job_offer, status: :accepted) }
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :accepted, order: FactoryGirl.build(:order)) }
 
         it { should change{job_offer.reload.status}.from(:accepted).to(:refunded)}
 
@@ -88,7 +88,7 @@ describe JobOffer do
 
       context 'when job offer is rejected' do
 
-        let(:job_offer) { FactoryGirl.create(:job_offer, status: :rejected) }
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :rejected, order: FactoryGirl.build(:order), review_comment: 'rejection comment') }
 
         it { should change{job_offer.reload.status}.from(:rejected).to(:initialized)}
 

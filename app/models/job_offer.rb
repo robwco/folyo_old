@@ -31,6 +31,7 @@ class JobOffer
 
   field :published_at,        type: DateTime
   field :approved_at,         type: DateTime
+  field :rejected_at,         type: DateTime
   field :paid_at,             type: DateTime
   field :archived_at,         type: DateTime
   field :refunded_at,         type: DateTime
@@ -127,7 +128,7 @@ class JobOffer
     end
 
     event :archive do
-      transition :archive => :archived
+      transition :accepted => :archived
     end
 
     event :refund do
@@ -147,11 +148,12 @@ class JobOffer
     self.client.email
   end
 
-  # archive the offer and mark some designer replies as picked
-  def archive!(picked_designer_id = nil, send_email = true)
-    self.status = :archived
-    save!
+  def live?
+    [:accepted, :archived, :refunded].include? self.status
+  end
 
+  # archive the offer and mark some designer replies as picked
+  def archive(picked_designer_id = nil, send_email = true)
     self.designer_replies.each do |reply|
       if reply.designer_id.to_s == picked_designer_id.to_s
         reply.picked = true
@@ -162,11 +164,7 @@ class JobOffer
         end
       end
     end
-    save!
-  end
-
-  def live?
-    [:accepted, :archived, :refunded].include? self.status
+    fire_events(:archive)
   end
 
   def reject(review_comment)
@@ -208,6 +206,9 @@ class JobOffer
     when :accept
       self.approved_at = Time.now
       event_options[:action_link] = show_archive_offer_url(self)
+    when :reject
+      self.rejected_at = Time.now
+      event_options[:action_link] = edit_offer_url(self)
     when :archive
       self.archived_at = Time.now
       event_name = 'archived'

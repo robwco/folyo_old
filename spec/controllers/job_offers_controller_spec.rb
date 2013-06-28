@@ -5,7 +5,7 @@ describe Client::JobOffersController do
   describe "archive" do
 
     let!(:client) { FactoryGirl.create :client }
-    let!(:job_offer) { FactoryGirl.create :job_offer, :client => client, status: :paid }
+    let!(:job_offer) { FactoryGirl.create :job_offer, :client => client, status: :accepted }
     let!(:designers) { 5.times.map { FactoryGirl.create :designer } }
     let!(:designer_replies) { 5.times.map {|i| FactoryGirl.create :designer_reply, :designer => designers[i], :job_offer => job_offer } }
 

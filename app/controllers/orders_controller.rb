@@ -11,18 +11,9 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    setup_response = EXPRESS_GATEWAY.setup_purchase(@job_offer.price,
-      items: [ {
-        name:     'Job Offer on Folyo',
-        quantity: 1,
-        amount:   @job_offer.price
-      }],
-      locale:            'en_us',
-      ip:                request.remote_ip,
-      return_url:        confirm_offer_order_url,
-      cancel_return_url: new_offer_order_url
-    )
-    redirect_to EXPRESS_GATEWAY.redirect_url_for(setup_response.token)
+    order = JobOffer.new.build_order
+    checkout_url = order.setup_purchase(confirm_offer_order_url, new_offer_order_url, request.remote_ip)
+    redirect_to checkout_url
   end
 
   def confirm

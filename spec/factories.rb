@@ -104,12 +104,13 @@ FactoryGirl.define do
     project_details {FactoryGirl.generate(:description)}
     compensation {FactoryGirl.generate(:compensation)}
     skills { [Designer.skills.sample, Designer.skills.sample] }
+    budget_range { JobOffer.budget_ranges.sample }
     status :accepted
-    location {FactoryGirl.generate(:location)}
-    company_name {FactoryGirl.generate(:company_name)}
-    company_url {FactoryGirl.generate(:url)}
-    company_description {FactoryGirl.generate(:description)}
     association :client
+  end
+
+  factory :order do
+    transaction_id { rand_str }
   end
 
   factory :admin do |admin|
@@ -124,7 +125,10 @@ FactoryGirl.define do
     full_name {FactoryGirl.generate(:full_name)}
     password 'password'
     password_confirmation 'password'
-
+    location {FactoryGirl.generate(:location)}
+    company_name {FactoryGirl.generate(:company_name)}
+    company_url {FactoryGirl.generate(:url)}
+    company_description {FactoryGirl.generate(:description)}
   end
 
   factory :designer do |designer|
