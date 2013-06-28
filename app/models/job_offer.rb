@@ -19,7 +19,7 @@ class JobOffer
   field :comp_high,           type: Integer
   field :coding,              type: Symbol
   field :budget_range,        type: String
-  field :budget_type,         type: Symbol,   default: :medium
+  field :budget_type,         type: Symbol,   default: :senior
   field :skills,              type: Array,    default: []
 
   field :discount,            type: String
@@ -75,7 +75,7 @@ class JobOffer
   validates_presence_of     :title, :project_summary
   validates_presence_of     :project_details, unless: :persisted?
   validates_presence_of     :review_comment,  if: 'self.status == :rejected'
-  validates_numericality_of :compensation, :allow_nil => true
+  validates_numericality_of :compensation, allow_nil: true
   validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true
   validates_inclusion_of    :work_type,     in: JobOffer.work_types,     allow_blank: true
   validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true

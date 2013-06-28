@@ -98,12 +98,14 @@ FactoryGirl.define do
 end
 
 FactoryGirl.define do
+
   factory :job_offer do
     title {FactoryGirl.generate(:job_offer_title)}
     project_summary {FactoryGirl.generate(:description)}
     project_details {FactoryGirl.generate(:description)}
     compensation {FactoryGirl.generate(:compensation)}
     skills { [Designer.skills.sample, Designer.skills.sample] }
+    budget_type { JobOffer.budget_types.sample }
     budget_range { JobOffer.budget_ranges.sample }
     status :accepted
     association :client
