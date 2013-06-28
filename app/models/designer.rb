@@ -40,7 +40,7 @@ class Designer < User
   ## reference data ##
 
    def self.skills
-    [:icon_design, :illustration, :logo_identity_design, :mobile_design, :print_design, :ui_design, :ux_interaction_design, :web_design]
+    [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
   end
 
   def self.statuses
