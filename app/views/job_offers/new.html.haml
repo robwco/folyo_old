@@ -25,8 +25,8 @@
         = user_f.input :full_name, readonly: true
       - else
         = user_f.input :full_name
-        = user_f.input :email
-        = user_f.input :password, :as => :password
+        = user_f.input :email, required: true
+        = user_f.input :password, as: :password, required: true
         = user_f.input :referrer, label: "How did you hear about Folyo?", hint: "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
         = user_f.input :referrer_designer, as: :hidden
 

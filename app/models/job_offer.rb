@@ -17,7 +17,7 @@ class JobOffer
   field :work_type,           type: Symbol
   field :location_type,       type: Symbol
   field :comp_high,           type: Integer
-  field :coding,              type: Symbol
+  field :coding,              type: Symbol,   default: :optional
   field :budget_range,        type: String
   field :budget_type,         type: Symbol,   default: :senior
   field :skills,              type: Array,    default: []
@@ -72,8 +72,7 @@ class JobOffer
   end
 
   ## validations ##
-  validates_presence_of     :title, :project_summary, :budget_range, :project_details
-
+  validates_presence_of     :title, :project_summary, :project_details, :coding, :budget_range, :budget_type
   validates_presence_of     :review_comment,  if: 'self.status == :rejected'
   validates_numericality_of :compensation,  allow_nil: true
   validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true

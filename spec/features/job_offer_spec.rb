@@ -34,12 +34,14 @@ describe 'Posting a job offer', type: :feature do
           fill_in 'Company name',        with: company_name
           fill_in 'Company description', with: company_desc
           fill_in 'Title',               with: title
-          fill_in 'Project summary' ,    with: project_summary
-          check 'Icon design'
+          fill_in 'Project summary',     with: project_summary
+          fill_in 'Project details',     with: project_details
+          check   'Icon design'
+          select  '$1500-$2000', from: 'Budget Range'
         end
 
         click_button 'Submit Job Offer'
-        page.should have_content 'Job offer was successfully created.'
+        page.should have_content 'Complete Your Payment'
       }.to change { User.count + JobOffer.count }.by(2)
     }.to change { ActionMailer::Base.deliveries.size }.by(1)
 
@@ -50,8 +52,10 @@ describe 'Posting a job offer', type: :feature do
     c.company_description.should == company_desc
 
     offer = JobOffer.last
+    offer.client.should == c
     offer.title.should == title
-    offer.full_description.should == full_desc
+    offer.project_summary.should == project_summary
+    offer.project_details.should == project_details
     offer.should have(1).skill
   end
 

@@ -6,7 +6,7 @@ class User
   include Vero::Trackable
 
   slug      :full_name, history: true
-  devise    :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable#, :validatable
+  devise    :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   field :full_name, type: String
   field :referrer,  type: String
@@ -42,7 +42,7 @@ class User
   after_create :track_signup_event
 
   ## Validation ##
-  validates_presence_of :full_name, :email, :password
+  validates_presence_of :full_name
 
   def role
     _type.downcase

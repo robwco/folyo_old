@@ -59,7 +59,7 @@ head ->
 
     $(".inline-hints").each ->
       $hint = $(this)
-      $input = $(this).parent().find("input")
+      $input = $(this).parent().find("input, select")
       epiceditor = $(this).parent().find(".epiceditor").data('epiceditor')
 
       $input?.on 'focus change',->
