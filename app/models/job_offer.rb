@@ -72,15 +72,16 @@ class JobOffer
   end
 
   ## validations ##
-  validates_presence_of     :title, :project_summary
-  validates_presence_of     :project_details, unless: :persisted?
+  validates_presence_of     :title, :project_summary, :budget_range, :project_details
+
   validates_presence_of     :review_comment,  if: 'self.status == :rejected'
-  validates_numericality_of :compensation, allow_nil: true
+  validates_numericality_of :compensation,  allow_nil: true
   validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true
   validates_inclusion_of    :work_type,     in: JobOffer.work_types,     allow_blank: true
   validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true
-  validates                 :skills, length: { minimum: 1, message: 'Select at least one skill' }, array: { inclusion: { in: Designer.skills } }
-  validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: false
+  validates_presence_of     :skills, message: 'Select at least one skill'
+  validates                 :skills, array: { inclusion: { in: Designer.skills } }
+  validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
   validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
 
 
