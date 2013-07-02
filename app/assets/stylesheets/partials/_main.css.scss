@@ -19,6 +19,14 @@ body, input, textarea, .button, p{
 	background:#454d53;
 	position:relative;
 	padding:0 40px;
+	.fixed-header &{
+		position:fixed;
+		top:0px;
+		width:920px;
+		z-index:10000;
+		@include border-radius(0px);
+		@include box-shadow(none);
+	}
 }
 
 #subnav{
@@ -186,6 +194,9 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 				inset white(0.4) 0px 1px 0px 0px,
 				white(0.2) 0px 1px 0px 0px
 			);
+		}
+		.with-subnav &{
+			margin-top:25px;
 		}
 	}
 }

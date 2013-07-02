@@ -1,6 +1,4 @@
-.section
-  %h3 Workflow
-
+.section.workflow
   %p
     = link_to 'Accept the offer', accept_admin_offer_path(@job_offer), method: :put, class: 'button big-button inline-block'
   %hr
@@ -8,5 +6,3 @@
   = simple_form_for @job_offer, url: reject_admin_offer_path(@job_offer), method: :put do |f|
     = f.input :review_comment, as: :text, input_html: {class: 'markdown'}, label: 'Why is the offer rejected?'
     = f.submit 'Reject the offer', class: 'button big-button'
-
-

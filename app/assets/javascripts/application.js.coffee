@@ -153,3 +153,11 @@ head ->
     $(".thread-link").click ->
       $(this).parents(".client").find(".threads").toggleClass "hidden"
       false
+
+    if $('body').hasClass('offer-client')
+      $(window).scroll ->
+        scroll = $("body").scrollTop();
+        if scroll > 80
+          $('body').addClass('fixed-header')
+        else
+          $('body').removeClass('fixed-header')

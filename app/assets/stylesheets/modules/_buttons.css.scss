@@ -1,7 +1,47 @@
 /*------------------- Buttons ------------------ */
+@mixin button{
+	display:block;
+	background:$blue1;
+	@include background-image(linear-gradient(#59aad1, #3680a3));
+	@include box-shadow(
+		inset white(0.4) 0px 1px 0px 0px	);
+	text-shadow: 0px 1px 1px rgba(0,0,0,0.35);
+	color:white;
+	border:1px solid #36667d;
+	font-weight:bold;
+	text-align:center;
+	@include border-radius(3px);
+	height:28px;
+	line-height:28px;
+	font-size:13px;
+	cursor:pointer;
+	padding:0 15px;
 
+	&:hover{
+		text-decoration:none;
+		@include background-image(linear-gradient(#75c9f1, #3c98c3));
+		@include box-shadow(
+			inset rgba(255,255,255,0.4) 0px 1px 0px 0px,
+			inset rgba(255,255,255,0.6) 0px 0px 5px 0px
+		);
+	}
+	&:active{
+		@include background-image(linear-gradient(adjust-lightness(#75c9f1,-10), adjust-lightness(#3c98c3,-10)));
+		position:relative;
+		top:1px;
+	}
+}
 .button{
 	@include button
+}
+.button.secondary{
+	@include background-image(linear-gradient(#91a3af, #798d9a));
+	&:hover{
+		@include background-image(linear-gradient(#afc1cc, #91a3af));
+	}
+	&:active{
+		@include background-image(linear-gradient(#91a3af, #798d9a));		
+	}
 }
 input.button, button.button{
 	line-height:16px;
