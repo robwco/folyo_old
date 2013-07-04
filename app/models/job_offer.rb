@@ -30,15 +30,16 @@ class JobOffer
   field :review_comment,      type: String
 
   field :published_at,        type: DateTime
+  field :submited_at,         type: DateTime
+  field :paid_at,             type: DateTime
   field :approved_at,         type: DateTime
   field :rejected_at,         type: DateTime
-  field :paid_at,             type: DateTime
+  field :sent_at,             type: DateTime
   field :archived_at,         type: DateTime
+  field :rated_at,            type: DateTime
   field :refunded_at,         type: DateTime
 
   slug :title, history: true
-
-  field :pg_id # id in postgresql. Will be removed someday
 
   ## associations ##
   belongs_to  :client
@@ -90,7 +91,7 @@ class JobOffer
 
   ## callbacks ##
   before_validation :process_skills
-  after_create      :send_offer_notification, :track_event
+  after_create      :send_offer_notification
 
   ## scopes ##
   # TODO: still need to put null values at the end
@@ -114,9 +115,12 @@ class JobOffer
   state_machine :status, initial: :initialized do
 
     event :publish do
-      transition :initialized => :waiting_for_payment
-      transition :rejected    => :waiting_for_review
-      transition :any         => same
+      transition :initialized => :waiting_for_submission
+    end
+
+    event :submit do
+      transition :waiting_for_submission => :waiting_for_payment
+      transition :rejected               => :waiting_for_review
     end
 
     event :pay do
@@ -131,13 +135,21 @@ class JobOffer
       transition :waiting_for_review => :rejected
     end
 
+    event :mark_as_sent do
+      transition :accepted => :sent
+    end
+
     event :archive do
-      transition :accepted => :archived
+      transition :sent => :archived
+    end
+
+    event :rate do
+      transition :archived => :rated
     end
 
     event :refund do
-      transition :accepted => :refunded
-      transition :rejected => :initialized
+      transition :sent     => :refunded
+      transition :rejected => :waiting_for_submission
     end
 
     after_transition :status_changed
@@ -189,39 +201,45 @@ class JobOffer
 
   protected
 
-  def track_event
-    self.client.track_user_event("New Job Offer", job_offer_title: self.title, job_offer_id: self.id)
-  end
-
   def send_offer_notification
     ClientMailer.delay.new_job_offer(self)
   end
 
+  def track_event(event_name)
+    self.client.track_user_event(event_name, job_offer_title: self.title, job_offer_id: self.id, job_offer_slug: self.slug, company_name: self.client.company_name)
+  end
+
   def status_changed(transition)
-    event_options = { job_offer_id: self.id, job_offer_title: self.title, company_name: self.client.company_name }
-    event_name = "#{transition.event.to_s}ed"
     case transition.event
     when :publish
-      self.published_at = Time.now
-      event_options[:action_link] = offer_order_url(self)
+      track_event('Save Job Offer')
+      self.published_at = DateTime.now
+    when :submit
+      track_event('Submit Job Offer')
+      self.submited_at = DateTime.now
     when :pay
-      self.paid_at = Time.now
-      event_name = 'paid'
+      track_event('Pay Job Offer')
+      self.paid_at = DateTime.now
     when :accept
-      self.approved_at = Time.now
-      event_options[:action_link] = show_archive_offer_url(self)
+      track_event('Job Offer Accepted')
+      self.approved_at = DateTime.now
     when :reject
-      self.rejected_at = Time.now
-      event_options[:action_link] = edit_offer_url(self)
+      track_event('Job Offer Rejected')
+      self.rejected_at = DateTime.now
+    when :mark_as_sent
+      track_event('Job Offer Sent')
+      self.sent_at = DateTime.now
     when :archive
-      self.archived_at = Time.now
-      event_name = 'archived'
+      track_event('Archive Job Offer')
+      self.archived_at = DateTime.now
+    when :rate
+      track_event('Leave a Rating')
+      self.rated_at = DateTime.now
     when :refund
-      self.refunded_at = Time.now
-      event_name = 'refunded'
+      track_event('Job Offer Refunded')
+      self.refunded_at = DateTime.now
     end
     save!
-    self.client.track_user_event("Job Offer #{event_name.capitalize}", event_options)
   end
 
   def process_skills
