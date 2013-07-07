@@ -2,6 +2,20 @@ require 'spec_helper'
 
 describe JobOffer do
 
+  describe 'set_client_attributes' do
+
+    let(:client)    { FactoryGirl.create(:client, company_name: nil )}
+    let(:job_offer) { FactoryGirl.create(:job_offer, status: :initialized, client: client) }
+    let(:new_company_name) { 'new company name' }
+
+    subject { ->{ job_offer.update_attribute(:company_name, new_company_name)} }
+
+    it { should change{job_offer.reload.company_name}.to(new_company_name)}
+
+    it { should change{client.reload.company_name}.from(nil).to(new_company_name)}
+
+  end
+
   describe 'state machine' do
 
     describe 'publish' do
@@ -15,7 +29,7 @@ describe JobOffer do
       it { should change{job_offer.reload.published_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Save Job Offer'
+        expect_to_track 'JO02_Save'
         subject.call
       end
 
@@ -36,7 +50,7 @@ describe JobOffer do
         it { should change{job_offer.reload.submited_at}.from(nil) }
 
         it 'should track user event' do
-          expect_to_track 'Submit Job Offer'
+          expect_to_track 'JO03_Submit'
           subject.call
         end
 
@@ -51,7 +65,7 @@ describe JobOffer do
         it { should change{job_offer.reload.submited_at}.from(nil) }
 
         it 'should track user event' do
-          expect_to_track 'Submit Job Offer'
+          expect_to_track 'JO03_Submit'
           subject.call
         end
 
@@ -66,7 +80,7 @@ describe JobOffer do
         it { should change{job_offer.reload.submited_at}.from(nil) }
 
         it 'should track user event' do
-          expect_to_track 'Submit Job Offer'
+          expect_to_track 'JO03_Submit'
           subject.call
         end
 
@@ -85,7 +99,7 @@ describe JobOffer do
       it { should change{job_offer.reload.paid_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Pay Job Offer'
+        expect_to_track 'JO04_Pay'
         subject.call
       end
 
@@ -102,7 +116,7 @@ describe JobOffer do
       it { should change{job_offer.reload.approved_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Job Offer Accepted'
+        expect_to_track 'JO05b_Accepted'
         subject.call
       end
 
@@ -119,7 +133,7 @@ describe JobOffer do
       it { should change{job_offer.reload.rejected_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Job Offer Rejected'
+        expect_to_track 'JO05a_Rejected'
         subject.call
       end
 
@@ -136,7 +150,7 @@ describe JobOffer do
       it { should change{job_offer.reload.sent_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Job Offer Sent'
+        expect_to_track 'JO06_Sent'
         subject.call
       end
 
@@ -153,7 +167,7 @@ describe JobOffer do
       it { should change{job_offer.reload.archived_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Archive Job Offer'
+        expect_to_track 'JO07a_Archive'
         subject.call
       end
 
@@ -170,7 +184,7 @@ describe JobOffer do
       it { should change{job_offer.reload.rated_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'Leave a Rating'
+        expect_to_track 'JO08_Rate'
         subject.call
       end
 
@@ -187,7 +201,7 @@ describe JobOffer do
         it { should change{job_offer.reload.status}.from(:sent).to(:refunded)}
 
         it 'should track user event' do
-          expect_to_track 'Job Offer Refunded'
+          expect_to_track 'JOXX_Refunded'
           subject.call
         end
       end
@@ -199,7 +213,7 @@ describe JobOffer do
         it { should change{job_offer.reload.status}.from(:rejected).to(:waiting_for_submission)}
 
         it 'should track user event' do
-          expect_to_track 'Job Offer Refunded'
+          expect_to_track 'JOXX_Refunded'
           subject.call
         end
 

@@ -115,6 +115,8 @@ class JobOffer
   scope :sent,                   where(status: :sent)
   scope :archived,               where(status: :archived)
   scope :rated,                  where(status: :rated)
+  scope :archived_or_rated,      where(:status.in => [:archived, :rated])
+  scope :accepted_or_sent,       where(:status.in => [:accepted, :sent])
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
 
@@ -224,6 +226,18 @@ class JobOffer
     ClientMailer.job_offer_replied(reply).deliver
   end
 
+  def location
+    self[:location] || self.client.try(:location)
+  end
+
+  def company_name
+    self[:company_name] || self.client.try(:company_name)
+  end
+
+  def company_url
+    self[:company_url] || self.client.try(:company_url)
+  end
+
   protected
 
   def send_offer_notification
@@ -237,33 +251,33 @@ class JobOffer
   def status_changed(transition)
     case transition.event
     when :publish
-      track_event('Save Job Offer')
+      track_event('JO02_Save')
       self.published_at = DateTime.now
     when :submit
-      track_event('Submit Job Offer')
+      track_event('JO03_Submit')
       self.published_at ||= DateTime.now
       self.submited_at = DateTime.now
     when :pay
-      track_event('Pay Job Offer')
+      track_event('JO04_Pay')
       self.paid_at = DateTime.now
       send_offer_notification
     when :accept
-      track_event('Job Offer Accepted')
+      track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
     when :reject
-      track_event('Job Offer Rejected')
+      track_event('JO05a_Rejected')
       self.rejected_at = DateTime.now
     when :mark_as_sent
-      track_event('Job Offer Sent')
+      track_event('JO06_Sent')
       self.sent_at = DateTime.now
     when :archive
-      track_event('Archive Job Offer')
+      track_event('JO07a_Archive')
       self.archived_at = DateTime.now
     when :rate
-      track_event('Leave a Rating')
+      track_event('JO08_Rate')
       self.rated_at = DateTime.now
     when :refund
-      track_event('Job Offer Refunded')
+      track_event('JOXX_Refunded')
       self.refunded_at = DateTime.now
     end
     save!
@@ -280,11 +294,11 @@ class JobOffer
 
   def set_client_attributes
     if location_changed? || company_name_changed? || company_url_changed? || company_description_changed?
-      self.client.location ||= self.location
-      self.client.company_name ||= self.company_name
-      self.client.company_url ||= self.company_url
-      self.client.company_description ||= self.company_description
-      self.client.save
+      self.client.location = self.location
+      self.client.company_name = self.company_name
+      self.client.company_url = self.company_url
+      self.client.company_description = self.company_description
+      self.client.save!
     end
   end
 
