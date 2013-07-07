@@ -22,6 +22,11 @@ class JobOffer
   field :budget_type,         type: Symbol,   default: :senior
   field :skills,              type: Array,    default: []
 
+  field :location,            type: String
+  field :company_name,        type: String
+  field :company_url,         type: String
+  field :company_description, type: String
+
   field :discount,            type: String
   field :discount_amount,     type: Integer
 
@@ -77,38 +82,55 @@ class JobOffer
   end
 
   ## validations ##
-  validates_presence_of     :title, :project_summary, :project_details, :coding, :budget_range, :budget_type
-  validates_presence_of     :review_comment,  if: 'self.status == :rejected'
-  validates_numericality_of :compensation,  allow_nil: true
-  validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true
-  validates_inclusion_of    :work_type,     in: JobOffer.work_types,     allow_blank: true
-  validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true
-  validates_presence_of     :skills, message: 'Select at least one skill'
-  validates                 :skills, array: { inclusion: { in: Designer.skills } }
-  validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
-  validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
+  validates_presence_of :title
 
+  with_options(if: ->(o) { (o.status != :initialized && o.status != :waiting_for_submission) || force_validation }) do |o|
+    o.validates_presence_of     :company_name, :company_description, :project_summary, :project_details, :coding
+    o.validates_presence_of     :review_comment,  if: 'self.status == :rejected'
+    o.validates_numericality_of :compensation,  allow_nil: true
+    o.validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true
+    o.validates_inclusion_of    :work_type,     in: JobOffer.work_types,     allow_blank: true
+    o.validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true
+    o.validates_presence_of     :skills, message: 'Select at least one skill'
+    o.validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
+    o.validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
+    o.validates_presence_of     :budget_range, :budget_type
+  end
 
   ## callbacks ##
   before_validation :process_skills
-  after_create      :send_offer_notification
+  after_save        :set_client_attributes
 
   ## scopes ##
   # TODO: still need to put null values at the end
   scope :ordered, order_by(refunded_at: :desc, archived_at: :desc, paid_at: :desc, approved_at: :desc, created_at: :desc)
   scope :ordered_by_status, order_by(status: :asc)
 
-  scope :initialized,         where(status: :initialized)
-  scope :waiting_for_payment, where(status: :waiting_for_payment)
-  scope :waiting_for_review,  where(status: :waiting_for_review)
-  scope :accepted,            where(status: :accepted)
-  scope :rejected,            where(status: :rejected)
-  scope :archived,            where(status: :archived)
-  scope :refunded,            where(status: :refunded)
+  scope :initialized,            where(status: :initialized)
+  scope :waiting_for_submission, where(status: :waiting_for_submission)
+  scope :waiting_for_payment,    where(status: :waiting_for_payment)
+  scope :waiting_for_review,     where(status: :waiting_for_review)
+  scope :accepted,               where(status: :accepted)
+  scope :rejected,               where(status: :rejected)
+  scope :sent,                   where(status: :sent)
+  scope :archived,               where(status: :archived)
+  scope :rated,                  where(status: :rated)
+  scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
 
   ## indexes ##
   index pg_id: 1
+
+  attr_accessor :force_validation
+
+  def self.new_for_client(client)
+    JobOffer.new.tap do |o|
+      o.location = client.location
+      o.company_name = client.company_name
+      o.company_description = client.company_description
+      o.company_url = client.company_url
+    end
+  end
 
   ## state machine ##
 
@@ -116,9 +138,11 @@ class JobOffer
 
     event :publish do
       transition :initialized => :waiting_for_submission
+      transition any          => same
     end
 
     event :submit do
+      transition :initialized            => :waiting_for_payment
       transition :waiting_for_submission => :waiting_for_payment
       transition :rejected               => :waiting_for_review
     end
@@ -140,7 +164,8 @@ class JobOffer
     end
 
     event :archive do
-      transition :sent => :archived
+      transition :accepted => :archived
+      transition :sent     => :archived
     end
 
     event :rate do
@@ -165,7 +190,7 @@ class JobOffer
   end
 
   def live?
-    [:accepted, :archived, :refunded].include? self.status
+    [:accepted, :archived, :sent, :rated, :refunded].include? self.status
   end
 
   # archive the offer and mark some designer replies as picked
@@ -216,10 +241,12 @@ class JobOffer
       self.published_at = DateTime.now
     when :submit
       track_event('Submit Job Offer')
+      self.published_at ||= DateTime.now
       self.submited_at = DateTime.now
     when :pay
       track_event('Pay Job Offer')
       self.paid_at = DateTime.now
+      send_offer_notification
     when :accept
       track_event('Job Offer Accepted')
       self.approved_at = DateTime.now
@@ -249,6 +276,16 @@ class JobOffer
 
   def text_format
     :markdown
+  end
+
+  def set_client_attributes
+    if location_changed? || company_name_changed? || company_url_changed? || company_description_changed?
+      self.client.location ||= self.location
+      self.client.company_name ||= self.company_name
+      self.client.company_url ||= self.company_url
+      self.client.company_description ||= self.company_description
+      self.client.save
+    end
   end
 
 end

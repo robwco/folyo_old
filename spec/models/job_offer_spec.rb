@@ -23,17 +23,53 @@ describe JobOffer do
 
     describe 'submit' do
 
-      let(:job_offer) { FactoryGirl.create(:job_offer, status: :waiting_for_submission) }
-
       subject { ->{ job_offer.submit } }
 
-      it { should change{job_offer.reload.status}.from(:waiting_for_submission).to(:waiting_for_payment)}
+      context 'when job offer is initialized' do
 
-      it { should change{job_offer.reload.submited_at}.from(nil) }
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :initialized) }
 
-      it 'should track user event' do
-        expect_to_track 'Submit Job Offer'
-        subject.call
+        it { should change{job_offer.reload.status}.from(:initialized).to(:waiting_for_payment)}
+
+        it { should change{job_offer.reload.published_at}.from(nil) }
+
+        it { should change{job_offer.reload.submited_at}.from(nil) }
+
+        it 'should track user event' do
+          expect_to_track 'Submit Job Offer'
+          subject.call
+        end
+
+      end
+
+      context 'when job offer is waiting_for_submission' do
+
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :waiting_for_submission) }
+
+        it { should change{job_offer.reload.status}.from(:waiting_for_submission).to(:waiting_for_payment)}
+
+        it { should change{job_offer.reload.submited_at}.from(nil) }
+
+        it 'should track user event' do
+          expect_to_track 'Submit Job Offer'
+          subject.call
+        end
+
+      end
+
+      context 'when job offer is rejected' do
+
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :rejected, review_comment: 'rejection comment') }
+
+        it { should change{job_offer.reload.status}.from(:rejected).to(:waiting_for_review)}
+
+        it { should change{job_offer.reload.submited_at}.from(nil) }
+
+        it 'should track user event' do
+          expect_to_track 'Submit Job Offer'
+          subject.call
+        end
+
       end
 
     end

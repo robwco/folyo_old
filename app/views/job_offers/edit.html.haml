@@ -1,17 +1,16 @@
 = render '/job_offers/breadcrumb'
 
-= content_for :title, @job_offer.title
-= content_for :body_class, "offer-client"
-= content_for :subnav do
-  = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
-
-= content_for :mainaction do
-  .action-bar
-    %a.button.secondary{:href => "#"} Save
-    %a.button{:href => "#"} Submit for Review
+- if current_user.is_a?(Client) && @job_offer.waiting_for_submission?
+  = content_for :title, "Submit a Job Offer"
+  = render 'job_offers/client/wizard', active: :offer
+- else
+  = content_for :title, @job_offer.title
+  = content_for :body_class, "offer-client"
+  = content_for :subnav do
+    = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
 
 = content_for :error_messages do
-  = error_messages([@client, @job_offer], 'job offer')
+  = error_messages(@job_offer)
 
 - if @job_offer.rejected? && !@job_offer.review_comment.blank?
   = render 'review_comment', job_offer: @job_offer
@@ -26,5 +25,3 @@
 = simple_form_for @job_offer, url: offer_path(@job_offer) do |f|
 
   = render 'form', f: f, job_offer: @job_offer, client: @client
-
-  = f.submit "Update", class: "button big-button"

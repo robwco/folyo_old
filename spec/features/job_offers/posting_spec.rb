@@ -3,71 +3,157 @@ require 'spec_helper'
 feature 'Posting a job offer', devise: true do
 
   given(:client)          { FactoryGirl.create :client }
-  given(:full_name)       { 'Bobby Joe' }
   given(:email)           { FactoryGirl.generate :email }
+  given(:full_name)       { 'Bobby Joe' }
   given(:password)        { 'password' }
   given(:company_name)    { 'Big corporation' }
   given(:company_desc)    { 'Big corporation description' }
   given(:title)           { 'A job offer' }
   given(:project_summary) { 'Project summary' }
   given(:project_details) { 'Project details' }
+  given(:last_offer)      { JobOffer.last }
 
-  scenario 'without an existing account', devise: true do
+  context 'when not logged in' do
 
-    expect {
+    background do
       visit root_path
-
       click_link 'Post a Job'
       page.should have_content '3 Good Reasons to Use Folyo'
 
       within '#intro-header' do
         click_link 'Get Started'
       end
-      page.should have_content 'Submit a Job Offer'
+    end
 
-      page.should have_content 'Your Account'
-      submit_job_offer_form
-      page.should have_content 'errors prohibited this job offer from being saved'
+    scenario 'submit a new offer' do
 
-      fill_job_offer_form
+      expect {
+        assert_page_title 'Submit a Job Offer'
+        assert_active_wizard_item 'Your Project'
 
-      page.should have_content 'Complete Your Payment'
-    }.to change { User.count + JobOffer.count }.by(2)
+        page.should have_content 'Your Account'
 
-    ActionMailer::Base.deliveries.size.should == 1
+        submit_job_offer_form(:submit)
+        page.should have_content 'errors prohibited this job offer from being saved'
 
-    client = Client.last
-    client.full_name.should == full_name
-    client.email.should == email
-    client.company_name.should == company_name
-    client.company_description.should == company_desc
+        fill_client_form
+        fill_in 'Title', with: title
+        submit_job_offer_form(:submit)
+        page.should have_content 'errors prohibited this job offer from being saved'
 
-    assert_job_offer_creation(client)
+        fill_client_form
+        fill_job_offer_form
+        submit_job_offer_form(:submit)
+
+        assert_active_wizard_item 'Payment'
+      }.to change { User.count + JobOffer.count }.by(2)
+
+      client = Client.last
+      client.full_name.should == full_name
+      client.email.should == email
+      client.company_name.should == company_name
+      client.company_description.should == company_desc
+
+      assert_job_offer_creation(client, with_optional_fields: true)
+      last_offer.should be_waiting_for_payment
+    end
+
+    scenario 'save a new offer' do
+
+      expect {
+        assert_page_title 'Submit a Job Offer'
+        assert_active_wizard_item 'Your Project'
+
+        page.should have_content 'Your Account'
+        submit_job_offer_form(:save)
+        page.should have_content 'errors prohibited this job offer from being saved'
+
+        fill_client_form
+        fill_in 'Title', with: title
+        submit_job_offer_form(:save)
+        assert_active_wizard_item 'Your Project'
+        page.should_not have_content 'errors prohibited this job offer from being saved'
+      }.to change { User.count + JobOffer.count }.by(2)
+
+      client = Client.last
+      client.full_name.should == full_name
+      client.email.should == email
+
+      assert_job_offer_creation(client, with_optional_fields: false)
+      last_offer.should be_waiting_for_submission
+    end
+
+    scenario 'use an existing email adress' do
+      fill_in 'Full name', with: client.full_name
+      fill_in 'Email',     with: client.email
+      fill_in 'Password',  with: client.password
+
+      submit_job_offer_form(:save)
+      page.should have_content 'It seems you already have an account'
+    end
+
   end
 
-  scenario 'with an existing client account' do
-    login_as(client)
+  context 'when logged in as a client' do
 
-    expect {
+    background do
+      login_as(client)
       visit root_path
       click_link 'My Offers'
       click_link 'Submit new job offer'
+    end
 
-      page.should have_content 'Submit a Job Offer'
-      page.should_not have_content 'Your Account'
-      fill_job_offer_form(false)
-    }.to change { User.count + JobOffer.count }.by(1)
+    scenario 'post a new offer' do
+      expect {
+        assert_page_title 'Submit a Job Offer'
+        assert_active_wizard_item 'Your Project'
 
-    assert_job_offer_creation(client)
+        page.should_not have_content 'Your Account'
 
-    ActionMailer::Base.deliveries.size.should == 1
+        fill_in 'Title', with: title
+        submit_job_offer_form(:submit)
+        page.should have_content 'errors prohibited this job offer from being saved'
+
+        fill_job_offer_form
+        submit_job_offer_form(:submit)
+
+        assert_active_wizard_item 'Payment'
+      }.to change { User.count + JobOffer.count }.by(1)
+
+      assert_job_offer_creation(client, with_optional_fields: true)
+      last_offer.should be_waiting_for_payment
+    end
+
+    scenario 'save a new offer' do
+      expect {
+        assert_page_title 'Submit a Job Offer'
+        assert_active_wizard_item 'Your Project'
+
+        page.should_not have_content 'Your Account'
+
+        fill_in 'Title', with: title
+        submit_job_offer_form(:save)
+
+        assert_active_wizard_item 'Your Project'
+        page.should_not have_content 'errors prohibited this job offer from being saved'
+      }.to change { User.count + JobOffer.count }.by(1)
+
+      assert_job_offer_creation(client, with_optional_fields: false)
+      last_offer.should be_waiting_for_submission
+    end
+
   end
 
-  def fill_job_offer_form(with_user_data = true)
+  def fill_client_form
     within '#new_job_offer' do
-      fill_in 'Full name',           with: full_name if with_user_data
-      fill_in 'Email',               with: email     if with_user_data
-      fill_in 'Password',            with: password  if with_user_data
+      fill_in 'Full name', with: full_name
+      fill_in 'Email',     with: email
+      fill_in 'Password',  with: password
+    end
+  end
+
+  def fill_job_offer_form
+    within '#new_job_offer' do
       fill_in 'Company name',        with: company_name
       fill_in 'Company description', with: company_desc
       fill_in 'Title',               with: title
@@ -76,21 +162,33 @@ feature 'Posting a job offer', devise: true do
       check   'Icon design'
       select  '$1500-$2000', from: 'Budget Range'
     end
-    submit_job_offer_form
   end
 
-  def submit_job_offer_form
-    click_button 'Submit Job Offer'
+  def submit_job_offer_form(action)
+    case action
+    when :submit
+      click_button 'Submit for review'
+    when :save
+      click_button 'Save'
+    end
   end
 
-  def assert_job_offer_creation(client)
-    offer = JobOffer.last
-    offer.client.should == client
-    offer.title.should == title
-    offer.project_summary.should == project_summary
-    offer.project_details.should == project_details
-    offer.should have(1).skill
-    offer.should be_waiting_for_payment
+  def assert_job_offer_creation(client, options = {})
+    last_offer.client.should == client
+    last_offer.title.should == title
+    if options[:with_optional_fields]
+      last_offer.project_summary.should == project_summary
+      last_offer.project_details.should == project_details
+      last_offer.should have(1).skill
+    end
+  end
+
+  def assert_page_title(title)
+    find('.title h1').should have_content(title)
+  end
+
+  def assert_active_wizard_item(title)
+    find('.wizard li.active').should have_content(title)
   end
 
 end

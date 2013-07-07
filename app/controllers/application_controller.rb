@@ -102,6 +102,8 @@ class ApplicationController < ActionController::Base
     redirect_to case job_offer.status
     when :initialized
       edit_offer_path(job_offer)
+    when :waiting_for_submission
+      edit_offer_path(job_offer)
     when :waiting_for_payment
       new_offer_order_path(job_offer)
     when :waiting_for_review

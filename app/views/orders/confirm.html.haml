@@ -2,7 +2,7 @@
 
 = content_for :title, 'Submit a Job Offer'
 
-= render 'job_offers/wizard', active: :order
+= render 'job_offers/client/wizard', active: :order
 
 %h2 Confirm Payment
 %p You're one step away from posting a job offer to Folyo for <strong>$#{@order.total}</strong>:

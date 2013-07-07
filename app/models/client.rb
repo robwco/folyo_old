@@ -15,7 +15,7 @@ class Client < User
 
   has_many :job_offers
 
-  validates_presence_of :company_name, :company_description
+  #validates_presence_of :company_name, :company_description
 
   ## scopes ##
   default_scope where(:_type.in => %w(Client Html::Client))

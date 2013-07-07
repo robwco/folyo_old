@@ -257,7 +257,7 @@ h3{
 	&.waiting_for_review{
 		background:$lightgrey4;
 	}
-	&.waiting_for_payment{
+	&.waiting_for_payment, &.waiting_for_submission{
 		background:$yellow1;
 	}
 	&.rejected{

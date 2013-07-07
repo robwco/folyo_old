@@ -5,7 +5,7 @@ describe Client::JobOffersController do
   describe "archive" do
 
     let!(:client) { FactoryGirl.create :client }
-    let!(:job_offer) { FactoryGirl.create :job_offer, :client => client, status: :accepted }
+    let!(:job_offer) { FactoryGirl.create :job_offer, :client => client, status: :sent }
     let!(:designers) { 5.times.map { FactoryGirl.create :designer } }
     let!(:designer_replies) { 5.times.map {|i| FactoryGirl.create :designer_reply, :designer => designers[i], :job_offer => job_offer } }
 
@@ -13,7 +13,7 @@ describe Client::JobOffersController do
       sign_in(client)
       expect {
         post :archive, id: job_offer.id
-      }.to change { job_offer.reload.designer_replies.where(picked:  true).count }.by(0)
+      }.to change { job_offer.reload.designer_replies.where(picked: true).count }.by(0)
       job_offer.reload.should be_archived
     end
 

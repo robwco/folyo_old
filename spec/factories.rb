@@ -100,6 +100,10 @@ end
 FactoryGirl.define do
 
   factory :job_offer do
+    location {FactoryGirl.generate(:location)}
+    company_name {FactoryGirl.generate(:company_name)}
+    company_url {FactoryGirl.generate(:url)}
+    company_description {FactoryGirl.generate(:description)}
     title {FactoryGirl.generate(:job_offer_title)}
     project_summary {FactoryGirl.generate(:description)}
     project_details {FactoryGirl.generate(:description)}

@@ -1,3 +1,5 @@
+= render 'job_offers/client/workflow', offer: job_offer
+
 = content_for :company_hint do
   %span.title Things to mention:
   %span <strong>About you</strong>: what's your story? where are you based?
@@ -35,19 +37,17 @@
   %span Should the designer also code their design?
 
 = hidden_field_tag :signup, params[:signup]
-- if @job_offer.rejected? && !current_user.is_a?(Admin)
+- if job_offer.rejected? && !current_user.is_a?(Admin)
   = f.input :status, :as => :hidden, :value => :pending
 
 .section
   %h3 Your Company
-  = simple_fields_for client do |client_f|
-    = client_f.input :company_name
-    = client_f.input :company_url
-    = client_f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: textarea_type(client)}, hint_html: {class: 'with-title'}
-    = client_f.input :location
+  = f.input :company_name, required: true
+  = f.input :company_url
+  = f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: textarea_type(job_offer)}, hint_html: {class: 'with-title'},required: true
+  = f.input :location
 
 .section
-
   %h3 Project Info
 
   .note
@@ -56,33 +56,37 @@
 
   = f.input :title, :hint => yield(:title_hint)
 
-  = f.input :project_summary, as: :text, hint: yield(:summary_hint),     input_html: {class: textarea_type(client)}
+  = f.input :project_summary, as: :text, hint: yield(:summary_hint),     input_html: {class: textarea_type(job_offer)}, required: true
 
 .section
-
   %h3 Project Details
 
-  = f.input :project_details, as: :text, hint: yield(:details_hint),     input_html: {class: textarea_type(client)}
+  = f.input :project_details, as: :text, hint: yield(:details_hint),     input_html: {class: textarea_type(job_offer)}, required: true
 
 
-  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), input_html: {class: textarea_type(client)}
-  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   input_html: {class: textarea_type(client)}
+  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), input_html: {class: textarea_type(job_offer)}
+  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   input_html: {class: textarea_type(job_offer)}
 
-  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', label_method: sym_label_method, value_method: :to_sym
+  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', label_method: sym_label_method, value_method: :to_sym, required: true
 
-  = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method
+  = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method, required: true
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.
+
 .section
   %h3 Budget
-  - if @job_offer.compensation
+  - if job_offer.compensation
     = f.input :compensation, :label => "Budget (in USD)", :hint => yield(:budget_hint)
 
-  = f.input :budget_type, as: :radio_buttons, collection: JobOffer.budget_types, :label => "Designer Type", label_method: sym_label_method, hint: yield(:budget_type_hint), hint_html: {class: 'with-title'}
+  = f.input :budget_type, as: :radio_buttons, collection: JobOffer.budget_types, :label => "Designer Type", label_method: sym_label_method, hint: yield(:budget_type_hint), hint_html: {class: 'with-title'}, required: true
 
-  = f.input :budget_range, :as => :select, :collection => JobOffer.budget_ranges, :label => "Budget Range"#, :hint => yield(:budget_range_hint)
+  = f.input :budget_range, :as => :select, :collection => JobOffer.budget_ranges, :label => "Budget Range", required: true
 
   - if current_user.is_a? Admin
     .section
     %h3 Admin
     = f.input :location_type, :label => "Work Location", :as => :radio_buttons, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. ', collection: JobOffer.location_types, label_method: sym_label_method
     = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
+
+= f.submit "Save", class: "button big-button", name: 'workflow_save'
+- if job_offer.can_submit?
+  = f.submit "Submit for review", class: "button big-button", name: 'workflow_submit'

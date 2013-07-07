@@ -29,6 +29,8 @@ feature 'Paying a job offer', devise: true do
 
         click_button 'Confirm Payment'
       }.to change {offer.reload.status}.from(:waiting_for_payment).to(:waiting_for_review)
+
+      ActionMailer::Base.deliveries.size.should == 1
     end
 
   end

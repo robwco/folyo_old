@@ -6,8 +6,8 @@ class JobOffersController < ApplicationController
   section :job_offers
 
   def new
-    @job_offer = JobOffer.new
     @client = current_user || Client.new
+    @job_offer = JobOffer.new_for_client(@client)
   end
 
   def create
@@ -20,17 +20,26 @@ class JobOffersController < ApplicationController
       render :new and return
     end
 
+    # all job offer fields must be validated if offer is directly submitted
+    if params[:workflow_submit]
+      @job_offer.force_validation = true
+    end
+
     # in order to get all error messages in form,
-    # we want both validation to be executed even if first one is false
+    # we want both validations to be executed even if first one is false
     client_valid = @client.valid?
     job_offer_valid = @job_offer.valid?
 
     # saving client & offer only if both are valid
     if client_valid && job_offer_valid
+      @job_offer.client = @client
       @client.save!
       sign_in(@client)
-      @job_offer.client = @client
-      @job_offer.publish
+      if params[:workflow_save]
+        @job_offer.publish
+      elsif params[:workflow_submit]
+        @job_offer.submit
+      end
       redirect_for_offer(@job_offer)
     else
       render :new
@@ -68,15 +77,18 @@ class JobOffersController < ApplicationController
 
   def update
     @job_offer.assign_attributes(params[:job_offer])
-    @job_offer.client.assign_attributes(params[:client])
-    @client = @job_offer.client
 
-    job_offer_valid = @job_offer.valid?
-    client_valid = @job_offer.client.valid?
+    # all job offer fields must be validated if offer is directly submitted
+    if params[:workflow_submit]
+      @job_offer.force_validation = true
+    end
 
-    if job_offer_valid && client_valid
-      @job_offer.publish
-      @job_offer.client.save
+    if @job_offer.valid?
+      if params[:workflow_save]
+        @job_offer.publish
+      elsif params[:workflow_submit]
+        @job_offer.submit
+      end
       redirect_to edit_offer_path(@job_offer)
     else
       render :edit

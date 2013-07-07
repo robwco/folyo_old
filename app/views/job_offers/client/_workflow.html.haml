@@ -1,0 +1,5 @@
+= content_for :mainaction do
+  .action-bar
+    %a.button.secondary{:href => "#"} Save
+    - if offer.can_submit?
+      %a.button{:href => "#"} Submit for Review

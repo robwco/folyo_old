@@ -1,7 +1,9 @@
 - if current_user
+
   - if current_user.is_a?(Client)
     = content_for :parent_level do
       = link_to "My Offers", offers_path
+
   - if current_user.is_a?(Admin)
     = content_for :parent_level do
       = link_to "Offers", admin_offers_path

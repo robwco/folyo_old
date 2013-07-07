@@ -3,6 +3,17 @@
 - if @job_offers.empty?
   %p.note You don't have any job offers yet. Why not #{link_to 'submit one', new_offer_path}?
 - else
+  - unless @job_offers.waiting_for_submission.empty?
+    .waiting_for_payment
+      %h3.waiting_for_submission Waiting for submission
+      %ul.offer-list
+        - @job_offers.waiting_for_submission.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, offer_path(job)
+            %ul.controls
+              %li= link_to 'View', offer_path(job)
+              %li.pay= link_to 'Edit this offer', edit_offer_path(job)
   - unless @job_offers.waiting_for_payment.empty?
     .waiting_for_payment
       %h3.waiting_for_payment Unpaid
@@ -88,9 +99,11 @@
 
 = content_for :sidebar do
   .notices
-    - unless @job_offers.waiting_for_payment.empty?
+    - if @job_offers.waiting_for_submission.count > 0
+      .notice You have job offers waiting for submission. You need to submit them and complete the payment before they get reviewed.
+    - elsif @job_offers.waiting_for_payment.count > 0
       .notice You have unpaid job offers. They will not be reviewed nor published until you complete the payment.
-    - unless @job_offers.rejected.empty?
+    - elsif @job_offers.rejected.count > 0
       .notice You have some offers needing update. As soon as you update it, we will review it again for publication.
-    - unless @job_offers.waiting_for_review.empty?
+    - elsif @job_offers.waiting_for_review.count > 0
       .notice You have job offers pending review. You will receive a notification if they're accepted, or if we need more info from you.
