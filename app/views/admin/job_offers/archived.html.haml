@@ -3,7 +3,7 @@
 	= render :partial => '/admin/job_offers/job_offers_nav'
 
 .archived
-	%h3.archived Archived
+	%h3.archived Archived / Rated
 	%ul.offer-list
 		- @job_offers.each do |job|
 			= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job}

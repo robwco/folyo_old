@@ -37,15 +37,11 @@ class Admin::JobOffersController < Admin::BaseController
   end
 
   def active
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted_or_sent
   end
 
   def archived
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.archived
-  end
-
-  def rejected
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.rejected
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.archived_or_rated
   end
 
   def refunded

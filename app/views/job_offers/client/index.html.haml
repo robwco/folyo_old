@@ -5,7 +5,7 @@
 - else
   - unless @job_offers.waiting_for_submission.empty?
     .waiting_for_payment
-      %h3.waiting_for_submission Waiting for submission
+      %h3.waiting_for_submission Not yet submited
       %ul.offer-list
         - @job_offers.waiting_for_submission.each do |job|
           %li
@@ -104,6 +104,6 @@
     - elsif @job_offers.waiting_for_payment.count > 0
       .notice You have unpaid job offers. They will not be reviewed nor published until you complete the payment.
     - elsif @job_offers.rejected.count > 0
-      .notice You have some offers needing update. As soon as you update it, we will review it again for publication.
+      .notice You have some offers needing update. As soon as you submit your offer again, we will review it for publication.
     - elsif @job_offers.waiting_for_review.count > 0
       .notice You have job offers pending review. You will receive a notification if they're accepted, or if we need more info from you.

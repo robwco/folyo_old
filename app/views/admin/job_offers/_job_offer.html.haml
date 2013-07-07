@@ -1,7 +1,7 @@
 %li{:class => job.status.to_s}
 	.client
 		%h4
-			= link_to job.client.company_name, admin_client_path(job.client)
+			= link_to job.company_name, admin_client_path(job.client)
 			%span.name= " - #{job.client.full_name}"
 			= link_to "[edit]", edit_client_path(job.client)
 	%h2{:class => job.status.to_s }
