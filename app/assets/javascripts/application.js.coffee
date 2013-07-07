@@ -154,6 +154,11 @@ head ->
       $(this).parents(".client").find(".threads").toggleClass "hidden"
       false
 
+    $('a.click-delegate').click (e) ->
+      delegate_target = $(e.target).attr('data-click-target')
+      $(delegate_target).trigger('click')
+      false
+
     if $('body').hasClass('offer-client')
       $(window).scroll ->
         scroll = $("body").scrollTop();
