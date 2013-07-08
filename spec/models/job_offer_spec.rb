@@ -124,16 +124,17 @@ describe JobOffer do
 
     describe 'reject' do
 
+      let(:rejection_comment) { 'rejection comment' }
       let(:job_offer) { FactoryGirl.create(:job_offer, status: :waiting_for_review) }
 
-      subject { ->{ job_offer.reject('rejection comment') } }
+      subject { ->{ job_offer.reject(rejection_comment) } }
 
       it { should change{job_offer.reload.status}.from(:waiting_for_review).to(:rejected)}
 
       it { should change{job_offer.reload.rejected_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'JO05a_Rejected'
+        expect_to_track 'JO05a_Rejected', job_offer_rejected_reason: rejection_comment
         subject.call
       end
 
@@ -223,9 +224,12 @@ describe JobOffer do
 
   end
 
-  def expect_to_track(event_name)
-    job_offer.client.should_receive(:track_user_event) do |value|
+  def expect_to_track(event_name, options = {})
+    job_offer.client.should_receive(:track_user_event) do |value, vero_options|
       value.should == event_name
+      options.each do |k, v|
+        vero_options[k].should == v
+      end
     end
   end
 

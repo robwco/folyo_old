@@ -244,8 +244,8 @@ class JobOffer
     ClientMailer.delay.new_job_offer(self)
   end
 
-  def track_event(event_name)
-    self.client.track_user_event(event_name, job_offer_title: self.title, job_offer_id: self.id, job_offer_slug: self.slug, company_name: self.client.company_name)
+  def track_event(event_name, optional_data = {})
+    self.client.track_user_event(event_name, optional_data.merge(job_offer_title: self.title, job_offer_id: self.id, job_offer_slug: self.slug, company_name: self.client.company_name))
   end
 
   def status_changed(transition)
@@ -265,7 +265,7 @@ class JobOffer
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
     when :reject
-      track_event('JO05a_Rejected')
+      track_event('JO05a_Rejected', job_offer_rejected_reason: self.review_comment)
       self.rejected_at = DateTime.now
     when :mark_as_sent
       track_event('JO06_Sent')
