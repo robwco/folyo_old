@@ -43,9 +43,9 @@ class DesignersController < ApplicationController
     @designers = Designer.page(params[:page]).per(10).ordered_by_status
 
     if current_user && (current_user.is_a?(Admin) || current_user.is_a?(Client))
-      @designers = @designers.public_private
+      @designers = @designers.accepted.public_private
     else
-      @designers = @designers.public_only
+      @designers = @designers.accepted.public_only
     end
 
     unless params[:skill].blank?
