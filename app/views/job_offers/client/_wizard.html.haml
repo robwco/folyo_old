@@ -2,17 +2,29 @@
 = content_for :subnav do
   %ol.wizard
     - case active
+
     - when :signup
       %li{class: 'active'} Sign up
-      %li Your Project
-      %li Payment
+      - if offer.waiting_for_submission? || offer.waiting_for_payment?
+        %li= link_to 'Your Project', edit_offer_path(offer, signup: 'true')
+      - else
+        %li Your Project
+      - if offer.waiting_for_payment?
+        %li= link_to 'Payment', new_offer_order_path(offer, signup: 'true')
+      - else
+        %li Payment
+
     - when :offer
       - if signup == 'true'
-        %li Sign up
+        %li= link_to 'Sign up', edit_user_registration_path(offer_id: offer.id)
       %li{class: 'active'} Your Project
-      %li Payment
+      - if offer.waiting_for_payment?
+        %li= link_to 'Payment', new_offer_order_path(offer, signup: 'true')
+      - else
+        %li Payment
+
     - when :order
       - if signup == 'true'
-        %li Sign up
+        %li= link_to 'Sign up', edit_user_registration_path(offer_id: offer.id)
       %li= link_to 'Your Project', edit_offer_path(offer, signup: params[:signup])
       %li{class: 'active'} Payment

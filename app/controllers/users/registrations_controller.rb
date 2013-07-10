@@ -73,7 +73,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_update_path_for(resource)
-    edit_user_registration_path(resource)
+    if params[:offer_id].blank?
+      edit_user_registration_path
+    else
+      edit_user_registration_path(offer_id: params[:offer_id])
+    end
   end
 
   def after_sign_up_path_for(resource)
