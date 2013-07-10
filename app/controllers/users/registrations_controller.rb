@@ -16,13 +16,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
     when 'client'
       @user = Client.new
-      if params[:job]
-        track_event("Viewing #{params[:initial_role]} Sign Up (Job)")
-        respond_with_navigational(resource) { render "new_job" }
-      else
-        track_event("Viewing #{params[:initial_role]} Sign Up")
-        respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
-      end
+      track_event("Viewing #{params[:initial_role]} Sign Up")
+      respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
     else
       redirect_to :root
     end
@@ -49,14 +44,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords(resource)
-      case params[:user][:initial_role]
-      when 'designer'
-        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
-      when 'client'
-        respond_with_navigational(resource) { render "new_job" }
-      else
-        respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
-      end
+      respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
     end
   end
 

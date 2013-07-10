@@ -47,7 +47,6 @@ class Ability
       can :read, Designer do |designer|
         designer.public? && designer.accepted?
       end
-      can :create, JobOffer
       can [:map, :san_francisco_bay_area], Designer
     end
 

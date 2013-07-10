@@ -98,16 +98,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_for_offer(job_offer)
+  def redirect_for_offer(job_offer, options = {})
+    options.delete_if{|k,v| k.blank? }
     redirect_to case job_offer.status
     when :initialized
-      edit_offer_path(job_offer)
+      edit_offer_path(job_offer, options)
     when :waiting_for_submission
-      edit_offer_path(job_offer)
+      edit_offer_path(job_offer, options)
     when :waiting_for_payment
-      new_offer_order_path(job_offer)
+      new_offer_order_path(job_offer, options)
     when :waiting_for_review
-      offer_order_path(job_offer)
+      offer_order_path(job_offer, options)
     end
   end
 

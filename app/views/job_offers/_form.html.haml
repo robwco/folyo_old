@@ -36,9 +36,8 @@
 = content_for :coding_hint do
   %span Should the designer also code their design?
 
-= hidden_field_tag :signup, params[:signup]
-- if job_offer.rejected? && !current_user.is_a?(Admin)
-  = f.input :status, :as => :hidden, :value => :pending
+- if params[:signup] == 'true'
+  = hidden_field_tag :signup, params[:signup]
 
 .section
   %h3 Your Company
@@ -54,7 +53,7 @@
     %h4 Need help?
     For more help, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
-  = f.input :title, :hint => yield(:title_hint)
+  = f.input :title, :hint => yield(:title_hint), required: true
 
   = f.input :project_summary, as: :text, hint: yield(:summary_hint),     input_html: {class: textarea_type(job_offer)}, required: true
 
@@ -88,6 +87,7 @@
     = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
 
 .button-bar
-  = f.submit "Save", class: "button big-button secondary", name: 'workflow_save'
   - if job_offer.can_submit?
     = f.submit "Submit for review", class: "button big-button", name: 'workflow_submit'
+  - else
+    = f.submit "Save", class: "button big-button", name: 'workflow_save'

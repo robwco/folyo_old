@@ -1,6 +1,6 @@
 = content_for :title, @job_offer.title
 
-= render 'job_offers/client/wizard', active: :order, offer: @job_offer
+= render 'job_offers/client/wizard', active: :order, offer: @job_offer, signup: params[:signup]
 
 .block
   %h3 Complete Your Payment
@@ -10,7 +10,7 @@
     .price
       %span.number= @job_offer.display_price
     .paypal
-      = link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), checkout_offer_order_path(@job_offer), id: 'paypal-checkout', data: {'no-turbolink' => true}
+      = link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), checkout_offer_order_path(@job_offer, signup: params[:signup]), id: 'paypal-checkout', data: {'no-turbolink' => true}
 
 .block
   %h2 What Happens After I Pay?

@@ -82,9 +82,8 @@ class JobOffer
   end
 
   ## validations ##
-  validates_presence_of :title
-
-  with_options(if: ->(o) { (o.status != :initialized && o.status != :waiting_for_submission) || force_validation }) do |o|
+  with_options(if: ->(o) { !skip_validation }) do |o|
+    o.validates_presence_of     :title
     o.validates_presence_of     :company_name, :company_description, :project_summary, :project_details, :coding
     o.validates_presence_of     :review_comment,  if: 'self.status == :rejected'
     o.validates_numericality_of :compensation,  allow_nil: true
@@ -123,10 +122,11 @@ class JobOffer
   ## indexes ##
   index pg_id: 1
 
-  attr_accessor :force_validation
+  attr_accessor :skip_validation
 
   def self.new_for_client(client)
     JobOffer.new.tap do |o|
+      o.client = client
       o.location = client.location
       o.company_name = client.company_name
       o.company_description = client.company_description

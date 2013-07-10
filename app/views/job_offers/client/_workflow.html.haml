@@ -1,7 +1,8 @@
 = content_for :mainaction do
   .action-bar
-    %a.button.secondary.click-delegate{href: '#', 'data-click-target' => "form input.button[name='workflow_save']"} Save
+    .autosave-notice
     - if offer.can_submit?
       %a.button.click-delegate{href: '#', 'data-click-target' => "form input.button[name='workflow_submit']"} Submit for Review
     - else
-      %a.button.inactive{href: '#'} Pending Review…
+      %a.button.secondary.click-delegate{href: '#', 'data-click-target' => "form input.button[name='workflow_save']"} Save
+      / %a.button.inactive{href: '#'} Pending Review…

@@ -1,11 +1,11 @@
-= content_for :title, @job_offer.title
+= content_for :title, @job_offer.title.blank? ? 'New Offer' : @job_offer.title
+
+= content_for :body_class, " offer-client"
 
 - if @job_offer.waiting_for_payment? || @job_offer.waiting_for_submission?
-  = render 'job_offers/client/wizard', active: :offer, offer: @job_offer
-  = content_for :body_class, "offer-client with-wizard"
+  = render 'job_offers/client/wizard', active: :offer, offer: @job_offer, signup: params[:signup]
 - else
   = render '/job_offers/breadcrumb'
-  = content_for :body_class, "offer-client"
   = content_for :subnav do
     = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
 
@@ -22,6 +22,27 @@
   = content_for :sidebar do
     = link_to 'Convert to Markdown', to_markdown_admin_offer_path(@job_offer), class: 'button big-button', method: 'put'
 
-= simple_form_for @job_offer, url: offer_path(@job_offer) do |f|
+
+- if @job_offer.waiting_for_submission?
+  %p.page-intro
+    Write your job offer, then submit it for review once you're ready.
+
+= simple_form_for @job_offer, url: offer_path(@job_offer.id) do |f|
 
   = render 'form', f: f, job_offer: @job_offer, client: @client
+
+:coffeescript
+  head ->
+    $ ->
+      lastFormState = $('form').serialize()
+      setInterval(->
+        if $('form').serialize() != lastFormState
+          lastFormState = $('form').serialize()
+          $.ajax
+            url:        "#{offer_path(@job_offer.id)}"
+            type:       'POST'
+            data:       "\#{lastFormState}&workflow_save=1"
+            success: ->
+              now = new Date()
+              $('.autosave-notice').hide().html("Autosaved at \#{now.getHours()}:\#{now.getMinutes()}").fadeIn()
+      60000)

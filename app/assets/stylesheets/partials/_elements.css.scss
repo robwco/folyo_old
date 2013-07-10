@@ -1241,6 +1241,11 @@ h2.pending a{
 }
 
 .action-bar{
+	.autosave-notice {
+		display: inline-block;
+		margin-right: 10px;
+		color: #B3B3B3;
+	}
 	a{
 		display:inline-block;
 		min-width:100px;

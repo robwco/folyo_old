@@ -6,44 +6,10 @@ class JobOffersController < ApplicationController
   section :job_offers
 
   def new
-    @client = current_user || Client.new
-    @job_offer = JobOffer.new_for_client(@client)
-  end
-
-  def create
-    @client = current_user || Client.new(params[:client])
-    @job_offer = JobOffer.new(params[:job_offer])
-
-    # checking if client already exists
-    if !current_user && User.for_email(@client.email).count > 0
-      flash[:error] = "It seems you already have an account, please <a href='#{new_user_session_path}'>login</a> first"
-      render :new and return
-    end
-
-    # all job offer fields must be validated if offer is directly submitted
-    if params[:workflow_submit]
-      @job_offer.force_validation = true
-    end
-
-    # in order to get all error messages in form,
-    # we want both validations to be executed even if first one is false
-    client_valid = @client.valid?
-    job_offer_valid = @job_offer.valid?
-
-    # saving client & offer only if both are valid
-    if client_valid && job_offer_valid
-      @job_offer.client = @client
-      @client.save!
-      sign_in(@client)
-      if params[:workflow_save]
-        @job_offer.publish
-      elsif params[:workflow_submit]
-        @job_offer.submit
-      end
-      redirect_for_offer(@job_offer)
-    else
-      render :new
-    end
+    @job_offer = JobOffer.new_for_client(current_user)
+    @job_offer.skip_validation = true
+    @job_offer.publish
+    render :edit
   end
 
   def show_by_pg_id
@@ -79,17 +45,18 @@ class JobOffersController < ApplicationController
     @job_offer.assign_attributes(params[:job_offer])
 
     # all job offer fields must be validated if offer is directly submitted
-    if params[:workflow_submit]
-      @job_offer.force_validation = true
+    if params[:workflow_save]
+      @job_offer.skip_validation = true
+      logger.debug "validation: #{@job_offer.inspect}"
     end
 
     if @job_offer.valid?
       if params[:workflow_save]
         @job_offer.publish
-        redirect_to edit_offer_path(@job_offer), notice: 'Your offer has been successfully updated!'
-      elsif params[:workflow_submit]
+        redirect_to edit_offer_path(@job_offer, signup: params[:signup]), notice: 'Your offer has been successfully updated!'
+      else
         @job_offer.submit
-        redirect_for_offer(@job_offer)
+        redirect_for_offer(@job_offer, signup: params[:signup])
       end
     else
       render :edit

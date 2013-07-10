@@ -12,8 +12,11 @@ class OrdersController < ApplicationController
 
   def checkout
     order = JobOffer.new.build_order
-    checkout_url = order.setup_purchase(confirm_offer_order_url, new_offer_order_url, request.remote_ip)
-    redirect_to checkout_url
+    {}.tap do |options|
+      options[:signup] = params[:signup] unless params[:signup].blank?
+      checkout_url = order.setup_purchase(confirm_offer_order_url(options), new_offer_order_url(options), request.remote_ip)
+      redirect_to checkout_url
+    end
   end
 
   def confirm
