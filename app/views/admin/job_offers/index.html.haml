@@ -23,7 +23,6 @@
 			- @job_offers.waiting_for_payment.ordered.each do |job|
 				= render '/admin/job_offers/job_offer', job: job
 
-
 - unless @job_offers.waiting_for_submission.empty?
 	.waiting_for_submission
 		%h3.waiting_for_payment Waiting for submission
