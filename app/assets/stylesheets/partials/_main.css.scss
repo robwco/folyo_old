@@ -245,6 +245,13 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 			color:white;
 			font-weight:bold;
 		}
+		a {
+			color: $darkgrey2;
+			font-weight: normal;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 }
 body.offer-client #subnav{

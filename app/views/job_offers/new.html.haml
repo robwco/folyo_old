@@ -4,7 +4,7 @@
 
 = content_for :body_class, "offer-client with-wizard"
 
-= render 'job_offers/client/wizard', active: :offer
+= render 'job_offers/client/wizard', active: :offer, offer: @job_offer
 
 = content_for :error_messages do
   = error_messages([@client, @job_offer], 'job offer')

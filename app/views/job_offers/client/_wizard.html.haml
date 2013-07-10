@@ -1,5 +1,10 @@
 = content_for :body_class, " with-wizard"
 = content_for :subnav do
   %ol.wizard
-    %li{class: (active == :offer ? 'active' : '')} Your Project
-    %li{class: (active == :order ? 'active' : '')} Payment
+    - case active
+    - when :offer
+      %li{class: 'active'} Your Project
+      %li Payment
+    - when :order
+      %li= link_to 'Your Project', edit_offer_path(offer)
+      %li{class: 'active'} Payment

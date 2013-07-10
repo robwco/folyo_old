@@ -1,6 +1,6 @@
 = content_for :title, @job_offer.title
 
-= render 'job_offers/client/wizard', active: :order
+= render 'job_offers/client/wizard', active: :order, offer: @job_offer
 
 .block
   %h3 Complete Your Payment

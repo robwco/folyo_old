@@ -1,7 +1,7 @@
 = content_for :title, @job_offer.title
 
 - if @job_offer.waiting_for_payment? || @job_offer.waiting_for_submission?
-  = render 'job_offers/client/wizard', active: :offer
+  = render 'job_offers/client/wizard', active: :offer, offer: @job_offer
   = content_for :body_class, "offer-client with-wizard"
 - else
   = render '/job_offers/breadcrumb'
