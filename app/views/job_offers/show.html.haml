@@ -6,6 +6,7 @@
 - if current_user.is_a? Designer
   = content_for :subtitle, @job_offer.title
 - else
+  = render '/job_offers/breadcrumb'
   = content_for :subnav do
     = render '/job_offers/client/nav', job_offer: @job_offer
 

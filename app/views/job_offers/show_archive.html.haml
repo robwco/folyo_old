@@ -1,8 +1,8 @@
 = render '/job_offers/breadcrumb'
 
-=content_for :title, @job_offer.title
-=content_for :body_class, "offer-client"
-=content_for :subnav do
+= content_for :title, @job_offer.title
+= content_for :body_class, "offer-client"
+= content_for :subnav do
   = render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
 
 .block
