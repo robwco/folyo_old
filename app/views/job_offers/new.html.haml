@@ -1,11 +1,10 @@
 = render '/job_offers/breadcrumb'
 
 = content_for :title, "Your Job Offer"
-/ = content_for :subtitle, "Write your job offer, then submit it for review once you're ready."
 
-= content_for :body_class, "offer-client"
+= content_for :body_class, "offer-client with-wizard"
 
-/= render 'job_offers/client/wizard', active: :offer
+= render 'job_offers/client/wizard', active: :offer
 
 = content_for :error_messages do
   = error_messages([@client, @job_offer], 'job offer')

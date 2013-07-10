@@ -110,6 +110,11 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	border-bottom:0px;
 	position:relative;
 	padding:20px;
+
+	body.with-wizard & {
+		height: 80px;
+	}
+
 	.main-header{
 		@include clearfix;
 	}
@@ -224,8 +229,8 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	@include background-image(linear-gradient(black(0.15), black(0.05)));
 	position:absolute;
 	bottom:20px;
-	left:40px;
-	width:$content_width;
+	left:20px;
+	width:$content_width + 40px;
 	height:40px;
 	color:$darkgrey2;
 	list-style-type:decimal;

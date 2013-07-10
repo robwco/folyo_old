@@ -86,10 +86,11 @@ class JobOffersController < ApplicationController
     if @job_offer.valid?
       if params[:workflow_save]
         @job_offer.publish
+        redirect_to edit_offer_path(@job_offer), notice: 'Your offer has been successfully updated!'
       elsif params[:workflow_submit]
         @job_offer.submit
+        redirect_for_offer(@job_offer)
       end
-      redirect_to edit_offer_path(@job_offer)
     else
       render :edit
     end

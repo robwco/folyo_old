@@ -1,11 +1,6 @@
-/ = render '/job_offers/breadcrumb'
-
 = content_for :title, @job_offer.title
 
-/ = render 'job_offers/client/wizard', active: :order
-
-= content_for :subnav do
-  = render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
+= render 'job_offers/client/wizard', active: :order
 
 .block
   %h3 Complete Your Payment

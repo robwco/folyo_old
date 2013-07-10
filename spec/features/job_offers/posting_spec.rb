@@ -28,7 +28,7 @@ feature 'Posting a job offer', devise: true do
     scenario 'submit a new offer' do
 
       expect {
-        assert_page_title 'Submit a Job Offer'
+        assert_page_title 'Your Job Offer'
         assert_active_wizard_item 'Your Project'
 
         page.should have_content 'Your Account'
@@ -61,7 +61,7 @@ feature 'Posting a job offer', devise: true do
     scenario 'save a new offer' do
 
       expect {
-        assert_page_title 'Submit a Job Offer'
+        assert_page_title 'Your Job Offer'
         assert_active_wizard_item 'Your Project'
 
         page.should have_content 'Your Account'
@@ -105,7 +105,7 @@ feature 'Posting a job offer', devise: true do
 
     scenario 'post a new offer' do
       expect {
-        assert_page_title 'Submit a Job Offer'
+        assert_page_title 'Your Job Offer'
         assert_active_wizard_item 'Your Project'
 
         page.should_not have_content 'Your Account'
@@ -126,7 +126,7 @@ feature 'Posting a job offer', devise: true do
 
     scenario 'save a new offer' do
       expect {
-        assert_page_title 'Submit a Job Offer'
+        assert_page_title 'Your Job Offer'
         assert_active_wizard_item 'Your Project'
 
         page.should_not have_content 'Your Account'
