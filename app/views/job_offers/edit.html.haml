@@ -1,13 +1,9 @@
-= render '/job_offers/breadcrumb'
+/ = render '/job_offers/breadcrumb'
 
-- if current_user.is_a?(Client) && @job_offer.waiting_for_submission?
-  = content_for :title, "Submit a Job Offer"
-  = render 'job_offers/client/wizard', active: :offer
-- else
-  = content_for :title, @job_offer.title
-  = content_for :body_class, "offer-client"
-  = content_for :subnav do
-    = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
+= content_for :title, @job_offer.title
+= content_for :body_class, "offer-client"
+= content_for :subnav do
+  = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
 
 = content_for :error_messages do
   = error_messages(@job_offer)
