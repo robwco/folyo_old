@@ -32,17 +32,29 @@
 	}
 }
 .button{
-	@include button
-}
-.button.secondary{
-	@include background-image(linear-gradient(#91a3af, #798d9a));
-	&:hover{
-		@include background-image(linear-gradient(#afc1cc, #91a3af));
+	@include button;
+	&.secondary{
+		@include background-image(linear-gradient(#91a3af, #798d9a));
+		&:hover{
+			@include background-image(linear-gradient(#afc1cc, #91a3af));
+		}
+		&:active{
+			@include background-image(linear-gradient(#91a3af, #798d9a));		
+		}
 	}
-	&:active{
-		@include background-image(linear-gradient(#91a3af, #798d9a));		
+	&.inactive{
+		background:black(0.2);
+		cursor:default;
+		@include box-shadow(none  !important);
+		&:hover{
+			background:black(0.2);
+		}
+		&:active{
+			background:black(0.2);
+		}
 	}
 }
+
 input.button, button.button{
 	line-height:16px;
 }

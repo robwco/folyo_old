@@ -3,3 +3,5 @@
     %a.button.secondary.click-delegate{href: '#', 'data-click-target' => "form input.button[name='workflow_save']"} Save
     - if offer.can_submit?
       %a.button.click-delegate{href: '#', 'data-click-target' => "form input.button[name='workflow_submit']"} Submit for Review
+    - else
+      %a.button.inactive{href: '#'} Pending Review…

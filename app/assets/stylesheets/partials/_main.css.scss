@@ -12,41 +12,7 @@ body, input, textarea, .button, p{
 }
 
 
-#page-header{
-	height:120px;
-	@include border-top-radius(3px);
-	@include box-shadow( inset rgba(255,255,255,0.1) 0px 1px 0px 0px);
-	background:#454d53;
-	position:relative;
-	padding:0 40px;
-	.fixed-header &{
-		position:fixed;
-		top:0px;
-		width:920px;
-		z-index:10000;
-		@include border-radius(0px);
-		@include box-shadow(none);
-	}
-}
 
-#subnav{
-	position:absolute;
-	bottom:0;
-	left:40px;
-	width:880px;
-	height:40px;
-	@include box-shadow( inset rgba(0,0,0,0.20) 0px 1px 0px 0px);
-	@include border-top-radius(3px);
-	background:rgba(0,0,0,0.05);
-	ul{
-		@include nav-ul;
-		padding:0 20px;
-		li{
-			line-height:40px;
-			margin-right:20px;
-		}
-	}
-}
 
 
 /*------------------- Page ------------------ */
@@ -134,7 +100,7 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 /*------------------- Page Header ------------------ */
 
 #page-header{
-	height:120px;
+	@include clearfix;
 	@include border-top-radius(3px);
 	@include box-shadow(
 		inset #2e363c 0px 0px 0px 1px,
@@ -143,15 +109,24 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	@include background-image(linear-gradient(#454d53, #485056));
 	border-bottom:0px;
 	position:relative;
-	padding:0 40px;
-
+	padding:20px;
+	.main-header{
+		@include clearfix;
+	}
+	.fixed-header &{
+		position:fixed;
+		top:0px;
+		width:960px;
+		z-index:10000;
+		@include border-radius(0px);
+		@include box-shadow(none);
+	}
 	#page-title{
 		float:left;
 	}
 	.title{
 		overflow:hidden;
 		text-shadow: 0px 2px 5px rgba(0,0,0,0.35);
-		padding-top:40px;
 		body.smaller-title & h1 {
 			font-size: 32px;
 		}
@@ -178,15 +153,22 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 			}
 		}
 		h1{
-			line-height:40px;
-			height:40px;
+			line-height:30px;
+			height:30px;
+			margin:0;
 			font-weight:bold;
 			float:left;
+			font-size:24px;
 		}
 	}
-
+	.subtitle{
+		display:block;
+		color:white(0.9);
+		text-shadow: 0px 1px 2px rgba(0,0,0,0.55);
+		font-size:16px;
+		font-weight:normal;
+	}
 	.main-action{
-		margin-top:40px;
 		float:right;
 		.button{
 			border-color:#333;
@@ -195,37 +177,14 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 				white(0.2) 0px 1px 0px 0px
 			);
 		}
-		.with-subnav &{
-			margin-top:25px;
-		}
 	}
 }
-body.offer-designer #page-header,body.with-subtitle #page-header, body.designer-profile #page-header, body.client-profile #page-header, body.with-subnav #page-header{
-	.title{
-		padding-top:20px;
-	}
-}
-body.with-wizard #page-header{
-	.title{
-		padding-top:15px;
-		h1{
-			font-size:24px;
-		}
-	}
-}
-#page-title h2{
-	display:block;
-	color:white;
-	text-shadow: 0px 1px 2px rgba(0,0,0,0.55);
-	font-size:24px;
-	font-weight:normal;
-}
+
 #subnav{
-	position:absolute;
-	bottom:0;
-	left:40px;
-	width:$content_width;
+
+	width:960px;
 	height:40px;
+	margin:20px 0 -20px 0;
 	@include box-shadow( inset black(0.3) 0px 1px 0px 0px);
 	@include border-top-radius(3px);
 	@include background-image(linear-gradient(black(0.15), black(0.05)));

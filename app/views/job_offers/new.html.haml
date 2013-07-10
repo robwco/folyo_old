@@ -1,18 +1,21 @@
 = render '/job_offers/breadcrumb'
 
-= content_for :title, "Submit a Job Offer"
+= content_for :title, "Your Job Offer"
+/ = content_for :subtitle, "Write your job offer, then submit it for review once you're ready."
 
-= render 'job_offers/client/wizard', active: :offer
+= content_for :body_class, "offer-client"
+
+/= render 'job_offers/client/wizard', active: :offer
 
 = content_for :error_messages do
   = error_messages([@client, @job_offer], 'job offer')
 
-- unless current_user
-  .notices
-    .notice
-      = 'If you already have an account on Folyo, you should'
-      = link_to 'login', new_user_session_path
-      = 'first!'
+%p.page-intro
+  Write your job offer, then submit it for review once you're ready.
+  - unless current_user
+    = 'If you already have an account on Folyo, you should'
+    = link_to 'log in', new_user_session_path
+    = 'first.'
 
 = simple_form_for @job_offer, :url => offers_path do |f|
 

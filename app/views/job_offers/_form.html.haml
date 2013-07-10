@@ -87,6 +87,7 @@
     = f.input :location_type, :label => "Work Location", :as => :radio_buttons, :hint => 'Be aware that choosing "Local" will dramatically restrict the field of designers. ', collection: JobOffer.location_types, label_method: sym_label_method
     = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
 
-= f.submit "Save", class: "button big-button", name: 'workflow_save'
-- if job_offer.can_submit?
-  = f.submit "Submit for review", class: "button big-button", name: 'workflow_submit'
+.button-bar
+  = f.submit "Save", class: "button big-button secondary", name: 'workflow_save'
+  - if job_offer.can_submit?
+    = f.submit "Submit for review", class: "button big-button", name: 'workflow_submit'
