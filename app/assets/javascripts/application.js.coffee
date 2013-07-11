@@ -164,5 +164,5 @@ head ->
         scroll = $("body").scrollTop();
         if scroll > 80
           $('body').addClass('fixed-header')
-        else
+        if scroll < 40 # when the fixed header is activated, the whole page jumps up by 40px. so we need to take the difference into account
           $('body').removeClass('fixed-header')

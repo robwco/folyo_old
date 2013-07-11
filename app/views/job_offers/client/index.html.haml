@@ -3,56 +3,58 @@
 - if @job_offers.empty?
   %p.note You don't have any job offers yet. Why not #{link_to 'submit one', new_offer_path}?
 - else
-  - unless @job_offers.waiting_for_submission.empty?
-    .waiting_for_payment
-      %h3.waiting_for_submission Not yet submited
-      %ul.offer-list
-        - @job_offers.waiting_for_submission.each do |job|
-          %li
-            %h2.title
-              = link_to job.title, offer_path(job)
-            %ul.controls
-              %li= link_to 'View', offer_path(job)
-              %li.pay= link_to 'Edit this offer', edit_offer_path(job)
-  - unless @job_offers.waiting_for_payment.empty?
-    .waiting_for_payment
-      %h3.waiting_for_payment Unpaid
-      %ul.offer-list
-        - @job_offers.waiting_for_payment.each do |job|
-          %li
-            %h2.title
-              = link_to job.title, offer_path(job)
-            %ul.controls
-              %li= link_to 'View', offer_path(job)
-              %li= link_to 'Edit', edit_offer_path(job)
-              %li.pay= link_to 'Pay for this offer', new_offer_order_path(job)
 
   - unless @job_offers.rejected.empty?
     .rejected
-      %h3.rejected Need update
+      %h3.rejected Needs Your Attention
       %ul.offer-list
         - @job_offers.rejected.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_path(job)
             %ul.controls
+              %li= link_to 'Your Order', offer_order_path(job)
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-              %li= link_to 'Payment info', offer_order_path(job)
-              %li.pay= link_to 'Update this offer', edit_offer_path(job)
+
+  - unless @job_offers.waiting_for_submission.empty?
+    .waiting_for_submission
+      %h3.waiting_for_submission Incomplete
+      %ul.offer-list
+        - @job_offers.waiting_for_submission.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, edit_offer_path(job)
+            / %ul.controls
+            /   %li= link_to 'View', offer_path(job)
+            /   %li= link_to 'Edit Project', edit_offer_path(job)
+  - unless @job_offers.waiting_for_payment.empty?
+    .waiting_for_payment
+      %h3.waiting_for_payment Waiting for Payment
+      %ul.offer-list
+        - @job_offers.waiting_for_payment.each do |job|
+          %li
+            %h2.title
+              = link_to job.title, new_offer_order_path(job)
+            / %ul.controls
+            /   %li= link_to 'View', offer_path(job)
+            /   %li= link_to 'Edit Project', edit_offer_path(job)
+            /   %li.pay= link_to 'Pay for this offer', new_offer_order_path(job)
+
+
 
   - unless @job_offers.waiting_for_review.empty?
     .pending
-      %h3.pending Waiting for review
+      %h3.pending Waiting for Review
       %ul.offer-list
         - @job_offers.waiting_for_review.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_path(job)
             %ul.controls
+              %li= link_to 'Your Order', offer_order_path(job)
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-              %li= link_to 'Payment info', offer_order_path(job)
 
   - unless @job_offers.accepted.empty?
     .accepted

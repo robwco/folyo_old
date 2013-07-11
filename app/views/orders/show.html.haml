@@ -1,4 +1,4 @@
-= render '/job_offers/breadcrumb'
+/ = render '/job_offers/breadcrumb'
 
 = content_for :title, @job_offer.title
 = content_for :body_class, "offer-client"
@@ -14,15 +14,44 @@
       %h5 Not satisfied?
       %p If you're not satisfied with our service <a href="mailto:hello@folyo.me">contact us</a> to get a full refund.
 
-.notices
-  .notice
-    %h4 Order details
-    %ul
-      %li <strong>Job Offer:</strong> #{@job_offer.title}
-      %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
-      %li <strong>Amount:</strong> $#{@job_offer.order.total}
+%section
 
-%h2 Thanks for buying a job offer on Folyo!
-%p We will now review your offer. It will then be displayed to all designers on the site, and they will also receive it by email in the next newsletter.
-%p You should start receiving designer's replies in your inbox very soon!
+  %h3 Project Status
+
+  - if @job_offer.waiting_for_review?
+
+    %h2 We are reviewing your project. 
+    %ul
+      %li If <strong>it's accepted</strong>, it will then be displayed to all designers on the site, and they will also receive it by email in the next newsletter.
+      %li If <strong>it's not accepted</strong>, we will get in touch with you to let you know why, and provide suggestions on how to improve your job description. 
+    %p In any case, you can contact us at any time at <a href="mailto:hello@folyo.me">hello@folyo.me</a>.
+
+  - if @job_offer.accepted?
+
+    %h2 Your project has been accepted.
+    %p It's now live on the site, and designers will get in touch with you directly if they are interested.
+
+  - if @job_offer.rejected?
+
+    %h2 Sorry, your job offer needs improvement. 
+    %p 
+      Your project description still needs a little bit of work to match Folyo guidelines. 
+      = link_to 'Review our suggestions.', edit_offer_path(@job_offer)
+
+
+  - if @job_offer.archived?
+
+    %h2 Your project is archived. 
+    %p You project is not live on the site, so you won't receive any designer replies anymore. Thanks for using Folyo!
+
+%section
+  %h3 Your Order
+
+  .notices
+    .notice
+      %h4 Order details
+      %ul
+        %li <strong>Job Offer:</strong> #{@job_offer.title}
+        %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
+        %li <strong>Amount:</strong> $#{@job_offer.order.total}
 

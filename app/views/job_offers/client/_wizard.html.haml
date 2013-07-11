@@ -3,28 +3,34 @@
   %ol.wizard
     - case active
 
-    - when :signup
-      %li{class: 'active'} Sign up
-      - if offer.waiting_for_submission? || offer.waiting_for_payment?
-        %li= link_to 'Your Project', edit_offer_path(offer, signup: 'true')
-      - else
-        %li Your Project
-      - if offer.waiting_for_payment?
-        %li= link_to 'Payment', new_offer_order_path(offer, signup: 'true')
-      - else
-        %li Payment
-
     - when :offer
-      - if signup == 'true'
-        %li= link_to 'Sign up', edit_user_registration_path(offer_id: offer.id)
-      %li{class: 'active'} Your Project
+      / - if signup == 'true'
+      /   %li= link_to 'Sign up', edit_user_registration_path(offer_id: offer.id)
+      %li.active Your Project
       - if offer.waiting_for_payment?
         %li= link_to 'Payment', new_offer_order_path(offer, signup: 'true')
       - else
         %li Payment
+      %li Confirm
 
     - when :order
-      - if signup == 'true'
-        %li= link_to 'Sign up', edit_user_registration_path(offer_id: offer.id)
       %li= link_to 'Your Project', edit_offer_path(offer, signup: params[:signup])
-      %li{class: 'active'} Payment
+      %li.active Payment
+      %li Confirm
+
+    - when :confirm
+      %li= link_to 'Your Project', edit_offer_path(offer, signup: params[:signup])
+      %li= link_to 'Payment', new_offer_order_path(offer, signup: params[:signup])
+      %li.active Confirm
+    / - when :signup
+    /   %li{class: 'active'} Sign up
+
+    /   - if (defined? offer) && (offer.waiting_for_submission? || offer.waiting_for_payment?)
+    /     %li= link_to 'Your Project', edit_offer_path(offer, signup: 'true')
+    /   - else
+    /     %li Your Project
+
+    /   - if (defined? offer) && offer.waiting_for_payment?
+    /     %li= link_to 'Payment', new_offer_order_path(offer, signup: 'true')
+    /   - else
+    /     %li Payment

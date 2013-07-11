@@ -88,6 +88,6 @@
 
 .button-bar
   - if job_offer.can_submit?
-    = f.submit "Submit for review", class: "button big-button", name: 'workflow_submit'
+    = f.submit "Submit", class: "button big-button", name: 'workflow_submit'
   - else
-    = f.submit "Save", class: "button big-button", name: 'workflow_save'
+    = f.submit "Submit", class: "button big-button", name: 'workflow_save'
