@@ -7,7 +7,7 @@
 - else
   = render '/job_offers/breadcrumb'
   = content_for :subnav do
-    = render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
+    = render 'job_offers/client/nav', job_offer: @job_offer
 
 = content_for :error_messages do
   = error_messages(@job_offer)
@@ -44,5 +44,6 @@
             data:       "\#{lastFormState}&workflow_save=1"
             success: ->
               now = new Date()
-              $('.autosave-notice').hide().html("Autosaved at \#{now.getHours()}:\#{now.getMinutes()}").fadeIn()
+              now_as_string = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2)
+              $('.autosave-notice').hide().html("Autosaved at \#{now_as_string}").fadeIn()
       30000)

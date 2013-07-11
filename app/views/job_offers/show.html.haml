@@ -1,4 +1,4 @@
-/= render '/job_offers/breadcrumb'
+= render '/job_offers/breadcrumb'
 
 = content_for :title, @job_offer.title.blank? ? 'New Offer' : @job_offer.title
 = content_for :body_class, "offer-designer"
@@ -6,7 +6,6 @@
 - if current_user.is_a? Designer
   = content_for :subtitle, @job_offer.title
 - else
-  / = render '/job_offers/breadcrumb'
   = content_for :subnav do
     = render '/job_offers/client/nav', job_offer: @job_offer
 
