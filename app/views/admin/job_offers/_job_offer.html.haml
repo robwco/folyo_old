@@ -5,7 +5,7 @@
 			%span.name= " - #{job.client.full_name}"
 			= link_to "[edit]", edit_client_path(job.client)
 	%h2{:class => job.status.to_s }
-		= link_to job.title, offer_path(job), :class => 'title'
+		= link_to job.title.blank? ? 'Untitled offer' : job.title, offer_path(job), :class => 'title'
 		- if job.live?
 			%span.num-replies= "#{job.designer_replies.count} Replies"
 	%ul.timeline

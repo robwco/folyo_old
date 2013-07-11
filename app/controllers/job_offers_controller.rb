@@ -9,7 +9,7 @@ class JobOffersController < ApplicationController
     @job_offer = JobOffer.new_for_client(current_user)
     @job_offer.skip_validation = true
     @job_offer.publish
-    render :edit
+    redirect_for_offer(@job_offer, signup: params[:signup])
   end
 
   def show_by_pg_id

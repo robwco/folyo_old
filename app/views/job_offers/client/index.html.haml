@@ -3,7 +3,6 @@
 - if @job_offers.empty?
   %p.note You don't have any job offers yet. Why not #{link_to 'submit one', new_offer_path}?
 - else
-
   - unless @job_offers.rejected.empty?
     .rejected
       %h3.rejected Needs Your Attention
@@ -24,10 +23,11 @@
         - @job_offers.waiting_for_submission.each do |job|
           %li
             %h2.title
-              = link_to job.title, edit_offer_path(job)
-            / %ul.controls
-            /   %li= link_to 'View', offer_path(job)
-            /   %li= link_to 'Edit Project', edit_offer_path(job)
+              = link_to job.title.blank? ? 'Untitled offer' : job.title, edit_offer_path(job)
+            %ul.controls
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit Project', edit_offer_path(job)
+
   - unless @job_offers.waiting_for_payment.empty?
     .waiting_for_payment
       %h3.waiting_for_payment Waiting for Payment
@@ -36,11 +36,10 @@
           %li
             %h2.title
               = link_to job.title, new_offer_order_path(job)
-            / %ul.controls
-            /   %li= link_to 'View', offer_path(job)
-            /   %li= link_to 'Edit Project', edit_offer_path(job)
-            /   %li.pay= link_to 'Pay for this offer', new_offer_order_path(job)
-
+            %ul.controls
+              %li= link_to 'View', offer_path(job)
+              %li= link_to 'Edit Project', edit_offer_path(job)
+              %li.pay= link_to 'Pay for this offer', new_offer_order_path(job)
 
 
   - unless @job_offers.waiting_for_review.empty?

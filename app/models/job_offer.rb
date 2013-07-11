@@ -251,7 +251,7 @@ class JobOffer
   def status_changed(transition)
     case transition.event
     when :publish
-      track_event('JO02_Save')
+      track_event('JO02_Save') if self.published_at.nil?
       self.published_at = DateTime.now
     when :submit
       track_event('JO03_Submit')

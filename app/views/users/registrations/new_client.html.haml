@@ -1,6 +1,6 @@
 = content_for :title, "Sign Up"
 
-= render 'job_offers/client/wizard', active: :signup
+= render 'job_offers/client/wizard', active: :signup, offer: nil
 
 = content_for :error_messages do
 	= devise_error_messages!
