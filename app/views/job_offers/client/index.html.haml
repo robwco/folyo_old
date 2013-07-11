@@ -10,7 +10,7 @@
         - @job_offers.rejected.each do |job|
           %li
             %h2.title
-              = link_to job.title, offer_path(job)
+              = link_to job.title, offer_order_path(job)
             %ul.controls
               %li= link_to 'Your Order', offer_order_path(job)
               %li= link_to 'View', offer_path(job)
@@ -25,7 +25,7 @@
             %h2.title
               = link_to job.title.blank? ? 'Untitled offer' : job.title, edit_offer_path(job)
             %ul.controls
-              %li= link_to 'View', offer_path(job)
+              %li= link_to 'View', offer_order_path(job)
               %li= link_to 'Edit Project', edit_offer_path(job)
 
   - unless @job_offers.waiting_for_payment.empty?
@@ -49,7 +49,7 @@
         - @job_offers.waiting_for_review.each do |job|
           %li
             %h2.title
-              = link_to job.title, offer_path(job)
+              = link_to job.title, offer_order_path(job)
             %ul.controls
               %li= link_to 'Your Order', offer_order_path(job)
               %li= link_to 'View', offer_path(job)
@@ -62,7 +62,7 @@
         - @job_offers.accepted.each do |job|
           %li
             %h2.title
-              = link_to job.title, offer_path(job)
+              = link_to job.title, offer_order_path(job)
               %span.num-replies= "#{job.designer_replies.count} Replies"
             %p.status
               %span.posted= "Posted #{time_ago_in_words(job.created_at.to_date)} ago, "
@@ -81,7 +81,7 @@
         - @job_offers.archived.each do |job|
           %li
             %h2.title
-              = link_to job.title, offer_path(job)
+              = link_to job.title, offer_order_path(job)
               %span.num-replies= "#{job.designer_replies.count} Replies"
             %p.status
               %span.posted= "Posted #{time_ago_in_words(job.created_at.to_date)} ago, "

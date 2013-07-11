@@ -29,7 +29,7 @@
 
 = simple_form_for @job_offer, url: offer_path(@job_offer.id) do |f|
 
-  = render 'form', f: f, job_offer: @job_offer, client: @client
+  = render '/job_offers/form', f: f, job_offer: @job_offer, client: @client
 
 :coffeescript
   head ->

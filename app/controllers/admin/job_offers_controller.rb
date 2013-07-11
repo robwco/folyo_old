@@ -14,8 +14,11 @@ class Admin::JobOffersController < Admin::BaseController
   end
 
   def reject
-    @job_offer.reject(params[:job_offer][:review_comment])
-    redirect_to edit_offer_path(@job_offer), notice: 'Offer has been rejected'
+    if @job_offer.reject(params[:job_offer][:review_comment])
+      redirect_to edit_offer_path(@job_offer), notice: 'Offer has been rejected'
+    else
+      render '/job_offers/edit'
+    end
   end
 
   def newsletter_setup

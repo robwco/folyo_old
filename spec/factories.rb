@@ -117,6 +117,7 @@ FactoryGirl.define do
 
   factory :order do
     transaction_id { rand_str }
+    created_at {FactoryGirl.generate(:created_at)}
   end
 
   factory :admin do |admin|
