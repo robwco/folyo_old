@@ -1,8 +1,10 @@
-= content_for :title, "My Account"
+
 
 - if params[:offer_id]
+  = content_for :title, "Your Job Offer"
   = render 'job_offers/client/wizard', active: :signup, offer: JobOffer.find(params[:offer_id]), signup: 'true'
 - else
+  = content_for :title, "My Account"
   = content_for :subnav do
     - if current_user.is_a? Designer
       = render :partial => '/designers/account_nav'
