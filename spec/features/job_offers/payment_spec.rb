@@ -9,6 +9,8 @@ feature 'Paying a job offer', devise: true do
 
   context 'when logged in as offer creator' do
 
+    let(:wizard_size) { 2 }
+
     background do
       login_as client
       EXPRESS_GATEWAY.should_receive(:setup_purchase).and_return(OpenStruct.new(token: express_token))
@@ -22,10 +24,12 @@ feature 'Paying a job offer', devise: true do
         visit new_offer_order_url(offer)
 
         page.should have_content 'Complete Your Payment'
+        assert_active_wizard_item 'Payment'
         page.should have_content offer.display_price
 
         click_link 'paypal-checkout'
         current_url.should == confirm_url
+        assert_active_wizard_item 'Payment'
 
         click_button 'Confirm Payment'
       }.to change {offer.reload.status}.from(:waiting_for_payment).to(:waiting_for_review)
@@ -42,6 +46,13 @@ feature 'Paying a job offer', devise: true do
       page.should have_content 'You are not authorized to access this page'
     end
 
+  end
+
+  def assert_active_wizard_item(title)
+    find('.wizard li.active').should have_content(title)
+    if wizard_size
+      find('.wizard').should have_selector('li', count: wizard_size)
+    end
   end
 
 end
