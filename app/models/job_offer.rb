@@ -238,6 +238,12 @@ class JobOffer
     self[:company_url] || self.client.try(:company_url)
   end
 
+  def refund_if_needed!(delay)
+    if self.rejected? && self.rejected_at <= delay.ago
+      self.refund
+    end
+  end
+
   protected
 
   def send_offer_notification

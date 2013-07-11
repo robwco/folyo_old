@@ -101,4 +101,6 @@ Folyo::Application.routes.draw do
 
   root :to => "site#home"
 
+  mount Jobbr::Engine => "/jobbr"
+
 end
