@@ -131,22 +131,18 @@ head ->
     $(".limited").on "blur",  -> $(this).siblings(".character-counter-main-wrapper").fadeOut("fast")
 
     $('.limited').each  ->
-      constraints = if $(this).hasClass('limited-200')
-        { maxchars: 200, height: '100px' }
-      else if $(this).hasClass('limited-1000')
-        { maxchars: 1000, height: '400px' }
-      else
-        { maxchars: 200, height: '100px' }
+      limit_size_class = $(this).attr('class').split(' ').filter((i) -> i.match(/limited-\d+/)?)[0]
+      if limit_size_class?
+        limit_size = parseInt(limit_size_class.match(/limited-(\d+)/)[1], 10)
+        if $editor = $(this).siblings('.epiceditor')
+          $editor.css(height: "#{limit_size/2}px")
+          $editor.data('epiceditor').reflow('height')
 
-      if $editor = $(this).siblings('.epiceditor')
-        $editor.css(height: constraints.height)
-        $editor.data('epiceditor').reflow('height')
-
-      $(this).characterCounter(
-        maximumCharacters: constraints.maxchars
-        characterCounterNeeded: false
-        positionBefore: true
-      )
+        $(this).characterCounter(
+          maximumCharacters: limit_size
+          characterCounterNeeded: false
+          positionBefore: true
+        )
 
     $(".coding-note").hide()
     $("input[name=\"job_offer[coding]\"]").change ->

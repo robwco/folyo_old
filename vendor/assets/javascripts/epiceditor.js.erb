@@ -962,6 +962,7 @@
       });
     }
 
+    // Folyo hack start
      self.editor.addEventListener('focus', function (e) {
       self.emit('focus');
       if (self._textareaElement !== undefined) {
@@ -986,6 +987,7 @@
         $(self._textareaElement).trigger('keyup');
       }
      });
+    // Folyo hack end
 
 
     // Save the document every 100ms by default
