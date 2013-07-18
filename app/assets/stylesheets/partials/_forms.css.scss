@@ -34,7 +34,7 @@ form{
 		color: #628B9E;
 		background: rgba(198, 210, 216, 0.29);
 	}
-	.text{
+	.text.markdown{
 		label{
 			&:after{
 				content:" ";
@@ -182,5 +182,18 @@ li.loading{
 		@include transition-property("height, opacity");
 		@include transition-duration(400ms);
 		@include transition-timing-function(ease-out);
+	}
+}
+
+.character-counter-main-wrapper {
+	display: none;
+	color: $darkgrey1;
+	margin-bottom: 5px;
+	font-size: 15px;
+	font-style: italic;
+	text-align: right;
+	margin-top: -30px;
+	&.exceeded {
+		color: $red1;
 	}
 }

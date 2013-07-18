@@ -6,7 +6,7 @@
   %span <strong>What you do</strong>: clearly explain what you do in simple terms.
   %span <strong>Why you do it</strong>: tell us the motivations behind your project.
   %span <strong>Your users</strong>: who uses your service?
-  %span.bottom For more ideas, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+  %span.bottom For more ideas, check out our guide on <a target="_blank" tabindex="-1" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
 = content_for :summary_hint do
   %span A two-sentence description of what you're trying to accomplish. This is what designers will receive in their inbox.
@@ -25,7 +25,7 @@
   %span <strong>Junior:</strong> You need a solid, good-looking design but don't have that many resources. You're willing to give a less experienced designer their chance.
   %span <strong>Senior:</strong> You're looking for a great design, and you have a comfortable budget. You want a skilled designer with a lot of experience.
   %span <strong>Superstar:</strong> You want to invest in an outstanding design. You're looking for the absolute best designer you can get.
-  %span For more info on pricing, you can also check out <a href="http://blog.folyo.me/post/10723370923/how-much-does-a-website-cost" target="_blank">our survey of web design prices</a>
+  %span For more info on pricing, you can also check out <a href="http://blog.folyo.me/post/10723370923/how-much-does-a-website-cost" tabindex="-1" target="_blank">our survey of web design prices</a>
 
 = content_for :title_hint do
   %span
@@ -43,7 +43,7 @@
   %h3 Your Company
   = f.input :company_name, required: true
   = f.input :company_url
-  = f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: textarea_type(job_offer)}, hint_html: {class: 'with-title'},required: true
+  = f.input :company_description, as: :text, hint: yield(:company_hint), wrapper_html: {class: textarea_type(job_offer)}, hint_html: {class: 'with-title'},required: true
   = f.input :location
 
 .section
@@ -51,23 +51,18 @@
 
   .note
     %h4 Need help?
-    For more help, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
+    For more help, check out our guide on <a target="_blank" tabindex="-1" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
   = f.input :title, :hint => yield(:title_hint), required: true
-
-  = f.input :project_summary, as: :text, hint: yield(:summary_hint),     input_html: {class: textarea_type(job_offer)}, required: true
+  = f.input :project_summary, as: :limited_text, hint: yield(:summary_hint), wrapper_html: {class: textarea_type(job_offer)}, required: true
 
 .section
   %h3 Project Details
 
-  = f.input :project_details, as: :text, hint: yield(:details_hint),     input_html: {class: textarea_type(job_offer)}, required: true
-
-
-  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), input_html: {class: textarea_type(job_offer)}
-  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   input_html: {class: textarea_type(job_offer)}
-
+  = f.input :project_details, as: :limited_text, hint: yield(:details_hint), wrapper_html: {class: textarea_type(job_offer)}, required: true
+  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), wrapper_html: {class: textarea_type(job_offer)}
+  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   wrapper_html: {class: textarea_type(job_offer)}
   = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', label_method: sym_label_method, value_method: :to_sym, required: true
-
   = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method, required: true
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.
 
@@ -87,7 +82,4 @@
     = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
 
 .button-bar
-  - if job_offer.can_submit?
-    = f.submit "Submit", class: "button big-button", name: 'workflow_submit'
-  - else
-    = f.submit "Submit", class: "button big-button", name: 'workflow_save'
+  = f.submit "Submit", class: "button big-button", name: job_offer.can_submit? ? 'workflow_submit' : 'workflow_save'

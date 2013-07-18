@@ -532,7 +532,7 @@
       // This is wrapping iframe element. It contains the other two iframes and the utilbar
       chrome:   '<div id="epiceditor-wrapper" class="epiceditor-edit-mode">' +
                   '<iframe frameborder="0" id="epiceditor-editor-frame"></iframe>' +
-                  '<iframe frameborder="0" id="epiceditor-previewer-frame"></iframe>' +
+                  '<iframe frameborder="0" id="epiceditor-previewer-frame" tabindex="-1"></iframe>' +
                   '<div id="epiceditor-utilbar">' +
                     (self._previewEnabled ? '<img width="30" src="' + "<%= asset_path 'epiceditor/preview.png' %>" + '" title="' + this.settings.string.togglePreview + '" class="epiceditor-toggle-btn epiceditor-toggle-preview-btn"> ' : '') +
                     (self._editEnabled ? '<img width="30" src="' + "<%= asset_path 'epiceditor/edit.png' %>" + '" title="' + this.settings.string.toggleEdit + '" class="epiceditor-toggle-btn epiceditor-toggle-edit-btn"> ' : '') +
@@ -963,11 +963,30 @@
     }
 
      self.editor.addEventListener('focus', function (e) {
-       self.emit('focus');
+      self.emit('focus');
+      if (self._textareaElement !== undefined) {
+         $(self._textareaElement).trigger('focus');
+      }
      });
      self.editor.addEventListener('blur', function (e) {
        self.emit('blur');
+       if (self._textareaElement !== undefined) {
+         $(self._textareaElement).trigger('blur');
+       }
      });
+     self.editor.addEventListener('keyup', function (e) {
+      self.emit('keyup');
+      if (self._textareaElement !== undefined) {
+         $(self._textareaElement).trigger('keyup');
+      }
+     });
+     self.editor.addEventListener('keydown', function (e) {
+      self.emit('keydown');
+      if (self._textareaElement !== undefined) {
+        $(self._textareaElement).trigger('keyup');
+      }
+     });
+
 
     // Save the document every 100ms by default
     // TODO: Move into autosave setup function (_setupAutoSave)

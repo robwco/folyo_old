@@ -46,7 +46,7 @@ head ->
 
     epiceditor_options = { button: { fullscreen: false }, clientSideStorage: false }
 
-    $(".markdown").each (i, item) ->
+    $(".markdown > textarea").each (i, item) ->
       $(item).hide()
       $editor = $("<div class='epiceditor' id='#{item.id}_markdown'></div>").insertAfter(item)
       epiceditor_options.container = $editor.get(0)
@@ -123,8 +123,30 @@ head ->
       msg.addClass "long"  if p.text().length > 230
 
     $("#designer_reply_message").autoGrow()
-    $(".limit").one "keydown", ->
-      $(".remaining").fadeIn "fast"
+
+    $(".limited").on "focus", ->
+      $(this).trigger('keyup') # refresh current character count
+      $(this).siblings(".character-counter-main-wrapper").fadeIn("fast")
+
+    $(".limited").on "blur",  -> $(this).siblings(".character-counter-main-wrapper").fadeOut("fast")
+
+    $('.limited').each  ->
+      constraints = if $(this).hasClass('limited-200')
+        { maxchars: 200, height: '100px' }
+      else if $(this).hasClass('limited-1000')
+        { maxchars: 1000, height: '400px' }
+      else
+        { maxchars: 200, height: '100px' }
+
+      if $editor = $(this).siblings('.epiceditor')
+        $editor.css(height: constraints.height)
+        $editor.data('epiceditor').reflow('height')
+
+      $(this).characterCounter(
+        maximumCharacters: constraints.maxchars
+        characterCounterNeeded: false
+        positionBefore: true
+      )
 
     $(".coding-note").hide()
     $("input[name=\"job_offer[coding]\"]").change ->
@@ -159,9 +181,8 @@ head ->
       $(delegate_target).trigger('click')
       false
 
-    document.addEventListener 'page:change', ->
-      $('body').removeClass('fixed-header')
-      $(window).off 'scroll'
+    $('body').removeClass('fixed-header')
+    $(window).off 'scroll'
 
     if $('body').hasClass('offer-client')
       $(window).on 'scroll', ->
