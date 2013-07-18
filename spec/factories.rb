@@ -71,10 +71,10 @@ FactoryGirl.define do
     rand_from_list(COMPANY_NAMES)
   end
   sequence :long_description do |n|
-    RandomText.new('paragraphs').output(400).capitalize + "."
+    RandomText.new('paragraphs').output(20).capitalize + "."
   end
   sequence :description do |n|
-    RandomText.new('paragraphs').output(80).capitalize + "."
+    RandomText.new('paragraphs').output(20).capitalize + "."
   end
   sequence :job_offer_title do |n|
     prefix_list = ["#{rand_from_list(JOB_LEVELS)} designer", "#{Designer.skills.sample.to_s.humanize}"]
