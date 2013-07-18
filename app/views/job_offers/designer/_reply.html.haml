@@ -1,10 +1,6 @@
 .reply-offer
   %h2 Reply to this offer
   %form
-  = form_for job_offer.designer_replies.build, :url => offer_replies_path(job_offer) do |f|
-    .text
-      = f.label :message, "Add a short message for the client (optional)"
-      = f.text_area :message, :cols => 34, :rows => 2, :class => "limit limit-300"
-    %p.remaining.small <span class="chars-left">300</span> characters remaining
-
-    %button.button.clearfix.submit-reply Send your profile
+  = simple_form_for job_offer.designer_replies.build, :url => offer_replies_path(job_offer) do |f|
+    = f.input :message, as: :limited_text, label: "Add a short message for the client (optional)", input_html: {cols: 34, rows: 2}
+    = f.submit value: 'Send your profile', class: 'button clearfix submit-reply'

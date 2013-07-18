@@ -16,6 +16,7 @@ class DesignerRepliesController < ApplicationController
 
     create! do |success, failure|
       success.html { redirect_to :back }
+      failure.html { redirect_to offer_path(@job_offer) }
     end
   end
 

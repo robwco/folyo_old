@@ -4,6 +4,9 @@ form{
 	.input{
 		margin-bottom:20px;
 		position:relative;
+		label {
+			float: left;
+		}
 	}
 	.input.small-margin{
 		margin-bottom:10px;
@@ -160,7 +163,7 @@ div.wysiwyg ul.toolbar{
 	padding:5px;
 	//height:20px;
 	float:left;
-	margin-bottom:5px;
+	margin-bottom: -10px;
 	width:510px;
 }
 .ajax-error{
@@ -188,11 +191,9 @@ li.loading{
 .character-counter-main-wrapper {
 	display: none;
 	color: $darkgrey1;
-	margin-bottom: 5px;
-	font-size: 15px;
+	font-size: 14px;
 	font-style: italic;
 	text-align: right;
-	margin-top: -30px;
 	&.exceeded {
 		color: $red1;
 	}

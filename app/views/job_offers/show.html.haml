@@ -12,7 +12,7 @@
 - if @job_offer.rejected? && !@job_offer.review_comment.blank?
   = render '/job_offers/client/review_comment', job_offer: @job_offer
 
-= render 'job_offer_main', job_offer: @job_offer
+= render '/job_offers/job_offer_main', job_offer: @job_offer
 
 = content_for :sidebar do
   - if current_user.is_a? Designer
@@ -25,4 +25,4 @@
     - else
       = render '/job_offers/designer/reply', job_offer: @job_offer
 
-  = render 'job_offer_details', job_offer: @job_offer
+  = render '/job_offers/job_offer_details', job_offer: @job_offer
