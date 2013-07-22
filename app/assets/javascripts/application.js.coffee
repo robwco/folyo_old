@@ -128,7 +128,7 @@ head ->
       $(this).trigger('keyup') # refresh current character count
       $(this).siblings(".character-counter-main-wrapper").fadeIn("fast")
 
-    #$(".limited").on "blur",  -> $(this).siblings(".character-counter-main-wrapper").fadeOut("fast")
+    $(".limited").on "blur",  -> $(this).siblings(".character-counter-main-wrapper").fadeOut("fast")
 
     $('.limited').each  ->
       limit_size_class = $(this).attr('class').split(' ').filter((i) -> i.match(/limited-\d+/)?)[0]

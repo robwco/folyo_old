@@ -4,9 +4,6 @@ form{
 	.input{
 		margin-bottom:20px;
 		position:relative;
-		label {
-			float: left;
-		}
 	}
 	.input.small-margin{
 		margin-bottom:10px;
@@ -190,10 +187,12 @@ li.loading{
 
 .character-counter-main-wrapper {
 	display: none;
-	color: $darkgrey1;
+	color: $darkgrey2;
 	font-size: 14px;
 	font-style: italic;
 	text-align: right;
+	margin-top: -30px;
+	margin-bottom: 7px;
 	&.exceeded {
 		color: $red1;
 	}

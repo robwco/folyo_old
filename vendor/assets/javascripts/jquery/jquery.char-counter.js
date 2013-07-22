@@ -15,7 +15,7 @@
             // chop text to the maximum characters
             chopText: false,
             // place character counter before input or textarea element
-            positionBefore: false,
+            positionBefore: true,
             // class for limit excess
             limitExceededClass: "exceeded",
             // suffix text for typed characters
