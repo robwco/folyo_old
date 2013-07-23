@@ -1,5 +1,6 @@
 = content_for :title, @job_offer.title.blank? ? 'Your Job Offer' : @job_offer.title
 
+
 = content_for :body_class, " offer-client"
 
 - if @job_offer.waiting_for_payment? || @job_offer.waiting_for_submission?

@@ -1284,3 +1284,13 @@ h2.pending a{
 section{
 	margin-bottom:40px;
 }
+
+.markdown-help {
+	text-align: left;
+	p {
+		margin-bottom: 0;
+	}
+	.italic {
+		font-style: italic;
+	}
+}

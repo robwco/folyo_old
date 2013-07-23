@@ -34,9 +34,9 @@ form{
 		color: #628B9E;
 		background: rgba(198, 210, 216, 0.29);
 	}
-	.text.markdown{
+	.markdown{
 		label{
-			&:after{
+			.markdown-logo{
 				content:" ";
 				display:inline-block;
 				overflow:hidden;

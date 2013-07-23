@@ -56,6 +56,8 @@ head ->
       if $(item).parent(".input").hasClass('error')
         $(epiceditor.getElement('editor').body).addClass('error')
 
+    $('.markdown label').append("<a href='/markdown' title='Help for markdown syntax' class='markdown-logo fancybox fancybox.ajax'></a>")
+
 
     $(".inline-hints").each ->
       $hint = $(this)

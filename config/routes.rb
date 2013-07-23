@@ -6,6 +6,7 @@ Folyo::Application.routes.draw do
 
   match 'press' => 'site#press'
   match 'learn-more' => 'site#learn_more'
+  match 'markdown' => 'site#markdown'
   match 'how-it-works' => 'site#learn_more'
   match 'about' => 'site#about'
   match 'guides' => 'site#guides'
