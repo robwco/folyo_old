@@ -47,16 +47,15 @@ class JobOffersController < ApplicationController
     # all job offer fields must be validated if offer is directly submitted
     if params[:workflow_save]
       @job_offer.skip_validation = true
-      logger.debug "validation: #{@job_offer.inspect}"
     end
 
     if @job_offer.valid?
-      if params[:workflow_save]
-        @job_offer.publish
-        redirect_to edit_offer_path(@job_offer, signup: params[:signup]), notice: 'Your offer has been successfully updated!'
-      else
+      if params[:workflow_submit] && @job_offer.can_submit?
         @job_offer.submit
         redirect_for_offer(@job_offer, signup: params[:signup])
+      else
+        @job_offer.publish
+        redirect_to edit_offer_path(@job_offer, signup: params[:signup]), notice: 'Your offer has been successfully updated!'
       end
     else
       render :edit

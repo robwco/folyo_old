@@ -30,9 +30,11 @@ class Admin::JobOffersController < Admin::BaseController
   end
 
   def to_markdown
-    @client.to_markdown!
-    @job_offer.to_markdown!
-    redirect_to offer_path(@job_offer), notice: 'Successfully converted to markdown'
+    if @job_offer.to_markdown!
+      redirect_to offer_path(@job_offer), notice: 'Successfully converted to markdown'
+    else
+      render '/job_offers/edit'
+    end
   end
 
   def full_list

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module ApplicationHelper
 
   def current_link_to(title, target)
@@ -73,16 +75,17 @@ module ApplicationHelper
   end
 
   def format_text(model, attribute, options = {})
-    html = if model.send(:text_format) == :markdown
-      markdown_renderer.render(model.send(attribute))
-    else
-      model.send(attribute)
-    end
-    if options[:sanitize]
-      Sanitize.clean(html)
-    else
-      html
-    end
+    markdown_renderer.render(model.send(attribute))
+    #html = if model.send(:text_format) == :markdown
+    #  markdown_renderer.render(model.send(attribute))
+    #else
+    #  model.send(attribute)
+    #end
+    #if options[:sanitize]
+    #  Sanitize.clean(html)
+    #else
+    #  html
+    #end
   end
 
   def textarea_type(model)

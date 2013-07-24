@@ -1,6 +1,8 @@
+# encoding: UTF-8
+
 class Html::JobOffer < ::JobOffer
 
-  before_save :sanitize_attributes
+  before_save      :sanitize_attributes
 
   def text_format
     :html
@@ -8,8 +10,10 @@ class Html::JobOffer < ::JobOffer
 
   def to_markdown!
     self._type = 'JobOffer'
+    self.skip_validation = true
+    self.company_description = ReverseMarkdown.parse(self.company_description)
     self.project_summary = ReverseMarkdown.parse(self.project_summary)
-    save!
+    save
   end
 
    def sanitize_attributes

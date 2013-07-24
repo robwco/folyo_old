@@ -24,7 +24,7 @@
 					= render '/designers/featured_work', designer: r.designer
 				.message
 					%h2
-						= link_to r.designer.full_name, r.designer
+						= link_to r.designer.full_name, designer_path(r.designer)
 					%p!= auto_link(Sanitize.clean(r.message))
 				%ul.actions
 					%li.site= link_to 'Site', r.designer.portfolio_url, :class => "tooltip", :title => r.designer.portfolio_url
@@ -35,7 +35,7 @@
 					%li.location
 						= r.designer.location
 					%li.profile
-						= link_to 'View full profile', r.designer
+						= link_to 'View full profile', designer_path(r.designer)
 					%li.pick
 						- if @job_offer.archived?
 							- if r.picked

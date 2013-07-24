@@ -16,7 +16,7 @@ class DesignerReply
 
   ## validations ##
   validates_presence_of :job_offer, :designer
-  validates_length_of   :message, maximum: 300
+  validates_length_of   :message, maximum: 350
 
   ## callbacks ##
   after_create :send_notification!, :track_event
