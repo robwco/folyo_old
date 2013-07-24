@@ -71,10 +71,10 @@ FactoryGirl.define do
     rand_from_list(COMPANY_NAMES)
   end
   sequence :long_description do |n|
-    RandomText.new('paragraphs').output(400).capitalize + "."
+    RandomText.new('paragraphs').output(20).capitalize + "."
   end
   sequence :description do |n|
-    RandomText.new('paragraphs').output(80).capitalize + "."
+    RandomText.new('paragraphs').output(20).capitalize + "."
   end
   sequence :job_offer_title do |n|
     prefix_list = ["#{rand_from_list(JOB_LEVELS)} designer", "#{Designer.skills.sample.to_s.humanize}"]
@@ -88,9 +88,7 @@ FactoryGirl.define do
   sequence :created_at do |n|
     rand_from_list((5..25).to_a).days.ago.to_date
   end
-  sequence :sent_out_at do |n|
-    rand_from_list((1..4).to_a).days.ago.to_date
-  end
+
   sequence :short_description do |n|
     RandomText.new('paragraphs').output(8).capitalize + "."
   end
@@ -100,14 +98,26 @@ FactoryGirl.define do
 end
 
 FactoryGirl.define do
+
   factory :job_offer do
+    location {FactoryGirl.generate(:location)}
+    company_name {FactoryGirl.generate(:company_name)}
+    company_url {FactoryGirl.generate(:url)}
+    company_description {FactoryGirl.generate(:description)}
     title {FactoryGirl.generate(:job_offer_title)}
-    full_description {FactoryGirl.generate(:description)}
+    project_summary {FactoryGirl.generate(:description)}
+    project_details {FactoryGirl.generate(:description)}
     compensation {FactoryGirl.generate(:compensation)}
-    sent_out_at {FactoryGirl.generate(:sent_out_at)}
     skills { [Designer.skills.sample, Designer.skills.sample] }
-    status :paid
+    budget_type { JobOffer.budget_types.sample }
+    budget_range { JobOffer.budget_ranges.sample }
+    status :accepted
     association :client
+  end
+
+  factory :order do
+    transaction_id { rand_str }
+    created_at {FactoryGirl.generate(:created_at)}
   end
 
   factory :admin do |admin|

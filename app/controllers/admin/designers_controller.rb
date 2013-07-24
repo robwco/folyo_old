@@ -30,6 +30,11 @@ class Admin::DesignersController < Admin::BaseController
     @designer_messages = Message.ordered.page(params[:page]).per(10)
   end
 
+  def to_markdown
+    @designer.to_markdown!
+    redirect_to designer_path(@designer), notice: 'Successfully converted to markdown'
+  end
+
   protected
 
   def collection

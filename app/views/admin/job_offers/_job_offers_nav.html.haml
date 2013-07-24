@@ -2,14 +2,12 @@
 #subnav
 	%ul
 		%li
-			= current_link_to 'Inactive', admin_offers_path
+			= current_link_to 'Pending', admin_offers_path
 		%li
-			= current_link_to 'Active', active_admin_offers_path
+			= current_link_to 'Accepted', active_admin_offers_path
 		%li
 			= current_link_to 'Archived', archived_admin_offers_path
 		%li
 			= current_link_to 'Refunded', refunded_admin_offers_path
-		%li
-			= current_link_to 'Rejected', rejected_admin_offers_path
 		%li
 			= current_link_to 'Newsletter setup', newsletter_setup_admin_offers_path

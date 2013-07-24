@@ -7,21 +7,22 @@
     #page
       - if yield(:header).blank?
         #page-header
-          #page-title
-            .title
-              - unless yield(:parent_level).blank?
-                .breadcrumbs
-                  = yield(:parent_level)
-              %h1
-                = yield(:title)
-            - unless yield(:subtitle).blank?
-              %h2
-                = yield(:subtitle)
+          .main-header
+            #page-title
+              .title
+                - unless yield(:parent_level).blank?
+                  .breadcrumbs
+                    = yield(:parent_level)
+                %h1
+                  = yield(:title)
+              - unless yield(:subtitle).blank?
+                %h2.subtitle
+                  = yield(:subtitle)
+            - unless yield(:mainaction).blank?
+              .main-action
+                =yield(:mainaction)
           - unless yield(:subnav).blank?
-            = yield(:subnav)
-          - unless yield(:mainaction).blank?
-            .main-action
-              =yield(:mainaction)
+            = yield(:subnav)    
       - else
         = yield(:header)
       #page-content

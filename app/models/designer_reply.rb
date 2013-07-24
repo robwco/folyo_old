@@ -16,6 +16,7 @@ class DesignerReply
 
   ## validations ##
   validates_presence_of :job_offer, :designer
+  validates_length_of   :message, maximum: 350
 
   ## callbacks ##
   after_create :send_notification!, :track_event
@@ -26,6 +27,10 @@ class DesignerReply
   def send_notification!
     # indirection here because we cannot directly use an embedded instance with delayed_job
     job_offer.delay.send_job_offer_reply_notification(self.id)
+  end
+
+  def text_format
+    :markdown
   end
 
   def track_event

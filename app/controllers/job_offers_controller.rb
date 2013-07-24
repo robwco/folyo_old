@@ -5,6 +5,13 @@ class JobOffersController < ApplicationController
 
   section :job_offers
 
+  def new
+    @job_offer = JobOffer.new_for_client(current_user)
+    @job_offer.skip_validation = true
+    @job_offer.publish
+    redirect_for_offer(@job_offer, signup: params[:signup])
+  end
+
   def show_by_pg_id
     @job_offer = JobOffer.where(pg_id: params[:id].to_i).first
     raise Mongoid::Errors::DocumentNotFound.new(JobOffer, pg_id: params[:id].to_i) if @job_offer.nil?
@@ -30,13 +37,29 @@ class JobOffersController < ApplicationController
     render 'job_offers/designer/history'
   end
 
-  def create
-    @job_offer.client = current_user
-    create! { offers_path }
+  def edit
+    @client = @job_offer.client
   end
 
   def update
-    update! { edit_offer_path(@job_offer)}
+    @job_offer.assign_attributes(params[:job_offer])
+
+    # all job offer fields must be validated if offer is directly submitted
+    if params[:workflow_save]
+      @job_offer.skip_validation = true
+    end
+
+    if @job_offer.valid?
+      if params[:workflow_submit] && @job_offer.can_submit?
+        @job_offer.submit
+        redirect_for_offer(@job_offer, signup: params[:signup])
+      else
+        @job_offer.publish
+        redirect_to edit_offer_path(@job_offer, signup: params[:signup]), notice: 'Your offer has been successfully updated!'
+      end
+    else
+      render :edit
+    end
   end
 
   def show_archive
@@ -44,14 +67,13 @@ class JobOffersController < ApplicationController
   end
 
   def archive
-    if current_user.is_a? Admin
-      @job_offer.archive!(params['designer_users'], false)
+    if current_user.is_a?(Admin)
+      @job_offer.archive(params['designer_users'], false)
     else
-      @job_offer.archive!(params['designer_users'])
+      @job_offer.archive(params['designer_users'])
     end
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Your job offer has been archived. Once you're done working with the designer, you can come back here to let us know how it went :)"
   end
-
 
   protected
 
@@ -59,7 +81,7 @@ class JobOffersController < ApplicationController
     @job_offers = if current_user.is_a? Client
       current_user.job_offers
     else
-      JobOffer.paid
+      JobOffer.accepted
     end
     @job_offers = @job_offers.page(params[:page]).per(10).ordered
   end

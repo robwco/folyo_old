@@ -6,6 +6,7 @@ Folyo::Application.routes.draw do
 
   match 'press' => 'site#press'
   match 'learn-more' => 'site#learn_more'
+  match 'markdown' => 'site#markdown'
   match 'how-it-works' => 'site#learn_more'
   match 'about' => 'site#about'
   match 'guides' => 'site#guides'
@@ -27,22 +28,31 @@ Folyo::Application.routes.draw do
     get "sign_in", to: 'devise/sessions#new'
     get "sign_up", to: 'users/registrations#new'
     match "/sign_up/:initial_role/job" => 'users/registrations#new', as: 'new_user_with_role', job: true
-    match "/sign_up/:initial_role" => 'users/registrations#new', as: 'new_user_with_role'
+    match "/sign_up/:initial_role" => 'users/registrations#new',     as: 'new_user_with_role'
   end
 
   namespace :admin do
     resources :designers do
-      get 'posts',    on: :collection
-      get 'messages', on: :collection
+      get 'posts',       on: :collection
+      get 'messages',    on: :collection
+      put 'to_markdown', on: :member
     end
-    resources :clients
+    resources :clients do
+      put 'to_markdown', on: :member
+    end
     resources :job_offers, path: 'offers', as: 'offers' do
       resources :replies
+      resource :order do
+        put 'refund'
+      end
       get 'active',           on: :collection
       get 'archived',         on: :collection
       get 'rejected',         on: :collection
       get 'refunded',         on: :collection
       get 'newsletter_setup', on: :collection
+      put 'accept',           on: :member
+      put 'reject',           on: :member
+      put 'to_markdown',      on: :member
     end
     resource :dashboard, controller: 'Dashboard'
   end
@@ -69,9 +79,9 @@ Folyo::Application.routes.draw do
     get 'archives',     on: :collection
     get 'show_archive', on: :member
     post 'archive',      on: :member
-    resources :orders do
-      get 'checkout', on: :collection
-      get 'confirm',  on: :collection
+    resource :order do
+      get 'checkout'
+      get 'confirm'
     end
     resources :designer_replies, path: 'replies', as: 'replies' do
       get 'pick',        on: :member
@@ -91,5 +101,7 @@ Folyo::Application.routes.draw do
   #end
 
   root :to => "site#home"
+
+  mount Jobbr::Engine => "/jobbr"
 
 end

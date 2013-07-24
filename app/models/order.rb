@@ -5,22 +5,42 @@ class Order
 
   field :express_token,     type: String
   field :express_payer_id,  type: String
+  field :transaction_id,    type: String
   field :ip_address,        type: String
   field :email,             type: String
   field :details,           type: String
   field :total,             type: Integer
+  field :refunded_at,       type: DateTime
+  field :error_message,     type: String
 
   field :pg_id
 
   ## associations ##
   embedded_in :job_offer
 
+  def setup_purchase(return_url, cancel_return_url, remote_ip)
+    setup_response = EXPRESS_GATEWAY.setup_purchase(job_offer.price,
+      items: [ {
+        name:     'Job Offer on Folyo',
+        quantity: 1,
+        amount:   job_offer.price
+      }],
+      locale:            'en_us',
+      ip:                remote_ip,
+      return_url:        return_url,
+      cancel_return_url: cancel_return_url
+    )
+    EXPRESS_GATEWAY.redirect_url_for(setup_response.token)
+  end
+
   def purchase(job_offer)
-    response = process_purchase(job_offer)
-    track_event
-    #transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
-    #cart.update_attribute(:purchased_at, Time.now) if response.success?
-    response.success?
+    if process_purchase(job_offer).success?
+      job_offer.pay
+      track_event
+      true
+    else
+      false
+    end
   end
 
   def express_token=(token)
@@ -34,20 +54,31 @@ class Order
     end
   end
 
+  def refund
+    if self.transaction_id.nil?
+      self.update_attribute(:error_message , 'No transaction id saved for this order. Please do a manual refund')
+      return false
+    end
+
+    response = EXPRESS_GATEWAY.refund(nil, self.transaction_id)
+    if response.success?
+      self.update_attribute(:refunded_at, DateTime.now)
+    else
+      self.update_attribute(:error_message, response.message)
+      false
+    end
+  end
+
   private
 
   def process_purchase(job_offer)
-    if job_offer.discount && job_offer.discount == "HN20"
-      price = 8000
-    else
-      price = 10000
-    end
-
-    EXPRESS_GATEWAY.purchase(price, {
-      ip: ip_address,
-      token: express_token,
+    response = EXPRESS_GATEWAY.purchase(job_offer.price, {
+      ip:       ip_address,
+      token:    express_token,
       payer_id: express_payer_id
     })
+    self.update_attribute(:transaction_id, response.params['transaction_id'])
+    response
   end
 
   def track_event

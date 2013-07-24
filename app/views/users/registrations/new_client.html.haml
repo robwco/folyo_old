@@ -1,6 +1,6 @@
-= content_for :title, "Sign Up"
+= content_for :title, "Your Job Offer"
 
-= content_for :body_class, ""
+= render 'job_offers/client/wizard', active: :signup, offer: nil
 
 = content_for :error_messages do
 	= devise_error_messages!
@@ -17,16 +17,9 @@
 	.section
 		%h3 Your Account
 		= f.input :initial_role, :as => :hidden, :input_html => {:value => "client"}
-		= f.input :full_name
-		= f.input :email
-		= f.input :password, :as => :password
+		= f.input :full_name, required: true
+		= f.input :email, required: true
+		= f.input :password, :as => :password, required: true
 		= f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
-		= f.input :referrer_designer, :as => :hidden
-	.section
-		%h3 Your Company
-		= f.input :company_name
-		= f.input :company_url
-		= f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {:class => "wysiwyg"}
-		= f.input :location
 
 	= f.submit "Sign Up", :class => "button big-button"

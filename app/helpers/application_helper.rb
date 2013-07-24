@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module ApplicationHelper
 
   def current_link_to(title, target)
@@ -49,22 +51,52 @@ module ApplicationHelper
     ->(sym){sym.to_s.humanize}
   end
 
-  def error_messages(object)
-    return "" if object.errors.empty?
+  def error_messages(objects, resource_name = nil)
+    # this method can be either applied to a single object or an array of objects
+    objects = [objects] unless objects.is_a?(Enumerable)
 
-    messages = object.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
-    sentence = I18n.t("errors.messages.not_saved",
-                      :count => resource.errors.count,
-                      :resource => resource.class.model_name.human.downcase)
+    return "" if objects.all?{|o| o.errors.empty?}
+
+    messages = objects.map {|o| o.errors.full_messages.map { |msg| content_tag(:li, msg) }}.flatten
+    sentence = I18n.t("errors.messages.not_saved", count: messages.length, resource: resource_name || objects.first.class.model_name.human.downcase)
 
     html = <<-HTML
     <div id="error_explanation">
       <h2>#{sentence}</h2>
-      <ul>#{messages}</ul>
+      <ul>#{messages.join}</ul>
     </div>
     HTML
 
     html.html_safe
   end
+
+  def markdown_renderer
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, space_after_headers: true)
+  end
+
+  def format_text(model, attribute, options = {})
+    markdown_renderer.render(model.send(attribute))
+    #html = if model.send(:text_format) == :markdown
+    #  markdown_renderer.render(model.send(attribute))
+    #else
+    #  model.send(attribute)
+    #end
+    #if options[:sanitize]
+    #  Sanitize.clean(html)
+    #else
+    #  html
+    #end
+  end
+
+  def textarea_type(model)
+    if model.send(:text_format) == :markdown
+      'markdown'
+    else
+      'wysiwyg'
+    end
+  end
+
+  private
+
 
 end

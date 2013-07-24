@@ -2,19 +2,23 @@
 
 #subnav
   %ul
-    - if job_offer.paid? || job_offer.archived?
+    %li.status
+      = current_link_to 'Your Order', offer_order_path(job_offer)
+
+    %li.view-offer
+      = current_link_to 'View Project', offer_path(job_offer)
+
+    %li.edit-offer
+      = current_link_to 'Edit Project', edit_offer_path(job_offer)
+
+    - if job_offer.accepted? || job_offer.archived?
       %li.view-replies
         = current_link_to 'Designer Replies', offer_replies_path(job_offer)
-    %li.view-offer
-      = current_link_to 'View', offer_path(job_offer)
-    %li.edit-offer
-      = current_link_to 'Edit', edit_offer_path(job_offer)
-    - if job_offer.accepted? || job_offer.paid? || job_offer.archived? || job_offer.refunded?
-      %li.payment
-        = current_link_to 'Payment', offer_orders_path(job_offer)
-    - if job_offer.paid?
+
+    - if job_offer.accepted?
       %li.archive
         = current_link_to 'Archive Offer', show_archive_offer_path(job_offer)
+    
     - if job_offer.archived?
       %li.evaluate
         = current_link_to 'Rate Designer', edit_offer_evaluations_path(job_offer)

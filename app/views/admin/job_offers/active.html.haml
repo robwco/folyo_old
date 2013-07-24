@@ -1,11 +1,12 @@
 = content_for :title, "Job Offers"
-=content_for :subnav do
-	= render :partial => '/admin/job_offers/job_offers_nav'
+= content_for :subnav do
+	= render partial: '/admin/job_offers/job_offers_nav'
 
-- unless @job_offers.paid.empty?
+- unless @job_offers.empty?
 	.active
-		%h3.active Active
+		%h3.active Accepted / Sent
 		%ul.offer-list
-			- @job_offers.paid.each do |job|
+			- @job_offers.each do |job|
 				= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job}
+
 	= paginate @job_offers

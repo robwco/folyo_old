@@ -1,21 +1,27 @@
-= content_for :title, "My Account"
 
-= content_for :subnav do
-  - if current_user.is_a? Designer
-    = render :partial => '/designers/account_nav'
-  - elsif current_user.is_a? Client
-    = render :partial => '/clients/account_nav'
+
+- if params[:offer_id]
+  = content_for :title, "Your Job Offer"
+  = render 'job_offers/client/wizard', active: :signup, offer: JobOffer.find(params[:offer_id]), signup: 'true'
+- else
+  = content_for :title, "My Account"
+  = content_for :subnav do
+    - if current_user.is_a? Designer
+      = render :partial => '/designers/account_nav'
+    - if current_user.is_a? Client
+      = render :partial => '/clients/account_nav'
 
 #flash
   = devise_error_messages!
 
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
   .section
-    %h3 About You
-    = f.input :full_name
-    = f.input :email
-  .section
-    %h3 Change Password
-    = f.input :password, :as => :password, :required => false, :label => "Password"
+    %h3 Your account
+    = f.input :full_name, required: true
+    = f.input :email, required: true
+    = f.input :password, :as => :password, required: true
+    = f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
+    - unless params[:offer_id].blank?
+      = hidden_field_tag :offer_id, params[:offer_id]
 
   = f.submit "Update Profile", :class => "button big-button"

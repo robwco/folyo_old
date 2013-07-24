@@ -1,29 +1,27 @@
 class OrdersController < ApplicationController
 
-  before_filter :define_job, :only => [:new, :index, :create, :checkout]
+  before_filter :set_job_offer
 
-  def checkout
-    if @job_offer.discount && @job_offer.discount=="HN20"
-      price = 8000
-    else
-      price = 10000
-    end
-    setup_response = EXPRESS_GATEWAY.setup_purchase(price,
-      items: [ {
-        name:     'Job Offer on Folyo',
-        quantity: 1,
-        amount:   price
-      }],
-      locale:            'en_us',
-      ip:                request.remote_ip,
-      return_url:        new_offer_order_url,
-      cancel_return_url: url_for(:action => 'index', :only_path => false)
-    )
-    redirect_to EXPRESS_GATEWAY.redirect_url_for(setup_response.token)
-  end
+  load_and_authorize_resource
+
+  section :job_offers
 
   def new
-    @order = Order.new(:express_token => params[:token])
+    redirect_for_offer(@job_offer) unless @job_offer.waiting_for_payment?
+  end
+
+  def checkout
+    order = JobOffer.new.build_order
+    {}.tap do |options|
+      options[:signup] = params[:signup] unless params[:signup].blank?
+      checkout_url = order.setup_purchase(confirm_offer_order_url(options), new_offer_order_url(options), request.remote_ip)
+      redirect_to checkout_url
+    end
+  end
+
+  def confirm
+    redirect_for_offer(@job_offer) unless params[:token] && @job_offer.waiting_for_payment?
+    @order = Order.new(express_token: params[:token])
   end
 
   def create
@@ -31,24 +29,20 @@ class OrdersController < ApplicationController
     @order.ip_address = request.remote_ip
     if @order.save
       if @order.purchase(@job_offer)
-        @job_offer.status = :paid
-        @job_offer.save!
-
-        track_event("Payment", {:mp_note => @job_offer.title, :job_offer_title => @job_offer.title, :job_offer_id => @job_offer.id})
-
-        render :action => "index"
+        track_event("Payment", { mp_note: @job_offer.title, job_offer_title: @job_offer.title, job_offer_id: @job_offer.id })
+        redirect_for_offer(@job_offer)
       else
-        render :action => "failure"
+        render action: 'failure'
       end
     else
-      render :action => 'new'
+      render action: 'failure'
     end
   end
 
   protected
 
-    def define_job
-      @job_offer ||= JobOffer.find(params[:offer_id])
-    end
+  def set_job_offer
+    @job_offer ||= JobOffer.find(params[:offer_id])
+  end
 
 end

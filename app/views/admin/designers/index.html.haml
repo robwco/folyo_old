@@ -7,8 +7,9 @@
 		%li.designer
 			- if d.status == :pending
 				%h2{class: d.status.to_s.downcase}
-					= link_to d.full_name, edit_designer_path(d)
+					= link_to d.full_name, designer_path(d)
 				%ul.actions
+					%li= link_to 'Edit', edit_designer_url(d)
 					%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
 					- unless d.dribbble_url.blank?
 						%li.dribbble= link_to "Dribbble", d.dribbble_url
@@ -17,14 +18,15 @@
 			- else
 				.bio
 					%h2{class: d.status.to_s.downcase}
-						= link_to d.full_name, d
+						= link_to d.full_name, designer_path(d)
 					%h4
 						= d.short_bio
-					%p= first_words(Sanitize.clean(d.long_bio), 50)
+					%p!= first_words(format_text(d, :long_bio, sanitize: true), 50)
 
 				.col2
 					= render :partial => '/designers/featured_work', :locals => {:designer => d}
 					%ul.actions
+						%li= link_to 'Preview', designer_path(d)
 						%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
 						- unless d.dribbble_url
 							%li.dribbble= link_to "Dribbble", d.dribbble_url

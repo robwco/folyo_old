@@ -1,10 +1,11 @@
 %li.designer
   .bio
     %h2
-      = link_to d.full_name, d
+      = link_to d.full_name, designer_path(d)
     %h4
       = d.short_bio
-    %p= first_words(Sanitize.clean(d.long_bio), 50)
+    - unless d.long_bio.blank?
+      %p!= first_words(format_text(d, :long_bio, sanitize: true), 50)
 
   .col2
     = render :partial => 'featured_work', :locals => {:designer => d}

@@ -1,20 +1,28 @@
-=content_for :parent_level do
-	= link_to "My Offers", offers_path
-	=content_for :title, @job_offer.title
-=content_for :body_class, "offer-client"
-=content_for :subnav do
-	= render current_user.try(:is_a?, Designer) ? 'job_offers/designer/nav' : 'job_offers/client/nav', job_offer: @job_offer
+= content_for :title, @job_offer.title
 
-:javascript
-	$(document).ready(function(){
-		$('.confirm-payment').click(function(){
-			_kmq.push(['set', {'Billing Amount':#{@order.total}}]);
-		});
-	});
+= render 'job_offers/client/wizard', active: :order, offer: @job_offer, signup: params[:signup]
 
-%h2 Confirm Payment
-%p You're one step away from posting a job offer to Folyo for <strong>$#{@order.total}</strong>:
+.block
+  %h3 Complete Your Payment
 
-= form_for @order, :url => offer_orders_path do |f|
-	= f.hidden_field :express_token
-	= f.submit "Confirm Payment", :class => "button big-button confirm-payment"
+  %p You will be redirected to Paypal for authentication, then come back on this site to confirm the payment:
+  .pay
+    .price
+      %span.number= @job_offer.display_price
+    .paypal
+      = link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), checkout_offer_order_path(@job_offer, signup: params[:signup]), id: 'paypal-checkout', data: {'no-turbolink' => true}
+
+.block
+  %h2 What Happens After I Pay?
+  %p After the payment, we will <strong>review your project</strong>. If your job offer is accepted, it will immediately be displayed on the site, and sent by email to all Folyo designers at the end of the week.
+
+.block
+  %h2 What If My Project Is Not Accepted?
+  %p If your job offer is not accepted (for example, because it needs more details, or the budget is too low), we will contact you and work together to craft the best job offer possible.
+  %p If for whatever reason your job offer still hasn't been accepted after 10 days, we will automatically refund you.
+
+.block
+  %h2 What If I Don't Find A Designer?
+  %p If you can't find a suitable designer through Folyo, let us know and you'll be <strong>fully refunded</strong>.
+
+

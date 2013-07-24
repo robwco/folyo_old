@@ -9,4 +9,8 @@ class SiteController < ApplicationController
     track_event("Viewing Learn More", {:mp_note => 'viewing learn more note'})
   end
 
+  def markdown
+    render layout: false
+  end
+
 end

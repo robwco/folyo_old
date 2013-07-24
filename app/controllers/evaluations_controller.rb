@@ -15,7 +15,7 @@ class EvaluationsController < ApplicationController
       @evaluation = FolyoEvaluation.find_or_initialize_by(user: current_user)
       @evaluation.update_attributes(params[:folyo_evaluation])
     end
-    redirect_to offer_path(@job_offer), :notice => "Thanks for your comments!"
+    redirect_to offer_path(@job_offer), notice: 'Thanks for your comments!'
   end
 
 end

@@ -1,0 +1,10 @@
+= content_for :title, 'Submit a Job Offer'
+
+= render 'job_offers/client/wizard', active: :order, offer: @job_offer, signup: params[:signup]
+
+%h2 Confirm Payment
+%p You're one step away from posting a job offer to Folyo for <strong>$#{@order.total}</strong>:
+
+= form_for @order, url: offer_order_path do |f|
+  = f.hidden_field :express_token
+  = f.submit 'Confirm Payment', class: 'button big-button confirm-payment'

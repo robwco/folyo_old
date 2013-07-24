@@ -36,4 +36,10 @@ Folyo::Application.configure do
   config.active_support.deprecation = :stderr
 
   HOST = 'folyo.test'
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::BogusGateway.new
+  end
+
 end

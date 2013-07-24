@@ -13,7 +13,7 @@
 .block.about
   %h3 About Me
   - if @designer.long_bio
-    %p= @designer.long_bio.html_safe
+    %p!= format_text(@designer, :long_bio)
 
 = content_for :sidebar do
   %ul

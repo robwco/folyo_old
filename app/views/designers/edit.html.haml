@@ -1,5 +1,9 @@
 - if current_user.is_a? Admin
   = content_for :title, "#{@designer.full_name} account"
+  = content_for :subtitle, @designer.email
+  = content_for :parent_level do
+    = link_to "Designers", admin_designers_path
+
 - else
   = content_for :title, "My Account"
 
@@ -15,13 +19,11 @@
 = content_for :featured_shot_hint do
   %span Enter the <a href="http://blog.folyo.me/post/11096321674">Dribbble ID</a> of the shot you want to feature on your profile. Leave blank to use your latest shot.
 
-.note.referral
-  %h4 Your referral URL: <input type="text" class="autoselect" value="http://www.folyo.me/?ref=#{@designer.id}"/>
-  %p Every client you refer will get <strong>10% off</strong>, and you'll also earn <strong>10%</strong> of every job offer they post.
+- if current_user.is_a?(Admin) && @designer.is_a?(Html::Designer)
+  = content_for :sidebar do
+    = link_to 'Convert to Markdown', to_markdown_admin_designer_path(@designer), class: 'button big-button', method: 'put'
 
-- if current_user.is_a? Admin
-  %p Profile for #{@designer.email}
-= simple_form_for(@designer) do |f|
+= simple_form_for @designer, url: designer_path(@designer) do |f|
 
   = content_for :error_messages do
     = error_messages(@designer)
@@ -37,9 +39,8 @@
     = f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
   .section
     %h3 About You
-    = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :input_html=> {:class => "limit limit-80"}
-    %p.remaining.small <span class="chars-left">80</span> characters remaining
-    = f.input :long_bio, :as => :text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :input_html => {:class => "wysiwyg"}
+    = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :wrapper_html=> {:class => "limit limit-80"}
+    = f.input :long_bio, :as => :text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :wrapper_html => {:class => textarea_type(@designer)}
     = f.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
     #ambiguous_location.ajax-error.hidden
       We can't seem to find this place… Maybe add your state or country?

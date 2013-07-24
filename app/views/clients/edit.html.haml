@@ -1,6 +1,12 @@
-= content_for :title, "My Account"
-= content_for :subnav do
-  = render :partial => '/clients/account_nav'
+- if current_user.is_a?(Client)
+  = content_for :title, "My Account"
+  = content_for :subnav do
+    = render :partial => '/clients/account_nav'
+
+- elsif current_user.is_a?(Admin)
+  = content_for :title, "#{@client.full_name} account"
+  = content_for :parent_level do
+    = link_to "Clients", admin_clients_path
 
 = content_for :company_hint do
   %span.title Things to mention:
@@ -10,14 +16,11 @@
   %span <strong>Your users</strong>: who uses your service?
   %span.bottom For more ideas, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
-- if current_user.is_a? Admin
-  .block
-    %ul
-      %li= link_to @client.email, "mailto:#{@client.email}Subject=Your%20job%20offer%20on%20Folyo"
-      - if @client.referrer_designer
-        %li Referring designer: #{@client.referrer_designer.email}
+- if current_user.is_a?(Admin) && @client.is_a?(Html::Client)
+  = content_for :sidebar do
+    = link_to 'Convert to Markdown', to_markdown_admin_client_path(@client), class: 'button big-button', method: 'put'
 
-= simple_form_for(@client) do |f|
+= simple_form_for(@client, url: client_path(@client)) do |f|
 
   = content_for :error_messages do
     = error_messages(@client)
@@ -26,6 +29,7 @@
     %h3 Your Company
     = f.input :company_name
     = f.input :company_url
-    = f.input :company_description, as: :text, hint: yield(:company_hint), input_html: {class: "wysiwyg"}
+    = f.input :company_description, as: :text, hint: yield(:company_hint), wrapper_html: {class: textarea_type(@client)}
     = f.input :location
+
   = f.submit "Update Profile", :class => "button big-button"

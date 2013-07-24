@@ -6,12 +6,12 @@
   %li.company
     %h3 Company
     - if current_user.is_a? Admin
-      %p= link_to job_offer.client.company_name, admin_client_path(job_offer.client)
+      %p= link_to job_offer.company_name, admin_client_path(job_offer.client)
     - else
-      %p= job_offer.client.company_name
+      %p= job_offer.company_name
   %li.site
     %h3 Site
-    = link_to job_offer.client.company_url, job_offer.client.company_url, :title => "Site"
+    = link_to job_offer.company_url, job_offer.company_url, :title => "Site"
   %li.location
     %h3 Company Location
     %p= job_offer.client.location
@@ -19,7 +19,7 @@
     %h3 Categories
     %ul.skills-list
       - job_offer.skills.each do |s|
-        %li{:class => s.to_s}= s.to_s.humanize
+        %li{class:s.to_s}= s.to_s.humanize
   - if job_offer.coding
     %li.coding
       %h3 Coding

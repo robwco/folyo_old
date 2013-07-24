@@ -30,6 +30,27 @@ form{
 			margin:0;
 		}
 	}
+	input.readonly {
+		color: #628B9E;
+		background: rgba(198, 210, 216, 0.29);
+	}
+	.markdown{
+		label{
+			.markdown-logo{
+				content:" ";
+				display:inline-block;
+				overflow:hidden;
+				text-indent:900px;
+				background:url(image_path("markdown-mark.svg")) no-repeat center center;
+				height:15px;
+				width:24px;
+				background-size:24px 15px;
+				opacity:0.4;
+				margin-left:5px;
+				vertical-align:middle;
+			}
+		}
+	}
 }
 .section{
 	margin-bottom:40px;
@@ -76,15 +97,18 @@ label{
 	//background:white(0.3);
 	@include box-shadow(black(0) 0px 1px 0px 0px);
 	position:absolute;
-	padding:10px;
+	padding:10px 10px 0 10px;
 	left:580px;
-	top:30px;
+	top:20px;
 	width:340px;
 	font-size:13px;
 	@include letterpress(0.8);
 	color:rgba(122,141,153, 0.75);
 	@include transition-property(all);
 	@include transition-duration(500ms);
+	&.with-title {
+		top: 0px;
+	}
 	span{
 		display:block;
 		margin-bottom:10px;
@@ -104,6 +128,7 @@ label{
 	color:$darkgrey1;
 	//@include box-shadow( inset black(0.1) 0px 1px 0px 0px, white(1) 0px 1px 0px 0px);
 	@include box-shadow(black(0.15) 0px 1px 1px 0px);
+	left:540px;
 }
 .forgot-password{
 	font-size:13px;
@@ -135,7 +160,7 @@ div.wysiwyg ul.toolbar{
 	padding:5px;
 	//height:20px;
 	float:left;
-	margin-bottom:5px;
+	margin-bottom: 5px;
 	width:510px;
 }
 .ajax-error{
@@ -157,5 +182,18 @@ li.loading{
 		@include transition-property("height, opacity");
 		@include transition-duration(400ms);
 		@include transition-timing-function(ease-out);
+	}
+}
+
+.character-counter-main-wrapper {
+	display: none;
+	color: $darkgrey2;
+	font-size: 14px;
+	font-style: italic;
+	text-align: right;
+	margin-top: -30px;
+	margin-bottom: 7px;
+	&.exceeded {
+		color: $red1;
 	}
 }

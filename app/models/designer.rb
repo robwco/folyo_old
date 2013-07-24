@@ -40,7 +40,7 @@ class Designer < User
   ## reference data ##
 
    def self.skills
-    [:icon_design, :illustration, :logo_identity_design, :mobile_design, :print_design, :ui_design, :ux_interaction_design, :web_design]
+    [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
   end
 
   def self.statuses
@@ -58,6 +58,8 @@ class Designer < User
   validates                 :skills, array: { inclusion: { in: Designer.skills} }
 
   ## scopes ##
+  default_scope where(:_type.in => %w(Designer Html::Designer))
+
   scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
   scope :random_order,      ->(order = :act){ order_by(:randomization_key => order) }
 
@@ -120,6 +122,10 @@ class Designer < User
       resources[:behance] = behance_url unless behance_username.blank?
       resources[:portfolio] = portfolio_url unless portfolio_url.blank?
     end
+  end
+
+  def text_format
+    :markdown
   end
 
   protected

@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :initialize_env
   before_filter :store_location
-  before_filter :miniprofiler
   after_filter  :set_xhr_flash
 
   protect_from_forgery
@@ -99,6 +98,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_for_offer(job_offer, options = {})
+    options.delete_if{|k,v| k.blank? }
+    redirect_to case job_offer.status
+    when :initialized
+      edit_offer_path(job_offer, options)
+    when :waiting_for_submission
+      edit_offer_path(job_offer, options)
+    when :waiting_for_payment
+      new_offer_order_path(job_offer, options)
+    when :waiting_for_review
+      offer_order_path(job_offer, options)
+    end
+  end
+
   private
 
   def initialize_env
@@ -110,10 +123,6 @@ class ApplicationController < ActionController::Base
       'rack.session' => request.env['rack.session'].to_hash,
       'mixpanel_events' => request.env['mixpanel_events']
     }
-  end
-
-  def miniprofiler
-    Rack::MiniProfiler.authorize_request if current_user.try(:is_a?, Admin)
   end
 
 end
