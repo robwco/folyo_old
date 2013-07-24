@@ -6,7 +6,6 @@
 - if @job_offer.waiting_for_payment? || @job_offer.waiting_for_submission?
   = render 'job_offers/client/wizard', active: :offer, offer: @job_offer, signup: params[:signup]
 - else
-  = render '/job_offers/breadcrumb'
   = content_for :subnav do
     = render 'job_offers/client/nav', job_offer: @job_offer
 
