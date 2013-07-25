@@ -5,6 +5,7 @@ $blueprint_grid_width: 22px;
 $blueprint_grid_margin: 60px;
 @import "blueprint";
 @import "compass/css3";
+@import "modules/buttons";
 
 #container{
 /*	@include container;*/
@@ -31,7 +32,7 @@ $blueprint_grid_margin: 60px;
 				@include box-shadow(white(0.5) 0 0 10px);
 			}
 		}
-	}	
+	}
 	.block{
 		@include column(12, true);
 		.image{
@@ -116,7 +117,7 @@ $blueprint_grid_margin: 60px;
 		display:block;
 		float:left;
 		margin-right:5px;
-		cursor:pointer;		
+		cursor:pointer;
 	}
 	.pds-input-label{
 		cursor:pointer;
@@ -168,7 +169,7 @@ $blueprint_grid_margin: 60px;
 html.screenshot, body.screenshot, #frame{
 	width:100%;
 	height:100%;
-	background:white;	
+	background:white;
 }
 #frame{
 	position:relative;
@@ -234,7 +235,7 @@ html.screenshot, body.screenshot, #frame{
 .cboxPhoto{float:left; margin:auto; border:0; display:block;}
 .cboxIframe{width:100%; height:100%; display:block; border:0;}
 
-/* 
+/*
     User Style:
     Change the following styles to modify the appearance of ColorBox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
