@@ -4,4 +4,4 @@
   %li= section_link_to 'Browse Designers', designers_path, :designers
   %li= section_link_to 'Apply as a Designer', new_user_with_role_path(:initial_role => 'designer'), :account
   %li= current_link_to 'Log In', '/sign_in'
-  %li.post-job= link_to 'Post a Job', '/learn-more', :class => "button"
+  %li.post-job= link_to 'Post a Job', new_user_with_role_path(initial_role: 'client'), :class => "button"
