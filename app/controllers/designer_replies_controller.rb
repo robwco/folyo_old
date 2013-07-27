@@ -4,7 +4,6 @@ class DesignerRepliesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    track_event("Viewing Designer Replies", {:mp_note => @job_offer.title, :job_offer_id => @job_offer.id, :job_offer_title => @job_offer.title})
     @designer_replies = self.collection.ordered
     index!
   end
