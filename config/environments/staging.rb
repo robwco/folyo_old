@@ -76,6 +76,16 @@ Folyo::Application.configure do
     :domain         => 'heroku.com'
   }
 
+
+  config.after_initialize do
+    paypal_options = {
+      :login => 'info_api1.sachagreif.com',
+      :password => 'J2N2Z5KPNTS4UG47',
+      :signature => 'ABMZ5SZxLcwyoF0Iq9XT2kfzFbxWAWGx2dQzspqwg20J7AlXLp11ISj2'
+    }
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
+  
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
