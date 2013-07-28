@@ -34,16 +34,31 @@
 :coffeescript
   head ->
     $ ->
-      lastFormState = $('form').serialize()
-      setInterval(->
-        if $('form').serialize() != lastFormState
-          lastFormState = $('form').serialize()
-          $.ajax
-            url:        "#{offer_path(@job_offer.id)}"
-            type:       'POST'
-            data:       "\#{lastFormState}&workflow_save=1"
-            success: ->
-              now = new Date()
-              now_as_string = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2)
-              $('.autosave-notice').hide().html("Autosaved at \#{now_as_string}").fadeIn()
-      30000)
+      if $('.edit_job_offer').length > 0
+        window.editFormInitialized = true
+        lastFormState = $('form').serialize()
+
+        saveForm = ->
+          if $('form').serialize() != lastFormState
+            lastFormState = $('form').serialize()
+            $.ajax
+              url:        "#{offer_path(@job_offer.id)}"
+              type:       'POST'
+              data:       "\#{lastFormState}&workflow_save=1"
+              success: ->
+                now = new Date()
+                # getting time in this format 09:30 (filled with leading zeros)
+                now_as_string = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2)
+                $('.autosave-notice').hide().html("Autosaved at \#{now_as_string}").fadeIn()
+
+        # saving form every 30 secs (if changes have occured)
+        interval = setInterval(saveForm, 30000)
+
+        beforeChangeSave = ->
+          saveForm()
+          clearInterval(interval)
+          document.removeEventListener('page:before-change', beforeChangeSave)
+
+        # saving form before changing page
+        document.addEventListener 'page:before-change', beforeChangeSave
+
