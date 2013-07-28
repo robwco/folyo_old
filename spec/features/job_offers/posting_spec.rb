@@ -20,11 +20,6 @@ feature 'Posting a job offer', devise: true do
     background do
       visit root_path
       click_link 'Post a Job'
-      page.should have_content '3 Good Reasons to Use Folyo'
-
-      within '#intro-header' do
-        click_link 'Get Started'
-      end
     end
 
     scenario 'create an account and submit a new offer' do

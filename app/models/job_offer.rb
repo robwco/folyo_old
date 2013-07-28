@@ -176,6 +176,7 @@ class JobOffer
 
     event :rate do
       transition :archived => :rated
+      transition :rated    => same
     end
 
     event :refund do
@@ -255,7 +256,7 @@ class JobOffer
   end
 
   def track_event(event_name, optional_data = {})
-    self.client.track_user_event(event_name, optional_data.merge(job_offer_title: self.title, job_offer_id: self.id, job_offer_slug: self.slug, company_name: self.client.company_name))
+    self.client.track_user_event(event_name, optional_data.merge(job_offer_title: self.title, job_offer_id: self.id.to_s, job_offer_slug: self.slug, company_name: self.client.company_name))
   end
 
   def status_changed(transition)
@@ -264,9 +265,13 @@ class JobOffer
       track_event('JO02_Save') if self.published_at.nil?
       self.published_at = DateTime.now
     when :submit
-      track_event('JO03_Submit')
-      self.published_at ||= DateTime.now
+      if self.submited_at.nil?
+        track_event('JO03_Submit')
+      else
+        track_event('JO05c_Resubmit')
+      end
       self.submited_at = DateTime.now
+      self.published_at ||= DateTime.now
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now

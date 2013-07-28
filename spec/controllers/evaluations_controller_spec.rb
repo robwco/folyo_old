@@ -10,12 +10,15 @@ describe Client::EvaluationsController do
 
   let(:picked_reply) { job_offer.designer_replies.where(picked: true).first }
 
+  before do
+    sign_in(client)
+  end
+
   describe 'edit' do
 
     it "assigns existing evaluation" do
       picked_reply.update_attribute(:evaluation, 'existing evaluation')
 
-      sign_in(client)
       get :edit, offer_id: job_offer.id
 
       response.should be_success
@@ -26,7 +29,6 @@ describe Client::EvaluationsController do
     it "assigns existing folyo evaluation" do
       evaluation = FactoryGirl.create :folyo_evaluation, user: client
 
-      sign_in(client)
       get :edit, offer_id: job_offer.id
       response.should be_success
       assigns[:folyo_evaluation].should == evaluation
@@ -34,32 +36,39 @@ describe Client::EvaluationsController do
 
   end
 
-  describe "update'" do
+  describe "update" do
 
     it "sets evaluation" do
-      sign_in(client)
       expect {
-        put :update, offer_id: job_offer.id, reply_id: picked_reply.id, designer_reply: { evaluation: 'evaluation'}, folyo_evaluation: {evaluation: ''}
+        put_evaluation ''
       }.to change { picked_reply.reload.evaluation }.from(nil).to('evaluation')
     end
 
     it "creates folyo evaluation" do
-      sign_in(client)
       expect {
-        put :update, offer_id: job_offer.id, reply_id: picked_reply.id, designer_reply: { evaluation: 'evaluation'}, folyo_evaluation: {evaluation: 'new evaluation'}
+        put_evaluation 'new evaluation'
       }.to change { FolyoEvaluation.count }.by(1)
     end
 
     it "updates folyo evaluation" do
       evaluation = FactoryGirl.create :folyo_evaluation, user: client
 
-      sign_in(client)
       expect {
-        put :update, offer_id: job_offer.id, reply_id: picked_reply.id, designer_reply: { evaluation: 'evaluation'}, folyo_evaluation: {evaluation: 'new evaluation'}
+        put_evaluation 'new evaluation'
       }.to change { FolyoEvaluation.count }.by(0)
       evaluation.reload.evaluation.should == 'new evaluation'
     end
 
+    it "set job_offer status to rated" do
+      expect {
+        put_evaluation 'new evaluation'
+      }.to change{job_offer.reload.status}.from(:archived).to(:rated)
+    end
+
+  end
+
+  def put_evaluation(evaluation)
+    put :update, offer_id: job_offer.id, reply_id: picked_reply.id, designer_reply: { evaluation: 'evaluation'}, folyo_evaluation: {evaluation: 'new evaluation'}
   end
 
 end
