@@ -80,7 +80,7 @@ describe JobOffer do
         it { should change{job_offer.reload.submited_at}.from(nil) }
 
         it 'should track user event' do
-          expect_to_track 'JO03_Submit'
+          expect_to_track 'JO05c_Resubmit'
           subject.call
         end
 
