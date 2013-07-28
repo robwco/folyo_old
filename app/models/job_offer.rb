@@ -176,6 +176,7 @@ class JobOffer
 
     event :rate do
       transition :archived => :rated
+      transition :rated    => same
     end
 
     event :refund do
