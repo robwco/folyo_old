@@ -264,9 +264,13 @@ class JobOffer
       track_event('JO02_Save') if self.published_at.nil?
       self.published_at = DateTime.now
     when :submit
-      track_event('JO03_Submit')
+      if self.submited_at.nil?
+        track_event('JO03_Submit')
+        self.submited_at = DateTime.now
+      else
+        track_event('JO05c_Resubmit')
+      end
       self.published_at ||= DateTime.now
-      self.submited_at = DateTime.now
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now
