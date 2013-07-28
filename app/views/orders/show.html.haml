@@ -16,6 +16,12 @@
 
   %h3 Project Status
 
+  - if @job_offer.waiting_for_payment?
+
+    %h2 You need to complete your payment
+
+    %p Before we can evaluate your project, you will need to #{link_to 'complete the payment', new_offer_order_path(@job_offer)}. 
+
   - if @job_offer.waiting_for_review?
 
     %h2 We are reviewing your project.
@@ -42,14 +48,16 @@
     %h2 Your project is archived.
     %p You project is not live on the site, so you won't receive any designer replies anymore. Thanks for using Folyo!
 
-%section
-  %h3 Your Order
+- if @job_offer.order
 
-  .notices
-    .notice
-      %h4 Order details
-      %ul
-        %li <strong>Job Offer:</strong> #{@job_offer.title}
-        %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
-        %li <strong>Amount:</strong> $#{@job_offer.order.total}
+  %section
+    %h3 Your Order
+
+    .notices
+      .notice
+        %h4 Order details
+        %ul
+          %li <strong>Job Offer:</strong> #{@job_offer.title}
+          %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
+          %li <strong>Amount:</strong> $#{@job_offer.order.total}
 

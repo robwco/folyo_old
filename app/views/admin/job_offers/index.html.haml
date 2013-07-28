@@ -2,6 +2,13 @@
 = content_for :subnav do
 	= render '/admin/job_offers/job_offers_nav'
 
+- unless @job_offers.waiting_for_payment.empty?
+	.waiting_for_payment
+		%h3.waiting_for_payment Waiting for payment
+		%ul.offer-list
+			- @job_offers.waiting_for_payment.each do |job|
+				= render '/admin/job_offers/job_offer', job: job
+
 - unless @job_offers.waiting_for_review.empty?
 	.waiting_for_review
 		%h3.waiting_for_review Waiting for review
