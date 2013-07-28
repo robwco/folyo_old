@@ -29,7 +29,7 @@ describe JobOffer do
       it { should change{job_offer.reload.published_at}.from(nil) }
 
       it 'should track user event' do
-        expect_to_track 'JO02_Save'
+        expect_to_track 'JO02_Save', job_offer_id: job_offer.id.to_s
         subject.call
       end
 
