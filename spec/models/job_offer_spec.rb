@@ -73,11 +73,9 @@ describe JobOffer do
 
       context 'when job offer is rejected' do
 
-        let(:job_offer) { FactoryGirl.create(:job_offer, status: :rejected, review_comment: 'rejection comment') }
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :rejected, review_comment: 'rejection comment', submited_at: 2.days.ago) }
 
         it { should change{job_offer.reload.status}.from(:rejected).to(:waiting_for_review)}
-
-        it { should change{job_offer.reload.submited_at}.from(nil) }
 
         it 'should track user event' do
           expect_to_track 'JO05c_Resubmit'
@@ -228,7 +226,7 @@ describe JobOffer do
     job_offer.client.should_receive(:track_user_event) do |value, vero_options|
       value.should == event_name
       options.each do |k, v|
-        vero_options[k].should == v
+        v.should == vero_options[k]
       end
     end
   end
