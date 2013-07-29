@@ -109,6 +109,8 @@ class ApplicationController < ActionController::Base
       new_offer_order_path(job_offer, options)
     when :waiting_for_review
       offer_order_path(job_offer, options)
+    else
+      offer_path(job_offer, options)
     end
   end
 
