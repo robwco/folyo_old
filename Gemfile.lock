@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/cblavier/jobbr.git
-  revision: a882c2da2d71acee94ba62437c7e95294dbc22e8
+  revision: 0b7b3c53dfb064eecc205eb8a4a6c327241ebe92
   specs:
     jobbr (1.1.0)
       chronic_duration
