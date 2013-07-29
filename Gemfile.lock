@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/cblavier/jobbr.git
-  revision: 509e78cc8d8e8e297bcf7765d1425a73e9dd8c56
+  revision: edd736dc92cf4eeed0afb8849423f0224170806f
   specs:
-    jobbr (1.1.0)
+    jobbr (1.1.1)
       chronic_duration
       delayed_job_mongoid
       mongoid (~> 3.0)
