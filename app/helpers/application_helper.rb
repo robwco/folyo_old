@@ -75,17 +75,16 @@ module ApplicationHelper
   end
 
   def format_text(model, attribute, options = {})
-    markdown_renderer.render(model.send(attribute))
-    #html = if model.send(:text_format) == :markdown
-    #  markdown_renderer.render(model.send(attribute))
-    #else
-    #  model.send(attribute)
-    #end
-    #if options[:sanitize]
-    #  Sanitize.clean(html)
-    #else
-    #  html
-    #end
+    html = if model.send(:text_format) == :markdown
+      markdown_renderer.render(model.send(attribute)) rescue ''
+    else
+      model.send(attribute)
+    end
+    if options[:sanitize]
+      Sanitize.clean(html)
+    else
+      html
+    end
   end
 
   def textarea_type(model)

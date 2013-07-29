@@ -21,7 +21,7 @@ gem 'reverse_markdown'
 gem 'delayed_job'
 gem 'delayed_job_mongoid'
 gem 'delayed-plugins-airbrake'
-gem 'jobbr', git: 'git://github.com/cblavier/jobbr.git'#, '~> 1.1.0'
+gem 'jobbr'
 
 # UI
 gem 'haml-rails'

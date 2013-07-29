@@ -1,15 +1,4 @@
 GIT
-  remote: git://github.com/cblavier/jobbr.git
-  revision: edd736dc92cf4eeed0afb8849423f0224170806f
-  specs:
-    jobbr (1.1.1)
-      chronic_duration
-      delayed_job_mongoid
-      mongoid (~> 3.0)
-      rails (~> 3.2)
-      whenever
-
-GIT
   remote: git://github.com/psachs/hominid.git
   revision: c8e88282de7e4f9d9342d0270449e0baff3fc890
   specs:
@@ -167,6 +156,12 @@ GEM
     inherited_resources (1.4.0)
       has_scope (~> 0.5.0)
       responders (~> 0.9)
+    jobbr (1.1.2)
+      chronic_duration
+      delayed_job_mongoid
+      mongoid (~> 3.0)
+      rails (~> 3.2)
+      whenever
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -376,7 +371,7 @@ DEPENDENCIES
   heroku
   hominid!
   inherited_resources
-  jobbr!
+  jobbr
   jquery-rails (= 2.1.4)
   jquery-turbolinks
   kaminari
