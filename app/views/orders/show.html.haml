@@ -20,7 +20,7 @@
 
     %h2 You need to complete your payment
 
-    %p Before we can evaluate your project, you will need to #{link_to 'complete the payment', new_offer_order_path(@job_offer)}. 
+    %p Before we can evaluate your project, you will need to #{link_to 'complete the payment', new_offer_order_path(@job_offer)}.
 
   - if @job_offer.waiting_for_review?
 
@@ -58,6 +58,7 @@
         %h4 Order details
         %ul
           %li <strong>Job Offer:</strong> #{@job_offer.title}
-          %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
-          %li <strong>Amount:</strong> $#{@job_offer.order.total}
+          - if @job_offer.order
+            %li <strong>Date:</strong> #{@job_offer.order.created_at.strftime("%m/%d/%Y at %I:%M%p")}
+            %li <strong>Amount:</strong> $#{@job_offer.order.total}
 

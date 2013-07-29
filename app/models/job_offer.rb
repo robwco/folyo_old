@@ -244,7 +244,7 @@ class JobOffer
   end
 
   def refund_if_needed!(delay)
-    if self.rejected? && self.rejected_at <= delay.ago
+    if self.rejected? && self.rejected_at && self.rejected_at <= delay.ago
       self.refund
     end
   end
