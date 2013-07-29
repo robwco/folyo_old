@@ -33,6 +33,7 @@ gem 'simple_form'
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'redcarpet'
+gem 'chronic_duration'
 
 # Monitoring
 gem 'airbrake'

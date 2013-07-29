@@ -360,6 +360,7 @@ DEPENDENCIES
   bson_ext
   cancan
   capybara
+  chronic_duration
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
