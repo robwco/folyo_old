@@ -1,6 +1,7 @@
-.block.company-info
-  %h3 Company Info
-  %p!= format_text(job_offer, :company_description)
+- unless job_offer[:company_description].blank?
+  .block.company-info
+    %h3 Company Info
+    %p!= format_text(job_offer, :company_description)
 
 - unless job_offer[:project_summary].blank?
   .block.project-info

@@ -30,8 +30,6 @@
 	.section
 		%h3 Social Media
 		= f.input :dribbble_username, :required => false, :label => "Dribbble Username", :hint => "Having a Dribbble profile to showcase your work raises your chances of being accepted"
-		#bad_dribbble_username.ajax-error.hidden
-			Can't find anybody with this Dribbble username… Better double check!
 		= f.input :behance_username, :required => false, :label => "Behance Username"
 		= f.input :featured_shot_url, :as => :hidden
 		= f.input :twitter_username, :required => false, :hint => "Enter your Twitter username if you want a link to your profile to be tweeted out when you're accepted (public profiles only)"

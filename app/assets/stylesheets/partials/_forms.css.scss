@@ -17,6 +17,11 @@ form{
 			@include box-shadow(inset #ffc5bb  0px 0px 0px 3px);
 		}
 
+		input[type=checkbox], input[type=radio] {
+			border: none;
+			@include box-shadow(none);
+		}
+
 		&.check_boxes, &.radio{
 			background:#fedee3;
 			padding:10px;
@@ -77,12 +82,18 @@ body.log-in{
 	height:300px;
 	width:498px;
 }
+
 input:focus, .text textarea:focus{
-	outline:none;
+	outline: none;
 	background:#f1f6f8;
-	//border:1px solid $blue1;
 	@include box-shadow(inset $lightgrey4  0px 0px 0px 3px);
 }
+
+input[type=submit]:focus, input[type=radio]:focus, input[type=checkbox]:focus {
+	outline: auto;
+	@include box-shadow(none);
+}
+
 label{
 	display:block;
 	line-height:25px;
@@ -92,9 +103,6 @@ label{
 .inline-hints{
 	@include border-left-radius(3px);
 	display:block;
-	//background:#ddebf1;
-	//background:black(0.02);
-	//background:white(0.3);
 	@include box-shadow(black(0) 0px 1px 0px 0px);
 	position:absolute;
 	padding:10px 10px 0 10px;
@@ -126,7 +134,6 @@ label{
 .inline-hints.in-focus{
 	background:white(0.9);
 	color:$darkgrey1;
-	//@include box-shadow( inset black(0.1) 0px 1px 0px 0px, white(1) 0px 1px 0px 0px);
 	@include box-shadow(black(0.15) 0px 1px 1px 0px);
 	left:540px;
 }
@@ -158,17 +165,11 @@ div.wysiwyg ul.toolbar{
 	@include border-radius(3px);
 	background:$lightgrey2;
 	padding:5px;
-	//height:20px;
 	float:left;
 	margin-bottom: 5px;
 	width:510px;
 }
-.ajax-error{
-	display:none;
-	padding:10px;
-	color:$red1;
-	background:$lightgrey2;
-}
+
 li.loading{
 	background:image-url('ajax-loader.gif') no-repeat 430px 32px;
 }

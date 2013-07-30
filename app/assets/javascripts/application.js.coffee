@@ -1,7 +1,5 @@
 #= require turbolinks
 #= require jquery.turbolinks
-#= require misc/parseURI.js
-#= require jquery-iframe-content
 #= require map
 #= require wysiwyg
 #= require epiceditor
@@ -10,39 +8,6 @@
 
 head ->
   $ ->
-    $.extend
-      getUrlVars: ->
-        vars = []
-        hash = undefined
-        hashes = window.location.href.slice(window.location.href.indexOf("?") + 1).split("&")
-        i = 0
-
-        while i < hashes.length
-          hash = hashes[i].split("=")
-          vars.push hash[0]
-          vars[hash[0]] = hash[1]
-          i++
-        vars
-
-      getUrlVar: (name) ->
-        $.getUrlVars()[name]
-
-    $.ajaxSetup beforeSend: (xhr) ->
-      xhr.setRequestHeader "Accept", "text/javascript"
-
-    $(".tooltip, .wysiwyg .toolbar li").not(".separator").qtip position:
-      my: "bottom center" # Position my bottom center...
-      at: "top center" # at the bottom right of...
-      target: false # my target
-      adjust:
-        y: -8
-
-    $(".bottom-tip").qtip position:
-      my: "top center" # Position my bottom center...
-      at: "bottom center" # at the bottom right of...
-      target: false # my target
-      adjust:
-        y: 8
 
     epiceditor_options = { button: { fullscreen: false }, clientSideStorage: false }
 
@@ -56,7 +21,7 @@ head ->
       if $(item).parent(".input").hasClass('error')
         $(epiceditor.getElement('editor').body).addClass('error')
 
-    $('.markdown label').append("<a href='/markdown' title='Help for markdown syntax' class='markdown-logo fancybox fancybox.ajax'></a>")
+    $('.markdown label').append("<a href='/markdown' tabindex='-1' title='Help for markdown syntax' class='markdown-logo fancybox fancybox.ajax'></a>")
 
 
     $(".inline-hints").each ->
@@ -67,6 +32,7 @@ head ->
       $input?.on 'focus change',->
         $(".inline-hints").removeClass('in-focus')
         $hint.addClass "in-focus"
+
       epiceditor?.on 'focus', ->
         $(".inline-hints").removeClass('in-focus')
         $hint.addClass "in-focus"
@@ -124,8 +90,6 @@ head ->
       p = $(this).find("p")
       msg.addClass "long"  if p.text().length > 230
 
-    $("#designer_reply_message").autoGrow()
-
     $(".limited").on "focus", ->
       $(this).trigger('keyup') # refresh current character count
       $(this).siblings(".character-counter-main-wrapper").fadeIn("fast")
@@ -147,7 +111,7 @@ head ->
 
     $(".coding-note").hide()
     $("input[name=\"job_offer[coding]\"]").change ->
-      if $(this).val() is "3"
+      if $(this).val() is "mandatory"
         $(".coding-note").fadeIn "fast"
       else
         $(".coding-note").fadeOut "fast"
@@ -167,16 +131,6 @@ head ->
             success: (data) ->
               $("#lightbox-content").html data
             dataType: "html"
-
-
-    $(".thread-link").click ->
-      $(this).parents(".client").find(".threads").toggleClass "hidden"
-      false
-
-    $('a.click-delegate').click (e) ->
-      delegate_target = $(e.target).attr('data-click-target')
-      $(delegate_target).trigger('click')
-      false
 
     $('body').removeClass('fixed-header')
     $(window).off 'scroll'
