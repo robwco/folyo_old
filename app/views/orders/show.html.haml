@@ -22,7 +22,7 @@
 
     %p Before we can evaluate your project, you will need to #{link_to 'complete the payment', new_offer_order_path(@job_offer)}.
 
-  - if @job_offer.waiting_for_review?
+  - elsif @job_offer.waiting_for_review?
 
     %h2 We are reviewing your project.
     %ul
@@ -30,12 +30,17 @@
       %li If <strong>it's not accepted</strong>, we will get in touch with you to let you know why, and provide suggestions on how to improve your job description.
     %p In any case, you can contact us at any time at <a href="mailto:hello@folyo.me">hello@folyo.me</a>.
 
-  - if @job_offer.accepted?
+  - elsif @job_offer.accepted?
 
     %h2 Your project has been accepted.
     %p It's now live on the site, and designers will get in touch with you directly if they are interested.
 
-  - if @job_offer.rejected?
+  - elsif @job_offer.sent?
+
+    %h2 Your project has been sent in the latest Folyo newsletter.
+    %p It's also live on the site, and designers will get in touch with you directly if they are interested.
+
+  - elsif @job_offer.rejected?
 
     %h2 Sorry, your job offer needs improvement.
     %p
@@ -43,7 +48,7 @@
       = link_to 'Review our suggestions.', edit_offer_path(@job_offer)
 
 
-  - if @job_offer.archived?
+  - elsif @job_offer.archived? || @job_offer.rated?
 
     %h2 Your project is archived.
     %p You project is not live on the site, so you won't receive any designer replies anymore. Thanks for using Folyo!
