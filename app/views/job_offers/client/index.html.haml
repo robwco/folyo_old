@@ -55,11 +55,11 @@
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
 
-  - unless @job_offers.accepted.empty?
+  - unless @job_offers.accepted_or_sent.empty?
     .accepted
       %h3.active Active
       %ul.offer-list
-        - @job_offers.accepted.each do |job|
+        - @job_offers.accepted_or_sent.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_order_path(job)
@@ -74,11 +74,11 @@
               %li= link_to 'Payment info', offer_order_path(job)
               %li.archive= link_to 'Archive', show_archive_offer_path(job), title: "Archive the offer once you've picked a designer", class: 'tooltip'
 
-  - unless @job_offers.archived.empty?
+  - unless @job_offers.archived_or_rated.empty?
     .archived
       %h3.archived Archived
       %ul.offer-list
-        - @job_offers.archived.each do |job|
+        - @job_offers.archived_or_rated.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_order_path(job)
