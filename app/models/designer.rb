@@ -55,7 +55,6 @@ class Designer < User
   validates_presence_of     :portfolio_url
   validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
-  validates                 :skills, array: { inclusion: { in: Designer.skills} }
 
   ## scopes ##
   default_scope where(:_type.in => %w(Designer Html::Designer))
