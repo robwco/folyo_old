@@ -60,7 +60,7 @@ class Admin::JobOffersController < Admin::BaseController
     end
 
     def collection
-      @job_offers = JobOffer.page(params[:page]).per(10).ordered_by_status
+      @job_offers = JobOffer.pending.page(params[:page]).per(10).ordered_by_status
     end
 
 end

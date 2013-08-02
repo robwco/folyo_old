@@ -2,38 +2,9 @@
 = content_for :subnav do
 	= render '/admin/job_offers/job_offers_nav'
 
-- unless @job_offers.waiting_for_payment.empty?
-	.waiting_for_payment
-		%h3.waiting_for_payment Waiting for payment
-		%ul.offer-list
-			- @job_offers.waiting_for_payment.each do |job|
-				= render '/admin/job_offers/job_offer', job: job
+%ul.offer-list
+	- @job_offers.each_with_index do |job, i|
+		= render '/admin/job_offers/job_offer', job: job, display_status: i == 0 || @job_offers[i].status != @job_offers[i - 1].status
 
-- unless @job_offers.waiting_for_review.empty?
-	.waiting_for_review
-		%h3.waiting_for_review Waiting for review
-		%ul.offer-list
-			- @job_offers.waiting_for_review.each do |job|
-				= render '/admin/job_offers/job_offer', job: job
-
-- unless @job_offers.rejected.empty?
-	.rejected
-		%h3.rejected Rejected (waiting for client update)
-		%ul.offer-list
-			- @job_offers.rejected.ordered.each do |job|
-				= render '/admin/job_offers/job_offer', job: job
-
-- unless @job_offers.waiting_for_payment.empty?
-	.waiting_for_payment
-		%h3.waiting_for_payment Waiting for payment
-		%ul.offer-list
-			- @job_offers.waiting_for_payment.ordered.each do |job|
-				= render '/admin/job_offers/job_offer', job: job
-
-- unless @job_offers.waiting_for_submission.empty?
-	.waiting_for_submission
-		%h3.waiting_for_payment Waiting for submission
-		%ul.offer-list
-			- @job_offers.waiting_for_submission.ordered.each do |job|
-				= render '/admin/job_offers/job_offer', job: job
+= paginate @job_offers
 

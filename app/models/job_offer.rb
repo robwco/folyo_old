@@ -118,6 +118,7 @@ class JobOffer
   scope :sent,                   where(status: :sent)
   scope :archived,               where(status: :archived)
   scope :rated,                  where(status: :rated)
+  scope :pending,                 where(:status.in => [:waiting_for_submission, :waiting_for_payment, :waiting_for_review, :rejected])
   scope :archived_or_rated,      where(:status.in => [:archived, :rated])
   scope :accepted_or_sent,       where(:status.in => [:accepted, :sent])
   scope :refunded,               where(status: :refunded)
