@@ -6,5 +6,5 @@
 	%h3.refunded Refunded
 	%ul.offer-list
 		- @job_offers.each do |job|
-			= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job}
+			= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job, :display_status => false}
 = paginate @job_offers
