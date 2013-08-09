@@ -1,12 +1,4 @@
-$gutter_width:56px;
-$gutter_width:60px;
-$content_width:840px;
-$total_width: $content_width + 2 * $gutter_width;
 
-$blueprint_grid_columns: 12;
-$blueprint_grid_width: 22px;
-$blueprint_grid_width: 15px;
-$blueprint_grid_margin: $gutter_width;
 
 .intro{
 	#page-header{
@@ -17,7 +9,7 @@ $blueprint_grid_margin: $gutter_width;
 		background:$lightgrey2;
 		padding:40px 80px;
 		.tagline{
-			@include column(8);
+			@include span-columns(8);
 			h2{
 				font-size:32px;
 				margin-bottom:0;
@@ -41,14 +33,13 @@ $blueprint_grid_margin: $gutter_width;
 		}
 		.guarantee{
 			margin-top:15px;
-			@include column(4, true);
+			@include span-columns(4 omega);
 			text-align:center;
 		}
 	}
 	#page-content{
 		@include border-radius(0 0 3px 3px);
 		padding:40px 80px;
-		width:$content_width;
 		#main{
 			padding:0;
 			margin:0;
@@ -152,13 +143,13 @@ $blueprint_grid_margin: $gutter_width;
 	}
 	.payment{
 		.pay{
-			@include column(8);
+			@include span-columns(8);
 			p{
 				text-align:left;
 			}
 		}
 		.guarantee{
-			@include column(4, true);
+			@include span-columns(4 omega);
 			h5{
 				margin-bottom:10px;
 			}
@@ -173,7 +164,7 @@ $blueprint_grid_margin: $gutter_width;
 		.reason{
 			background:no-repeat top center;
 			padding-top:120px;
-			@include column(4);
+			@include span-columns(4);
 			h4{
 				margin-bottom:10px;
 			}
@@ -196,7 +187,7 @@ $blueprint_grid_margin: $gutter_width;
 	}
 	.faq{
 		.question{
-			@include column(4);
+			@include span-columns(4);
 			&:nth-of-type(3n+3){
 				margin-right:0;
 			}
@@ -207,9 +198,9 @@ $blueprint_grid_margin: $gutter_width;
 	}
 	.compare{
 		.comparison{
-			@include column(6);
+			@include span-columns(6);
 			&:last-child{
-				@include column(6, true);
+				@include span-columns(6 omega);
 			}
 			@include border-radius(3px);
 			background:$lightgrey2;

@@ -2,6 +2,9 @@
 
 @import "compass/reset";
 @import "compass/css3";
+@import "susy";
+
+@import "new/includes/grid";
 
 @import "partials/colors";
 @import "partials/mixins";
@@ -29,4 +32,16 @@
 
 @import "wysiwyg";
 
-@import "new/style";
+
+
+@import "new/includes/variables";
+@import "new/includes/mixins";
+@import "new/includes/fonts";
+@import "new/includes/colors";
+@import "new/includes/main";
+
+
+@import "new/includes/header";
+@import "new/includes/messages";
+
+@import "new/includes/home";

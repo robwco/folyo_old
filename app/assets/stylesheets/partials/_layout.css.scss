@@ -1,34 +1,15 @@
-$gutter_width:40px;
-$content_width:920px;
-$total_width: $content_width + 2 * $gutter_width;
-
-$blueprint_grid_columns: 12;
-$blueprint_grid_width: 40px;
-$blueprint_grid_margin: $gutter_width;
-
-@import "blueprint";
-
-#header,#page{
-	margin:0 auto;
-	width:$total_width;	
-}
-#page-content{
-	padding:0 40px;
-}
 
 #page-content, #offer-header, #subnav {
-	@include container;
 	
 	#main {
 		padding-top:40px;
 		padding-bottom:40px;
-    	@include column(7);
+    	@include span-columns(7);
 	}
 
  	#sidebar {
-    	@include column(5, true);
-		padding:40px 0 40px 40px;
-		width:span(5) - 40px;
+ 		padding-top:40px;
+    	@include span-columns(5 omega);
 	}
 }
 body.no-sidebar #page-content{	
@@ -40,34 +21,11 @@ body.no-sidebar #page-content{
 		display:none;
 	}
 }
-body.home #page-content{
-	#main{
-		@include column(12, true);
-		margin-right:0;
-		
-		.tagline{
-			@include column(9);
-		}
-		.cta{
-			@include column(3, true);
-		}
-		.main-content{
-			@include column(8);
-			@include append(1);
-		}
-		.guarantee, .save-time, .help, .designers{
-			@include column(3);
-		}
-		.sidebar, .testimonials{
-			@include column(3, true);
-		}
-	}
-}
 body.log-in #page{
 	width:span(5) + 80px;
 	
 	#page-content, #page-header, #main{
-		width:span(5);
+		@include span-columns(5);
 		margin-right:0;
 	}
 	#page-header{
@@ -82,35 +40,20 @@ ul.replies, ul.designers{
 	.col1{
 	   	//width:span(3);
 		//float:left;
-		@include column(3);
+		@include span-columns(3);
 		min-height:10px;
 	}
 	.col2{
-		@include column(3, true);
+		@include span-columns(3 omega);
 	}
 	.message{
-		@include column(6);
+		@include span-columns(6);
 	}
 	.bio{
 		//margin-left:span(3)+40px;
-		@include column(4);
+		@include span-columns(4);
 	}
 	.actions{
-		@include column(3, true);
+		@include span-columns(3 omega);
 	}
 }
-/*#offer-header .tagline{
-	overflow:hidden;
-	padding-bottom:10px;
-	border-bottom:#dee5e9 2px solid;
-	h2{
-		float:left;
-	}
-	.date{
-		float:right;
-	}
-}
-
-.offer{
-	margin-top:20px;
-}*/

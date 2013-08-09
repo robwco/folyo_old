@@ -11,13 +11,13 @@ $blueprint_grid_margin: 60px;
 	margin:0 auto;
 
 	#intro{
-		@include prepend(2);
-		@include column(8, true);
-		@include append(2);	
+		@include prefix(2);
+		@include span-columns(8 omega);
+		@include suffix(2);	
 	}	
 	#content{
-		@include column(8, true);
-		@include append(4);
+		@include column(8 omega);
+		@include suffix(4);
 	}
 }
 h1.title{

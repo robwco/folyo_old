@@ -58,10 +58,7 @@ h2{
 	width:924px;
 	margin:0 auto;
 	#page{
-		
-/*		@include prepend(1);
-		@include column(8, true);
-		@include append(3);	*/
+
 			
 		width:span(8);
 	}
