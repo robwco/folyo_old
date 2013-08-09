@@ -2,8 +2,7 @@
 %html.wf-loading
   = render :partial => '/site/header'
   %body{:class=> yield(:body_class)}
-    #header
-      = render_site_nav
+    = render_site_nav
     #page
       - if yield(:header).blank?
         #page-header

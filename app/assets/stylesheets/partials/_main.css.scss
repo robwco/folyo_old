@@ -25,75 +25,78 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	background-image:none;
 }
 /*------------------- Header ------------------ */
-
-#header{
+.logo{
+	float:left;
+	margin:0;
+	a{
+		display:block;
+		font-size:18px;
+		float:left;
+		background:image-url('logo-90.png') no-repeat;
+		@include hide-text;
+		width:90px;
+		height:40px;
+	}
+}
+header{
 	width:1000px;
 	height:40px;
 	// background:rgba(0,0,0,0.05);
 	@include border-bottom-radius(3px);
 	// @include box-shadow( inset rgba(0,0,0,0.15) 0px -1px 2px 0px, rgba(255,255,255,0.1) 0px 1px 0px 0px);
 	margin:20px auto;
-
-	#logo{
-		float:left;
-		margin:0;
+	.container{
+		width:1000px;
+		max-width:1000px !important;
+		padding:0;
+	}
+}
+.nav{
+	list-style-type:none;
+	float:right;
+	margin-right:0px;
+	color:#9bb5c5;
+	margin-top:5px;
+	@include cf;
+	li{
+		margin:0 0 0 25px;
+		font-size:16px;
+		text-shadow: 0px 1px 2px rgba(0,0,0,0.35);
+		float: left;
+		display:block;
 		a{
 			display:block;
-			font-size:18px;
-			float:left;
-			background:image-url('logo-90.png') no-repeat;
-			@include hide-text;
-			width:90px;
-			height:40px;
 		}
-	}
-
-	#top-bar{
-		list-style-type:none;
-		float:right;
-		margin-right:0px;
-		color:#9bb5c5;
-		margin-top:5px;
-		li{
-			margin:0 0 0 25px;
-			font-size:16px;
-			text-shadow: 0px 1px 2px rgba(0,0,0,0.35);
-			float: left;
-			display:block;
-			a{
-				display:block;
+		a:hover{
+			color:white;
+			text-decoration:none;
+		}
+		a.current{
+			background:rgba(0,0,0,0.15);
+			@include box-shadow( inset rgba(0,0,0,0.2) 0px 1px 0px 0px, rgba(255,255,255,0.15) 0px 1px 0px 0px);
+			@include border-radius(20px);
+			padding:0 12px;
+			color:$darkgrey2;
+		}
+		a.current:hover{
+			color:$darkgrey2;
+		}
+		&.post-job .button{
+			border-color:$darkgrey1;
+			@include box-shadow(0px 1px 1px 0px black(0.15));
+		}
+		&.sign-out a{
+			@include hide-text;
+			background:image-url("sign-out.png") no-repeat top center;
+			height:24px;
+			width:24px;
+			&:hover{
+				background-position:bottom center;
 			}
-			a:hover{
-				color:white;
-				text-decoration:none;
-			}
-			a.current{
-				background:rgba(0,0,0,0.15);
-				@include box-shadow( inset rgba(0,0,0,0.2) 0px 1px 0px 0px, rgba(255,255,255,0.15) 0px 1px 0px 0px);
-				@include border-radius(20px);
-				padding:0 12px;
-				color:$darkgrey2;
-			}
-			a.current:hover{
-				color:$darkgrey2;
-			}
-			&.post-job .button{
-				border-color:$darkgrey1;
-				@include box-shadow(0px 1px 1px 0px black(0.15));
-			}
-			&.sign-out a{
-				@include hide-text;
-				background:image-url("sign-out.png") no-repeat top center;
-				height:24px;
-				width:24px;
-				&:hover{
-					background-position:bottom center;
-				}
-			}
-			&.new{
-				background:image-url("new.png") no-repeat top right;
-				padding-right:26px;
-			}
+		}
+		&.new{
+			background:image-url("new.png") no-repeat top right;
+			padding-right:26px;
 		}
 	}
 }

@@ -1,18 +1,18 @@
-%h1#logo
-	= link_to 'Folyo', root_path, :title => 'Home'
-#top-bar
-	%ul
-		%li.username
-			Admin
-		%li
-			= section_link_to "Dashboard", admin_dashboard_path, :dashboard
-		%li
-			= section_link_to "Offers", admin_offers_path, :job_offers
-		%li
-			= section_link_to "Clients", admin_clients_path, :clients
-		%li
-			= section_link_to "Designers", admin_designers_path, :designers
-		%li
-			= section_link_to "Account", '/users/edit', :account
-		%li.sign-out
-			= link_to "Sign Out", destroy_user_session_path, :method => :delete
+%header.top
+	.container
+		%h1.logo
+			= link_to 'Folyo', root_path, :title => 'Home'
+		%nav.nav
+			%ul
+				%li
+					= section_link_to "Dashboard", admin_dashboard_path, :dashboard
+				%li
+					= section_link_to "Offers", admin_offers_path, :job_offers
+				%li
+					= section_link_to "Clients", admin_clients_path, :clients
+				%li
+					= section_link_to "Designers", admin_designers_path, :designers
+				%li
+					= section_link_to "Account", '/users/edit', :account
+				%li.sign-out
+					= link_to "Sign Out", destroy_user_session_path, :method => :delete

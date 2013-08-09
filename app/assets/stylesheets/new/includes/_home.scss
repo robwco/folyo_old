@@ -1,0 +1,247 @@
+.home{
+section{
+	padding:40px 0;
+}
+.primary{
+	background:white;
+}
+.how-it-works{
+	background-color:$darkerBlue;
+	// http://bit.ly/177c3x0
+	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANklEQVQYV2NkIBIwAtVJAvFzLOph4mAapJAogE0hikkwG8kyEatJMHeRZCJek6hiInpwgW0EAKvbDwvkiHTzAAAAAElFTkSuQmCC);
+	background-attachment:fixed;
+}
+.try{
+	background:white;
+}
+.bottom{
+	background:$darkestBlue;
+	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANklEQVQYV2NkIBIwAtVJAvFzLOph4mAapJAogE0hikkwG8kyEatJMHeRZCJek6hiInpwgW0EAKvbDwvkiHTzAAAAAElFTkSuQmCC);
+	background-attachment:fixed;
+}
+a{
+	font-weight:bold();
+	&, &:link, &:active, &:visited{
+		color:$lightBlue;
+	}
+	&:hover{
+		color:$green;
+	}
+}
+.inverted{
+	color:white(0.5);
+	h2{
+		color:white;
+		text-shadow:0px 3px 7px black(0.35);
+	}
+	a{
+		&, &:link, &:active, &:visited{
+			color:white;
+		}
+		&:hover{
+			color:$green;
+		}
+	}
+}
+
+.top{
+	background-color:$green;
+	// http://bit.ly/14m0PWF
+	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANUlEQVQYV2NkIBIw/v//35iRkfEsunqYOIxmJNJABgyF6CaRbyIuk2BOI96NhEyi3ERc4QkAki48CxxSFJ4AAAAASUVORK5CYII=);
+	background-attachment:fixed;
+	// @include box-shadow(inset 0px -100px 100px black(0.1));
+	padding:20px 0;
+}
+.logo{
+	width:100px;
+	height:100px;
+	@include small{
+		margin:0 auto 20px auto;
+	}
+	@include medium{
+		float:left;
+		margin:0;
+	}
+	a{
+		display:block;
+		background:black(0.2);
+		@include border-radius(50%);
+		color:white;
+		width:100%;
+		height:100%;
+		text-align:center;
+		line-height:110px;
+		margin:0 auto;
+		font-style:italic;
+		font-size:30px;
+		&:link, &:active, &:visited{
+			color:white;	
+		}
+	}
+}
+.nav{
+	@include small{
+		text-align:center;
+	}
+	@include medium{
+		text-align:right;
+		float:right;
+		line-height:100px;
+	}
+	ul{
+		list-style-type:none;
+		padding:0;
+		margin:0;
+		li{
+			display:inline-block;
+			margin:0 15px 0 0;
+			&:last-child{
+				margin-right:0;
+			}
+		}
+	}
+	a{
+		font-size:14px;
+		font-weight:bold();
+		display:inline-block;
+		&:link, &:active, &:visited{
+			color:white;	
+		}
+	}
+}
+.tagline{
+	font-size:40px;	
+}
+h2{
+	color:$green;
+	text-align:center;
+	line-height:1.3;
+	margin:0 0 40px 0;
+}
+.illustration{
+	@include small{
+		width:100%;
+	}
+	@include medium{
+		width:80%;
+	}
+	display:block;
+	margin:40px auto 40px auto;
+}
+.block{
+	margin-bottom:40px;
+}
+.checks{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	text-align:justify;
+	li{
+		display:inline-block;
+		white-space:nowrap;
+		padding:0px 20px 0px 20px;
+		font-weight: bold();
+		background:url('../images/check.png') 0% 40% no-repeat;
+		font-size:16px;
+		background-size:16px 15px;
+		&:last-child{
+			padding-right:0;
+		}
+	}
+}
+.cta{
+	text-align:center;
+}
+
+
+.button{
+	@include border-radius(5px);
+	display:inline-block;
+	background:$primaryButton;
+	text-align:center;
+	padding:10px 20px;
+	line-height:1;
+	@include animate();
+	.action{
+		color:white;
+		display:block;
+		font-size:24px;
+		margin-bottom:5px;
+		font-weight:bold();
+	}
+	.microcopy{
+		color:white(0.6);
+		display:block;
+		font-size:14px;
+		font-weight:medium();
+	}
+	&:hover{
+		@include transform(scale(1.07));
+	}
+}
+.button-secondary{
+	background:white(0.05);
+	.action{
+		color:white;
+	}
+	.microcopy{
+		color:white(0.45);
+	}
+}
+
+.subtitle{
+	text-align:center;
+	color:$green;
+	text-transform:uppercase;
+	text-shadow:0px 1px 2px black(0.25);
+}
+
+.footer{
+	.actions{
+		list-style-type:none;
+		padding:0;
+		margin:0;
+		@include cf;
+		li{
+			display:block;
+			margin-bottom:20px;
+			@include medium{
+				margin-right:4%;
+				margin-bottom:4%;
+				width:48%;
+				float:left;
+				&:nth-child(2n){
+					margin-right:0;
+				}
+			}
+			@include medium{
+				// @include span-columns(6);
+				// @include nth-omega(2n, of-type);
+			}
+			.button{
+				display:block;
+				padding:20px;
+				background:white(0.1);
+				&:hover{
+					background: white(0.2);	
+				}
+			}
+		}
+	}
+	.links{
+		border-top:1px solid white(0.1);
+		font-size:14px;
+		list-style-type:none;
+		margin:0;
+		padding:20px 0 0 0;
+		text-align:center;
+		li{
+			display:inline-block;
+			margin-right:10px;
+			&:last-child{
+				margin-right:0px;
+			}
+		}
+	}
+}
+}

@@ -5,65 +5,100 @@
 = content_for :body_class, "home"
 = content_for :add_to_head, :home
 
-:javascript
-	head(function(){
-			$('#slideshow').cycle({
-			fx:    'fade',
-			height: 240,
-		    timeout:  5000,
-			speed: 1000,
-			pager:  '#pager'
-		});
-	});
 
-#page-content
-	#title
-		%h1 Looking for a great designer? You've found 400 of them.
-	#main
-		.primary
-			%h2.tagline	Folyo is a private designer community. Post your project, and we'll send it to a list of hand-picked designers all over the world.
-			.cta
-				%a{:href => '/learn-more', :class => "button big-button post-offer"} Learn More
-		.secondary
-			.block.guarantee
-				%h4 Satisfaction guaranteed
-				%h5.money-back Money back guarantee
-				%p If you can't find a designer through Folyo, we'll refund the fee, no questions asked!
-			.block.designers
-				%h4 Get the best
-				%ul.featured-designers.clearfix
-					- @featured_designers.each do |d|
-						%li= link_to d.full_name, designer_path(d), :class => "#{d.full_name.gsub(/ /,'-').downcase} #{d.id} tooltip", :title => d.full_name
-				%p Designers on Folyo are all vetted and selected for their skills and experience.
-				=link_to 'See all designers →', designers_path
-			.block.help
-				%h4 Get design help
-				%p Maybe you don't know a lot about design, but we do. Ask us any question, or check out these guides:
-				%ul
-					%li= link_to "How to write a good job description", "http://www.folyo.me/guides/how_to_write_a_good_job_description"
-					%li= link_to "How to pick a great designer", "http://www.folyo.me/guides/how_to_pick_a_great_designer"
-					/ %li= link_to "Full-time vs freelance", "http://blog.folyo.me/post/10474313550"
-			.block.testimonials
-				%h4 What companies are saying
-				#slideshow
-					.testimonial
-						%a.logo{:href=>"http://wepay.com", :target => "_blank"}
-							= image_tag "wepay-logo.png"
-						%q "[Folyo has] sent more quality leads (and faster) than any other channel I've tried"
-						%cite – Rich Aberman, CEO, WePay
-					.testimonial
-						%a.logo{:href=>"http://spanishdict.com", :target => "_blank"}
-							= image_tag "spanishdict-logo.png"
-						%q "I searched high and low for great designer talent and Folyo was the best source of qualified leads. I would highly recommend them."
-						%cite – Chris Cummings, SpanishDict
-					.testimonial
-						%a.logo{:href=>"http://www.acitywithquirk.com.au", :target => "_blank"}
-							= image_tag "city-with-quirk-logo.png"
-						%q "Folyo really fills a gap - people sourcing a quality designer that's interested in your project"
-						%cite – Aliki Komps, A City With Quirk
-					.testimonial
-						%a.logo{:href=>"http://www.voiturelib.com", :target => "_blank"}
-							= image_tag "voiturelib-logo.png"
-						%q "We had 7 very good leads through Folyo, so our main problem was picking one!"
-						%cite – Nicolas Mondollot, VoitureLib
-				#pager
+
+%section.primary
+	.container
+		
+
+		.block
+			%h2.tagline “Finding the right designer just takes too much time!”
+
+			%p Ever had that thought? The truth is that <strong>looking for a designer sucks</strong>. 
+			%img.illustration{:src => "/assets/new/illustration1.png"}
+			%p Every hour spent looking at design portfolios is time that you could be working on your company. And even if you <em>do</em> find someone good, there's no guarantee that they’ll be available and interested in your project.
+
+		.block
+			%h2 Get a shortlist of recommended designers
+			%p Instead, give Folyo a try. We’ll send your project to Folyo's community of vetted freelance designers, and give you a shortlist of designers who are:
+			%img.illustration{:src => "/assets/new/illustration2.png"}
+			/ %ul.checks
+			/ 	%li Pre-approved
+			/ 	%li Available
+			/ 	%li Interested
+			/ 	%li Within Budget
+			%p No more wasted time! Read on to find out how Folyo works. 
+
+%section.how-it-works.inverted
+	.container
+		%h3.subtitle How It Works
+		%h2.step.title-1.waypoint Just post your project:
+		.message.message-company.message-1.waypoint.bounceIn
+			.portrait.portrait-company You
+			.contents Our service lets people rate and compare widgets. We're looking for a great designer to help us redesign our iPhone app.
+
+		%h2.step.title-2.waypoint And watch the replies roll in:
+		.message.message-designer.message-2.waypoint
+			%a.portrait{:href => '#'} 
+				%img{:src => '/assets/new/photos/regina.jpg'}
+				%span.name Regina Casaleggio
+			.contents This sounds like a great project! I'm available and I'd love to learn more. 
+		.message.message-designer.message-3.waypoint
+			%a.portrait{:href => '#'} 
+				%img{:src => '/assets/new/photo.jpg'}
+				%span.name Jason Kirtley
+			.contents I've got a lot of experience designing mobile apps, so this project is right up my alley!
+		.message.message-designer.message-4.waypoint
+			%a.portrait{:href => '#'} 
+				%img{:src => '/assets/new/photo.jpg'}
+				%span.name Jord Riekwel
+			.contents I think I'd be a good fit for this, and the budget looks good. Take a look at my portfolio and let me know what you think.
+
+%section.try
+	.container
+		.block
+			%h2 Try Folyo risk-free with our 120% money-back guarantee
+			%p If you can't find a designer, we'll refund you completely <em>and</em> give you a 20% discount on next time!
+
+		.block
+			%h2 And did we mention we don't take a percentage?
+			%p Unlike most other find-a-designer sites, we only charge a <strong>one-time fee</strong>, we <strong>don't</strong> take a percentage of the project budget. 
+		
+		.cta
+			%a.button.button-big{:href => "#"}
+				%span.action Get Started
+				%span.microcopy $200 one-time fee
+
+%section.footer.inverted
+	.container
+		%ul.actions
+			%li
+				%a.button.button-big.button-secondary{:href => "#"}
+					%span.action Browse Designers
+					%span.microcopy Preview our all-star lineup
+			%li
+				%a.button.button-big.button-secondary{:href => "#"}
+					%span.action Folyo Guides
+					%span.microcopy The basics of finding a designer
+			%li
+				%a.button.button-big.button-secondary{:href => "#"}
+					%span.action The Blog
+					%span.microcopy Learn something new
+			%li
+				%a.button.button-big.button-secondary{:href => "#"}
+					%span.action Contact Us
+					%span.microcopy We'll be happy to talk
+		%ul.links
+			%li
+				%a{:href => "/about"} About
+			%li
+				%a{:href => "/guides"} Guides
+			%li
+				%a{:href => "/partners"} Partners
+			%li
+				%a{:href => "/contact"} Contact
+			%li
+				%a{:href => "/blog"} Blog
+			%li
+				%a{:href => "http://twitter.com/yofolyo"} Follow us on Twitter
+			%li &copy; 2013 Folyo
