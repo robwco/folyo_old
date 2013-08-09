@@ -17,5 +17,5 @@
         %li
           = radio_button_tag "designer_users", d.id
           %label{:for => "designer_users_#{d.id}"}= d.full_name
-          = link_to "(view profile)", d
+          = link_to "(view profile)", designer_path(d)
     = submit_tag "Archive Offer", :class => "button"

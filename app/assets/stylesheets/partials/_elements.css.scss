@@ -256,11 +256,6 @@ h1{
 	font-size:36px;
 	color:$green1;
 }
-h2, body.offer-client h1{
-	font-size:24px;
-	margin-bottom:10px;
-	line-height:1.4;
-}
 h3{
 	font-size:16px;
 	//font-variant:small-caps;
@@ -384,7 +379,7 @@ ul.replies{
 		display:block;
 		@include border-right-radius(3px);
 		padding:20px 0px 20px 40px;
-		margin:0 0 40px -40px;
+		margin:0 0 40px 0px;
 		overflow:hidden;
 		position:relative;
 		@include transition-property("height, padding");

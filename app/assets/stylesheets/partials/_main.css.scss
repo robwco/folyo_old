@@ -38,7 +38,6 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	// @include background-image(linear-gradient(#454d53, #485056));
 	// border-bottom:0px;
 	// position:relative;
-	padding:20px;
 
 	body.with-wizard & {
 		height: 80px;
@@ -50,13 +49,14 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	.fixed-header &{
 		position:fixed;
 		top:0px;
-		width:960px;
+		width:100%;
 		z-index:10000;
 		@include border-radius(0px);
 		@include box-shadow(none);
 	}
 	#page-title{
 		float:left;
+		padding:20px 0;
 	}
 	.title{
 		overflow:hidden;
@@ -117,7 +117,6 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 #subnav{
 
 	height:40px;
-	margin:20px 0 -20px 0;
 	@include box-shadow( inset black(0.3) 0px 1px 0px 0px);
 	@include border-top-radius(3px);
 	@include background-image(linear-gradient(black(0.15), black(0.05)));
@@ -155,9 +154,9 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	@include box-shadow( inset black(0.3) 0px 1px 0px 0px, white(0.1) 0 1px 0 0);
 	@include border-radius(3px);
 	@include background-image(linear-gradient(black(0.15), black(0.05)));
-	position:absolute;
-	bottom:20px;
-	left:20px;
+	// position:absolute;
+	// bottom:20px;
+	// left:20px;
 	height:40px;
 	color:$darkgrey2;
 	list-style-type:decimal;
