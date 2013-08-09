@@ -9,6 +9,8 @@
 .logo{
 	width:100px;
 	height:100px;
+	position:relative;
+	z-index:100;
 	@include small{
 		margin:0 auto 20px auto;
 	}

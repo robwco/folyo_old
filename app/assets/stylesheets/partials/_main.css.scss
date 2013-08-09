@@ -39,10 +39,6 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 	// border-bottom:0px;
 	// position:relative;
 
-	body.with-wizard & {
-		height: 80px;
-	}
-
 	.main-header{
 		@include clearfix;
 	}

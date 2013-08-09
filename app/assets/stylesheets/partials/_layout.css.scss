@@ -21,20 +21,7 @@ body.no-sidebar #page-content{
 		display:none;
 	}
 }
-body.log-in #page{
-	width:span(5) + 80px;
-	
-	#page-content, #page-header, #main{
-		@include span-columns(5);
-		margin-right:0;
-	}
-	#page-header{
-		padding:20px 40px;
-	}
-	#sidebar{
-		display:none;
-	}
-}
+
 
 ul.replies, ul.designers{					
 	.col1{
@@ -52,8 +39,5 @@ ul.replies, ul.designers{
 	.bio{
 		//margin-left:span(3)+40px;
 		@include span-columns(4);
-	}
-	.actions{
-		@include span-columns(3 omega);
 	}
 }
