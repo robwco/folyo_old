@@ -76,6 +76,9 @@
 		&.current{
 			border-bottom: 2px solid white(0.4);
 		}
+		&:hover{
+			color:black(0.7);
+		}
 	}
 	.post-job a{
 		@extend %btn;

@@ -1,46 +1,43 @@
 @charset "utf-8";
 
+// compass
+
 @import "compass/reset";
 @import "compass/css3";
 @import "susy";
 
-@import "new/includes/grid";
+// meta stuff
 
-@import "partials/colors";
-@import "partials/mixins";
-@import "partials/fancybox";
+@import "includes/colors";
+@import "includes/variables";
+@import "includes/fonts";
+@import "includes/grid";
+@import "includes/mixins";
 
-@import "partials/layout";
-@import "partials/main";
-@import "partials/subheader";
-@import "partials/forms";
-@import "partials/elements";
-@import "partials/replies";
-@import "partials/footer";
+// common
 
-@import "modules/lists";
-@import "modules/decoration";
-@import "modules/buttons";
-@import "modules/typography";
-@import "modules/timeline";
+@import "includes/header";
+@import "includes/subheader";
+@import "includes/main";
+@import "includes/footer";
 
+// modules
+
+@import "includes/forms";
+@import "includes/replies";
+@import "includes/buttons";
+@import "includes/messages";
+
+// 3rd-party
+
+@import "includes/fancybox";
+@import "wysiwyg";
+
+// pages
+
+@import "pages/home";
 @import "pages/admin_dashboard";
 @import "pages/messages";
 @import "pages/designer_posts";
-// keep these two last
-
 @import "pages/intro";
 @import "pages/flowchart";
-
-@import "wysiwyg";
-
-
-
-@import "new/includes/variables";
-@import "new/includes/fonts";
-
-
-@import "new/includes/header";
-@import "new/includes/messages";
-
-@import "new/includes/home";

@@ -28,3 +28,30 @@ $grid-padding   : 0px;
 		padding:0 20px;
 	}
 }
+
+.main {
+	padding-top:40px;
+	padding-bottom:40px;
+	@include medium{
+		@include span-columns(7);
+	}
+}
+.sidebar {
+	@include medium{
+		margin:40px 0;
+		@include span-columns(5 omega);
+	}
+	padding:20px;
+	background: $lightgrey7;
+	@include border-radius(5px);
+}
+
+body.no-sidebar{	
+	.main{
+		width:100%;
+		margin-right:0;
+	}
+	.sidebar{
+		display:none;
+	}
+}
