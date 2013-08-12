@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
     when 'client'
       @user = Client.new
+      @section = :post_job
       track_event("Viewing #{params[:initial_role]} Sign Up")
       respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
     else
