@@ -82,6 +82,6 @@
 	}
 	.post-job a{
 		@extend %btn;
-		background:black(0.2);
+		background:black(0.2) !important;
 	}
 }
