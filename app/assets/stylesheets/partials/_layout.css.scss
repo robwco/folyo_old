@@ -1,21 +1,18 @@
 
-#page-content, #offer-header, #subnav {
-	
-	.main {
-		padding-top:40px;
-		padding-bottom:40px;
-		@include medium{
-    		@include span-columns(7);
-    	}
-	}
-
- 	.sidebar {
- 		padding-top:40px;
- 		@include medium{
-    		@include span-columns(5 omega);
-    	}
+.main {
+	padding-top:40px;
+	padding-bottom:40px;
+	@include medium{
+		@include span-columns(7);
 	}
 }
+.sidebar {
+	@include medium{
+		padding-top:40px;
+		@include span-columns(5 omega);
+	}
+}
+
 body.no-sidebar #page-content{	
 	#main{
 		width:100%;

@@ -1,6 +1,6 @@
 = content_for :body_class, " with-subnav"
 - if current_user.is_a? Designer
-  #subnav
+  .subnav
     %ul
       %li
         = current_link_to 'Edit Profile', edit_designer_path(current_user)
