@@ -1,0 +1,50 @@
+
+
+.footer{
+	.secondary-actions{
+		list-style-type:none;
+		padding:0;
+		margin:0;
+		@include cf;
+		li{
+			display:block;
+			margin-bottom:20px;
+			@include medium{
+				margin-right:2%;
+				// margin-bottom:4%;
+				width:32%;
+				float:left;
+				&:nth-child(3n){
+					margin-right:0;
+				}
+			}
+			@include medium{
+				// @include span-columns(6);
+				// @include nth-omega(2n, of-type);
+			}
+			.button{
+				display:block;
+				padding:20px;
+				background:white(0.1);
+				&:hover{
+					background: white(0.2);	
+				}
+			}
+		}
+	}
+	.links{
+		border-top:1px solid white(0.1);
+		font-size:14px;
+		list-style-type:none;
+		margin:0;
+		padding:20px 0 0 0;
+		text-align:center;
+		li{
+			display:inline-block;
+			margin-right:10px;
+			&:last-child{
+				margin-right:0px;
+			}
+		}
+	}
+}

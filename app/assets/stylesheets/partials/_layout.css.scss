@@ -8,17 +8,20 @@
 }
 .sidebar {
 	@include medium{
-		padding-top:40px;
+		margin:40px 0;
 		@include span-columns(5 omega);
 	}
+	padding:20px;
+	background: $lightgrey7;
+	@include border-radius(5px);
 }
 
-body.no-sidebar #page-content{	
-	#main{
+body.no-sidebar{	
+	.main{
 		width:100%;
 		margin-right:0;
 	}
-	#sidebar{
+	.sidebar{
 		display:none;
 	}
 }
@@ -36,9 +39,5 @@ ul.replies, ul.designers{
 	}
 	.message{
 		@include span-columns(6);
-	}
-	.bio{
-		//margin-left:span(3)+40px;
-		@include span-columns(4);
 	}
 }

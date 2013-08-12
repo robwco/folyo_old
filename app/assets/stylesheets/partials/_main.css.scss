@@ -1,9 +1,6 @@
 // try http://stackoverflow.com/questions/7761540/encoding-issues-in-javascript-files-using-rails-asset-pipeline ?
 // <%# encoding: utf-8 %>
 
-*{
-	@include box-sizing(border-box); 
-}
 
 body{
   background: $darkgrey2 image-url('bg.png') repeat-x;
@@ -16,6 +13,18 @@ body, input, textarea, .button, p{
 	color:$darkgrey1;
 }
 
+html, body{
+	margin:0;
+	padding:0;
+	font-size:18px;
+	background:$background;
+	color:$darkText;
+	line-height:1.6;
+	overflow-x:hidden;
+}
+a{
+	text-decoration:none;
+}
 
 
 
@@ -34,4 +43,10 @@ body.no-sidebar #page-content, body.log-in #page-content, body.home #page-conten
 
 body.offer-client #subnav{
 	display:block;
+}
+
+a{
+	&:hover{
+		text-decoration:none;
+	}
 }

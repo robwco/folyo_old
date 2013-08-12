@@ -1,6 +1,8 @@
 form{
 	list-style-type:none;
-
+	*{
+		@include box-sizing(border-box); 
+	}
 	.input{
 		margin-bottom:40px;
 		position:relative;

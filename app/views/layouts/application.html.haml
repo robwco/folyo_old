@@ -7,17 +7,12 @@
       - if yield(:header).blank?
         %section.sub-header#page-header
           .container
-            .main-header
-              #page-title
-                .title
-                  - unless yield(:parent_level).blank?
-                    .breadcrumbs
-                      = yield(:parent_level)
-                  %h1
-                    = yield(:title)
-                - unless yield(:subtitle).blank?
-                  %h2.subtitle
-                    = yield(:subtitle)
+            .main-header    
+              %h1.title
+                = yield(:title)
+              - unless yield(:subtitle).blank?
+                %h2.subtitle
+                  = yield(:subtitle)
               - unless yield(:mainaction).blank?
                 .main-action
                   =yield(:mainaction)

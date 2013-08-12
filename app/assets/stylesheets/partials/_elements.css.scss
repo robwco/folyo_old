@@ -12,9 +12,7 @@ a{
 	font-weight:bold;
 	text-decoration:none;
 }
-a:hover{
-	text-decoration:underline;
-}
+
 li{
 	margin-bottom:10px;
 }
@@ -990,7 +988,7 @@ h2.pending a{
 }
 
 /*------------------- statuses -------------------- */
-.status{
+.offer-status{
 	display:inline-block;
 	@include border-radius(3px);
 	font-size:13px;

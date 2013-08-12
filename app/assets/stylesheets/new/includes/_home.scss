@@ -4,11 +4,14 @@ section{
 .primary{
 	background:white;
 }
-.how-it-works{
+%dark-background{
 	background-color:$darkerBlue;
 	// http://bit.ly/177c3x0
 	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANklEQVQYV2NkIBIwAtVJAvFzLOph4mAapJAogE0hikkwG8kyEatJMHeRZCJek6hiInpwgW0EAKvbDwvkiHTzAAAAAElFTkSuQmCC);
-	background-attachment:fixed;
+	background-attachment:fixed;	
+}
+.how-it-works{
+	@extend %dark-background;
 }
 .try{
 	background:white;
@@ -43,14 +46,6 @@ section{
 .tagline{
 	font-size:40px;	
 }
-.home-content{
-	h2{
-		color:$green;
-		text-align:center;
-		line-height:1.3;
-		margin:0 0 40px 0;
-	}
-}
 .illustration{
 	@include small{
 		width:100%;
@@ -61,12 +56,25 @@ section{
 	display:block;
 	margin:40px auto 40px auto;
 }
-.block{
-	margin-bottom:40px;
-	@include medium{
-		@include prefix(2);
-		@include span-columns(8 omega);
-		@include suffix(2);
+.home{
+	h2{
+		color:$green;
+		text-align:center;
+		line-height:1.3;
+		margin:0 0 40px 0;
+	}
+	.block{
+		margin-bottom:40px;
+		@include medium{
+			@include span-columns(8 omega);
+			@include squish(2,2);
+		}	
+	}
+	.subtitle{
+		text-align:center;
+		color:$green;
+		text-transform:uppercase;
+		text-shadow:0px 1px 2px black(0.25);
 	}
 }
 .checks{
@@ -91,60 +99,3 @@ section{
 	text-align:center;
 }
 
-
-
-.subtitle{
-	text-align:center;
-	color:$green;
-	text-transform:uppercase;
-	text-shadow:0px 1px 2px black(0.25);
-}
-
-.footer{
-	.secondary-actions{
-		list-style-type:none;
-		padding:0;
-		margin:0;
-		@include cf;
-		li{
-			display:block;
-			margin-bottom:20px;
-			@include medium{
-				margin-right:4%;
-				margin-bottom:4%;
-				width:48%;
-				float:left;
-				&:nth-child(2n){
-					margin-right:0;
-				}
-			}
-			@include medium{
-				// @include span-columns(6);
-				// @include nth-omega(2n, of-type);
-			}
-			.button{
-				display:block;
-				padding:20px;
-				background:white(0.1);
-				&:hover{
-					background: white(0.2);	
-				}
-			}
-		}
-	}
-	.links{
-		border-top:1px solid white(0.1);
-		font-size:14px;
-		list-style-type:none;
-		margin:0;
-		padding:20px 0 0 0;
-		text-align:center;
-		li{
-			display:inline-block;
-			margin-right:10px;
-			&:last-child{
-				margin-right:0px;
-			}
-		}
-	}
-}
