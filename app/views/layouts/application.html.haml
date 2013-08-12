@@ -27,10 +27,10 @@
         = yield(:header)
       #page-content
         .container
-          #main
+          .main
             = render :partial => '/site/flash', :locals => {:flash => flash}
             = content_for?(:content) ? yield(:content) : yield
           - unless yield(:sidebar).blank?
-            #sidebar
+            .sidebar
               = content_for(:sidebar)
       = render :partial => '/site/footer'

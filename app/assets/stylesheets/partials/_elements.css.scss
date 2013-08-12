@@ -263,13 +263,13 @@ h3{
 	font-weight:600;
 	color:$darkgrey2;
 }
-#main h3, #sidebar h3{
+.main h3, .sidebar h3{
 	height:25px;
 	line-height:25px;
 }
-#main h3, .offer-list .offer-status {
+.main h3, .offer-list .offer-status {
 	font-weight: bold;
-	margin:0 10px 20px 0px;
+	margin:0 0 20px 0;
 	border-bottom:2px $darkgrey2 solid;
 	&.waiting_for_review{
 		border-color:$lightgrey4;
@@ -907,107 +907,6 @@ ul.offer-list{
 		}
 	}
 }
-
-body.home{
-
-	#title{
-		background:image-url('banner2.jpg') no-repeat;
-		width:1000px;
-		height:300px;
-		@include border-top-radius(3px);
-		h1{
-			color:white;
-			font-weight:bold;
-			text-align:center;
-			text-shadow:rgba(50, 100, 20, 0.7) 0 2px 3px;
-			line-height:80px;
-			height:80px;
-			padding-top:110px;
-			font-size:36px;
-		}
-	}
-
-	#page-content{
-		@include border-radius(3px);
-		padding:0;
-		width:1000px;
-		#main{
-			width:1000px;
-			padding:0 !important;
-			.primary{
-				background:$lightgrey7;
-				padding:40px;
-				overflow:hidden;
-				.tagline{
-					margin-top:2px;
-					margin-bottom:2px;
-				}
-			}
-			.secondary{
-				overflow:hidden;
-				padding:40px 40px 0 40px;
-				h4{
-					margin-bottom:10px;
-				}
-			}
-		}
-	}
-
-	.home-intro{
-		font-size:18px;
-	}
-	#main{
-		.secondary{
-			p{
-				margin-bottom:10px;
-			}
-			.help{
-				ul{
-					padding:0 0 0 15px;
-					margin:0;
-					font-size:14px;
-				}
-			}
-			.designers{
-				.featured-designers{
-					@include clearfix;
-					padding:0;
-					margin-bottom:10px;
-					li{
-						float:left;
-						margin:0;
-						&:before{
-							display:none;
-						}
-						a{
-							@include hide-text;
-							height:40px;
-							width:40px;
-							background:#eee;
-							&.jeff-broderick{
-								background:image-url('profile-broderick.jpg');
-							}
-							&.morgan-knutson{
-								background:image-url('profile-morgan.jpg');
-							}
-							&.regina-casaleggio{
-								background:image-url('profile-regina.jpg');
-							}
-							&.bady{
-								background:image-url('profile-bady.jpg');
-							}
-							&.martin-karasek{
-								background:image-url('profile-martin.jpg');
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-
 
 textarea.mailchimp-text{
 	width:100%;

@@ -2,8 +2,11 @@
 
 @import "partials/colors";
 
+*{
+  @include box-sizing(border-box); 
+}
+
 html {
-  width: 520px;
   background-color: white;
 }
 

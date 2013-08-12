@@ -2,7 +2,7 @@ form{
 	list-style-type:none;
 
 	.input{
-		margin-bottom:20px;
+		margin-bottom:40px;
 		position:relative;
 	}
 	.input.small-margin{
@@ -61,8 +61,7 @@ form{
 	margin-bottom:40px;
 }
 .string input, .password input, .text textarea, .email input, .url input, input[type=text],input[type=number],div.wysiwyg iframe{
-	height:30px;
-	width:398px;
+	width:100%;
 	padding:5px 10px;
 	background:white;
 	border:1px solid $lightgrey4;
@@ -80,7 +79,8 @@ body.log-in{
 	padding:10px;
 	line-height:1.5;
 	height:300px;
-	width:498px;
+	max-width:498px;
+	width:100%;
 }
 
 input:focus, .text textarea:focus{
@@ -104,17 +104,35 @@ label{
 	@include border-left-radius(3px);
 	display:block;
 	@include box-shadow(black(0) 0px 1px 0px 0px);
-	position:absolute;
 	padding:10px;
-	left:580px;
-	top:20px;
-	width:340px;
 	font-size:13px;
 	@include letterpress(0.8);
 	color:rgba(122,141,153, 0.75);
 	@include transition-property(all);
 	@include transition-duration(500ms);
 	border:2px solid white(0);
+	&.in-focus{
+		border-color:$lightBlue;
+		color:$darkgrey1;
+		@include box-shadow(black(0.15) 0px 1px 1px 0px);
+	}
+	@include small{
+		margin-top:1px;
+		background:#efefef;
+	}
+	@include medium{
+		
+		min-width:300px;
+		position:absolute;
+		left:100%;
+		right:-70%;
+		margin-left:20px;
+		top:20px;
+		&.in-focus{
+			margin-left:10px;
+			margin-right:10px;
+		}
+	}
 	&.with-title {
 		top: 0px;
 	}
@@ -130,14 +148,12 @@ label{
 			border-top:1px black(0.15) solid;
 			padding-top:10px;
 		}
+		&:last-child{
+			margin-bottom:0;
+		}
 	}
 }
-.inline-hints.in-focus{
-	border-color:$lightBlue;
-	color:$darkgrey1;
-	@include box-shadow(black(0.15) 0px 1px 1px 0px);
-	left:540px;
-}
+
 .forgot-password{
 	font-size:13px;
 	display:block;

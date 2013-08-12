@@ -132,13 +132,13 @@ head ->
               $("#lightbox-content").html data
             dataType: "html"
 
-    $('body').removeClass('fixed-header')
-    $(window).off 'scroll'
+    # $('body').removeClass('fixed-header')
+    # $(window).off 'scroll'
 
-    if $('body').hasClass('offer-client')
-      $(window).on 'scroll', ->
-        scroll = $("body").scrollTop()
-        if scroll > 80
-          $('body').addClass('fixed-header')
-        if scroll < 40 # when the fixed header is activated, the whole page jumps up by 40px. so we need to take the difference into account
-          $('body').removeClass('fixed-header')
+    # if $('body').hasClass('offer-client')
+    #   $(window).on 'scroll', ->
+    #     scroll = $("body").scrollTop()
+    #     if scroll > 80
+    #       $('body').addClass('fixed-header')
+    #     if scroll < 40 # when the fixed header is activated, the whole page jumps up by 40px. so we need to take the difference into account
+    #       $('body').removeClass('fixed-header')

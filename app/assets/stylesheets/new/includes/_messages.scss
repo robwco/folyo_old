@@ -66,7 +66,7 @@
 			}
 		}
 	}
-	.portrait{
+	.avatar{
 		position:absolute;
 		@include box-shadow(0px 3px 7px 0px black(0.35));
 		@include small{
@@ -109,13 +109,13 @@
 			}
 		}
 	}
-	.portrait{
+	.avatar{
 		@include medium{
 			left:-110px;
 		}
 	}
 }
-.portrait{
+.avatar{
 	position:relative;
 	height:80px;
 	width:80px;
@@ -141,7 +141,7 @@
 		text-shadow: 0px 2px 3px black(0.45);
 	}
 }
-.portrait-company{
+.avatar-company{
 	background:$lightBlue;
 	text-align:center;
 	line-height:80px;
@@ -167,14 +167,14 @@
 	opacity:1;
 }
 
-// portraits
+// avatars
 
-.portrait{
+.avatar{
 	@include transform(scale(0));
 	@include animation-name(bounceIn);
 }
 
-.animate .portrait{
+.animate .avatar{
 	@include animation-fill-mode(both);
 	@include animation-duration(700ms);
 }
