@@ -19,31 +19,6 @@ ul.replies{
 		h2{
 			font-size:20px;
 		}
-		.work{
-			min-height:10px;
-			@include medium{
-				@include span-columns(3);
-				padding-left:20px;
-			}
-		}
-		.message{
-			@include medium{
-				@include span-columns(6);
-			}
-			@include transition-property(margin);
-			@include transition-duration(400ms);
-			@include transition-timing-function(ease-out);
-			// margin-left:240px;
-			&.long p{
-				padding-right:10px;
-			}
-		}
-		.actions{
-			@include medium{
-				@include span-columns(3 omega);
-				padding-right:20px;
-			}
-		}
 	}
 	>li.collapsed{
 		height:40px;
@@ -83,6 +58,31 @@ ul.replies{
 			width:40px;
 			background:image-url('collapse-expand.png') no-repeat center top;
 		}
+	}
+}
+.reply__work{
+	min-height:10px;
+	@include medium{
+		@include span-columns(3);
+		padding-left:20px;
+	}
+}
+.reply__message{
+	@include medium{
+		@include span-columns(6);
+	}
+	@include transition-property(margin);
+	@include transition-duration(400ms);
+	@include transition-timing-function(ease-out);
+	// margin-left:240px;
+	&.long p{
+		padding-right:10px;
+	}
+}
+.reply__actions{
+	@include medium{
+		@include span-columns(3 omega);
+		padding-right:20px;
 	}
 }
 ul.designers-replied{

@@ -9,6 +9,8 @@
 head ->
   $ ->
 
+    $('body').removeClass('no-js').addClass('js')
+
     epiceditor_options = { button: { fullscreen: false }, clientSideStorage: false }
 
     $(".markdown > textarea").each (i, item) ->
@@ -142,3 +144,9 @@ head ->
     #       $('body').addClass('fixed-header')
     #     if scroll < 40 # when the fixed header is activated, the whole page jumps up by 40px. so we need to take the difference into account
     #       $('body').removeClass('fixed-header')
+
+    $(".waypoint").waypoint ((direction) ->
+      $(this).addClass "animate"
+    ),
+    offset: "60%"
+    
