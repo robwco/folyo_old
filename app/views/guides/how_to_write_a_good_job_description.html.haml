@@ -3,9 +3,9 @@
 	= stylesheet_link_tag 'write_job_description', :media => 'screen'
 
 
-#container.write-job-offer
+.container.write-job-offer
 	.notes-arrow
-	#header
+	.header
 		.logo
 			%h1
 				= link_to "Folyo", "http://www.folyo.me"
@@ -38,13 +38,13 @@
 					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 					  })();
 					</script>
-	#page
+	.page
 
-		#intro
-			%h1.title How to write a good job offer
+		.intro
+			%h1.title=image_tag('howtowrite-title.png', alt: 'How to write a good job offer') 
 			%p When you're hiring someone, you're often unfamiliar with their domain of expertise. This can make writing a good job description quite hard.
 			%p So here are a couple pointers, in the form of a fake job offer for a fake company (no need to apply!).
-		#content
+		.content
 			.block
 				%h2 The Company
 				.section.who
@@ -117,7 +117,7 @@
 						%h4 Timeframe
 						%p Don't forget to provide a timeframe, especially for urgent projects.
 				%p We look forward to hearing from you!
-		#donot.to-do.extra
+		.donot.to-do.extra
 			%h3 Do not:
 			%ul
 				%li Mark specific skills or experiences as mandatory. Mention them as nice-to-have pluses instead to avoid restricting the field of applicants.
@@ -125,7 +125,7 @@
 				%li Use industry-specific jargon or acronyms.
 				%li Focus too much on the technology behind your project.
 				%li Explain only the "how" and not the "why".
-		#reactions.extra
+		.reactions.extra
 			%h3 Reactions
 			:plain
 				<div id="disqus_thread"></div>
@@ -141,7 +141,7 @@
 				    })();
 				</script>
 				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		#colophon.extra
+		.colophon.extra
 			%h3 Colophon
 			%h4 Fonts
 			%ul

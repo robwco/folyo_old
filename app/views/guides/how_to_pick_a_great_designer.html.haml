@@ -2,21 +2,21 @@
 = content_for :add_css_to_head do
 	= stylesheet_link_tag 'pick_designer', :media => 'screen'
 
-#toc
+.toc
 	%ul
-		%li= link_to "Visuals", "#visuals"
-		%li= link_to "Structure", "#structure"
-		%li= link_to "Insight", "#insight"
-		%li= link_to "Style", "#style"
-		%li= link_to "Communication", "#communication"
-		%li= link_to "Education & Experience", "#experience"
-		%li= link_to "Passion", "#passion"
-		%li= link_to "Personality", "#personality"
-		%li= link_to "Evaluation", "#evaluation"
-		%li= link_to "Extra Credit", "#extra-credit"
+		%li= link_to "Visuals", "workvisuals"
+		%li= link_to "Structure", "workstructure"
+		%li= link_to "Insight", "workinsight"
+		%li= link_to "Style", ".style"
+		%li= link_to "Communication", ".communication"
+		%li= link_to "Education & Experience", ".experience"
+		%li= link_to "Passion", ".passion"
+		%li= link_to "Personality", ".personality"
+		%li= link_to "Evaluation", ".evaluation"
+		%li= link_to "Extra Credit", ".extra-credit"
 
-#container.pick-designer
-	#header
+.container.pick-designer
+	.header
 		.logo
 			%h1
 				= link_to "Folyo", "http://www.folyo.me"
@@ -32,7 +32,7 @@
 					  var js, fjs = d.getElementsByTagName(s)[0];
 					  if (d.getElementById(id)) {return;}
 					  js = d.createElement(s); js.id = id;
-					  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+					  js.src = "//connect.facebook.net/en_US/all.js.xfbml=1";
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, 'script', 'facebook-jssdk'));</script>
 					<div class="fb-like" data-href="http://www.folyo.me/guides/how_to_pick_a_designer" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true"></div>
@@ -49,14 +49,14 @@
 					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 					  })();
 					</script>
-	#page
+	.page
 
-		#intro
-			%h1.title How to pick a great designer
+		.intro
+			%h1.title=image_tag('howtopick-title.png', alt: 'How to pick a great designer') 
 			%p How do you know if a designer is any good? And how do you know if they're the right person for your project? Here's a short guide to help you find out.
-		#content
+		.content
 			.block.visuals
-				%h2#visuals Visuals
+				%h2.visuals Visuals
 				%p
 					%span.callout
 						%quote "You shouldn’t worry about experience, or what school [a designer] went to, but <strong>you should be very impressed with his portfolio</strong>. Otherwise, I would keep looking."
@@ -73,7 +73,7 @@
 						%li Look for someone who pays attention to <em>small details</em>
 						%li Compare their work with <em>other well-designed sites</em>
 			.block.structure
-				%h2#structure Structure
+				%h2.structure Structure
 				%p
 					%span.callout
 						%quote "My first filters are <strong>information priority, information organization</strong>, intuitiveness, and clarity of copy"
@@ -88,7 +88,7 @@
 						%li Look for clear <em>call to actions</em> that tell the user what to do next
 						%li Look for a strong <em>information hierarchy</em> throughout the page
 			.block.insight
-				%h2#insight Insight
+				%h2.insight Insight
 				%p
 					%span.callout
 						%quote "[Designers should have] <strong>a rational, thoughtful design process</strong> that balances business needs with user needs— and empathy with those users."
@@ -104,7 +104,7 @@
 						%li Ask the designer to <em>analyze</em> your current design
 						%li Ask them to <em>justify</em> their choices for a previous design
 			.block.style
-				%h2#style Style
+				%h2.style Style
 				%p
 					%span.callout
 						%quote "I cannot stress this enough: <strong>designers don’t morph their style</strong> to match yours."
@@ -121,7 +121,7 @@
 						%li Ask yourself <em>which style</em> (i.e. retro, grunge, minimalist, etc. ) the designer's work evokes
 						%li Think of <em>a few adjectives</em> that describe their work and see if they apply to your project
 			.block.communication
-				%h2#communication Communication
+				%h2.communication Communication
 				%p
 					%span.callout
 						%quote "[Good writing] is <strong>extremely important</strong>. A cover letter will help you determine this, but also look for the copy in the designs."
@@ -137,7 +137,7 @@
 						%li Check out the designer's <em>blog</em>
 						%li See if they ask <em>a lot of questions</em> about your project
 			.block.experience
-				%h2#experience Education & Experience
+				%h2.experience Education & Experience
 				%p
 					%span.callout
 						%quote "<strong>Get references!</strong> There are great designers out there that are terrible to work with and miss deadlines."
@@ -154,7 +154,7 @@
 						%li Ask for <em>references</em> from past employers
 						%li Check if their portfolio is filled with <em>real client work</em>, or mostly personal projects
 			.block.passion
-				%h2#passion Passion
+				%h2.passion Passion
 				%p
 					%span.callout
 						%quote "Have you <strong>designed projects in your spare time</strong>? Have you lead projects before? Both big plusses for me."
@@ -169,7 +169,7 @@
 						%li Find out if they've launched <em>personal projects</em>.
 						%li Find out <em>their motivations</em> for taking on past client projects.
 			.block.personality
-				%h2#personality Personality
+				%h2.personality Personality
 				%p
 					%span.callout
 						%quote "Are you <strong>a cool person to work with</strong>? This sort of thing can come out in a personal interview but it can also come through blog entries, [or] tweets."
@@ -185,7 +185,7 @@
 						%li Read what they're saying on <em>Twitter</em>.
 						%li Make time for an <em>interview</em> on Skype or in real life
 			.block.evaluation
-				%h2#evaluation Evaluation
+				%h2.evaluation Evaluation
 				%p
 					%span.callout
 						%quote "We generally just try lots of people. […] <strong>Paying for a couple hours of work</strong> is the easiest way to see how they work in practice."
@@ -199,7 +199,7 @@
 					%ul
 						%li Have the designer do a <em>2-hour redesign</em> of your homepage.
 						%li Hire him for a <em>smaller project</em> (blog theme, slides, banner, etc.)
-			#extra-credit.extra
+			.extra-credit.extra
 				%h3 Extra Credit
 				%ul.links
 					%li
@@ -220,7 +220,7 @@
 					%li
 						= link_to "Sheel Mohnot's tips on picking a designer", "http://blog.folyo.me/post/11278565589"
 						%span <strong>Sheel Mohnot</strong>, Folyo Blog
-		#reactions.extra
+		.reactions.extra
 			%h3 Reactions
 			:plain
 				<div id="disqus_thread"></div>
@@ -236,7 +236,7 @@
 				    })();
 				</script>
 				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		#colophon.extra
+		.colophon.extra
 			%h3 Colophon
 			%h4 Fonts
 			%ul
