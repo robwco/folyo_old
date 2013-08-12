@@ -115,7 +115,7 @@ section{
 		@include nth-omega(4n, of-type);
 	}
 	.avatar{
-		margin:0 auto 20px auto;
+		margin:0 auto 10px auto;
 		width:70%;
 		height:70%;
 
@@ -128,7 +128,7 @@ section{
 		text-align:center;
 		color:$lighttext;
 		font-style:italic;
-		margin-bottom:20px;
+		margin-bottom:10px;
 	}
 	.bio{
 
