@@ -6,13 +6,16 @@
 	@return rgba(255,255,255,$opacity);
 }
 @function light(){
-	@return 200;
+	@return 300;
 }
-@function medium(){
+@function regular(){
 	@return 400;
 }
 @function bold(){
-	@return 800;
+	@return 700;
+}
+@function heavy(){
+	@return 900;
 }
 /*================ MIXINS =================*/
 @mixin cf{
