@@ -308,9 +308,6 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.2.0)
     stringex (1.5.1)
-    susy (1.0.9)
-      compass (>= 0.12.2)
-      sass (>= 3.2.0)
     swish (0.8.1)
       crack (>= 0.1.8)
       httparty (>= 0.6.1)
@@ -401,7 +398,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   simple_form
   state_machine
-  susy
   swish
   taps
   turbolinks
