@@ -1,214 +1,214 @@
-
-.message{
-	position:relative;
-	margin: 0px auto 40px auto;
-	@include small{
-		padding-top:120px;
-	}
-	@include medium{
-		width: columns(9);
-	}
-	.contents{
-		padding:15px;
-		background:white;
-		@include border-radius(5px);
-		@include box-shadow(0px 3px 12px 0px black(0.25), inset 0 0 0 3px $green);
-		color:$darkText;
-		font-size:16px;
-		&:after, &:before{
-			border: solid transparent;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			pointer-events: none;
-		}
+.how-it-works{
+	.message{
+		position:relative;
+		margin: 0px auto 40px auto;
 		@include small{
-			// top arrow
-			&:after, &:before {
-				bottom: 100%;
-				margin-bottom:-3px;
-			}
-			&:after {
-				border-color: rgba(136, 183, 213, 0);
-				border-bottom-color: #ffffff;
-				border-width: 10px;
-				left: 50%;
-				margin-left: -10px;
-			}
-			&:before {
-				border-color: rgba(194, 225, 245, 0);
-				border-bottom-color: $green;
-				border-width: 14px;
-				left: 50%;
-				margin-left: -14px;
-			}
+			padding-top:120px;
 		}
 		@include medium{
-			// right arrow
-			&:after, &:before {
-				left: 100%;
-				margin-left:-3px;
+			width: columns(9);
+		}
+		.contents{
+			padding:15px;
+			background:white;
+			@include border-radius(5px);
+			@include box-shadow(0px 3px 12px 0px black(0.25), inset 0 0 0 3px $green);
+			color:$darkText;
+			font-size:16px;
+			&:after, &:before{
+				border: solid transparent;
+				content: " ";
+				height: 0;
+				width: 0;
+				position: absolute;
+				pointer-events: none;
 			}
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-left-color: #ffffff;
-				border-width: 10px;
-				top: 50%;
-				margin-top: -10px;
+			@include small{
+				// top arrow
+				&:after, &:before {
+					bottom: 100%;
+					margin-bottom:-3px;
+				}
+				&:after {
+					border-color: rgba(136, 183, 213, 0);
+					border-bottom-color: #ffffff;
+					border-width: 10px;
+					left: 50%;
+					margin-left: -10px;
+				}
+				&:before {
+					border-color: rgba(194, 225, 245, 0);
+					border-bottom-color: $green;
+					border-width: 14px;
+					left: 50%;
+					margin-left: -14px;
+				}
 			}
-			&:before {
-				border-color: rgba(0, 0, 0, 0);
-				border-left-color: $green;
-				border-width: 14px;
-				top: 50%;
-				margin-top: -14px;
+			@include medium{
+				// right arrow
+				&:after, &:before {
+					left: 100%;
+					margin-left:-3px;
+				}
+				&:after {
+					border-color: rgba(255, 255, 255, 0);
+					border-left-color: #ffffff;
+					border-width: 10px;
+					top: 50%;
+					margin-top: -10px;
+				}
+				&:before {
+					border-color: rgba(0, 0, 0, 0);
+					border-left-color: $green;
+					border-width: 14px;
+					top: 50%;
+					margin-top: -14px;
+				}
+			}
+		}
+		.avatar{
+			position:absolute;
+			@include box-shadow(0px 3px 7px 0px black(0.35));
+			@include small{
+				top:0px;
+				left:50%;
+				margin-left:-40px;
+			}
+			@include medium{
+				right:-110px;
+				top:50%;
+				margin-top:-40px;
+			}
+		}
+	}
+	.message-company{
+		margin-bottom:60px;
+		.contents{
+			@include box-shadow(0px 3px 12px 0px black(0.25), inset 0 0 0 3px $lightBlue);
+			@include small{
+				// top arrow
+				&:before{
+					border-bottom-color: $lightBlue;
+				}
+			}
+			@include medium{
+				// left arrow
+				&:after, &:before {
+					right: 100%;
+					left:inherit;
+					margin-left:inherit;
+					margin-right:-3px;
+				}
+				&:after {
+					border-color: rgba(255, 255, 255, 0);
+					border-right-color: #ffffff;
+				}
+				&:before {
+					border-color: rgba(0, 0, 0, 0);
+					border-right-color: $lightBlue;
+				}
+			}
+		}
+		.avatar{
+			@include medium{
+				left:-110px;
 			}
 		}
 	}
 	.avatar{
-		position:absolute;
-		@include box-shadow(0px 3px 7px 0px black(0.35));
-		@include small{
-			top:0px;
-			left:50%;
-			margin-left:-40px;
-		}
-		@include medium{
-			right:-110px;
-			top:50%;
-			margin-top:-40px;
-		}
-	}
-}
-.message-company{
-	margin-bottom:60px;
-	.contents{
-		@include box-shadow(0px 3px 12px 0px black(0.25), inset 0 0 0 3px $lightBlue);
-		@include small{
-			// top arrow
-			&:before{
-				border-bottom-color: $lightBlue;
-			}
-		}
-		@include medium{
-			// left arrow
-			&:after, &:before {
-				right: 100%;
-				left:inherit;
-				margin-left:inherit;
-				margin-right:-3px;
-			}
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-right-color: #ffffff;
-			}
-			&:before {
-				border-color: rgba(0, 0, 0, 0);
-				border-right-color: $lightBlue;
-			}
-		}
-	}
-	.avatar{
-		@include medium{
-			left:-110px;
-		}
-	}
-}
-.avatar{
-	position:relative;
-	height:80px;
-	width:80px;
-	display:block;
-	@include box-shadow(0 2px 3px black(0.35));
-	@include border-radius(50%);
-	img{
+		position:relative;
+		height:80px;
+		width:80px;
+		display:block;
+		@include box-shadow(0 2px 3px black(0.35));
 		@include border-radius(50%);
-		height:100%;
-		width:100%;
-		display:block;
+		img{
+			@include border-radius(50%);
+			height:100%;
+			width:100%;
+			display:block;
+		}
+		.name{
+			display:block;
+			text-align:center;
+			position:absolute;
+			width:200px;
+			white-space:nowrap;
+			color:white;
+			left:-60px;
+			font-size:14px;
+			margin-top:5px;
+			text-shadow: 0px 2px 3px black(0.45);
+		}
 	}
-	.name{
-		display:block;
+	.avatar-company{
+		background:$lightBlue;
 		text-align:center;
-		position:absolute;
-		width:200px;
-		white-space:nowrap;
-		color:white;
-		left:-60px;
-		font-size:14px;
-		margin-top:5px;
-		text-shadow: 0px 2px 3px black(0.45);
+		line-height:80px;
+		font-weight:bold();
+	}
+	.title-1{
+		@include single-transition();
+		.js &{
+
+		}
+		&.animate{
+
+		}
+	}
+
+	// steps
+
+	.step{
+		opacity:0;
+		@include single-transition();
+	}
+	.step.animate{
+		opacity:1;
+	}
+
+	// avatars
+
+	.avatar{
+		@include transform(scale(0));
+		@include animation-name(bounceIn);
+	}
+
+	.animate .avatar{
+		@include animation-fill-mode(both);
+		@include animation-duration(700ms);
+	}
+
+	@include keyframes(bounceIn){
+		0% {
+			opacity: 0;
+			@include transform(scale(.3));
+		}	
+		80% {
+			opacity: 1;
+			@include transform(scale(1.05));
+		}
+		100% {
+			@include transform(scale(1));
+		}
+	}
+
+	// messages
+
+	.message .contents{
+		@include transform(translateX(2000px));
+		@include animation-name(bounceInRight);
+	}
+	.message-company .contents{
+		@include transform(translateX(-2000px));
+		@include animation-name(bounceInLeft);
+	}
+	.message.animate .contents{
+		@include animation-fill-mode(both);
+		@include animation-delay(300ms);
+		@include animation-duration(700ms);
 	}
 }
-.avatar-company{
-	background:$lightBlue;
-	text-align:center;
-	line-height:80px;
-	font-weight:bold();
-}
-.title-1{
-	@include single-transition();
-	.js &{
-
-	}
-	&.animate{
-
-	}
-}
-
-// steps
-
-.step{
-	opacity:0;
-	@include single-transition();
-}
-.step.animate{
-	opacity:1;
-}
-
-// avatars
-
-.avatar{
-	@include transform(scale(0));
-	@include animation-name(bounceIn);
-}
-
-.animate .avatar{
-	@include animation-fill-mode(both);
-	@include animation-duration(700ms);
-}
-
-@include keyframes(bounceIn){
-	0% {
-		opacity: 0;
-		@include transform(scale(.3));
-	}	
-	80% {
-		opacity: 1;
-		@include transform(scale(1.05));
-	}
-	100% {
-		@include transform(scale(1));
-	}
-}
-
-// messages
-
-.message .contents{
-	@include transform(translateX(2000px));
-	@include animation-name(bounceInRight);
-}
-.message-company .contents{
-	@include transform(translateX(-2000px));
-	@include animation-name(bounceInLeft);
-}
-.message.animate .contents{
-	@include animation-fill-mode(both);
-	@include animation-delay(300ms);
-	@include animation-duration(700ms);
-}
-
 
 @include keyframes(bounceInRight){
 	0% {
