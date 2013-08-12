@@ -125,10 +125,12 @@
 	height:80px;
 	width:80px;
 	display:block;
-	@include box-shadow(0 2px 3px black(0.35));
+	// @include box-shadow(0 2px 3px black(0.35));
 	@include border-radius(50%);
+	// @include border-radius(10px);
 	img{
 		@include border-radius(50%);
+		// @include border-radius(10px);
 		height:100%;
 		width:100%;
 		display:block;
