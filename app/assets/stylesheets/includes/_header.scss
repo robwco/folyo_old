@@ -83,5 +83,8 @@
 	.post-job a{
 		@extend %btn;
 		background:black(0.2) !important;
+		&:hover{
+			background:black(0.5) !important;
+		}
 	}
 }

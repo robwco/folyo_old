@@ -4,6 +4,9 @@ section{
 .primary{
 	background:white;
 }
+.meet-designers{
+	background:#efefef;
+}
 %dark-background{
 	background-color:$darkerBlue;
 	// http://bit.ly/177c3x0
@@ -57,6 +60,9 @@ section{
 	p{
 		font-size:18px;
 	}
+	p.intro{
+		text-align:center;
+	}
 	.block{
 		margin-bottom:40px;
 		@include medium{
@@ -98,8 +104,36 @@ section{
 .cta{
 	text-align:center;
 }
+.designers{
+	margin-bottom:20px;
+	@include cf;
+}
+.designer{
+	margin-bottom:20px;
+	@include medium{
+		@include span-columns(3);
+		@include nth-omega(4n, of-type);
+	}
+	.avatar{
+		margin:0 auto 20px auto;
+		width:70%;
+		height:70%;
 
+	}
+	.name{
+		display:block;
+		text-align:center;
+	}
+	.location{
+		text-align:center;
+		color:$lighttext;
+		font-style:italic;
+		margin-bottom:20px;
+	}
+	.bio{
 
+	}
+}
 
 .inverted{
 	color:white(0.5);

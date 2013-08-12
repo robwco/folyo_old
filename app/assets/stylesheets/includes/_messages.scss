@@ -78,6 +78,12 @@
 			top:50%;
 			margin-top:-40px;
 		}
+		@include transform(scale(0));
+		@include animation-name(bounceIn);
+	}
+	&.animate .avatar{
+		@include animation-fill-mode(both);
+		@include animation-duration(700ms);
 	}
 }
 .message-company{
@@ -159,17 +165,7 @@
 	opacity:1;
 }
 
-// avatars
 
-.avatar{
-	@include transform(scale(0));
-	@include animation-name(bounceIn);
-}
-
-.animate .avatar{
-	@include animation-fill-mode(both);
-	@include animation-duration(700ms);
-}
 
 @include keyframes(bounceIn){
 	0% {
