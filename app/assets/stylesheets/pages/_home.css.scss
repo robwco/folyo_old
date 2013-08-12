@@ -62,7 +62,10 @@ section{
 		@include medium{
 			@include span-columns(8 omega);
 			@include squish(2,2);
-		}	
+		}
+		*:last-child{
+			margin-bottom:0;
+		}
 	}
 	.subtitle{
 		text-align:center;
