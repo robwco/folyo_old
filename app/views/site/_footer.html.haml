@@ -1,6 +1,23 @@
-.footer
-	.footer-nav
-		%ul
+%section.footer.inverted
+	.container
+		%ul.secondary-actions
+			%li
+				%a.button.button-big{:href => "#"}
+					%span.action Browse Designers
+					%span.microcopy Preview our all-star lineup
+			%li
+				%a.button.button-big{:href => "#"}
+					%span.action Folyo Guides
+					%span.microcopy The basics of finding a designer
+			%li
+				%a.button.button-big{:href => "#"}
+					%span.action The Blog
+					%span.microcopy Learn something new
+			%li
+				%a.button.button-big{:href => "#"}
+					%span.action Contact Us
+					%span.microcopy We'll be happy to talk
+		%ul.links
 			%li= link_to "Designers", designers_path
 			%li= link_to 'About', '/about'
 			%li= link_to 'Guides', '/guides'
@@ -9,6 +26,7 @@
 			%li= link_to 'Blog', 'http://blog.folyo.me'
 			%li= link_to 'Follow us on Twitter', 'http://twitter.com/YoFolyo'
 			%li= link_to 'Suggest features', 'http://folyo.uservoice.com/forums/134595-general'
+			%li &copy; 2013 Folyo
 
 - if ENV['RAILS_ENV'] == "production"
 	= render :partial => '/site/clicky'

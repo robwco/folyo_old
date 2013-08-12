@@ -1,14 +1,20 @@
-@mixin nav-ul {
-	list-style-type:none;
-	@include clearfix;
-	& li{
-		display:block;
-		float:left;
-		&:last-child{
-			margin-right:0px;
-		}
-	}
+/*================ FUNCTIONS =================*/
+@function black($opacity){
+	@return rgba(0,0,0,$opacity);
 }
+@function white($opacity){
+	@return rgba(255,255,255,$opacity);
+}
+@function light(){
+	@return 200;
+}
+@function medium(){
+	@return 400;
+}
+@function bold(){
+	@return 800;
+}
+/*================ MIXINS =================*/
 @mixin cf{
 	/* For modern browsers */
 	&:before,&:after {
@@ -21,16 +27,72 @@
 	/* For IE 6/7 (trigger hasLayout) */
 	*zoom:1;
 }
+.cf{
+	@include cf;
+}
+@mixin animate($property: all){
+	@include single-transition($property, 300ms, 0ms, ease-out);
+}
+@mixin animation-name($name){
+	-webkit-animation-name: $name;
+	-moz-animation-name: $name;
+	-o-animation-name: $name;
+	animation-name: $name;	
+}
+@mixin animation-fill-mode($mode){
+	-webkit-animation-fill-mode:$mode;
+	-moz-animation-fill-mode:$mode;
+	-ms-animation-fill-mode:$mode;
+	-o-animation-fill-mode:$mode;
+	animation-fill-mode:$mode;
+}
+@mixin animation-delay($duration){
+	-webkit-animation-delay:$duration;
+	-moz-animation-delay:$duration;
+	-ms-animation-delay:$duration;
+	-o-animation-delay:$duration;
+	animation-delay:$duration;
+}
+@mixin animation-duration($duration){
+	-webkit-animation-duration:$duration;
+	-moz-animation-duration:$duration;
+	-ms-animation-duration:$duration;
+	-o-animation-duration:$duration;
+	animation-duration:$duration;
+}
+@mixin keyframes($name){
+	@-webkit-keyframes $name {
+		@content
+	}
+
+}
+@mixin border-box{
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+@mixin nav-ul {
+	list-style-type:none;
+	padding:0;
+	margin:0;
+	@include cf;
+	& li{
+		display:block;
+		float:left;
+		&:last-child{
+			margin-right:0px;
+		}
+	}
+}
 @mixin hide-text{
-	overflow:hidden;
-	text-indent:-9000px;
-	display:block;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
 }
-@function black($opacity){
-	@return rgba(0,0,0,$opacity)
-}
-@function white($opacity){
-	@return rgba(255,255,255,$opacity)
+@mixin hide-text2{
+	font: 0/0 a;
+	text-shadow: none;
+	color: transparent;
 }
 @mixin letterpress($opacity){
 	text-shadow:white($opacity) 0 1px 0;
@@ -38,7 +100,6 @@
 @mixin box-emboss($opacity, $opacity2){
 	box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
 }
-
 @mixin note{
 	background:$lightgrey2;
 	padding:20px;

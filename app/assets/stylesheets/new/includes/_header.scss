@@ -72,4 +72,8 @@
 			border-bottom: 2px solid white(0.4);
 		}
 	}
+	.post-job a{
+		@extend %btn;
+		background:black(0.2);
+	}
 }

@@ -268,30 +268,23 @@ h3{
 	line-height:25px;
 }
 #main h3, .offer-list .offer-status {
-	@include border-radius(3px);
 	font-weight: bold;
-	color:white;
-	padding:0 10px;
 	margin:0 10px 20px 0px;
-	display:inline-block;
-	background:$green1;
+	border-bottom:2px $darkgrey2 solid;
 	&.waiting_for_review{
-		background:$lightgrey4;
+		border-color:$lightgrey4;
 	}
 	&.waiting_for_payment, &.waiting_for_submission{
-		background:$yellow1;
+		border-color:$yellow1;
 	}
 	&.rejected{
-		background:$red1;
+		border-color:$red1;
 	}
 	&.archived{
-		background:$green3;
+		border-color:$green3;
 	}
 	&.refunded{
-		background:$blue1
-	}
-	a{
-		color:white;
+		border-color:$blue1
 	}
 }
 .header{

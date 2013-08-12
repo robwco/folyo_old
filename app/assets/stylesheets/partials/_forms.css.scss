@@ -105,7 +105,7 @@ label{
 	display:block;
 	@include box-shadow(black(0) 0px 1px 0px 0px);
 	position:absolute;
-	padding:10px 10px 0 10px;
+	padding:10px;
 	left:580px;
 	top:20px;
 	width:340px;
@@ -114,6 +114,7 @@ label{
 	color:rgba(122,141,153, 0.75);
 	@include transition-property(all);
 	@include transition-duration(500ms);
+	border:2px solid white(0);
 	&.with-title {
 		top: 0px;
 	}
@@ -132,7 +133,7 @@ label{
 	}
 }
 .inline-hints.in-focus{
-	background:white(0.9);
+	border-color:$lightBlue;
 	color:$darkgrey1;
 	@include box-shadow(black(0.15) 0px 1px 1px 0px);
 	left:540px;
