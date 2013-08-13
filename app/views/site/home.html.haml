@@ -6,12 +6,19 @@
 = content_for :add_to_head, :home
 
 
-
-%section.primary.home-content
+%section.primary
+	.container
+		%h2.tagline
+			Finding a Designer, Made Easy
+			/ Find the Right UI Designer Today
+			/ “Finding the right designer just takes too much time!”
+			/ Finding the right designer can be easy
+%section.secondary.home-content
 	.container
 		.block
-			%h2.tagline “Finding the right designer just takes too much time!”
-
+			%h2
+				/ “Finding the right designer just takes too much time!”
+				“Why is finding the right designer so hard!?”				
 			%p Ever had that thought? The truth is that <strong>looking for a designer sucks</strong>. Most of the designers you come across will be:
 			/ %img.illustration{:src => "/assets/new/illustration1.png"}
 			%ul.items.cross
@@ -114,10 +121,7 @@
 		.block
 			%h2 Try Folyo risk-free with our 120% money-back guarantee
 			%p If you can't find a designer, we'll refund you completely <em>and</em> give you a 20% discount on next time!
-
-		.block
-			%h2 And did we mention we don't take a percentage?
-			%p Unlike most other find-a-designer sites, we only charge a <strong>one-time fee</strong>, we <strong>don't</strong> take a percentage of the project budget. 
+			%p And unlike most other find-a-designer sites, we only charge a <strong>one-time fee</strong>, we don't take a percentage of the project budget. 	
 		
 		.block
 			/ %h2 Get started now
