@@ -1,6 +1,7 @@
 
 
 .footer{
+	@extend %dark-background;
 	.secondary-actions{
 		list-style-type:none;
 		padding:0;

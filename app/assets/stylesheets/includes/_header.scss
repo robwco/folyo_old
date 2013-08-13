@@ -1,13 +1,14 @@
 .top{
-	// background-color:$green;
+	background-color:$green;
 	// http://bit.ly/14m0PWF
-	// background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANUlEQVQYV2NkIBIw/v//35iRkfEsunqYOIxmJNJABgyF6CaRbyIuk2BOI96NhEyi3ERc4QkAki48CxxSFJ4AAAAASUVORK5CYII=);
-	// background-attachment:fixed;
+	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANUlEQVQYV2NkIBIw/v//35iRkfEsunqYOIxmJNJABgyF6CaRbyIuk2BOI96NhEyi3ERc4QkAki48CxxSFJ4AAAAASUVORK5CYII=);
+	background-attachment:fixed;
 	// background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANklEQVQYV2NkIBIwAtVJAvFzLOph4mAapJAogE0hikkwG8kyEatJMHeRZCJek6hiInpwgW0EAKvbDwvkiHTzAAAAAElFTkSuQmCC);
 	// background-attachment:fixed;	
-	background-color: #212B32;
+	// background-color: #212B32;
 	// @include box-shadow(inset 0px -100px 100px black(0.1));
 	padding:20px 0;
+
 }
 .logo{
 	width:100px;
@@ -24,7 +25,7 @@
 	a{
 		display:block;
 		@include border-radius(50%);
-		background:black(0.4) image-url('logo-white.png') 50% 50% no-repeat;
+		background:black(0.2) image-url('logo-white.png') 50% 50% no-repeat;
 		background-size:70% auto;
 		@include hide-text;
 		color:white;
@@ -40,7 +41,7 @@
 			color:white;	
 		}
 		&:hover{
-			background-color:black(0.6);
+			background-color:black(0.4);
 		}
 	}
 }
@@ -80,12 +81,18 @@
 			border-bottom: 2px solid white(0.4);
 		}
 		&:hover{
-			// color:black(0.7);
-			color:$green;
+			color:black(0.7);
+			// color:$green;
 		}
 	}
 	.post-job a{
 		@extend %btn;
-
+		background: black(0.2) !important;
+		&:hover{
+			background: black(0.5) !important;
+		}
+		&.current{
+			border: none;
+		}
 	}
 }

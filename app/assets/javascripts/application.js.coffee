@@ -150,3 +150,4 @@ head ->
     ),
     offset: "60%"
     
+    $.localScroll()
