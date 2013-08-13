@@ -84,30 +84,59 @@ section{
 		margin-bottom:20px;
 		font-size:20px;
 	}
-}
-.checks{
-	list-style-type:none;
-	margin:0;
-	padding:0;
-	text-align:justify;
-	li{
-		display:inline-block;
-		white-space:nowrap;
-		padding:0px 20px 0px 20px;
-		font-weight: bold();
-		background:url('../images/check.png') 0% 40% no-repeat;
-		font-size:16px;
-		background-size:16px 15px;
-		&:last-child{
-			padding-right:0;
+	.items{
+		list-style-type:none;
+		list-style-image: none;
+		margin:20px 0 0 0;
+		padding:0;
+		@include small{
+			text-align: center;
 		}
-	}
+		@include medium{
+			text-align:justify;
+		}
+		@include cf;
+		&:after{
+			//  http://www.barrelny.com/blog/text-align-justify-and-rwd/
+			content: '';
+			display: inline-block;
+			width: 100%;
+			height: 0px;
+			margin: 0;
+		}
+		li{
+			display:inline-block;
+			@include small{
+				margin-right: 20px;
+			}
+			@include medium{
+				width: 22%;
+				white-space:nowrap;
+			}
+			// margin-right: 4%;
+			padding:0px 0px 0px 20px;
+			font-weight: bold();
+			background:image-url('check-medium.png') 0% 40% no-repeat;
+			background-size: 16px 16px;
+			font-size:16px;
+			&:last-child{
+				margin-right:0;
+			}
+			&:before{
+				display: none;
+			}
+		}
+		&.cross li{
+			background-image: image-url('cross-medium.png');
+		}
+	}	
 }
+
 .cta{
 	text-align:center;
 	.button{
 		width: 100%;
-		max-width: 200px;
+		max-width: 282px;
 	}
 }
 .designers{
