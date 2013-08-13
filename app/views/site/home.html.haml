@@ -29,37 +29,54 @@
 %section.meet-designers.home-content
 	.container
 		.block
-			%h2 Meet (Some Of) Our Designers
-			%p.intro Each designer's application is individually reviewed and approved, making the Folyo community one of the highest concentration of design talent around.  
+			%h2 Here's why Folyo designers can be trusted
+			%p.intro Each designer's application is individually reviewed and approved, and about <strong>70%</strong> of applications are rejected. Here is a small sample of the community's 600 designers:
 		.designers
 			.designer
-				%img.avatar{:src => "/assets/new/photo.jpg"}
+				%a.avatar{:href => "http://lefft.com/"}
+					%img{:src => "/assets/photos/paddy.jpg"}
 				%h3
-					%a.name{:href => "#"} John Smith
-				.location San Francisco, USA
-				.bio John is a very talented lorem ipsum dolor. 
+					%a.name{:href => "http://lefft.com/"} Paddy Donelly
+				.location Belgium
+				.bio Paddy's work seamlessly weaves illustration and design to create impactful homepages. 
 			.designer
-				%img.avatar{:src => "/assets/new/photo.jpg"}
+				%a.avatar{:href => "http://brookekao.com/2013/"}
+					%img{:src => "/assets/photos/brooke.jpg"}
 				%h3
-					%a.name{:href => "#"} John Smith
-				.location San Francisco, USA
-				.bio John is a very talented  lorem ipsum dolor. 
+					%a.name{:href => "http://brookekao.com/2013/"} Brooke Kao
+				.location Los Angeles
+				.bio Brooke's bold colors and strong shapes give a unique edge to her digital and print work.
 			.designer
-				%img.avatar{:src => "/assets/new/photo.jpg"}
+				%a.avatar{:href => "http://sethrexilius.com/"}
+					%img{:src => "/assets/photos/seth.jpg"}
 				%h3
-					%a.name{:href => "#"} John Smith
-				.location San Francisco, USA
-				.bio John is a very talented  lorem ipsum dolor. 
+					%a.name{:href => "http://sethrexilius.com/"} Seth Rexilius
+				.location Lincoln
+				.bio Seth specializes in hard-hitting, dynamic work that features photos proimnently. 
 			.designer
-				%img.avatar{:src => "/assets/new/photo.jpg"}
+				/ %a.work{:href => "http://creativeda.sh/"}
+				/ 	%img{:src => "/assets/work/dash-work.jpg"}				
+				%a.avatar{:href => "http://creativeda.sh/"}
+					%img{:src => "/assets/photos/dash.jpg"}
 				%h3
-					%a.name{:href => "#"} John Smith
-				.location San Francisco, USA
-				.bio John is a very talented  lorem ipsum dolor.
-		.block
-			%h2 Quality Over Quantity
-			%p About <strong>70%</strong> of Folyo applications are rejected in order to maintain the community's high standards. 
-			%p Unlike traditional invite-only sites, it's not about who you know but about what you can do. If you're good, you're in!
+					%a.name{:href => "http://creativeda.sh/"} Dash Ponce de Leon
+				.location San Francisco
+				.bio Dash is well-known for his pixel-perfect user interfaces and amazingly realistic icons. 
+		.skills
+			%h2 The right skill for the right job 
+			%p.intro Folyo designers' expertise spans across multiple skillsets, including:
+			%ul.skills-list
+				%li.web-design Web design
+				%li.ui-design UI design
+				%li.icon-design Icon design
+				%li.ux-design UX design
+				%li.logo-design Logo design
+				%li.print-design Print design
+				%li.mobile-design Mobile design
+				%li.illustration-design Illustration
+				%li.packaging-design Packaging
+
+
 %section.how-it-works.inverted.home-content
 	.container
 		%h3.subtitle How It Works
@@ -70,20 +87,20 @@
 
 		%h2.step.title-2.waypoint And watch the replies roll in:
 		.message.message-designer.message-2.waypoint
-			%a.avatar{:href => '#'} 
-				%img{:src => '/assets/new/photos/regina.jpg'}
-				%span.name Regina Casaleggio
+			%a.avatar{:href => 'http://lefft.com/'} 
+				%img{:src => '/assets/photos/paddy.jpg'}
+				%span.name Paddy
 			.contents This sounds like a great project! I'm available and I'd love to learn more. 
 		.message.message-designer.message-3.waypoint
-			%a.avatar{:href => '#'} 
-				%img{:src => '/assets/new/photo.jpg'}
-				%span.name Jason Kirtley
-			.contents I've got a lot of experience designing mobile apps, so this project is right up my alley!
-		.message.message-designer.message-4.waypoint
-			%a.avatar{:href => '#'} 
-				%img{:src => '/assets/new/photo.jpg'}
-				%span.name Jord Riekwel
+			%a.avatar{:href => 'http://brookekao.com/2013/'} 
+				%img{:src => '/assets/photos/brooke.jpg'}
+				%span.name Brooke
 			.contents I think I'd be a good fit for this, and the budget looks good. Take a look at my portfolio and let me know what you think.
+		.message.message-designer.message-4.waypoint
+			%a.avatar{:href => 'http://creativeda.sh/'} 
+				%img{:src => '/assets/photos/dash.jpg'}
+				%span.name Dash
+			.contents I've got a lot of experience designing mobile apps, so this project is right up my alley!
 
 %section.try.home-content
 	.container

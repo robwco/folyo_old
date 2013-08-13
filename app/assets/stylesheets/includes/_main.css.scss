@@ -207,10 +207,10 @@ ul.skills-list li{
 	&.mobile-design:after{
 		background-image:image-url('mobiledesign.png');
 	}
-	&.ux-interaction-design:after{
+	&.ux-interaction-design:after, &.ux-design:after{
 		background-image:image-url('ux.png');
 	}
-	&.illustration:after{
+	&.illustration:after, &.illustration-design:after{
 		background-image:image-url('illustration.png');
 	}
 	&.print-design:after{
