@@ -64,7 +64,7 @@ form{
 }
 .string input, .password input, .text textarea, .email input, .url input, input[type=text],input[type=number],div.wysiwyg iframe{
 	width:100%;
-	padding:5px 10px;
+	padding:10px;
 	background:white;
 	border:1px solid $lightgrey4;
 	@include border-radius(3px);
