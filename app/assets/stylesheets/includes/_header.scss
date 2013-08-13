@@ -57,7 +57,7 @@
 			right:0px;
 			position:absolute;
 			top:50%;
-			margin-top:-11px;
+			margin-top:-17px;
 		}
 		list-style-type:none;
 		padding:0;
@@ -86,9 +86,6 @@
 	}
 	.post-job a{
 		@extend %btn;
-		background:black(0.2) !important;
-		&:hover{
-			background:black(0.5) !important;
-		}
+
 	}
 }
