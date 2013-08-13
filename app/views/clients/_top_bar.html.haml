@@ -5,7 +5,6 @@
 		%nav.nav
 			%ul
 				%li= section_link_to "My Offers", offers_path, :job_offers
-				/ %li= section_link_to "Available Designers", posts_path, :designer_posts
 				%li= section_link_to "All Designers", designers_path, :designers
 				%li= section_link_to "My Account", edit_client_path(current_user), [:account, :clients]
 				%li.sign-out= link_to_unless_current "Sign Out", destroy_user_session_path, :method => :delete, :title => "Sign Out"

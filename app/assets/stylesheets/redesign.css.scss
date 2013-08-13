@@ -1,11 +1,11 @@
-@import "partials/colors";
-@import "partials/mixins";
+@import "includes/colors";
+@import "includes/mixins";
 $blueprint_grid_columns: 12;
 $blueprint_grid_width: 22px;
 $blueprint_grid_margin: 60px;
 @import "blueprint";
 @import "compass/css3";
-@import "modules/buttons";
+@import "includes/buttons";
 
 #container{
 /*	@include container;*/
@@ -125,7 +125,7 @@ $blueprint_grid_margin: 60px;
 		//float:left;
 	}
 	.pds-vote-button{
-		@include button;
+		//@include button;
 		display:inline-block;
 		font-size:14px;
 		margin-right:10px;

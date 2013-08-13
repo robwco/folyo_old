@@ -1,9 +1,9 @@
 @import "compass/reset";
 @import "compass/css3";
 
-@import "partials/colors";
-@import "partials/mixins";
-@import "partials/fancybox";
+@import "includes/colors";
+@import "includes/mixins";
+@import "includes/fancybox";
 
 body.carrousel {
   background: none;

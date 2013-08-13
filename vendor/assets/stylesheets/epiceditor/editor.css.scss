@@ -1,9 +1,8 @@
 @import "compass/css3";
-
-@import "partials/colors";
+@import "includes/colors";
 
 *{
-  @include box-sizing(border-box); 
+  @include box-sizing(border-box);
 }
 
 html {
