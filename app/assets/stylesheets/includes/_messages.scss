@@ -78,8 +78,10 @@
 			top:50%;
 			margin-top:-40px;
 		}
-		@include transform(scale(0));
-		@include animation-name(bounceIn);
+		.js-animate &{
+			@include transform(scale(0));
+			@include animation-name(bounceIn);
+		}
 	}
 	&.animate .avatar{
 		@include animation-fill-mode(both);
@@ -157,13 +159,14 @@
 
 
 // steps
-
-.step{
-	opacity:0;
-	@include single-transition();
-}
-.step.animate{
-	opacity:1;
+.js-animate{
+	.step{
+		opacity:0;
+		@include single-transition();
+	}
+	.step.animate{
+		opacity:1;
+	}
 }
 
 
@@ -184,20 +187,21 @@
 
 // messages
 
-.message .contents{
-	@include transform(translateX(2000px));
-	@include animation-name(bounceInRight);
+.js-animate{
+	.message .contents{
+		@include transform(translateX(2000px));
+		@include animation-name(bounceInRight);
+	}
+	.message-company .contents{
+		@include transform(translateX(-2000px));
+		@include animation-name(bounceInLeft);
+	}
+	.message.animate .contents{
+		@include animation-fill-mode(both);
+		@include animation-delay(300ms);
+		@include animation-duration(700ms);
+	}
 }
-.message-company .contents{
-	@include transform(translateX(-2000px));
-	@include animation-name(bounceInLeft);
-}
-.message.animate .contents{
-	@include animation-fill-mode(both);
-	@include animation-delay(300ms);
-	@include animation-duration(700ms);
-}
-
 
 @include keyframes(bounceInRight){
 	0% {

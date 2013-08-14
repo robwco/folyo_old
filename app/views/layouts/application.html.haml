@@ -1,7 +1,7 @@
 !!!
 %html.wf-loading
   = render :partial => '/site/header'
-  %body{:class=> yield(:body_class)}
+  %body.no-js{:class=> yield(:body_class)}
     = render_site_nav
     #page
       - if yield(:header).blank?

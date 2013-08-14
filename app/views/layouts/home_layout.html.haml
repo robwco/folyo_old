@@ -1,6 +1,6 @@
 !!!
 %html
   = render :partial => '/site/header'
-  %body{:class=> yield(:body_class)}
+  %body.no-js{:class=> yield(:body_class)}
     = content_for?(:content) ? yield(:content) : yield
     = render :partial => '/site/footer'

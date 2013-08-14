@@ -9,7 +9,10 @@
 head ->
   $ ->
 
-    $('body').removeClass('no-js').addClass('js')
+    $('body').removeClass('no-js').addClass('js js-animate')
+
+    if ($.browser.mozilla)
+      $("body").removeClass("js-animate")
 
     epiceditor_options = { button: { fullscreen: false }, clientSideStorage: false }
 
