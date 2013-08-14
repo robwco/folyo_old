@@ -2,13 +2,14 @@
 
 .sub-header{
 	@include clearfix;
+	padding: 40px 0;	
 	// background:#454d53;
 	// @extend %dark-background;
 }
 .main-header{
 	@include clearfix;
 	display:table;
-	width:100%;	
+	width:100%;
 	.title{
 		line-height:30px;
 		height:30px;
