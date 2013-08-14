@@ -60,6 +60,14 @@
 		@include medium{
 			margin-top:100vh;
 		}
+		.block{
+			padding-bottom: 40px;
+			border-bottom: 2px solid #dde5e9;
+			&:last-child{
+				border: none;
+				padding-bottom: 0;
+			}
+		}
 	}
 	.meet-designers{
 		background:$lightgrey7;
