@@ -82,11 +82,11 @@ hr {
 		inset white 0px 1px 0px 0px,
 		rgba(0,0,0,0.15) 0px 1px 1px 0px
 	);
-
+	text-align: center;
 	h2{
 		color:$green1;
 		font-weight:bold;
-		font-size:18px;
+		font-size:16px;
 		line-height:40px;
 		@include box-shadow(
 			inset rgba(0,0,0,0.1) 0px -1px 0px 0px
@@ -115,11 +115,11 @@ hr {
 	}
 
 	.character-counter-main-wrapper {
-		margin: -43px 0 20px;
+		margin: -31px 0 20px;
 	}
 
 	.button{
-		width:150px;
+		display: inline-block;
 		margin:10px auto 0 auto;
 	}
 
