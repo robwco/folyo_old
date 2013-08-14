@@ -527,32 +527,7 @@ ul.offer-list{
 	}
 }
 
-/*------------------- Designers List ------------------ */
-.designers{
-	>li{
-		padding-bottom:40px;
-		margin-bottom:40px;
-		border-bottom:1px $lightgrey4 solid;
-		overflow:hidden;
-	}
-	.featured-work{
-		margin-bottom:10px;
-	}
-	.bio{
-		h2{
-			margin-bottom:5px;
-		}
-		h4{
-			color:$darkgrey1;
-			font-weight:normal;
-			font-size:20px;
-			margin-bottom:5px;
-		}
-		p{
-			margin-bottom:0;
-		}
-	}
-}
+
 /*------------------- Filters ------------------ */
 .filters{
 	.show-all a{
@@ -589,40 +564,7 @@ ul.offer-list{
 		}
 	}
 }
-/*------------------- Designer Profile ------------------ */
-.featured-work{
-	a.image{
-		border:2px solid $darkgrey2;
-		background:white;
-		padding:2px;
-		display:block;
-		@include box-shadow( rgba(0,0,0,0.15) 0px 1px 1px 0px);
 
-		img{
-			background:image-url('ajax-loader.gif') no-repeat center center;
-
-			display:block;
-			width:192px;
-			min-height:150px;
-		}
-	}
-	.caption{
-		text-align:center;
-		color:$darkgrey2;
-		font-style:italic;
-		font-size:13px;
-		line-height:1.5;
-		margin-top:10px;
-	}
-}
-.designer-profile .featured-work{
-	a.image{
-		width:320px;
-		img{
-			width:320px;
-		}
-	}
-}
 /*------------------- Pagination ------------------ */
 .pagination{
 	@include border-radius(3px);

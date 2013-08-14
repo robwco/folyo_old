@@ -15,29 +15,39 @@
 		// display: table;
 		width: 100%;
 		padding:0;
-		position: fixed;
-		z-index: 1;
-		top:0;
+		@include medium{
+			position: fixed;
+			z-index: 1;
+			top:0;
+		}
 	}
 	.top{
 		background: none;
 	}
 	.hero{
-		display: table;
-		position: fixed;
-		height:100%;
-		width: 100%;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		.container{
-			display: table-cell;
-			vertical-align: middle;
-			text-align: center;
+		@include medium{
+			display: table;
+			position: fixed;
+			height:100%;
+			width: 100%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			.container{
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+			}
+		}
+		@include small{
+			padding-bottom:40px;
 		}
 		.button{
 			margin-top: 20px;
+			@include small{
+				display:none;
+			}
 			display: inline-block;
 			background: black(0.2);
 			&:hover{
@@ -47,7 +57,9 @@
 	}
 	.secondary{
 		background:white;
-		margin-top:100vh;
+		@include medium{
+			margin-top:100vh;
+		}
 	}
 	.meet-designers{
 		background:$lightgrey7;
