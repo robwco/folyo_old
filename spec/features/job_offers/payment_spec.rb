@@ -15,7 +15,7 @@ feature 'Paying a job offer', devise: true do
       login_as client
       EXPRESS_GATEWAY.should_receive(:setup_purchase).and_return(OpenStruct.new(token: express_token))
       EXPRESS_GATEWAY.should_receive(:redirect_url_for).and_return(confirm_url)
-      EXPRESS_GATEWAY.should_receive(:details_for).any_number_of_times.with(express_token).and_return(OpenStruct.new(payer_id: rand, params: {'PayerInfo' => {'Payer' => rand}, 'OrderTotal' => rand}))
+      EXPRESS_GATEWAY.stub(:details_for).with(express_token).and_return(OpenStruct.new(payer_id: rand, params: {'PayerInfo' => {'Payer' => rand}, 'OrderTotal' => rand}))
       EXPRESS_GATEWAY.should_receive(:purchase).and_return(OpenStruct.new(success?: true, params: {transaction_id: rand}))
     end
 

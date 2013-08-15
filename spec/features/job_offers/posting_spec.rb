@@ -155,7 +155,7 @@ feature 'Posting a job offer', devise: true do
   end
 
   def assert_page_title(title)
-    find('.title h1').should have_content(title)
+    find('h1.title').should have_content(title)
   end
 
   def assert_active_wizard_item(title)

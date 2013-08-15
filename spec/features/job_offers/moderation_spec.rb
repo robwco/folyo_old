@@ -87,11 +87,11 @@ feature 'Moderate a job offer', devise: true do
   end
 
   def assert_page_title(title)
-    find('.title h1').should have_content(title)
+    find('h1.title').should have_content(title)
   end
 
   def assert_active_nav_item(title)
-    find('#subnav li a.current').should have_content(title)
+    find('.subnav li a.current').should have_content(title)
   end
 
   def assert_offer_count(count)
