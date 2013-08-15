@@ -34,6 +34,12 @@ class Designer < User
 
   field :designer_pg_id # id of the designer in postgresql. Will be removed someday
 
+  attr_accessor :skip_validation
+
+  with_options(unless: ->(d) { d.skip_validation }) do |d|
+    d.validates_length_of :long_bio, maximum: 750
+  end
+
   ## relations ##
   has_many :posts, class_name: 'DesignerPost'
 

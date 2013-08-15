@@ -14,7 +14,7 @@ head ->
     if ($.browser.mozilla)
       $("body").removeClass("js-animate")
 
-    epiceditor_options = { button: { fullscreen: false }, clientSideStorage: false }
+    epiceditor_options = { button: { fullscreen: false }, clientSideStorage: false, autoGrow: true }
 
     $(".markdown > textarea").each (i, item) ->
       $(item).hide()
@@ -152,5 +152,5 @@ head ->
       $(this).addClass "animate"
     ),
     offset: "60%"
-    
+
     $.localScroll()

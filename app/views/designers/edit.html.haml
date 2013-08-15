@@ -23,7 +23,7 @@
   = content_for :sidebar do
     = link_to 'Convert to Markdown', to_markdown_admin_designer_path(@designer), class: 'button big-button', method: 'put'
 
-= simple_form_for @designer, url: designer_path(@designer) do |f|
+= simple_form_for @designer, as: 'designer', url: designer_path(@designer) do |f|
 
   = content_for :error_messages do
     = error_messages(@designer)
@@ -40,7 +40,7 @@
   .section
     %h3 About You
     = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :wrapper_html=> {:class => "limit limit-80"}
-    = f.input :long_bio, :as => :text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :wrapper_html => {:class => textarea_type(@designer)}
+    = f.input :long_bio, :as => :limited_text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :wrapper_html => {:class => textarea_type(@designer)}
     = f.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
     = f.input :coordinates, :as => :hidden
   .section

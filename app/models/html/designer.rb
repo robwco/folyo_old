@@ -8,6 +8,7 @@ class Html::Designer < ::Designer
 
   def to_markdown!
     self._type = 'Designer'
+    self.skip_validation = true
     self.long_bio = ReverseMarkdown.parse(self.long_bio)
     save!
   end

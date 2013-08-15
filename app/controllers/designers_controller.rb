@@ -3,6 +3,7 @@ class DesignersController < ApplicationController
   inherit_resources
   load_and_authorize_resource except: :show_by_pg_id
 
+  before_filter :convert_to_markdown, only: [:edit, :reapply]
   before_filter :set_section
 
   def show_by_pg_id
@@ -38,6 +39,14 @@ class DesignersController < ApplicationController
   end
 
   protected
+
+  def convert_to_markdown
+    if @designer.is_a?(Html::Designer)
+      @designer.to_markdown!
+      redirect_to reapply_designer_path(@designer)
+      false
+    end
+  end
 
   def collection
     @designers = Designer.page(params[:page]).per(10).ordered_by_status
