@@ -2,6 +2,8 @@
 
 class JobOffer
 
+  PRICE = 150
+
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
@@ -76,11 +78,11 @@ class JobOffer
   end
 
   def price
-    10000
+    PRICE * 1000
   end
 
   def display_price
-    "$#{price / 100}"
+    "$#{PRICE}"
   end
 
   ## validations ##

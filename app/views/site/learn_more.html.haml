@@ -9,7 +9,7 @@
 			%p Post a project, and we'll send it to every Folyo designer as part of our weekly newsletter. Designers who are interested in your project will then get in touch with you directly.
 			.cta
 				= link_to 'Get Started', new_user_with_role_path(initial_role: 'client'), class: 'button big-button'
-				%span.price $100 per project
+				%span.price $#{JobOffer::PRICE} per project
 		.guarantee
 			%h5.money-back Money back guarantee
 			%p.small If you can't find a designer through Folyo, we'll refund the fee, no questions asked!
@@ -34,7 +34,7 @@
 				%p You submit your project
 		%li.node
 			.item.pay-fee
-				%p You pay the $100 fee
+				%p You pay the $#{JobOffer::PRICE} fee
 		%li.node
 			.item.send-project
 				%p We send your project to designers
@@ -87,10 +87,10 @@
 	%h2
 		%span FAQ
 	.question
-		%h4 $100 to get a new logo? <br/> That's great!
-		%p Sorry, the $100 fee is only for helping you find a designer. This does not cover the actual work done by the designer (nor do we take a commission on that work).
+		%h4 $#{JobOffer::PRICE} to get a new logo? <br/> That's great!
+		%p Sorry, the $#{JobOffer::PRICE} fee is only for helping you find a designer. This does not cover the actual work done by the designer (nor do we take a commission on that work).
 	.question
-		%h4 $100 to find a designer? <br/> That's expensive!
+		%h4 $#{JobOffer::PRICE} to find a designer? <br/> That's expensive!
 		%p If you consider a startup founder's time is <a href="http://blog.asmartbear.com/value-time.html" target="_blank">worth $1000/hour</a>, it's actually pretty cheap! Plus, we will refund you the full fee if your search is not successful.
 	.question
 		%h4 Can you recommend a good designer?
@@ -100,6 +100,6 @@
 		%h2 Post a job offer now and find the perfect designer:
 	.cta
 		%a{:href => url_for(new_user_with_role_path(:initial_role => 'client'))+"/job", :class => "button big-button"} Get Started
-		.price.small $100 per project
+		.price.small $#{JobOffer::PRICE} per project
 .block.not-ready
 	%p Not ready to post a job? You can still #{link_to "sign up for free", url_for(new_user_with_role_path(:initial_role => 'client'))} to access more Folyo features and see which designers are actively looking for new projects.
