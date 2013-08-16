@@ -89,8 +89,8 @@ class JobOffer
   with_options(unless: ->(o) { o.skip_validation }) do |o|
     o.validates_presence_of     :title
     o.validates_presence_of     :company_name, :company_description, :project_summary, :project_details, :coding
-    o.validates_length_of       :project_summary, maximum: 200
-    o.validates_length_of       :project_details, maximum: 400
+    o.validates_length_of       :project_summary, maximum: 200, tokenizer: lambda { |str| str.scan(/./) }
+    o.validates_length_of       :project_details, maximum: 400, tokenizer: lambda { |str| str.scan(/./) }
     o.validates_presence_of     :review_comment,  if: 'self.status == :rejected'
     o.validates_numericality_of :compensation,  allow_nil: true
     o.validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true

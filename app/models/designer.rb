@@ -37,7 +37,7 @@ class Designer < User
   attr_accessor :skip_validation
 
   with_options(unless: ->(d) { d.skip_validation }) do |d|
-    d.validates_length_of :long_bio, maximum: 750
+    d.validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
   end
 
   ## relations ##
