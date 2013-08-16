@@ -6,8 +6,6 @@
 = content_for :profile_type_hint do
 	<strong>Public:</strong> anybody can see your profile (and <a href="http://twitter.com/YoFolyo">we'll tweet</a> that you signed up).</br><strong>Private:</strong> only registered clients can see your profile.</br><strong>Hidden:</strong> nobody can see your profile (unless you reply to them directly)
 
-%p.note
-	Folyo aims to feature only the best designers. You're welcome to apply no matter your experience, just know that you may not be accepted on the first try.
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "new-designer-form"}) do |f|
 	.section
 		%h3 Your Account
@@ -35,7 +33,5 @@
 		= f.input :twitter_username, :required => false, :hint => "Enter your Twitter username if you want a link to your profile to be tweeted out when you're accepted (public profiles only)"
 		= f.submit "Apply to join Folyo", :class => "button big-button"
 
-= content_for :sidebar do
-	.notices
-		.notice
-			%p <strong>Do not apply</strong> if you do not have a <strong>portfolio</strong> or showcase of your work. You will not be accepted.
+/ = content_for :sidebar do
+/ 	%p Folyo aims to feature only the best designers. You're welcome to apply no matter your experience, just know that you may not be accepted on the first try.
