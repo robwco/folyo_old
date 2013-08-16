@@ -1,8 +1,9 @@
 .home{
 	section{
-		padding:40px 0;
+		padding:60px 0;
 		z-index: 5;
 		position: relative;
+		background: white;
 	}
 	header{
 		z-index:10;
@@ -84,7 +85,10 @@
 	.try{
 		background:white;
 	}
-
+	.footer{
+		padding-top:20px;
+		background-color:$darkerBlue;		
+	}
 
 
 	.illustration{
@@ -120,7 +124,7 @@
 			@include span-columns(8 omega);
 			@include squish(2,2);
 		}
-		*:last-child{
+		&:last-child, *:last-child{
 			margin-bottom:0;
 		}
 	}
@@ -257,8 +261,35 @@
 			max-width: 282px;
 		}
 	}
+	.past-clients{
+		background:$lightgrey7;
+	}
+	.clients{
+		@include medium{
+			@include span-columns(12);
+		}
+		.client{
+			@include small{
+				margin-bottom: 40px
+			}
+			@include medium{
+				float:left;
+				width:20%;
+			}
 
-
+			a{
+				display: block;	
+				margin:0 auto;
+				position: relative;
+				max-width: 150px;
+				width: 80%;
+			}
+			img{
+				display: block;
+				width: 100%;
+			}
+		}
+	}
 	.inverted{
 		color:white(0.5);
 		h2{
