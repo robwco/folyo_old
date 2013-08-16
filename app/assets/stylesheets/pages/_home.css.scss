@@ -86,6 +86,7 @@
 		background:white;
 	}
 	.footer{
+		padding-top:20px;
 		background-color:$darkerBlue;		
 	}
 
@@ -123,7 +124,7 @@
 			@include span-columns(8 omega);
 			@include squish(2,2);
 		}
-		*:last-child{
+		&:last-child, *:last-child{
 			margin-bottom:0;
 		}
 	}
