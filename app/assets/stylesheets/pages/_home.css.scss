@@ -1,8 +1,9 @@
 .home{
 	section{
-		padding:40px 0;
+		padding:60px 0;
 		z-index: 5;
 		position: relative;
+		background: white;
 	}
 	header{
 		z-index:10;
@@ -84,7 +85,9 @@
 	.try{
 		background:white;
 	}
-
+	.footer{
+		background-color:$darkerBlue;		
+	}
 
 
 	.illustration{
@@ -257,8 +260,34 @@
 			max-width: 282px;
 		}
 	}
+	.past-clients{
+		background:$lightgrey7;
+	}
+	.clients{
+		@include medium{
+			@include span-columns(12);
+		}
+		.client{
+			@include small{
+				margin-bottom: 40px
+			}
+			@include medium{
+				@include span-columns(3);
+				@include nth-omega(4, of-type);
+			}
 
-
+			a{
+				display: block;	
+				margin:0 auto;
+				position: relative;
+				max-width: 150px;
+			}
+			img{
+				display: block;
+				width: 100%;
+			}
+		}
+	}
 	.inverted{
 		color:white(0.5);
 		h2{
