@@ -78,7 +78,7 @@ class JobOffer
   end
 
   def price
-    PRICE * 1000
+    PRICE * 100
   end
 
   def display_price
