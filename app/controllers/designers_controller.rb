@@ -3,7 +3,6 @@ class DesignersController < ApplicationController
   inherit_resources
   load_and_authorize_resource except: :show_by_pg_id
 
-  before_filter :convert_to_markdown, only: [:edit, :reapply]
   before_filter :set_section
 
   def show_by_pg_id
@@ -27,11 +26,17 @@ class DesignersController < ApplicationController
     @designers = Designer.accepted.public_only
   end
 
+  def edit
+    convert_to_markdown_and_redirect_to(edit_designer_path(@designer))
+  end
+
   def update
     update! { edit_designer_path(@designer) }
   end
 
   def reapply
+    redirect_to edit_designer_path(@designer) and return if @designer.status != :rejected
+    convert_to_markdown_and_redirect_to(reapply_designer_path(@designer))
     @designer.status = :pending
     @reapplying = true
     @submit_label = 'Reapply'
@@ -40,11 +45,10 @@ class DesignersController < ApplicationController
 
   protected
 
-  def convert_to_markdown
+  def convert_to_markdown_and_redirect_to(path)
     if @designer.is_a?(Html::Designer)
       @designer.to_markdown!
-      redirect_to reapply_designer_path(@designer)
-      false
+      redirect_to(path)
     end
   end
 
