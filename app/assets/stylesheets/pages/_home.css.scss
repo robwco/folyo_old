@@ -111,6 +111,9 @@
 		font-size:28px;
 		font-weight:bold();
 	}
+	.first-heading{
+		font-size: 48px;
+	}
 	p{
 		font-size:18px;
 		text-align: center;
@@ -303,6 +306,35 @@
 			&:hover{
 				color:$green;
 			}
+		}
+	}	
+	.guides{
+		@include medium{
+			@include span-columns(10 omega);
+			@include squish(1,1);
+		}
+		text-align: center;
+		.more{
+				@include medium{
+					@include span-columns(10 omega, 10);
+				}
+		}
+	}
+	.guide{
+		@include medium{
+			@include span-columns(5, 10);
+			@include nth-omega(2n, of-type);
+		}
+		background: $lightgrey7;
+		padding: 40px;
+		@include border-radius(5px);
+		margin-bottom: $mbottom;
+		h3{
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+		p{
+			font-size: 16px;
 		}
 	}	
 }

@@ -19,6 +19,8 @@ $column-width   : 40px;
 $gutter-width   : 40px;
 $grid-padding   : 0px;
 
+$mbottom: 40px;
+
 .container{
 	@include container;
 	@include small{
