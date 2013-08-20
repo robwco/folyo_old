@@ -27,7 +27,11 @@ class DesignersController < ApplicationController
   end
 
   def edit
-    convert_to_markdown_and_redirect_to(edit_designer_path(@designer))
+    if @designer.is_a?(Html::Designer)
+      @designer.to_markdown!
+      redirect_to(edit_designer_path(@designer))
+      return
+    end
   end
 
   def update
@@ -35,8 +39,15 @@ class DesignersController < ApplicationController
   end
 
   def reapply
-    redirect_to edit_designer_path(@designer) and return if @designer.status != :rejected
-    convert_to_markdown_and_redirect_to(reapply_designer_path(@designer))
+    if @designer.status != :rejected
+      redirect_to edit_designer_path(@designer)
+      return
+    end
+    if @designer.is_a?(Html::Designer)
+      @designer.to_markdown!
+      redirect_to(reapply_designer_path(@designer))
+      return
+    end
     @designer.status = :pending
     @reapplying = true
     @submit_label = 'Reapply'
@@ -44,13 +55,6 @@ class DesignersController < ApplicationController
   end
 
   protected
-
-  def convert_to_markdown_and_redirect_to(path)
-    if @designer.is_a?(Html::Designer)
-      @designer.to_markdown!
-      redirect_to(path)
-    end
-  end
 
   def collection
     @designers = Designer.page(params[:page]).per(10).ordered_by_status
