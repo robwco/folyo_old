@@ -48,6 +48,7 @@
     = f.input :portfolio_url
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, value_method: :to_sym
     = f.input :featured_shot_id, label: 'Featured shot ID', hint: yield(:featured_shot_hint)
+
   .section
     %h3 Social Media
     = f.input :twitter_username, :required => false

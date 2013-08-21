@@ -2,7 +2,8 @@ class Designer < User
 
   trackable :email, :full_name, :role, :created_at
 
-  has_many :posts, class_name: 'DesignerPost', dependent: :destroy
+  has_many :posts,    class_name: 'DesignerPost',    dependent: :destroy
+  has_many :projects, class_name: 'DesignerProject', dependent: :destroy
 
   field :status,                  type: Symbol, default: :pending
   field :profile_type,            type: Symbol, default: :public
@@ -26,7 +27,8 @@ class Designer < User
 
   field :featured_shot_id,        type: String
   field :featured_shot_url,       type: String
-  field :featured_shot_image_url, type: String
+
+  field :uploaded_photo
 
   field :skills,                  type: Array, default: []
 
@@ -35,6 +37,7 @@ class Designer < User
   field :designer_pg_id # id of the designer in postgresql. Will be removed someday
 
   attr_accessor :skip_validation
+  alias_method  :designer_projects, :projects
 
   with_options(unless: ->(d) { d.skip_validation }) do |d|
     d.validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }

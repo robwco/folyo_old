@@ -1,0 +1,13 @@
+= content_for :title, "Add a new portfolio project"
+
+.block
+  %p.note Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli?
+
+= simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project) do |f|
+  = f.input :name
+  = f.submit "Save project", class: 'button big-button'
+
+= s3_uploader_form id: 's3-uploader', callback_url: designer_project_path(@designer, @designer_project, format: :js), callback_method: 'PUT', callback_param: "designer_project[direct_upload_url]" do
+  = file_field_tag :file, multiple: false
+
+

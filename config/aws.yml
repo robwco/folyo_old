@@ -1,0 +1,20 @@
+defaults: &defaults
+  access_key_id: "AKIAICWW5L2JFBXZBRZA"
+  secret_access_key: "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"
+
+development:
+  <<: *defaults
+  bucket: "folyo-development"
+
+test:
+  <<: *defaults
+  bucket: "folyo-test"
+
+staging:
+  <<: *defaults
+  bucket: "folyo-staging"
+
+production:
+  <<: *defaults
+  bucket: "folyo-production"
+  bucket: "myapp"

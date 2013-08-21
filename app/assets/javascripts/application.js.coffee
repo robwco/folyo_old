@@ -3,6 +3,7 @@
 #= require map
 #= require wysiwyg
 #= require epiceditor
+#= require s3_direct_upload
 
 #= require_self
 
@@ -45,6 +46,10 @@ head ->
       $input?.on 'blur',     -> $(".inline-hints").removeClass('in-focus')
       epiceditor?.on 'blur', -> $(".inline-hints").removeClass('in-focus')
 
+    $('#s3-uploader').S3Uploader()
+
+    #$('#s3-uploader').on 's3_upload_failed', (e, content) ->
+    #  console.log("#{content.filename} failed to upload")
 
     $(".mailchimp-text").focus ->
       $this = $(this)

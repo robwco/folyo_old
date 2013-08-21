@@ -35,6 +35,12 @@ gem 'kaminari'
 gem 'redcarpet'
 gem 'chronic_duration'
 
+# Upload
+gem 'aws-sdk' # S3 API
+gem 'paperclip' # file attachment syntax and callbacks
+gem 'mongoid-paperclip', :require => "mongoid_paperclip"
+gem 's3_direct_upload' # direct upload form helper and assets
+
 # Monitoring
 gem 'airbrake'
 gem 'newrelic_rpm'
