@@ -39,13 +39,17 @@ a{
 }
 
 b, strong{
-	font-weight:bold;
+	font-weight:bold();
+	color: $darkerText;
 }
 i, em{
 	font-style:italic;
 }
 p{
 	margin-bottom:15px;
+}
+p.big{
+	font-size: 24px;
 }
 a{
 	color:$blue1;
@@ -648,34 +652,7 @@ ul.offer-list{
 		}
 	}
 }
-.testimonials{
-	.testimonial{
-		margin-bottom:20px;
-	}
-	.logo{
-		display:block;
-		margin-bottom:5px;
-		img{
-			display:block;
-			margin:0 auto;
-		}
-	}
-	q{
-		display:block;
-		font-size:14px;
-		padding:10px;
-		background:$lightgrey2;
-		margin-bottom:5px;
-		@include border-radius(3px);
-	}
-	cite{
-		text-align:right;
-		display:block;
-		font-style:italic;
-		color:$darkgrey2;
-		font-size:14px;
-	}
-}
+
 .cta{
 	padding-top:8px;
 	.post-offer{

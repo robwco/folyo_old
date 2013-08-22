@@ -139,11 +139,23 @@
 				%a.button{:href => '/guides/how_to_write_a_good_job_description'} Read Now
 			.more
 				%a{:href => '/guides'} More Folyo guides…
-%section.past-clients.home-content
+%section.testimonials.home-content
 	.container
 		.block
-			%h2 Who's using Folyo?
-			%p Here are a few of the companies who have found a designer through Folyo:
+			.testimonial
+				%h2 A testimonial from a Folyo user:
+				%blockquote
+					%p.big “Folyo has been an incredibly useful service, <strong>literally saving us days of work</strong>.”
+					%p “We had spent several days looking for a great designer with a track record on Blackberry devices when we found Folyo. <strong>In two days we had a dozen offers and quotes from experienced designers</strong>.”
+					%p “The biggest pain point in our search was finding a designer with experience who was available in our project's timeframe, and that's where Folyo stood out.”
+				%cite 
+					Antoine Martin, 
+					%a.testimonial-logo{:href => 'http://www.alert.us/'}
+						%img{:src => '/assets/logos/alertus.png', :style => 'top:4px;'}
+			%hr
+		.block
+			%h2 Who else is using Folyo?
+			%p Here are some of the companies who found a designer through Folyo:
 		.clients
 			.client
 				%a{:href => 'http://www.learnupon.com/', :style => 'margin-top:50px;'}
@@ -154,9 +166,6 @@
 			.client
 				%a{:href => 'http://www.familyleaf.com/', :style => 'margin-top:5px;'}
 					%img{:src => '/assets/logos/familyleaf.png'}
-			.client
-				%a{:href => 'http://www.alert.us/'}
-					%img{:src => '/assets/logos/alertus.png', :style => 'margin-top:47px;'}
 			.client
 				%a{:href => 'https://airbrake.io/'}
 					%img{:src => '/assets/logos/airbrake.png', :style => 'margin-top:47px;'}			
