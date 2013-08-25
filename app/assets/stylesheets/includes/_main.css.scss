@@ -969,3 +969,20 @@ h2.pending a{
 		margin-bottom:20px;
 	}
 }
+.sidebar{
+	.stats{
+		text-align: center;
+		h3{
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		h4{
+			font-size: 36px;
+			margin-bottom: 0;
+			line-height: 1.3;
+		}
+		p{
+			margin-bottom: 20px;
+		}
+	}
+}

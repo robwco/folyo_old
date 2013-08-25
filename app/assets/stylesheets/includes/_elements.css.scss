@@ -562,8 +562,9 @@ ul.offer-list{
 			background:image-url('ajax-loader.gif') no-repeat center center;
 
 			display:block;
-			width:192px;
-			min-height:150px;
+			width:100%;
+			max-width: 300px;
+			// min-height:150px;
 		}
 	}
 	.caption{
