@@ -86,6 +86,12 @@
 	.how-it-works{
 		background-color:$darkerBlue;
 		overflow-x:hidden;
+		.step{
+			text-align: center;
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-weight: normal();
+		}
 	}
 	.try{
 		background:white;
@@ -139,9 +145,8 @@
 	.subtitle{
 		text-align:center;
 		color:$green;
-		text-transform:uppercase;
 		text-shadow:0px 1px 2px black(0.25);
-		font-style:normal;
+		font-style:italic;
 		margin-bottom:20px;
 		font-size:20px;
 	}
@@ -239,6 +244,8 @@
 				li{
 					@include span-columns(3, 9);
 					@include nth-omega(3n, of-type);
+					font-size: 18px;
+					font-weight: bold();
 				}
 			}
 		}
@@ -284,7 +291,10 @@
 				font-size: 16px;
 			}
 			.big{
-				font-size: 24px;
+				font-size: 26px;
+				strong{
+					color: $green;
+				}
 			}
 			&:after {
 				top: 100%;
@@ -352,8 +362,12 @@
 	.inverted{
 		color:white(0.5);
 		h2{
+			// color:white;
+			// text-shadow:0px 3px 7px black(0.35);
+		}
+		h3{
 			color:white;
-			text-shadow:0px 3px 7px black(0.35);
+			text-shadow:0px 3px 7px black(0.35);		
 		}
 		a{
 			&, &:link, &:active, &:visited{

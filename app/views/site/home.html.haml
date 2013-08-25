@@ -49,7 +49,7 @@
 %section.meet-designers.home-content
 	.container
 		.block
-			%h2 Here's why Folyo designers can be trusted
+			%h2 Designers you can trust
 			%p.intro Each designer's application to Folyo is individually reviewed, and about <strong>70%</strong> of applications are rejected. Here is a small sample of the community's 600 designers:
 		.designers
 			.designer
@@ -82,10 +82,10 @@
 					%a.name{:href => "http://creativeda.sh/"} Dash Ponce de Leon
 				.location San Francisco
 				.bio Dash is well-known for his pixel-perfect user interfaces and amazingly realistic icons.
-		.skills
+		.block.skills
 			%h2 The right skill for the right job
 			%p.intro Folyo designers' expertise spans across multiple skillsets, including:
-			%ul.skills-list
+			%ul
 				%li.web-design Web design
 				%li.ui-design UI design
 				%li.icon-design Icon design
@@ -99,13 +99,15 @@
 
 %section.how-it-works.inverted.home-content
 	.container
-		%h3.subtitle How It Works
-		%h2.step.title-1.waypoint Just post your project:
+		%h2 Here's how Folyo works:
+		%h3.step.title-1.waypoint Companies post their project details…
 		.message.message-company.message-1.waypoint.bounceIn
-			.avatar.avatar-company You
-			.contents Our service lets people rate and compare widgets. We're looking for a great designer to help us redesign our iPhone app. Our budget is $3000, and if things go well we might have more work for you in the future. 
+			.avatar.avatar-company
+				%img{:src => '/assets/avatar.png'}
+				%span.name John C. Client
+			.contents Hi! Our product, WidgetFindr, lets people rate and compare widgets. We're looking for a great designer to help us redesign our iPhone app. Our budget is $3000, and if things go well we might have more work for you in the future. 
 
-		%h2.step.title-2.waypoint And watch the replies roll in:
+		%h3.step.title-2.waypoint …then receive designer replies:
 		.message.message-designer.message-2.waypoint
 			%a.avatar{:href => 'http://lefft.com/'}
 				%img{:src => '/assets/photos/paddy.jpg'}
@@ -143,7 +145,7 @@
 	.container
 		.block
 			.testimonial
-				%h2 A testimonial from a Folyo user:
+				/ %h2 A testimonial from a Folyo user:
 				%blockquote
 					%p.big “Folyo has been an incredibly useful service, <strong>literally saving us days of work</strong>.”
 					%p “We had spent several days looking for a great designer with a track record on Blackberry devices when we found Folyo. <strong>In two days we had a dozen offers and quotes from experienced designers</strong>.”
@@ -173,8 +175,8 @@
 	.container
 		.block
 			%h2 Try Folyo risk-free with our 120% money-back guarantee
-			%p If you can't find a designer, we'll refund you completely <em>and</em> give you a 20% discount on next time!
-			%p And unlike most other find-a-designer sites, we only charge a <strong>one-time fee</strong>, we don't take a percentage of the project budget.
+			%p Posting a project on Folyo costs $150. If you can't find a designer, we'll refund you completely <em>and</em> give you a 20% discount on next time!
+			/ %p (And unlike most other find-a-designer sites, we only charge a <strong>one-time fee</strong>, we don't take a percentage of the project budget.)
 
 		.block
 			/ %h2 Get started now
