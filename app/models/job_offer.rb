@@ -108,7 +108,7 @@ class JobOffer
 
   ## scopes ##
   # TODO: still need to put null values at the end
-  scope :ordered, order_by(refunded_at: :desc, archived_at: :desc, paid_at: :desc, approved_at: :desc, created_at: :desc)
+  scope :ordered, order_by(refunded_at: :desc, archived_at: :desc, approved_at: :desc, paid_at: :desc, created_at: :desc)
   scope :ordered_by_status, order_by(status: :asc)
 
   scope :initialized,            where(status: :initialized)
