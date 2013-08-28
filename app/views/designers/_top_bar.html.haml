@@ -5,11 +5,11 @@
 		%nav.nav
 			%ul
 				%li= section_link_to "Job Offers", offers_path, :job_offers
-				%li= section_link_to "All Designers", designers_path, :designers
-				%li
-				- if current_user.accepted?
-					%li
-						= section_link_to "I'm Available", posts_path, :designer_posts
+				/ %li= section_link_to "All Designers", designers_path, :designers
+				/ %li
+				/ - if current_user.accepted?
+				/ 	%li
+				/ 		= section_link_to "I'm Available", posts_path, :designer_posts
 				%li
 					= section_link_to "My Account", edit_designer_path(current_user), :account
 				%li.sign-out
