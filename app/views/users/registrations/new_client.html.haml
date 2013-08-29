@@ -20,6 +20,17 @@
 		= f.input :full_name, required: true
 		= f.input :email, required: true
 		= f.input :password, :as => :password, required: true
-		= f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
+		= f.input :referrer, :label => "How did you hear about Folyo? (optional)", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
 
 	= f.submit "Sign Up", :class => "button big-button"
+
+
+= content_for :sidebar do
+	.stats
+		%h3 A Few Statistics
+		%h4 619
+		%p The number of designers on Folyo.
+		%h4 22
+		%p Average number of replies per project. 
+		%h4 5 hours
+		%p Average time before the first reply.  

@@ -7,4 +7,4 @@
 				/ %li= section_link_to 'Browse Designers', designers_path, :designers
 				%li= current_link_to 'Apply as a Designer', '/apply'
 				%li= current_link_to 'Log In', '/sign_in'
-				%li.post-job= section_link_to 'Post a Job', new_user_with_role_path(initial_role: 'client'), :post_job
+				%li.post-job= section_link_to 'Find a Designer', new_user_with_role_path(initial_role: 'client'), :post_job
