@@ -51,6 +51,8 @@ head ->
         if file.size > 2 * 1024 * 1024 # 2MB
           alert("File is too big")
           false
+        else
+          true
 
     $(".mailchimp-text").focus ->
       $this = $(this)

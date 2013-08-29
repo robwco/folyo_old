@@ -2,6 +2,10 @@
 = content_for :mainaction do
   = link_to 'Add a project', new_designer_project_path(@designer), class: 'button big-button'
 
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render :partial => '/designers/account_nav'
+
 .block
   %h3 What's this?
   %p Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli?
