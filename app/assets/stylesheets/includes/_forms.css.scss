@@ -1,7 +1,7 @@
 form{
 	list-style-type:none;
 	*{
-		@include box-sizing(border-box); 
+		@include box-sizing(border-box);
 	}
 	.input{
 		margin-bottom:40px;
@@ -123,7 +123,7 @@ label{
 		background:#efefef;
 	}
 	@include medium{
-		
+
 		min-width:300px;
 		position:absolute;
 		left:100%;
@@ -216,4 +216,9 @@ li.loading{
 	&.exceeded {
 		color: $red1;
 	}
+
+}
+
+form#s3-uploader {
+	margin-bottom: 30px;
 }

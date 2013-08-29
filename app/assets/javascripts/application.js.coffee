@@ -46,10 +46,11 @@ head ->
       $input?.on 'blur',     -> $(".inline-hints").removeClass('in-focus')
       epiceditor?.on 'blur', -> $(".inline-hints").removeClass('in-focus')
 
-    $('#s3-uploader').S3Uploader()
-
-    #$('#s3-uploader').on 's3_upload_failed', (e, content) ->
-    #  console.log("#{content.filename} failed to upload")
+    $('#s3-uploader').S3Uploader
+      before_add: (file) ->
+        if file.size > 2 * 1024 * 1024 # 2MB
+          alert("File is too big")
+          false
 
     $(".mailchimp-text").focus ->
       $this = $(this)

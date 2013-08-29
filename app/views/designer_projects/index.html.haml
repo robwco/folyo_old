@@ -12,4 +12,4 @@
     %ul
       - @designer_projects.each do |p|
         %li
-          %h4= p.name
+          %h4= link_to p.name || 'Untitled', edit_designer_project_path(p.designer, p)
