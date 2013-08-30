@@ -1,4 +1,6 @@
 = content_for :title, "Add a new portfolio project"
+= content_for :subnav do
+  = render :partial => '/designers/account_nav'
 
 .block
   %p.note Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli?
@@ -7,6 +9,7 @@
   = f.input :name
 
 %label= 'Artwork (up to 2MB)'
+= @designer_project.artwork.url(:small)
 - if @designer_project.artwork.exists?
   = image_tag @designer_project.artwork.url(:small)
 = s3_uploader_form id: 's3-uploader', callback_url: designer_project_path(@designer, @designer_project, format: :js), callback_method: 'PUT', callback_param: "designer_project[direct_upload_url]", max_file_size: 2.megabytes do
