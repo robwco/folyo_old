@@ -41,7 +41,23 @@ class Admin::JobOffersController < Admin::BaseController
     @job_offers ||= JobOffer.page(params[:page]).per(10).ordered.paid
   end
 
-  def active
+  def waiting_for_submission
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_submission
+  end
+
+  def waiting_for_payment
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_payment
+  end
+
+  def waiting_for_review
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_review
+  end
+
+  def rejected
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.rejected
+  end
+
+  def accepted
     @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted_or_sent
   end
 

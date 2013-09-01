@@ -45,14 +45,17 @@ Folyo::Application.routes.draw do
       resource :order do
         put 'refund'
       end
-      get 'active',           on: :collection
-      get 'archived',         on: :collection
-      get 'rejected',         on: :collection
-      get 'refunded',         on: :collection
-      get 'newsletter_setup', on: :collection
-      put 'accept',           on: :member
-      put 'reject',           on: :member
-      put 'to_markdown',      on: :member
+      get 'waiting_for_submission',     on: :collection
+      get 'waiting_for_payment',        on: :collection
+      get 'waiting_for_review',         on: :collection
+      get 'rejected',                   on: :collection
+      get 'accepted',                   on: :collection
+      get 'archived',                   on: :collection
+      get 'refunded',                   on: :collection
+      get 'newsletter_setup',           on: :collection
+      put 'accept',                     on: :member
+      put 'reject',                     on: :member
+      put 'to_markdown',                on: :member
     end
     resource :dashboard, controller: 'Dashboard'
   end
