@@ -2,6 +2,9 @@
 .subnav
 	%ul
 		%li
+			= current_link_to 'All Job Offers', admin_offers_path
+			%span.count=JobOffer.count
+		%li
 			= current_link_to 'Waiting for Submission', waiting_for_submission_admin_offers_path
 			%span.count=JobOffer.waiting_for_submission.count
 		%li
