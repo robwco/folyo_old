@@ -12,10 +12,7 @@ class DesignerProjectsController < ApplicationController
   end
 
   def update
-    update! do |format|
-      format.html { redirect_to edit_designer_project_path(@designer, @designer_project)}
-      format.js { render text: 'ok' }
-    end
+    update! { edit_designer_project_path(@designer, @designer_project)}
   end
 
   protected

@@ -5,12 +5,16 @@
 
 = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project) do |f|
   = f.input :name
+  = f.input :description, as: :limited_text, wrapper_html: {class: 'markdown'}
+  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Involved skills', label_method: sym_label_method, value_method: :to_sym
+  = f.submit value: 'Save project', class: 'button big-button'
 
-%label= 'Artwork (up to 2MB)'
-- if @designer_project.artwork.exists?
-  = image_tag @designer_project.artwork.url(:small)
-= s3_uploader_form id: 's3-uploader', callback_url: designer_project_path(@designer, @designer_project, format: :js), callback_method: 'PUT', callback_param: "designer_project[direct_upload_url]", max_file_size: 2.megabytes do
-  = file_field_tag :file, multiple: false
+%label= 'Artworks (up to 2MB)'
+= s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :js), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
+  = file_field_tag :file, multiple: true
+
+- @designer_project.artworks.processed.each do |artwork|
+  = image_tag artwork.asset.url(:small)
 
 %script#template-upload{type: "text/x-tmpl"}
   .upload{id: "file-{%=o.unique_id%}"}
@@ -18,12 +22,10 @@
     .progress
       .bar{style: "width: 0%"}
 
-%input.button.big-button#delegate-submit-btn{type: 'submit', value: 'Save project'}
-
 :coffeescript
   head ->
     $ ->
-      $('#delegate-submit-btn').on 'click', -> $('form.edit_designer_project').submit()
+      #$('#delegate-submit-btn').on 'click', -> $('form.edit_designer_project').submit()
 
 
 
