@@ -1,0 +1,4 @@
+.artworks
+  .spinner.hidden
+  - project.artworks.processed.each do |artwork|
+    = image_tag artwork.asset.url(:small)

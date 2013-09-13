@@ -2,32 +2,29 @@
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
-.block
-  %p.note Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli?
+.designer-project
+  .block
+    %p.note Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli?
 
-= simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project) do |f|
-  = f.input :name
-  = f.input :description, as: :limited_text, wrapper_html: {class: 'markdown'}
-  = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Involved skills', label_method: sym_label_method, value_method: :to_sym
-  = f.submit value: 'Save project', class: 'button big-button'
+  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project) do |f|
+    = f.input :name
+    = f.input :description, as: :limited_text, wrapper_html: {class: 'markdown'}
+    = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Involved skills', label_method: sym_label_method, value_method: :to_sym
+    = f.submit value: 'Save project', class: 'button big-button'
 
-%label= 'Artworks (up to 2MB)'
-= s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
-  = file_field_tag :file, multiple: true
+  %label= 'Artworks (up to 2MB)'
+  = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
+    = file_field_tag :file, multiple: true
 
-- @designer_project.artworks.processed.each do |artwork|
-  = image_tag artwork.asset.url(:small)
+  = render 'artworks', project: @designer_project
 
-%script#template-upload{type: "text/x-tmpl"}
-  .upload{id: "file-{%=o.unique_id%}"}
-    = "{%=o.name%}"
-    .progress
-      .bar{style: "width: 0%"}
+  %script#template-upload{type: "text/x-tmpl"}
+    .upload{id: "file-{%=o.unique_id%}"}
+      = "{%=o.name%}"
+      .progress
+        .bar{style: "width: 0%"}
 
-:coffeescript
-  head ->
-    $ ->
-      #$('#delegate-submit-btn').on 'click', -> $('form.edit_designer_project').submit()
+
 
 
 

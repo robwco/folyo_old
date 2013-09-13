@@ -20,9 +20,6 @@ page_load = ->
 
 head ->
   $ ->
-
     page_load()
-
     document.addEventListener 'page:load', page_load
     document.addEventListener 'page:before-change', window.application_view.cleanup
-

@@ -2,7 +2,23 @@ window.Views.DesignerReplies ||= {}
 
 class Views.DesignerReplies.IndexView extends Views.ApplicationView
 
-  update = (url, collapsed) ->
+  render: ->
+    super()
+
+    $(".collapse").click (e) =>
+      e.preventDefault()
+
+      $li = $(e.target).parents('li')
+      url = $li.attr('data-url')
+
+      if $li.hasClass("collapsed")
+        $li.removeClass "collapsed"
+        @update(url, false)
+      else
+        $li.addClass "collapsed"
+        @update(url, true)
+
+  update: (url, collapsed) ->
     $.ajax
       url: url
       type: 'POST'
@@ -10,20 +26,4 @@ class Views.DesignerReplies.IndexView extends Views.ApplicationView
       data:
         _method: 'PUT'
         collapsed: collapsed
-
-  render: ->
-    super()
-    $(".collapse").click ->
-      $link = $(this)
-      li = $link.parent()
-      url = $link.attr('data-url')
-
-      if li.hasClass("collapsed")
-        li.removeClass "collapsed"
-        update(url, false)
-      else
-        $(this).parent().addClass "collapsed"
-        update(url, true)
-
-      false
 

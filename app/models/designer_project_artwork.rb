@@ -35,7 +35,7 @@ class DesignerProjectArtwork
       s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
       self.status = :processed
       save
-    rescue e
+    rescue Exception => e
       self.status = :failed
       save
       raise e

@@ -1,0 +1,18 @@
+.designer-project {
+
+  .artworks {
+    text-align: center;
+  }
+
+  .spinner {
+    display: block;
+    height: 32px;
+    width: 32px;
+    margin: 0 auto;
+    background:image-url('ajax-loader.gif') no-repeat center center;
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+
+}
