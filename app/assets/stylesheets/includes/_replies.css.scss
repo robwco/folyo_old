@@ -6,24 +6,21 @@ ul.replies{
 		@include border-right-radius(3px);
 		margin:0 0 40px 0px;
 		position:relative;
-		padding:20px 0;
+		padding: 20px 0;
 		@include transition-property("height, padding");
 		@include transition-duration(400ms);
 		@include transition-timing-function(ease-out);
 		@include cf;
-		.work, .actions, .message p{
-			@include transition-property(opacity);
-			@include transition-duration(400ms);
-			@include transition-timing-function(ease-out);
-		}
+
 		h2{
 			font-size:20px;
+			line-height: 2.0;
 		}
 	}
 	>li.collapsed{
 		height:40px;
 		overflow:hidden;
-		padding:0px 0px 0px 40px;
+		padding: 0 0 20px;
 		.work, .actions{
 			opacity:0;
 		}

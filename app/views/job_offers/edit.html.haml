@@ -1,6 +1,4 @@
 = content_for :title, @job_offer.title.blank? ? 'Your Job Offer' : @job_offer.title
-
-
 = content_for :body_class, " offer-client"
 
 - if @job_offer.waiting_for_payment? || @job_offer.waiting_for_submission?
@@ -27,8 +25,8 @@
       / %h2 A testimonial from a Folyo user:
       %blockquote
         %p “Folyo has been an incredibly useful service, <strong>literally saving us days of work</strong>.”
-      %cite 
-        Antoine Martin, 
+      %cite
+        Antoine Martin,
         %a.testimonial-logo{:href => 'http://www.alert.us/'}
           %img{:src => '/assets/logos/alertus.png', :style => 'top:4px;'}
 
@@ -39,35 +37,4 @@
 = simple_form_for @job_offer, as: 'job_offer', url: offer_path(@job_offer.id) do |f|
 
   = render '/job_offers/form', f: f, job_offer: @job_offer, client: @client
-
-:coffeescript
-  head ->
-    $ ->
-      if $('.edit_job_offer').length > 0
-        window.editFormInitialized = true
-        lastFormState = $('form').serialize()
-
-        saveForm = ->
-          if $('form').serialize() != lastFormState
-            lastFormState = $('form').serialize()
-            $.ajax
-              url:        "#{offer_path(@job_offer.id)}"
-              type:       'POST'
-              data:       "\#{lastFormState}&workflow_save=1"
-              success: ->
-                now = new Date()
-                # getting time in this format 09:30 (filled with leading zeros)
-                now_as_string = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2)
-                $('.autosave-notice').hide().html("Autosaved at \#{now_as_string}").fadeIn()
-
-        # saving form every 30 secs (if changes have occured)
-        interval = setInterval(saveForm, 30000)
-
-        beforeChangeSave = ->
-          saveForm()
-          clearInterval(interval)
-          document.removeEventListener('page:before-change', beforeChangeSave)
-
-        # saving form before changing page
-        document.addEventListener 'page:before-change', beforeChangeSave
 

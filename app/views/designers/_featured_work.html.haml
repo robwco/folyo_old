@@ -1,4 +1,4 @@
-- unless designer.featured_shot_image_url.blank?
+- unless designer.featured_shot_url.blank?
   %figure.featured-work
     = link_to  designer.featured_shot_url, class: 'image' do
       = image_tag designer.featured_shot_image_url

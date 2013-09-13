@@ -1,13 +1,13 @@
 !!!
 %html.wf-loading
   = render :partial => '/site/header'
-  %body.no-js{:class=> yield(:body_class)}
+  %body.no-js{class: yield(:body_class), 'data-class-name' => js_class_name}
     = render_site_nav
     #page
       - if yield(:header).blank?
         %section.sub-header#page-header
           .container
-            .main-header    
+            .main-header
               %h1.title
                 = yield(:title)
               - unless yield(:subtitle).blank?
@@ -17,7 +17,7 @@
                 .main-action
                   =yield(:mainaction)
             - unless yield(:subnav).blank?
-              = yield(:subnav)    
+              = yield(:subnav)
       - else
         = yield(:header)
       #page-content

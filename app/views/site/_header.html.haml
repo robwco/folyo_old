@@ -1,7 +1,7 @@
 %head
 
   %script{:src => '//cdn.optimizely.com/js/303220920.js'}
- 
+
   %title
     Folyo -
     = yield(:title)
@@ -44,6 +44,3 @@
           document.addEventListener 'page:change', ->
             clicky.log document.location.href, document.title
         catch e
-
-    / %noscript
-    /   %img{alt: "Clicky", width: "1", height: "1", src: "//in.getclicky.com/66478127ns.gif"}

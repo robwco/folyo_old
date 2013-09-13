@@ -5,11 +5,11 @@ class DesignerProjectArtworksController < ApplicationController
   inherit_resources
   defaults resource_class: DesignerProjectArtwork, collection_name: 'artworks'
 
-  respond_to :js, only: :create
+  respond_to :json, only: :create
 
   def create
     create! do |format|
-      format.js { render text: 'ok' }
+      format.json { render json: {polling_path: upload_status_designer_project_path(@designer, @designer_project)} }
     end
   end
 

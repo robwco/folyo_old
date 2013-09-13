@@ -41,5 +41,5 @@
 								%strong Your pick
 						- else
 							= link_to 'Pick this designer', pick_offer_reply_path(@job_offer, r), :class => "fancybox fancybox.ajax"
-				%a.collapse{:href => "\##{r.id}"}
+				%a.collapse{href: "\##{r.id}", data: {url: offer_reply_path(@job_offer, r)}}
 					%span Collapse
