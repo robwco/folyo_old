@@ -1,4 +1,4 @@
-.artworks
+.artworks{data: {url: designer_project_artworks_path(project.designer, project)}}
   .spinner.hidden
   - project.artworks.processed.each do |artwork|
     = image_tag artwork.asset.url(:small)

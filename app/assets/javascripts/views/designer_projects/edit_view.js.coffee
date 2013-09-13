@@ -35,7 +35,11 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
         type: 'GET'
         dataType: 'JSON'
         success: (data) =>
-          @stop_polling() if data.complete
+          if data.complete
+            @stop_polling()
+            $artworks = $('.artworks')
+            artworks_url = $artworks.attr('data-url')
+            $.get artworks_url, (data) -> $artworks.html(data)
     , 1000)
 
   stop_polling: ->

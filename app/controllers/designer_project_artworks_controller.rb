@@ -13,6 +13,10 @@ class DesignerProjectArtworksController < ApplicationController
     end
   end
 
+  def index
+    render partial: 'designer_projects/artworks', locals: { project: @designer_project }
+  end
+
   protected
 
   def set_designer
