@@ -12,6 +12,10 @@
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Involved skills', label_method: sym_label_method, value_method: :to_sym
     = f.submit value: 'Save project', class: 'button big-button'
 
+  - if @designer_project.cover
+    %label Project cover
+    = image_tag @designer_project.cover.asset(:cover)
+
   %label= 'Artworks (up to 2MB)'
   = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
     = file_field_tag :file, multiple: true

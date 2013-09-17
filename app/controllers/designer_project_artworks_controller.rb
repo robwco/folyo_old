@@ -1,6 +1,7 @@
 class DesignerProjectArtworksController < ApplicationController
 
   before_filter :set_designer, :set_project
+  before_filter :set_artwork, only: [:edit_cover, :update_cover]
 
   inherit_resources
   defaults resource_class: DesignerProjectArtwork, collection_name: 'artworks'
@@ -15,6 +16,21 @@ class DesignerProjectArtworksController < ApplicationController
 
   def index
     render partial: 'designer_projects/artworks', locals: { project: @designer_project }
+  end
+
+  def edit_cover
+    render layout: false
+  end
+
+  def update_cover
+    @designer_project.artworks.update_all(is_cover: false)
+    @artwork.crop_cover(
+      params[:designer_project_artwork][:crop_x],
+      params[:designer_project_artwork][:crop_y],
+      params[:designer_project_artwork][:crop_w],
+      params[:designer_project_artwork][:crop_h]
+    )
+    redirect_to edit_cover_designer_project_artwork_path(@designer, @designer_project, @artwork)
   end
 
   protected
@@ -33,6 +49,10 @@ class DesignerProjectArtworksController < ApplicationController
 
   def set_project
     @designer_project = @designer.projects.find(params[:project_id])
+  end
+
+  def set_artwork
+    @artwork = @designer_project.artworks.find(params[:id])
   end
 
   def begin_of_association_chain

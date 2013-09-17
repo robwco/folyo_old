@@ -24,6 +24,11 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
     $('#s3-uploader').on 'ajax:success', (e, data) =>
       @start_polling(data.polling_path) unless polling
 
+    $('a.edit-cover').on 'click', (e, data) =>
+      url = $(e.target).attr('href')
+      window.open(url, '_blank', 'width=1000,height=500')
+      false
+
   cleanup: => @stop_polling()
 
   start_polling: (url) ->

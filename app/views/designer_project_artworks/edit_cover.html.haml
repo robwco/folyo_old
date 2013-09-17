@@ -1,0 +1,15 @@
+%html
+  %head
+    = stylesheet_link_tag 'screen', :media => 'screen, projection'
+    = javascript_include_tag 'head.min'
+    = headjs_include_tag 'vendor', 'application'
+
+  %body.no-js.tcenter{class: yield(:body_class), 'data-class-name' => js_class_name}
+    = image_tag @artwork.asset.url(:small), id: 'cropbox', data: {width: @artwork.geometry['small']['width'], height: @artwork.geometry['small']['height'], ratio: @artwork.geometry['original']['width'] / @artwork.geometry['small']['width'] }
+    %div{style:'width:75px; height:100px; overflow:hidden;'}
+      = image_tag @artwork.asset.url(:medium), id: 'preview'
+
+= form_for @artwork, url: update_cover_designer_project_artwork_path(@designer, @designer_project, @artwork) do |f|
+  - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h]
+    = f.hidden_field attribute, id: attribute
+  = f.submit "Crop"

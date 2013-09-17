@@ -6,6 +6,10 @@ class DesignerProjectsController < ApplicationController
 
   load_and_authorize_resource
 
+  def show
+    redirect_to edit_designer_project_path(@designer, @designer_project)
+  end
+
   def new
     @designer_project = @designer.projects.create
     redirect_to edit_designer_project_path(@designer, @designer_project)
