@@ -18,17 +18,17 @@
 - if current_user.is_a?(Admin) && @job_offer.waiting_for_review?
   = render '/admin/job_offers/workflow'
 
-- if current_user.is_a?(Admin) && @job_offer.is_a?(Html::JobOffer)
-  = content_for :sidebar do
+= content_for :sidebar do
+  - if current_user.is_a?(Admin) && @job_offer.is_a?(Html::JobOffer)
     = link_to 'Convert to Markdown', to_markdown_admin_offer_path(@job_offer), class: 'button big-button', method: 'put'
-- else
-  = content_for :sidebar do
+  - elsif current_user.is_a?(Admin) && @job_offer.can_refund?
+    = link_to 'Refund the offer', refund_admin_offer_order_path(@job_offer), method: :put, class: 'button big-button', confirm: 'Are you sure you want to refund? It cannot be canceled.'
+  - else
     .testimonial
-      / %h2 A testimonial from a Folyo user:
       %blockquote
         %p “Folyo has been an incredibly useful service, <strong>literally saving us days of work</strong>.”
-      %cite 
-        Antoine Martin, 
+      %cite
+        Antoine Martin,
         %a.testimonial-logo{:href => 'http://www.alert.us/'}
           %img{:src => '/assets/logos/alertus.png', :style => 'top:4px;'}
 

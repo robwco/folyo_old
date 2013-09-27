@@ -37,6 +37,7 @@ class JobOffer
   field :is_open,             type: Boolean,  default: true
   field :status,              type: Symbol
   field :review_comment,      type: String
+  field :refund_origin,       type: Symbol
 
   field :published_at,        type: DateTime
   field :submited_at,         type: DateTime
@@ -50,12 +51,9 @@ class JobOffer
 
   slug :title, history: true
 
-  ## associations ##
   belongs_to  :client
   embeds_many :designer_replies
   embeds_one  :order
-
-  ## Reference data ##
 
   def self.coding_options
     [:not_needed, :optional, :mandatory]
@@ -127,7 +125,6 @@ class JobOffer
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
 
-  ## indexes ##
   index pg_id: 1
 
   attr_accessor :skip_validation
@@ -141,8 +138,6 @@ class JobOffer
       o.company_url = client.company_url
     end
   end
-
-  ## state machine ##
 
   state_machine :status, initial: :initialized do
 
@@ -185,7 +180,8 @@ class JobOffer
 
     event :refund do
       transition :sent     => :refunded
-      transition :rejected => :waiting_for_submission
+      transition :accepted => :refunded
+      transition :rejected => :refunded
     end
 
     after_transition :status_changed
@@ -296,8 +292,10 @@ class JobOffer
       track_event('JO08_Rate')
       self.rated_at = DateTime.now
     when :refund
-      track_event('JOXX_Refunded')
+      self.refund_origin = transition.from_name
+      track_event('JOXX_Refunded', refund_origin: refund_origin)
       self.refunded_at = DateTime.now
+
     end
     save!
   end
