@@ -133,6 +133,10 @@ class Designer < User
     :markdown
   end
 
+  def track_signup_event
+    track_user_event('Signup Designer')
+  end
+
   protected
 
   def tweet_out
