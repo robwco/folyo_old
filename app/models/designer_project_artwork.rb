@@ -16,7 +16,7 @@ class DesignerProjectArtwork
   field :crop_w
   field :crop_h
 
-  has_mongoid_attached_file :asset,   styles: { large: '1200', medium: '800',  small: '400', cover: { geometry: '400', processors: [:cropper] } }
+  has_mongoid_attached_file :asset,   styles: { large: '1200', medium: '800',  small: '400', cover: { geometry: '400x300#', processors: [:cropper] } }
   belongs_to                :project, class_name: 'DesignerProject', inverse_of: :artworks
 
   validates :direct_upload_url, format: { with: DIRECT_UPLOAD_URL_FORMAT }, allow_blank: true
