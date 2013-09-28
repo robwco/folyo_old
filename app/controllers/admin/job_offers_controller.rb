@@ -42,11 +42,11 @@ class Admin::JobOffersController < Admin::BaseController
   end
 
   def waiting_for_submission
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_submission
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_submission.not_dead
   end
 
   def waiting_for_payment
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_payment
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.waiting_for_payment.not_dead
   end
 
   def waiting_for_review

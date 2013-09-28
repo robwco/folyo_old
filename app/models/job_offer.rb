@@ -38,6 +38,7 @@ class JobOffer
   field :status,              type: Symbol
   field :review_comment,      type: String
   field :refund_origin,       type: Symbol
+  field :dead,                type: Boolean,  default: false
 
   field :published_at,        type: DateTime
   field :submited_at,         type: DateTime
@@ -48,6 +49,7 @@ class JobOffer
   field :archived_at,         type: DateTime
   field :rated_at,            type: DateTime
   field :refunded_at,         type: DateTime
+  field :dead_at,             type: DateTime
 
   slug :title, history: true
 
@@ -124,6 +126,7 @@ class JobOffer
   scope :accepted_or_sent,       where(:status.in => [:accepted, :sent])
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
+  scope :not_dead,               where(:dead.ne => true)
 
   index pg_id: 1
 
@@ -215,6 +218,13 @@ class JobOffer
     fire_events(:archive)
   end
 
+  def kill
+    unless self.dead
+      Rails.logger.debug("Setting offer #{self.slug || self.id} as dead")
+      JobOffer.where(id: self.id).update_all(dead: true, dead_at: DateTime.now) # will skip validation !
+    end
+  end
+
   def reject(review_comment)
     self.review_comment = review_comment
     fire_events(:reject)
@@ -223,6 +233,8 @@ class JobOffer
   def refund
     if order.refund
       fire_events(:refund)
+    else
+      Rails.logger.warn("Could not refund offer #{self.slug || self.id}")
     end
   end
 
@@ -245,7 +257,14 @@ class JobOffer
 
   def refund_if_needed!(delay)
     if self.rejected? && self.rejected_at && self.rejected_at <= delay.ago
+      Rails.logger.debug("Refunding offer #{self.slug || self.id}")
       self.refund
+    end
+  end
+
+  def kill_if_needed!(delay)
+    if (self.waiting_for_submission? && (self.created_at.nil? || self.created_at <= delay.ago)) || (self.waiting_for_payment? && (self.submited_at.nil? || self.submited_at <= delay.ago))
+      self.kill
     end
   end
 
@@ -295,8 +314,8 @@ class JobOffer
       self.refund_origin = transition.from_name
       track_event('JOXX_Refunded', refund_origin: refund_origin)
       self.refunded_at = DateTime.now
-
     end
+    self.dead = false
     save!
   end
 
