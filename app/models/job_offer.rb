@@ -277,10 +277,6 @@ class JobOffer
 
   protected
 
-  def send_offer_notification
-    ClientMailer.delay.new_job_offer(self)
-  end
-
   def track_event(event_name, optional_data = {})
     self.client.track_user_event(event_name, optional_data.merge(job_offer_title: self.title, job_offer_id: self.id.to_s, job_offer_slug: self.slug || self.id.to_s, company_name: self.client.company_name))
   end
@@ -295,13 +291,14 @@ class JobOffer
         track_event('JO03_Submit')
       else
         track_event('JO05c_Resubmit')
+        ClientMailer.delay.updated_job_offer(self)
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now
-      send_offer_notification
+      ClientMailer.delay.new_job_offer(self)
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
