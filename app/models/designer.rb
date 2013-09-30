@@ -78,7 +78,7 @@ class Designer < User
   scope :palo_alto,         where(location: /Palo Alto/i)
 
   ## callbacks ##
-  before_validation  :process_skills, :fix_portfolio_url
+  before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
   before_save        :generate_mongoid_random_key
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
@@ -204,6 +204,12 @@ class Designer < User
       unless self.portfolio_url[/^http:\/\//] || self.portfolio_url[/^https:\/\//]
         self.portfolio_url = "http://#{self.portfolio_url}"
       end
+    end
+  end
+
+  def fix_dribbble_username
+    if self.dribbble_username =~ /http:\/\/dribbble.com\/(.*)/
+      self.dribbble_username = $1
     end
   end
 
