@@ -268,6 +268,13 @@ class JobOffer
     end
   end
 
+  def archive_if_needed!(delay)
+    if (self.sent? && (self.sent_at.nil? || self.sent_at <= delay.ago)) || (self.accepted? && (self.approved_at.nil? || self.approved_at <= delay.ago))
+      Rails.logger.debug("Archiving offer #{self.slug || self.id}")
+      self.fire_events(:archive)
+    end
+  end
+
   protected
 
   def send_offer_notification
