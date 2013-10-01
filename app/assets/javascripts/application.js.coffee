@@ -1,7 +1,6 @@
 #= require turbolinks
 #= require jquery.turbolinks
 #= require map
-#= require wysiwyg
 #= require epiceditor
 
 #= require_self

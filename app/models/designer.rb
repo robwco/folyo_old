@@ -129,10 +129,6 @@ class Designer < User
     end
   end
 
-  def text_format
-    :markdown
-  end
-
   def track_signup_event
     track_user_event('Signup Designer')
   end

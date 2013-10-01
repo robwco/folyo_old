@@ -1,8 +1,7 @@
-
 source "https://rubygems.org"
 ruby "2.0.0"
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.14'
 
 # Core components
 gem 'heroku'
@@ -10,7 +9,7 @@ gem 'unicorn'
 gem 'bson_ext'
 
 # Persistence
-gem 'mongoid', '~> 3.1'
+gem 'mongoid'
 gem 'rails_autolink'
 gem 'mongoid_slug'
 gem 'mongoid_rails_migrations'
@@ -57,11 +56,11 @@ gem 'swish' # dribbble
 gem 'premailer-rails'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'compass-rails'
   gem 'susy'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
 end
 
 group :development do

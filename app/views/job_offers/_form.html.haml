@@ -43,7 +43,7 @@
   %h3 Your Company
   = f.input :company_name, required: true
   = f.input :company_url
-  = f.input :company_description, as: :text, hint: yield(:company_hint), wrapper_html: {class: textarea_type(job_offer)}, hint_html: {class: 'with-title'},required: true
+  = f.input :company_description, as: :text, hint: yield(:company_hint), wrapper_html: {class: 'markdown'}, hint_html: {class: 'with-title'},required: true
   = f.input :location
 
 .section
@@ -54,14 +54,14 @@
     For more help, check out our guide on <a target="_blank" tabindex="-1" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
   = f.input :title, :hint => yield(:title_hint), required: true
-  = f.input :project_summary, as: :limited_text, hint: yield(:summary_hint), wrapper_html: {class: textarea_type(job_offer)}, required: true
+  = f.input :project_summary, as: :limited_text, hint: yield(:summary_hint), wrapper_html: {class: 'markdown'}, required: true
 
 .section
   %h3 Project Details
 
-  = f.input :project_details, as: :limited_text, hint: yield(:details_hint), wrapper_html: {class: textarea_type(job_offer)}, required: true
-  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), wrapper_html: {class: textarea_type(job_offer)}
-  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   wrapper_html: {class: textarea_type(job_offer)}
+  = f.input :project_details, as: :limited_text, hint: yield(:details_hint), wrapper_html: {class: 'markdown'}, required: true
+  = f.input :inspiration,     as: :text, hint: yield(:inspiration_hint), wrapper_html: {class: 'markdown'}
+  = f.input :timeframe,       as: :text, hint: yield(:timeframe_hint),   wrapper_html: {class: 'markdown'}
   = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Desired skills', label_method: sym_label_method, value_method: :to_sym, required: true
   = f.input :coding, collection: JobOffer.coding_options, as: :radio_buttons, label: 'Coding', hint:yield(:coding_hint), label_method: sym_label_method, required: true
   %p.note.coding-note Please note that since a lot of Folyo designers don't code, choosing this option will generally reduce the number of replies you receive.

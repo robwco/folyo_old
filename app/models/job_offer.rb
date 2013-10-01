@@ -328,10 +328,6 @@ class JobOffer
     self.skills.map!(&:to_sym)
   end
 
-  def text_format
-    :markdown
-  end
-
   def set_client_attributes
     if location_changed? || company_name_changed? || company_url_changed? || company_description_changed?
       self.client.location = self.location
