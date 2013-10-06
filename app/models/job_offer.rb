@@ -174,6 +174,8 @@ class JobOffer
     event :archive do
       transition :accepted => :archived
       transition :sent     => :archived
+      transition :archived => same
+      transition :rated    => same
     end
 
     event :rate do
