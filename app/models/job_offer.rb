@@ -161,6 +161,7 @@ class JobOffer
 
     event :accept do
       transition :waiting_for_review => :accepted
+      transition :rejected => :accepted
     end
 
     event :reject do

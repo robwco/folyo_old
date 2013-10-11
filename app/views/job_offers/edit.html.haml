@@ -15,7 +15,7 @@
 - if @job_offer.rejected? && !@job_offer.review_comment.blank?
   = render '/job_offers/client/review_comment', job_offer: @job_offer
 
-- if current_user.is_a?(Admin) && @job_offer.waiting_for_review?
+- if current_user.is_a?(Admin) && (@job_offer.can_accept? || @job_offer.can_reject?)
   = render '/admin/job_offers/workflow'
 
 = content_for :sidebar do
