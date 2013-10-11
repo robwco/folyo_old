@@ -20,7 +20,7 @@
 		= f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
 		=# f.input :profile_type, :as => :radio_buttons, :label => 'Profile Type', :hint => yield(:profile_type_hint)
 		= f.input :short_bio, :label => 'Short Bio (Tagline)', :hint => "Short descriptive phrase (i.e. \"I design functional and beautiful user interfaces\")"
-		= f.input :long_bio, :as => :text, :label => 'Biography', :wrapper_html => {:class => 'markdown'}
+		= f.input :long_bio, :as => :limited_text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :wrapper_html => {:class => 'markdown'}
 		= f.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
 	.section
 		%h3 Your Work
