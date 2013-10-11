@@ -6,4 +6,6 @@
         = link_to 'Show all'
   %ul.filter
     - Designer.statuses.each do |s|
-      %li{:class => current_status == s ? 'selected' : ''}= link_to(s.to_s.humanize, :status => s)
+      %li{:class => current_status == s ? 'selected' : ''}
+        = link_to(s.to_s.humanize, status: s)
+        %span.count= Designer.for_status(s).count
