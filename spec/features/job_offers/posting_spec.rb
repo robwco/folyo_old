@@ -19,7 +19,7 @@ feature 'Posting a job offer', devise: true do
 
     background do
       visit root_path
-      click_link 'Post a Job'
+      click_link 'Find a Designer'
     end
 
     scenario 'create an account and submit a new offer' do
@@ -55,13 +55,13 @@ feature 'Posting a job offer', devise: true do
 
         # now on payment page
         assert_page_title title
-        assert_active_wizard_item 'Payment'
+        assert_active_wizard_item 'Confirmation'
 
         # navigating in wizard
         click_link 'Your Project'
         assert_active_wizard_item 'Your Project'
-        click_link 'Payment'
-        assert_active_wizard_item 'Payment'
+        click_link 'Confirmation'
+        assert_active_wizard_item 'Confirmation'
       }.to change { Client.count + JobOffer.count }.by(2)
 
       client = Client.last
@@ -104,13 +104,13 @@ feature 'Posting a job offer', devise: true do
 
         # now on payment page
         assert_page_title title
-        assert_active_wizard_item 'Payment'
+        assert_active_wizard_item 'Confirmation'
 
         # navigating in wizard
         click_link 'Your Project'
         assert_active_wizard_item 'Your Project'
-        click_link 'Payment'
-        assert_active_wizard_item 'Payment'
+        click_link 'Confirmation'
+        assert_active_wizard_item 'Confirmation'
       }.to change { User.count + JobOffer.count }.by(1)
 
       assert_job_offer_creation(client)

@@ -8,16 +8,17 @@
 = content_for :evaluation_hint do
   %span You can also include links to examples of work done for you by the designer, or any other relevant information.
 
-%h2 How did it go?
-
 - if @reply
+  %h2 How did it go?
   = simple_form_for @reply, url: offer_evaluations_path(@job_offer, reply_id: @reply.id) do |f|
-    = f.input :evaluation, :as => :text, :hint => yield(:evaluation_hint), :wrapper_html => {:class => textarea_type(@reply)}, label: "Please leave a short evaluation to let us know if you enjoyed working with #{link_to @designer.full_name, @designers}."
+    = f.input :evaluation, :as => :text, :hint => yield(:evaluation_hint), :wrapper_html => {:class => 'markdown'}, label: "Please leave a short evaluation to let us know if you enjoyed working with #{link_to @designer.full_name, @designers}."
     %hr
     = simple_fields_for @folyo_evaluation do |f_e|
-      = f_e.input :evaluation, :as => :text, :wrapper_html => {:class => textarea_type(@folyo_evaluation)}, label: "What did you think of Folyo? Do you have any comments to help us improve the service?"
+      = f_e.input :evaluation, :as => :text, :wrapper_html => {:class => 'markdown'}, label: "What did you think of Folyo? Do you have any comments to help us improve the service?"
     = f.submit "Submit Evaluation", :class => "button big-button"
 
 - else
-  %p It seems you didn't pick a designer. If you couldn't find a suitable designer through Folyo, please get in touch with us at <a href="mailto:hello@folyo.me">hello@folyo.me</a> to get a refund.
-
+  %p
+    It seems you didn't pick a designer, it still time
+    = link_to 'to tell us which designer you worked with.', show_archive_offer_path(@job_offer)
+  %p If you couldn't find a suitable designer through Folyo, please get in touch with us at <a href="mailto:hello@folyo.me">hello@folyo.me</a> to get a refund.

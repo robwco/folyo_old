@@ -6,10 +6,10 @@
 			%span.count=JobOffer.count
 		%li
 			= current_link_to 'Waiting for Submission', waiting_for_submission_admin_offers_path
-			%span.count=JobOffer.waiting_for_submission.count
+			%span.count=JobOffer.waiting_for_submission.not_dead.count
 		%li
 			= current_link_to 'Waiting for Payment', waiting_for_payment_admin_offers_path
-			%span.count=JobOffer.waiting_for_payment.count		
+			%span.count=JobOffer.waiting_for_payment.not_dead.count
 		%li
 			= current_link_to 'Waiting for Review', waiting_for_review_admin_offers_path
 			%span.count=JobOffer.waiting_for_review.count

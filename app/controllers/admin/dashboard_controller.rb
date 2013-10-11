@@ -11,7 +11,7 @@ class Admin::DashboardController < ApplicationController
     @start_date = DateTime.new(@year, @month)
     @end_date = DateTime.new(@year, @month, -1, -1, -1, -1)
 
-    @new_job_offer =  JobOffer.between(created_at: @start_date..@end_date)
+    @new_job_offer =  JobOffer.between(submited_at: @start_date..@end_date)
     @paid_job_offer = JobOffer.between(paid_at: @start_date..@end_date)
     @refunded_job_offer = JobOffer.between(refunded_at: @start_date..@end_date)
 

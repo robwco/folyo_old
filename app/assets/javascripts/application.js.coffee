@@ -1,6 +1,5 @@
 #= require turbolinks
 #= require map
-#= require wysiwyg
 #= require epiceditor
 #= require s3_direct_upload
 

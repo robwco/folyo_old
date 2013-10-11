@@ -200,7 +200,7 @@ describe JobOffer do
         it { should change{job_offer.reload.status}.from(:sent).to(:refunded)}
 
         it 'should track user event' do
-          expect_to_track 'JOXX_Refunded'
+          expect_to_track 'JOXX_Refunded', refund_origin: :sent
           subject.call
         end
       end
@@ -209,10 +209,23 @@ describe JobOffer do
 
         let(:job_offer) { FactoryGirl.create(:job_offer, status: :rejected, order: FactoryGirl.build(:order), review_comment: 'rejection comment') }
 
-        it { should change{job_offer.reload.status}.from(:rejected).to(:waiting_for_submission)}
+        it { should change{job_offer.reload.status}.from(:rejected).to(:refunded)}
 
         it 'should track user event' do
-          expect_to_track 'JOXX_Refunded'
+          expect_to_track 'JOXX_Refunded', refund_origin: :rejected
+          subject.call
+        end
+
+      end
+
+      context 'when job offer is accepted' do
+
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :accepted, order: FactoryGirl.build(:order)) }
+
+        it { should change{job_offer.reload.status}.from(:accepted).to(:refunded)}
+
+        it 'should track user event' do
+          expect_to_track 'JOXX_Refunded', refund_origin: :accepted
           subject.call
         end
 
@@ -226,7 +239,7 @@ describe JobOffer do
     job_offer.client.should_receive(:track_user_event) do |value, vero_options|
       value.should == event_name
       options.each do |k, v|
-        v.should == vero_options[k]
+        vero_options[k].should == v
       end
     end
   end

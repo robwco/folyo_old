@@ -37,6 +37,8 @@ class JobOffer
   field :is_open,             type: Boolean,  default: true
   field :status,              type: Symbol
   field :review_comment,      type: String
+  field :refund_origin,       type: Symbol
+  field :dead,                type: Boolean,  default: false
 
   field :published_at,        type: DateTime
   field :submited_at,         type: DateTime
@@ -47,15 +49,13 @@ class JobOffer
   field :archived_at,         type: DateTime
   field :rated_at,            type: DateTime
   field :refunded_at,         type: DateTime
+  field :dead_at,             type: DateTime
 
   slug :title, history: true
 
-  ## associations ##
   belongs_to  :client
   embeds_many :designer_replies
   embeds_one  :order
-
-  ## Reference data ##
 
   def self.coding_options
     [:not_needed, :optional, :mandatory]
@@ -126,8 +126,8 @@ class JobOffer
   scope :accepted_or_sent,       where(:status.in => [:accepted, :sent])
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
+  scope :not_dead,               where(:dead.ne => true)
 
-  ## indexes ##
   index pg_id: 1
 
   attr_accessor :skip_validation
@@ -141,8 +141,6 @@ class JobOffer
       o.company_url = client.company_url
     end
   end
-
-  ## state machine ##
 
   state_machine :status, initial: :initialized do
 
@@ -176,6 +174,8 @@ class JobOffer
     event :archive do
       transition :accepted => :archived
       transition :sent     => :archived
+      transition :archived => same
+      transition :rated    => same
     end
 
     event :rate do
@@ -185,7 +185,8 @@ class JobOffer
 
     event :refund do
       transition :sent     => :refunded
-      transition :rejected => :waiting_for_submission
+      transition :accepted => :refunded
+      transition :rejected => :refunded
     end
 
     after_transition :status_changed
@@ -219,6 +220,13 @@ class JobOffer
     fire_events(:archive)
   end
 
+  def kill
+    unless self.dead
+      Rails.logger.debug("Setting offer #{self.slug || self.id} as dead")
+      JobOffer.where(id: self.id).update_all(dead: true, dead_at: DateTime.now) # will skip validation !
+    end
+  end
+
   def reject(review_comment)
     self.review_comment = review_comment
     fire_events(:reject)
@@ -227,6 +235,8 @@ class JobOffer
   def refund
     if order.refund
       fire_events(:refund)
+    else
+      Rails.logger.warn("Could not refund offer #{self.slug || self.id}")
     end
   end
 
@@ -249,15 +259,25 @@ class JobOffer
 
   def refund_if_needed!(delay)
     if self.rejected? && self.rejected_at && self.rejected_at <= delay.ago
+      Rails.logger.debug("Refunding offer #{self.slug || self.id}")
       self.refund
     end
   end
 
-  protected
-
-  def send_offer_notification
-    ClientMailer.delay.new_job_offer(self)
+  def kill_if_needed!(delay)
+    if (self.waiting_for_submission? && (self.created_at.nil? || self.created_at <= delay.ago)) || (self.waiting_for_payment? && (self.submited_at.nil? || self.submited_at <= delay.ago))
+      self.kill
+    end
   end
+
+  def archive_if_needed!(delay)
+    if (self.sent? && (self.sent_at.nil? || self.sent_at <= delay.ago)) || (self.accepted? && (self.approved_at.nil? || self.approved_at <= delay.ago))
+      Rails.logger.debug("Archiving offer #{self.slug || self.id}")
+      self.fire_events(:archive)
+    end
+  end
+
+  protected
 
   def track_event(event_name, optional_data = {})
     self.client.track_user_event(event_name, optional_data.merge(job_offer_title: self.title, job_offer_id: self.id.to_s, job_offer_slug: self.slug || self.id.to_s, company_name: self.client.company_name))
@@ -273,13 +293,14 @@ class JobOffer
         track_event('JO03_Submit')
       else
         track_event('JO05c_Resubmit')
+        ClientMailer.delay.updated_job_offer(self)
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now
-      send_offer_notification
+      ClientMailer.delay.new_job_offer(self)
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
@@ -296,19 +317,17 @@ class JobOffer
       track_event('JO08_Rate')
       self.rated_at = DateTime.now
     when :refund
-      track_event('JOXX_Refunded')
+      self.refund_origin = transition.from_name
+      track_event('JOXX_Refunded', refund_origin: refund_origin)
       self.refunded_at = DateTime.now
     end
+    self.dead = false
     save!
   end
 
   def process_skills
     self.skills.reject!(&:blank?) if self.skills_changed?
     self.skills.map!(&:to_sym)
-  end
-
-  def text_format
-    :markdown
   end
 
   def set_client_attributes

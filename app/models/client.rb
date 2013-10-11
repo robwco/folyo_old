@@ -32,4 +32,8 @@ class Client < User
     :markdown
   end
 
+  def track_signup_event
+    track_user_event('Signup Client')
+  end
+
 end

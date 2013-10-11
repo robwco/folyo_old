@@ -10,7 +10,7 @@
       - else
         %li Your Project
       - if offer && offer.waiting_for_payment?
-        %li= link_to 'Payment', new_offer_order_path(offer, signup: 'true')
+        %li= link_to 'Confirmation', new_offer_order_path(offer, signup: 'true')
       - else
         %li Confirmation
 
@@ -19,7 +19,7 @@
         %li= link_to 'Sign Up', edit_user_registration_path(offer_id: offer.id)
       %li{class: 'active'} Your Project
       - if offer.waiting_for_payment?
-        %li= link_to 'Payment', new_offer_order_path(offer, signup: params[:signup])
+        %li= link_to 'Confirmation', new_offer_order_path(offer, signup: params[:signup])
       - else
         %li Confirmation
 

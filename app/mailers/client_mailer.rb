@@ -5,7 +5,13 @@ class ClientMailer < ActionMailer::Base
   layout 'mailer'
 
   def new_job_offer(job_offer)
-    subject = "Folyo: #{job_offer.title}"
+    subject = "[Folyo] [New offer] #{job_offer.title}"
+    @job_offer = job_offer
+    mail :subject => subject, :from => "#{job_offer.client.full_name} <#{job_offer.client_email}>", to: Admin.all.map(&:email)
+  end
+
+  def updated_job_offer(job_offer)
+    subject = "[Folyo] [Updated offer] #{job_offer.title}"
     @job_offer = job_offer
     mail :subject => subject, :from => "#{job_offer.client.full_name} <#{job_offer.client_email}>", to: Admin.all.map(&:email)
   end

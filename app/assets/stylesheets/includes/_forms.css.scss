@@ -66,7 +66,7 @@ form{
 .section{
 	margin-bottom:40px;
 }
-.string input, .password input, .text textarea, .email input, .url input, input[type=text],input[type=number],div.wysiwyg iframe{
+.string input, .password input, .text textarea, .email input, .url input, input[type=text],input[type=number] {
 	width:100%;
 	padding:10px;
 	background:white;
@@ -80,7 +80,7 @@ body.log-in{
 		width:338px;
 	}
 }
-.text textarea,div.wysiwyg iframe{
+.text textarea {
 	font-size:14px;
 	padding:10px;
 	line-height:1.5;
@@ -180,17 +180,6 @@ label{
 			margin:0;
 		}
 	}
-}
-div.wysiwyg iframe{
-	width:518px !important;
-}
-div.wysiwyg ul.toolbar{
-	@include border-radius(3px);
-	background:$lightgrey2;
-	padding:5px;
-	float:left;
-	margin-bottom: 5px;
-	width:510px;
 }
 
 li.loading{

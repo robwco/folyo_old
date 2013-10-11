@@ -75,11 +75,7 @@ module ApplicationHelper
   end
 
   def format_text(model, attribute, options = {})
-    html = if model.send(:text_format) == :markdown
-      markdown_renderer.render(model.send(attribute)) rescue ''
-    else
-      model.send(attribute)
-    end
+    html = markdown_renderer.render(model.send(attribute)) rescue ''
     if options[:sanitize]
       Sanitize.clean(html)
     else

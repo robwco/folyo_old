@@ -580,7 +580,7 @@ ul.offer-list{
 	a.image{
 		width:320px;
 		img{
-			width:320px;
+			width:312px;
 		}
 	}
 }
@@ -620,27 +620,6 @@ ul.offer-list{
 
 	.ui-dialog-titlebar{
 		display:none;
-	}
-	form.wysiwyg{
-		legend{
-			font-size:18px;
-			color:$green1;
-			font-weight:bold;
-			margin-bottom:10px;
-		}
-		input[type=text]{
-			width:258px;
-		}
-		label:nth-child(3),label:nth-child(4){
-			display:none
-		}
-		.button{
-			float:left;
-			margin-right:10px;
-		}
-		input[type=reset]{
-			float:left;
-		}
 	}
 }
 

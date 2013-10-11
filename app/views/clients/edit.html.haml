@@ -29,7 +29,7 @@
     %h3 Your Company
     = f.input :company_name
     = f.input :company_url
-    = f.input :company_description, as: :text, hint: yield(:company_hint), wrapper_html: {class: textarea_type(@client)}
+    = f.input :company_description, as: :text, hint: yield(:company_hint), wrapper_html: {class: 'markdown'}
     = f.input :location
 
   = f.submit "Update Profile", :class => "button big-button"
