@@ -161,6 +161,7 @@ class JobOffer
 
     event :accept do
       transition :waiting_for_review => :accepted
+      transition :rejected => :accepted
     end
 
     event :reject do
@@ -187,6 +188,8 @@ class JobOffer
       transition :sent     => :refunded
       transition :accepted => :refunded
       transition :rejected => :refunded
+      transition :archived => :refunded
+      transition :rated    => :refunded
     end
 
     after_transition :status_changed
@@ -260,12 +263,14 @@ class JobOffer
   def refund_if_needed!(delay)
     if self.rejected? && self.rejected_at && self.rejected_at <= delay.ago
       Rails.logger.debug("Refunding offer #{self.slug || self.id}")
+      self.skip_validation = true
       self.refund
     end
   end
 
   def kill_if_needed!(delay)
     if (self.waiting_for_submission? && (self.created_at.nil? || self.created_at <= delay.ago)) || (self.waiting_for_payment? && (self.submited_at.nil? || self.submited_at <= delay.ago))
+      self.skip_validation = true
       self.kill
     end
   end
@@ -273,6 +278,7 @@ class JobOffer
   def archive_if_needed!(delay)
     if (self.sent? && (self.sent_at.nil? || self.sent_at <= delay.ago)) || (self.accepted? && (self.approved_at.nil? || self.approved_at <= delay.ago))
       Rails.logger.debug("Archiving offer #{self.slug || self.id}")
+      self.skip_validation = true
       self.fire_events(:archive)
     end
   end
