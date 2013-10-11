@@ -74,11 +74,14 @@ class Designer < User
   scope :pending,           where(:status => :pending)
   scope :rejected,          where(:status => :rejected)
   scope :accepted,          where(:status => :accepted)
+  scope :for_status,        ->(status) { where(status: status) }
+
   scope :public_only,       where(:profile_type => :public)
   scope :public_private,    where(:profile_type.in => [:public, :private])
 
   scope :san_francisco,     where(location: /San Francisco/i)
   scope :palo_alto,         where(location: /Palo Alto/i)
+
 
   ## callbacks ##
   before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
