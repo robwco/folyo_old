@@ -187,6 +187,8 @@ class JobOffer
       transition :sent     => :refunded
       transition :accepted => :refunded
       transition :rejected => :refunded
+      transition :archived => :refunded
+      transition :rated    => :refunded
     end
 
     after_transition :status_changed
