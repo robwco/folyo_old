@@ -7,15 +7,9 @@ class Admin::DesignersController < Admin::BaseController
   def update
    update! do |format|
      format.json do
-       if params[:featured_shot_url]
-         @designer.featured_shot_url = params[:featured_shot_url]
-       end
-       if params[:status]
-         @designer.status = params[:status]
-       end
-       if params[:coordinates]
-         @designer.coordinates = params[:coordinates]
-        end
+       @designer.featured_shot_url = params[:featured_shot_url] if params[:featured_shot_url]
+       @designer.status = params[:status] if params[:status]
+       @designer.rejection_message = params[:rejection_message] if params[:rejection_message]
        @designer.save
        render :json => @designer
      end

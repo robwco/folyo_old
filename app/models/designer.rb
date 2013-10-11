@@ -6,6 +6,7 @@ class Designer < User
   has_many :projects, class_name: 'DesignerProject', dependent: :destroy
 
   field :status,                  type: Symbol, default: :pending
+  field :rejection_message
   field :profile_type,            type: Symbol, default: :public
 
   field :short_bio,               type: String

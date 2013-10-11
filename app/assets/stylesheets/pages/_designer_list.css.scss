@@ -5,6 +5,11 @@
 		margin-bottom:40px;
 		border-bottom:1px $lightgrey4 solid;
 		overflow:hidden;
+		textarea {
+			display: block;
+			margin: 10px 0;
+			height: 75px;
+		}
 	}
 	.featured-work{
 		margin-bottom:10px;
