@@ -12,7 +12,7 @@ class Ability
     elsif user.is_a? Designer
       if user.accepted?
         can :read, Client
-        can :create, DesignerReply
+        can [:create, :update], DesignerReply
         can :manage, DesignerPost
       end
       can [:history, :archives], JobOffer

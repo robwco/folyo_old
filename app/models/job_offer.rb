@@ -208,6 +208,10 @@ class JobOffer
     [:accepted, :archived, :sent, :rated, :refunded].include? self.status
   end
 
+  def reply_by(designer)
+    designer_replies.select{|r| r.designer_id == designer.id}.first
+  end
+
   # archive the offer and mark some designer replies as picked
   def archive(picked_designer_id = nil, send_email = true)
     self.designer_replies.each do |reply|

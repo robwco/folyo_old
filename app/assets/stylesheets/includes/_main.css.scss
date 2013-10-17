@@ -92,10 +92,6 @@ hr {
 		font-weight:bold;
 		font-size:16px;
 		line-height:40px;
-		@include box-shadow(
-			inset rgba(0,0,0,0.1) 0px -1px 0px 0px
-		);
-		border-bottom:1px rgba(255,255,255,1) solid;
 		text-align:left;
 		@include letterpress(1);
 	}
@@ -118,18 +114,14 @@ hr {
 		margin-bottom: 40px;
 	}
 
-	.character-counter-main-wrapper {
-		margin: -31px 0 20px;
-	}
-
 	.button{
 		display: inline-block;
 		margin:10px auto 0 auto;
 	}
 
 	textarea{
-		width:260px;
-		height:70px;
+		width: 260px;
+		height: 100px;
 	  border: 1px solid $lightgrey4;
 	  @include border-radius(3px);
 	  @include box-shadow(inset $lightgrey2  0px 0px 0px 3px);

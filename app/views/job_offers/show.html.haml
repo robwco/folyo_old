@@ -14,10 +14,7 @@
 
 = content_for :sidebar do
   - if current_user.is_a? Designer
-    - if @job_offer.designer_replies.any? {|reply| reply.designer == current_user}
-      .alert
-        .notice You have previously replied to this job offer.
-    - elsif @job_offer.archived?
+    - if @job_offer.archived?
       .alert
         .notice This job offer is no longer active.
     - else

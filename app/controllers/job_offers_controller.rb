@@ -5,6 +5,15 @@ class JobOffersController < ApplicationController
 
   section :job_offers
 
+  def show
+    if current_user && current_user.is_a?(Designer)
+      unless @reply = @job_offer.reply_by(current_user)
+        @reply = @job_offer.designer_replies.build
+      end
+    end
+    show!
+  end
+
   def new
     @job_offer = JobOffer.new_for_client(current_user)
     @job_offer.skip_validation = true
