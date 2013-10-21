@@ -12,11 +12,7 @@ class DesignerRepliesController < ApplicationController
     @designer_reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
     @designer_reply.designer = current_user
     @designer_reply.save
-
-    create! do |success, failure|
-      success.html { redirect_to :back }
-      failure.html { redirect_to offer_path(@job_offer) }
-    end
+    create! { offer_path(@job_offer) }
   end
 
   def pick
@@ -34,7 +30,6 @@ class DesignerRepliesController < ApplicationController
   respond_to :html, :json
 
   def update
-    # don't know why, but "update!" was throwing an error, so replaced it by "super"
     super do |format|
       format.json do
         if params[:collapsed]
@@ -42,6 +37,9 @@ class DesignerRepliesController < ApplicationController
         end
         @designer_reply.save
         render :json => @designer_reply
+      end
+      format.html do
+        redirect_to offer_path(@job_offer)
       end
     end
   end

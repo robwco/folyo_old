@@ -12,6 +12,7 @@ Folyo::Application.routes.draw do
   match 'guides' => 'site#guides'
   match 'partners' => 'site#partners'
   match 'apply' => 'site#apply'
+
   resource :guides do
     get 'how_to_pick_a_designer' => redirect('/guides/how_to_pick_a_great_designer')
     get 'how_to_pick_a_great_designer'
