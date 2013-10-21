@@ -33,3 +33,6 @@
     = f.input :location
 
   = f.submit "Update Profile", :class => "button big-button"
+
+- if current_user.is_a?(Admin)
+  = render 'discount', client: @client

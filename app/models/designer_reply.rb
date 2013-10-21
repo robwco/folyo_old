@@ -19,26 +19,41 @@ class DesignerReply
   validates_length_of   :message, maximum: 350
 
   ## callbacks ##
-  after_create :send_notification!, :track_event
+  after_create :send_creation_notification!, :track_creation_event
+  after_update :send_update_notification!,   :track_update_event, if: :message_changed?
 
   ## scopes ##
   scope :ordered, order_by(created_at: :desc)
 
-  def send_notification!
+  def send_creation_notification!
     # indirection here because we cannot directly use an embedded instance with delayed_job
-    job_offer.delay.send_job_offer_reply_notification(self.id)
+    job_offer.delay.send_job_offer_reply_notification(self.id, false)
   end
 
-  def text_format
-    :markdown
+  def send_update_notification!
+    # indirection here because we cannot directly use an embedded instance with delayed_job
+    job_offer.delay.send_job_offer_reply_notification(self.id, true)
   end
 
-  def track_event
+  def track_creation_event
     self.designer.track_user_event('Job Offer Reply',
       job_offer_title:    job_offer.title,
       job_offer_id:       job_offer.id,
       message:            message
     )
   end
+
+  def track_update_event
+    self.designer.track_user_event('Job Offer Reply Updated',
+      job_offer_title:    job_offer.title,
+      job_offer_id:       job_offer.id,
+      message:            message
+    )
+  end
+
+  def text_format
+    :markdown
+  end
+
 
 end

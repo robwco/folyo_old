@@ -2,7 +2,7 @@
 
 = render 'job_offers/client/wizard', active: :order, offer: @job_offer, signup: params[:signup]
 
-%h2 Confirm Payment
+%h3 Confirm Payment
 %p You're one step away from posting a job offer to Folyo for <strong>$#{@order.total}</strong>:
 
 = form_for @order, url: offer_order_path do |f|

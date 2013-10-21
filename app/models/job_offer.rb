@@ -7,6 +7,7 @@ class JobOffer
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
+  include ActionView::Helpers::NumberHelper
 
   # using routes for Event tracking
   include Rails.application.routes.url_helpers
@@ -31,8 +32,7 @@ class JobOffer
   field :company_url,         type: String
   field :company_description, type: String
 
-  field :discount,            type: String
-  field :discount_amount,     type: Integer
+  field :discount,            type: Integer
 
   field :is_open,             type: Boolean,  default: true
   field :status,              type: Symbol
@@ -77,12 +77,20 @@ class JobOffer
     [:junior, :senior, :superstar]
   end
 
-  def price
-    PRICE * 100
+  def discounted_price
+    if discount.nil?
+      PRICE
+    else
+      PRICE * (1 - discount.to_f/100)
+    end
+  end
+
+  def paypal_price
+    discounted_price * 100
   end
 
   def display_price
-    "$#{PRICE}"
+    number_to_currency(discounted_price)
   end
 
   ## validations ##
@@ -247,9 +255,14 @@ class JobOffer
     end
   end
 
-  def send_job_offer_reply_notification(reply_id)
+  def send_job_offer_reply_notification(reply_id, updated = false)
     reply = self.designer_replies.find(reply_id)
-    ClientMailer.job_offer_replied(reply).deliver
+    if updated
+      ClientMailer.updated_reply(reply).deliver
+    else
+      ClientMailer.job_offer_replied(reply).deliver
+    end
+
   end
 
   def location
@@ -287,6 +300,15 @@ class JobOffer
     end
   end
 
+  def set_client_discount!
+    if client.next_offer_discount
+      self.discount = client.next_offer_discount
+      client.next_offer_discount = nil
+      save!
+      client.save!
+    end
+  end
+
   protected
 
   def track_event(event_name, optional_data = {})
@@ -307,6 +329,7 @@ class JobOffer
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
+      set_client_discount!
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now

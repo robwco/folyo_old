@@ -1,10 +1,7 @@
 class Client < User
 
-  CURRENT_MODEL_VERSION = 2
-
   trackable :email, :full_name, :role, :company_name, :created_at
 
-  field :model_version,       type: Integer,  default: CURRENT_MODEL_VERSION
   field :twitter_username,    type: String
   field :client_pg_id
 
@@ -13,9 +10,12 @@ class Client < User
   field :company_url,         type: String
   field :company_description, type: String
 
+  field :next_offer_discount, type: Integer
+
   has_many :job_offers
 
   #validates_presence_of :company_name, :company_description
+  validates_inclusion_of :next_offer_discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
 
   ## scopes ##
   default_scope where(:_type.in => %w(Client Html::Client))

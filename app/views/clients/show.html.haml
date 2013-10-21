@@ -26,3 +26,6 @@
     %li.location
       %h3 Company Location
       %p= @client.location
+
+- if current_user.is_a?(Admin)
+  = render 'discount', client: @client

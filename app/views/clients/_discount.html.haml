@@ -1,0 +1,6 @@
+.block
+  %h3 Discount
+  = simple_form_for client do |f|
+    = f.input :next_offer_discount, placeholder: 'Discount in percent'
+    = f.submit 'Apply discount', class: 'button'
+
