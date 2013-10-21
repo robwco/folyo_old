@@ -19,11 +19,11 @@ class Order
   embedded_in :job_offer
 
   def setup_purchase(return_url, cancel_return_url, remote_ip)
-    setup_response = EXPRESS_GATEWAY.setup_purchase(job_offer.price,
+    setup_response = EXPRESS_GATEWAY.setup_purchase(job_offer.paypal_price,
       items: [ {
         name:     'Job Offer on Folyo',
         quantity: 1,
-        amount:   job_offer.price
+        amount:   job_offer.paypal_price
       }],
       locale:            'en_us',
       ip:                remote_ip,
@@ -72,7 +72,7 @@ class Order
   private
 
   def process_purchase(job_offer)
-    response = EXPRESS_GATEWAY.purchase(job_offer.price, {
+    response = EXPRESS_GATEWAY.purchase(job_offer.paypal_price, {
       ip:       ip_address,
       token:    express_token,
       payer_id: express_payer_id

@@ -7,11 +7,12 @@ class OrdersController < ApplicationController
   section :job_offers
 
   def new
+    @job_offer.set_client_discount!
     redirect_for_offer(@job_offer) unless @job_offer.waiting_for_payment?
   end
 
   def checkout
-    order = JobOffer.new.build_order
+    order = @job_offer.build_order
     {}.tap do |options|
       options[:signup] = params[:signup] unless params[:signup].blank?
       checkout_url = order.setup_purchase(confirm_offer_order_url(options), new_offer_order_url(options), request.remote_ip)

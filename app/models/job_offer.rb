@@ -7,6 +7,7 @@ class JobOffer
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
+  include ActionView::Helpers::NumberHelper
 
   # using routes for Event tracking
   include Rails.application.routes.url_helpers
@@ -31,8 +32,7 @@ class JobOffer
   field :company_url,         type: String
   field :company_description, type: String
 
-  field :discount,            type: String
-  field :discount_amount,     type: Integer
+  field :discount,            type: Integer
 
   field :is_open,             type: Boolean,  default: true
   field :status,              type: Symbol
@@ -77,12 +77,20 @@ class JobOffer
     [:junior, :senior, :superstar]
   end
 
-  def price
-    PRICE * 100
+  def discounted_price
+    if discount.nil?
+      PRICE
+    else
+      PRICE * (1 - discount.to_f/100)
+    end
+  end
+
+  def paypal_price
+    discounted_price * 100
   end
 
   def display_price
-    "$#{PRICE}"
+    number_to_currency(discounted_price)
   end
 
   ## validations ##
@@ -289,6 +297,15 @@ class JobOffer
       Rails.logger.debug("Archiving offer #{self.slug || self.id}")
       self.skip_validation = true
       self.fire_events(:archive)
+    end
+  end
+
+  def set_client_discount!
+    if client.next_offer_discount
+      self.discount = client.next_offer_discount
+      client.next_offer_discount = nil
+      save!
+      client.save!
     end
   end
 

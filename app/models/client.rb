@@ -1,10 +1,7 @@
 class Client < User
 
-  CURRENT_MODEL_VERSION = 2
-
   trackable :email, :full_name, :role, :company_name, :created_at
 
-  field :model_version,       type: Integer,  default: CURRENT_MODEL_VERSION
   field :twitter_username,    type: String
   field :client_pg_id
 
@@ -12,6 +9,8 @@ class Client < User
   field :company_name,        type: String
   field :company_url,         type: String
   field :company_description, type: String
+
+  field :next_offer_discount, type: Integer
 
   has_many :job_offers
 

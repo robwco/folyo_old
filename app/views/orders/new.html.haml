@@ -15,11 +15,13 @@
       %span.number= @job_offer.display_price
     .paypal
       = link_to image_tag('https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'), checkout_offer_order_path(@job_offer, signup: params[:signup]), id: 'paypal-checkout', data: {'no-turbolink' => true}
+  - if @job_offer.discount
+    %span.discount= "#{@job_offer.discount}% discount included in price"
 
 .block
-  
+
   %h3 Common Questions
-  
+
   %h2 What Happens After I Pay?
   %p After the payment, we will <strong>review your project</strong>. If your job offer is accepted, it will immediately be displayed on the site, and sent by email to all Folyo designers at the end of the week.
 
