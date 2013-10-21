@@ -1,0 +1,5 @@
+= content_for :intro, raw("<strong>#{@designer_reply.designer.full_name}</strong> has just updated his reply to your job offer, \"#{@designer_reply.job_offer.title}\":")
+
+%p= @designer_reply.message
+= link_to "View #{@designer_reply.designer.full_name}\'s Profile", designer_url(@designer_reply.designer), :class=>"button"
+%span or just reply to this email to get in touch

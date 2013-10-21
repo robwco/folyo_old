@@ -247,9 +247,14 @@ class JobOffer
     end
   end
 
-  def send_job_offer_reply_notification(reply_id)
+  def send_job_offer_reply_notification(reply_id, updated = false)
     reply = self.designer_replies.find(reply_id)
-    ClientMailer.job_offer_replied(reply).deliver
+    if updated
+      ClientMailer.updated_reply(reply).deliver
+    else
+      ClientMailer.job_offer_replied(reply).deliver
+    end
+
   end
 
   def location
