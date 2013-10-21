@@ -329,6 +329,7 @@ class JobOffer
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
+      set_client_discount!
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now

@@ -15,7 +15,7 @@ class Client < User
   has_many :job_offers
 
   #validates_presence_of :company_name, :company_description
-  validates_inclusion_of :next_offer_discount, in: 1..100, allow_nil: true
+  validates_inclusion_of :next_offer_discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
 
   ## scopes ##
   default_scope where(:_type.in => %w(Client Html::Client))

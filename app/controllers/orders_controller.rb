@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
   section :job_offers
 
   def new
-    @job_offer.set_client_discount!
     redirect_for_offer(@job_offer) unless @job_offer.waiting_for_payment?
   end
 
