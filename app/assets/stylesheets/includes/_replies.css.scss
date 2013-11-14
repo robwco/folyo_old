@@ -117,6 +117,34 @@
 
 }
 
+.designer-reply{
+	margin-bottom: $spacing;
+	margin-top: -60px;
+	@extend .message-contents;
+
+	@include top-arrow;
+	&:after {
+		left: 30px;
+		margin-left: -10px;
+	}
+	&:before {
+		left: 30px;
+		margin-left: -14px;
+	}
+	.reply-intro{
+		color: $lightesttext;
+		border-bottom: 1px solid $lightgrey2;
+		padding-bottom: 6px;
+		margin-bottom: 6px;
+		font-size: 14px;
+	}
+	.reply-message{
+		margin-bottom: 0px;
+		font-size: 18px;
+	}
+}
+
+
 // ul.replies{
 // 	list-style-type:none;
 // 	>li{

@@ -22,6 +22,8 @@
 
 = content_for :hero do
 
+  = render :partial => '/designers/designer_reply', :locals => {:designer => @designer}
+
   = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
 
 = content_for :sidebar do

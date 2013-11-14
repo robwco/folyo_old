@@ -26,8 +26,7 @@
               = r.designer.full_name
               %span.placeholder
             %span.reply-location= r.designer.location 
-          %p.reply-message
-            %span.reply-short= Sanitize.clean(r.message)
+          %p.reply-message= Sanitize.clean(r.message)
         .reply-work
           = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
 
