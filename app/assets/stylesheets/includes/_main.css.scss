@@ -17,6 +17,7 @@ body, input, textarea, .button, p{
 
 /*------------------- Page ------------------ */
 #page-content{
+	padding-top: $spacing;
 	@include border-bottom-radius(3px);
 	background:white ;
 	@include box-shadow(rgba(0,0,0,0.15) 0px 1px 3px 0px);

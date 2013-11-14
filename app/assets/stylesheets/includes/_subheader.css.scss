@@ -73,6 +73,12 @@
 		vertical-align:middle;
 		display:table-cell;
 	}
+	.header-avatar{
+		width: 60px;
+		height: 60px;
+		float: left;
+		margin-right: $halfspacing;
+	}
 }
 
 ol.wizard{

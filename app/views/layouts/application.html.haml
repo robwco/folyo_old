@@ -8,6 +8,8 @@
         %section.sub-header#page-header
           .container
             .main-header
+              - unless yield(:avatar).blank?
+                =image_tag(yield(:avatar), :class => 'avatar header-avatar')
               %h1.title
                 = yield(:title)
               - unless yield(:subtitle).blank?
@@ -22,9 +24,14 @@
         = yield(:header)
       #page-content
         .container
+          - unless yield(:hero).blank?
+            .hero
+              = content_for(:hero)
+
           .main
             = render :partial => '/site/flash', :locals => {:flash => flash}
             = content_for?(:content) ? yield(:content) : yield
+
           - unless yield(:sidebar).blank?
             .sidebar
               = content_for(:sidebar)
