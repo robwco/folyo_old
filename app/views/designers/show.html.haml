@@ -27,8 +27,8 @@
   = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
 
 = content_for :sidebar do
-  %ul
-    %li.links
+  %ul.profile-meta
+    %li.profile-links
       %h3 Links
       %ul.social-media
         %li.site= link_to 'Portfolio', @designer.portfolio_url,:title =>@designer.portfolio_url, :class => 'tooltip', :target => "_blank"

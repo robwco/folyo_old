@@ -1,4 +1,12 @@
 .sidebar{
+	// padding:20px;
+	// background: $lightgrey7;
+	// @include border-radius(5px);
+	>ul{
+		>li{
+			margin-bottom: $spacing;
+		}
+	}	
 	.subnav{
 		a{
 			&.current{
@@ -21,6 +29,7 @@
 			margin-bottom: 20px;
 		}
 	}
+
 	.count{
 		display: inline-block;
 		@include border-radius(10px);
@@ -43,5 +52,29 @@
 	padding:20px;
 	h5{
 		margin-bottom:20px;
+	}
+}
+.profile-links{
+	@include cf;
+	li{
+		float: left;
+		margin-right: 5%;
+		margin-bottom: 5%;
+		width: 30%;
+		&:nth-child(3n){
+			margin-right: 0;
+		}
+		a{
+			display: block;
+			width: 100%;
+			text-align: center;
+			padding: 10px;
+			background: $lightgrey7;
+			@include border-radius(3px);
+			&:hover{
+				background: $darkerBlue;
+				color: white;
+			}
+		}
 	}
 }
