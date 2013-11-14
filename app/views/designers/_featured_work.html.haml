@@ -1,23 +1,31 @@
 .featured-work
   .project
-    = link_to 'project-placeholder.png', class: 'project-image' do
-      = image_tag 'project-placeholder.png'
-    %h4.project-title Sharypic
-    %p.project-description UI design for a photo-sharing site.
-    / %ul.skills-list
-    /   %li.ui-design UI Design
-    /   %li.icon-design Icon Design
-    /   %li.ux-design UX Design
-    %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
-  .project
-    = link_to 'project-placeholder.png', class: 'project-image' do
-      = image_tag 'project-placeholder.png'
+    - if current_user.is_a? Designer # if this is the designer's own profile
+      = link_to designer_projects_path(current_user), class: 'project-image' do
+        = image_tag 'project-placeholder-upload.png'
+    - else
+      = link_to 'project-placeholder.png', class: 'project-image' do
+        = image_tag 'project-placeholder.png'
     %h4.project-title Sharypic
     %p.project-description UI design for a photo-sharing site.
     %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
   .project
-    = link_to 'project-placeholder.png', class: 'project-image' do
-      = image_tag 'project-placeholder.png'
+    - if current_user.is_a? Designer
+      = link_to designer_projects_path(current_user), class: 'project-image' do
+        = image_tag 'project-placeholder-upload.png'
+    - else
+      = link_to 'project-placeholder.png', class: 'project-image' do
+        = image_tag 'project-placeholder.png'
+    %h4.project-title Sharypic
+    %p.project-description UI design for a photo-sharing site.
+    %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
+  .project
+    - if current_user.is_a? Designer
+      = link_to designer_projects_path(current_user), class: 'project-image' do
+        = image_tag 'project-placeholder-upload.png'
+    - else
+      = link_to 'project-placeholder.png', class: 'project-image' do
+        = image_tag 'project-placeholder.png'
     %h4.project-title Sharypic
     %p.project-description UI design for a photo-sharing site.
     %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
