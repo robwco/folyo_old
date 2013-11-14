@@ -18,15 +18,16 @@
 
   %ul.replies
     - @designer_replies.each do |r|
-      %li.reply.collapsed
+      %li.reply
         .reply-designer
           = image_tag('avatar-placeholder.jpg', :class => 'avatar reply-avatar')
           %p.reply-infos
-            %strong.reply-name= r.designer.full_name
+            %a.reply-name{:href => designer_path(r.designer)}
+              = r.designer.full_name
+              %span.placeholder
             %span.reply-location= r.designer.location 
           %p.reply-message
             %span.reply-short= Sanitize.clean(r.message)
-            %span.reply-full= auto_link(Sanitize.clean(r.message))
         .reply-work
           = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
 

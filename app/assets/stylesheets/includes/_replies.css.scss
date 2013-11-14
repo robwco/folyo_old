@@ -29,6 +29,15 @@
 	display: block;
 	cursor: pointer;
 	margin: 0;
+	position: relative;
+	.placeholder{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom:0px;
+		right:0px;
+		z-index: 100;
+	}
 	.reply-name{
 		font-size: 16px;
 	}
@@ -38,7 +47,6 @@
 	.reply-designer{
 		@include cf;
 		white-space: nowrap;
-		position: relative;
 		padding-left: 80px;
 		padding-top: 15px;
 		@include medium{
@@ -50,17 +58,14 @@
 		height: 60px;
 		float: left;
 		position: absolute;
-		top: 10px;
-		left:5px;
+		top: 22px;
+		left:10px;
 	}
 	.reply-infos{
 		margin-bottom: 0;
 	}
-	.reply-message{
-		margin-bottom: 0;
-
-	}
 	.reply-work{
+		padding-right: 10px;
 		@include medium{
 			@include span-columns(5 omega);
 		}
@@ -77,48 +82,39 @@
 			display: none;
 		}
 	}
-	&.expanded{
-		// background: white;
-		.reply-short{
+	.reply-message{
+		margin-bottom: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		position: relative;
+
+		&:after{
+			@include background(linear-gradient(left, rgba(0,0,0,0), #fff));
+			content: " ";
+			height: 40px;
+			width: 40px;
+			display: block;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+		}
+		.reply-full{
 			display: none;
 		}
 	}
-	&.collapsed{
-		// background: $lightgrey6;
-		.reply-message{
-			white-space: nowrap;
-			overflow: hidden;
-			position: relative;
-
-			&:after{
-				@include background(linear-gradient(left, rgba(0,0,0,0), #fff));
-				content: " ";
-				height: 40px;
-				width: 40px;
-				display: block;
-				position: absolute;
-				top: 0px;
-				right: 0px;
-			}
-			.reply-full{
-				display: none;
-			}
+	.reply-actions{
+		@include medium{
+			@include span-columns(2 omega);
+			padding-right: 5px;
 		}
-		.reply-actions{
-			@include medium{
-				@include span-columns(2 omega);
-				padding-right: 5px;
-			}
-		}
-
-		&:hover{
-			background: $lightgrey2;
-			.reply-message:after{
-				@include background(linear-gradient(left, rgba(0,0,0,0), $lightgrey2));
-			}
-		}
-
 	}
+	&:hover{
+		background: $lightgrey2;
+		.reply-message:after{
+			@include background(linear-gradient(left, rgba(0,0,0,0), $lightgrey2));
+		}
+	}
+
 }
 
 // ul.replies{
