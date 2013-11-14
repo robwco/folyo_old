@@ -25,38 +25,71 @@
 .reply{
 	border-bottom:1px solid $lightgrey1;
 	@include cf;
-	padding: 6px 0;
+	padding: 12px 0;
 	display: block;
 	cursor: pointer;
 	margin: 0;
-	line-height: 40px;
 	.reply-name{
 		font-size: 16px;
 	}
-	&.collapsed{
+	.reply-location{
+		color: $lightesttext;
+	}
+	.reply-designer{
+		@include cf;
+		white-space: nowrap;
+		position: relative;
+		padding-left: 80px;
+		padding-top: 15px;
+		@include medium{
+			@include span-columns(7);
+		}
+	}
+	.reply-avatar{
+		width:60px;
+		height: 60px;
+		float: left;
+		position: absolute;
+		top: 10px;
+		left:5px;
+	}
+	.reply-infos{
+		margin-bottom: 0;
+	}
+	.reply-message{
+		margin-bottom: 0;
 
-		.reply-designer{
-			@include cf;
-			white-space: nowrap;
-			overflow: hidden;
-			@include medium{
-				@include span-columns(3);
-				padding-left: 10px;
-			}
+	}
+	.reply-work{
+		@include medium{
+			@include span-columns(5 omega);
 		}
-		.reply-avatar{
-			width:40px;
-			height: 40px;
-			float: left;
-			margin-right: 10px;
+		.project, .project-image{
+			margin-bottom: 0;
 		}
-		.reply-text{
+		.project-title{
+			display: none;
+		}
+		.project-description{
+			display: none;
+		}
+		.project-link{
+			display: none;
+		}
+	}
+	&.expanded{
+		// background: white;
+		.reply-short{
+			display: none;
+		}
+	}
+	&.collapsed{
+		// background: $lightgrey6;
+		.reply-message{
 			white-space: nowrap;
 			overflow: hidden;
 			position: relative;
-			@include medium{
-				@include span-columns(7);
-			}
+
 			&:after{
 				@include background(linear-gradient(left, rgba(0,0,0,0), #fff));
 				content: " ";
@@ -67,17 +100,20 @@
 				top: 0px;
 				right: 0px;
 			}
+			.reply-full{
+				display: none;
+			}
 		}
 		.reply-actions{
 			@include medium{
 				@include span-columns(2 omega);
-				padding-right: 10px;
+				padding-right: 5px;
 			}
 		}
 
 		&:hover{
 			background: $lightgrey2;
-			.reply-text:after{
+			.reply-message:after{
 				@include background(linear-gradient(left, rgba(0,0,0,0), $lightgrey2));
 			}
 		}

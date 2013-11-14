@@ -5,18 +5,18 @@ class Views.DesignerReplies.IndexView extends Views.ApplicationView
   render: ->
     super()
 
-    $(".collapse").click (e) =>
+    $(".reply").click (e) =>
       e.preventDefault()
 
-      $li = $(e.target).parents('li')
+      $li = $(e.currentTarget)
       url = $li.attr('data-url')
 
       if $li.hasClass("collapsed")
-        $li.removeClass "collapsed"
-        @update(url, false)
+        $li.removeClass("collapsed").addClass("expanded")
+        # @update(url, false)
       else
-        $li.addClass "collapsed"
-        @update(url, true)
+        $li.addClass("collapsed").removeClass("expanded")
+        # @update(url, true)
 
   update: (url, collapsed) ->
     $.ajax
