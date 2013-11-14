@@ -1,3 +1,24 @@
+.replies-header{
+	border-bottom: 2px solid $lightgrey1;
+	font-weight: bold;
+	@include cf;
+	padding-bottom: 10px;
+	color: $lightertext;
+	@include small{
+		display: none;
+	}
+	@include medium{
+		.header-designer{
+			@include span-columns(3);
+		}
+		.header-message{
+			@include span-columns(7);
+		}
+		.header-location{
+			@include span-columns(2 omega);
+		}
+	}
+}
 .replies{
 	border-top: 1px solid $lightgrey1;
 }
@@ -16,8 +37,10 @@
 
 		.reply-designer{
 			@include cf;
+			white-space: nowrap;
+			overflow: hidden;
 			@include medium{
-				@include span-columns(4);
+				@include span-columns(3);
 				padding-left: 10px;
 			}
 		}
@@ -32,7 +55,7 @@
 			overflow: hidden;
 			position: relative;
 			@include medium{
-				@include span-columns(6);
+				@include span-columns(7);
 			}
 			&:after{
 				@include background(linear-gradient(left, rgba(0,0,0,0), #fff));

@@ -7,9 +7,15 @@
 - if @job_offer.archived?
 	= content_for :body_class, " offer-archived"
 
+.replies-header
+	.header-designer Designer
+	.header-message Message
+	.header-location Location
+	
 - if @designer_replies.empty?
 	%p.note Sorry, you haven't received any replies yet
 - else
+
 	%ul.replies
 		- @designer_replies.each do |r|
 			%li.reply.collapsed
@@ -18,8 +24,8 @@
 					%strong.reply-name= r.designer.full_name
 				.reply-text
 					= Sanitize.clean(r.message)
-				.reply-action
-					Discard
+				.reply-location
+					Paris, France
 
 
 			/ -if r.collapsed == true
