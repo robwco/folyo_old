@@ -4,6 +4,7 @@
 		z-index: 5;
 		position: relative;
 		background: white;
+		-webkit-transform: translate3d(0,0,0);
 	}
 	header{
 		z-index:10;
@@ -16,13 +17,10 @@
 	.primary{
 		background: $green;
 		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANUlEQVQYV2NkIBIw/v//35iRkfEsunqYOIxmJNJABgyF6CaRbyIuk2BOI96NhEyi3ERc4QkAki48CxxSFJ4AAAAASUVORK5CYII=);
-		// background-attachment:fixed;
-		// display: table;
 		width: 100%;
 		padding:0;
 		@include medium{
-			min-height: 100vh;
-			position: fixed;
+			min-height: 1024px;//100vh;
 			z-index: 1;
 			top:0;
 		}
@@ -33,16 +31,12 @@
 	.hero{
 		@include medium{
 			display: table;
-			position: fixed;
-			height:100%;
+			position: absolute;
 			width: 100%;
-			top: 0;
-			bottom: 0;
+			top: 35%;
 			left: 0;
-			right: 0;
 			.container{
-				display: table-cell;
-				vertical-align: middle;
+				margin: 0 auto;
 				text-align: center;
 			}
 		}
@@ -59,13 +53,10 @@
 			&:hover{
 				background: black(0.5);
 			}
-		}	
+		}
 	}
 	.secondary{
 		background:white;
-		@include medium{
-			margin-top:100vh;
-		}
 		.block{
 			padding-bottom: 40px;
 			border-bottom: 2px solid #dde5e9;
@@ -81,7 +72,7 @@
 	%dark-background{
 		// http://bit.ly/177c3x0
 		// background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANklEQVQYV2NkIBIwAtVJAvFzLOph4mAapJAogE0hikkwG8kyEatJMHeRZCJek6hiInpwgW0EAKvbDwvkiHTzAAAAAElFTkSuQmCC);
-		// background-attachment:fixed;	
+		// background-attachment:fixed;
 	}
 	.how-it-works{
 		background-color:$darkerBlue;
@@ -98,7 +89,7 @@
 	}
 	.footer{
 		padding-top:20px;
-		background-color:$darkerBlue;		
+		background-color:$darkerBlue;
 	}
 
 
@@ -206,7 +197,7 @@
 	}
 	.designer{
 		margin-bottom:20px;
-		text-align:center;	
+		text-align:center;
 		@include medium{
 			@include span-columns(3);
 			@include nth-omega(4n, of-type);
@@ -280,7 +271,7 @@
 	.testimonials{
 		background:$lightgrey7;
 	}
-	
+
 	.past-clients{
 		background:$lightgrey7;
 	}
@@ -298,7 +289,7 @@
 			}
 
 			a{
-				display: block;	
+				display: block;
 				margin:0 auto;
 				position: relative;
 				max-width: 150px;
@@ -318,7 +309,7 @@
 		}
 		h3{
 			color:white;
-			text-shadow:0px 3px 7px black(0.35);		
+			text-shadow:0px 3px 7px black(0.35);
 		}
 		a{
 			&, &:link, &:active, &:visited{
@@ -328,7 +319,7 @@
 				color:$green;
 			}
 		}
-	}	
+	}
 	.guides{
 		@include medium{
 			@include span-columns(10 omega);
@@ -357,5 +348,5 @@
 		p{
 			font-size: 16px;
 		}
-	}	
+	}
 }
