@@ -1,22 +1,23 @@
-= content_for :title, "Add a new portfolio project"
+= content_for :title, "Add A New Project"
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
 .designer-project
   .block
-    %p.note Ego vero sic intellego, Patres conscripti, nos hoc tempore in provinciis decernendis perpetuae pacis habere oportere rationem. Nam quis hoc non sentit omnia alia esse nobis vacua ab omni periculo atque etiam suspicione belli?
+    %p Add a new project to your portfolio.
 
   = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project) do |f|
-    = f.input :name
-    = f.input :description, as: :limited_text, wrapper_html: {class: 'markdown'}
-    = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Involved skills', label_method: sym_label_method, value_method: :to_sym
-    = f.submit value: 'Save project', class: 'button big-button'
+    = f.input :name, label: 'Project Name'
+    = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
+    = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
+    = f.submit value: 'Save Project', class: 'button big-button'
 
   - if @designer_project.cover
     %label Project cover
     = image_tag @designer_project.cover.asset(:cover)
 
-  %label= 'Artworks (up to 2MB)'
+  %label= 'Artworks (max size 2MB)'
+
   = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
     = file_field_tag :file, multiple: true
 

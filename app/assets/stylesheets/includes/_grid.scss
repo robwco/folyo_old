@@ -1,3 +1,8 @@
+$spacing: 40px;
+$quarterspacing: $spacing/4;
+$halfspacing: $spacing/2;
+$doublepsacing: $spacing*2;
+
 @include border-box-sizing;
 
 // at 40em (16*40=640px) switch to a 12-column layout
@@ -15,17 +20,22 @@ $small-break: 40em;
 }
 
 $total-columns  : 12;
-$column-width   : 40px;
-$gutter-width   : 40px;
+$column-width   : 45px;
+$gutter-width   : $spacing;
 $grid-padding   : 0px;
 
-$mbottom: 40px;
+$mbottom: $spacing;
 
+
+.body{
+	@include small{
+		overflow-x: hidden;
+	}
+}
 .container{
 	@include container;
 	@include small{
 		padding:0 10px;
-		overflow-x: hidden;
 	}
 	@include medium{
 		padding:0 20px;
@@ -33,20 +43,16 @@ $mbottom: 40px;
 }
 
 .main {
-	padding-top:40px;
-	padding-bottom:40px;
+	margin-bottom:$spacing;
 	@include medium{
 		@include span-columns(7);
 	}
 }
 .sidebar {
+	margin-bottom:$spacing;
 	@include medium{
-		margin:40px 0;
 		@include span-columns(5 omega);
 	}
-	padding:20px;
-	background: $lightgrey7;
-	@include border-radius(5px);
 }
 
 body.no-sidebar{	

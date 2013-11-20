@@ -13,9 +13,6 @@
 
     = paginate @job_offers
 
-  = content_for :sidebar do
-    %p.note New! Folyo now lets you #{link_to "tell the world that you're looking for a job", posts_path}.
-
 - elsif current_user.is_a?(Designer) && current_user.pending?
   .notices
     .notice Your profile is currently being reviewed, you will get access to the job offers if you're accepted. Thanks for your patience!

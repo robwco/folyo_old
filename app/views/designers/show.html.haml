@@ -1,5 +1,6 @@
 = content_for :title, @designer.full_name
 = content_for :subtitle, @designer.short_bio.truncate(70)
+= content_for :avatar, '/assets/avatar-placeholder.jpg'
 = content_for :body_class, "designer-profile"
 
 - if current_user
@@ -11,16 +12,26 @@
       = link_to 'Get in Touch', new_designer_message_path(@designer), :id => "get-in-touch", :class => "button big-button"
 
 .block.about
+
+
   %h3 About Me
   - if @designer.long_bio
     %p!= format_text(@designer, :long_bio)
 
+
+
+= content_for :hero do
+
+  = render :partial => '/designers/designer_reply', :locals => {:designer => @designer}
+
+  = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
+
 = content_for :sidebar do
-  %ul
-    %li.links
+  %ul.profile-meta
+    %li.profile-links
       %h3 Links
       %ul.social-media
-        %li.site= link_to @designer.portfolio_url, @designer.portfolio_url,:title =>@designer.portfolio_url, :class => 'tooltip', :target => "_blank"
+        %li.site= link_to 'Portfolio', @designer.portfolio_url,:title =>@designer.portfolio_url, :class => 'tooltip', :target => "_blank"
         - unless @designer.dribbble_url.blank?
           %li.dribbble= link_to "Dribbble", @designer.dribbble_url, :title =>'Dribbble', :class => 'tooltip', :target => "_blank"
         - unless @designer.twitter_username.blank?
@@ -29,9 +40,6 @@
           %li.behance= link_to "Behance", @designer.behance_url ,:title =>'Behance', :class => 'tooltip', :target => "_blank"
         - unless @designer.zerply_username.blank?
           %li.zerply= link_to "Zerply", "http://www.zerply.com/profile/"+@designer.zerply_username+"/public",:title =>'Zerply', :class => 'tooltip', :target => "_blank"
-    %li.featured-work
-      %h3 Featured Work
-      = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
     %li.skills
       %h3 Skills
       %ul.skills-list

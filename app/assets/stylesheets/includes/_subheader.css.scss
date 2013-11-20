@@ -68,10 +68,24 @@
 		font-weight:normal;
 	}
 	.main-action{
-		// float:right;
-		text-align:right;
-		vertical-align:middle;
-		display:table-cell;
+		@include small{
+			margin-top: 20px;
+			a{
+				width: 100%;
+				display: block;
+			}
+		}
+		@include medium{
+			text-align:right;
+			vertical-align:middle;
+			display:table-cell;
+		}
+	}
+	.header-avatar{
+		width: 60px;
+		height: 60px;
+		float: left;
+		margin-right: $halfspacing;
 	}
 }
 

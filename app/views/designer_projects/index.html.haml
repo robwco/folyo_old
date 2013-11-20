@@ -1,4 +1,4 @@
-= content_for :title, 'Your portfolio'
+= content_for :title, 'My Portfolio'
 = content_for :sidebar do
   = link_to 'Add a project', new_designer_project_path(@designer), class: 'button big-button'
 
@@ -7,6 +7,7 @@
   = render :partial => '/designers/account_nav'
 
 .block
+  %p You can add up to three projects to be displayed on your profile. 
   %h3 Your projects
   - if @designer_projects.empty?
     %p You don't have any projects yet. Start by uploading one now. 
