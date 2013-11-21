@@ -25,6 +25,10 @@ class DesignerProjectsController < ApplicationController
     end
   end
 
+  def edit
+    @artwork = @designer_project.artworks.first
+  end
+
   protected
 
   def set_designer

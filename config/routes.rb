@@ -73,8 +73,8 @@ Folyo::Application.routes.draw do
     resources :designer_posts,    path: 'posts',    as: 'posts'
     resources :designer_projects, path: 'projects', as: 'projects' do
       resources :designer_project_artworks, path: 'artworks', as: 'artworks' do
-        get 'edit_cover',    on: :member
-        put 'update_cover',  on: :member
+        get 'crop',    on: :member
+        put 'update_crop',  on: :member
       end
       get 'upload_status', on: :member
     end

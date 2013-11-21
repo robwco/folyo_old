@@ -9,15 +9,20 @@ class DesignerProjectArtwork
   field :direct_upload_url, type: String
   field :status,            type: Symbol,  default: :initialized
   field :geometry,          type: Hash
-  field :is_cover,          type: Boolean, default: false
 
   field :crop_x
   field :crop_y
   field :crop_w
   field :crop_h
 
-  has_mongoid_attached_file :asset,   styles: { large: '1200', medium: '800',  small: '400', cover: { geometry: '400x300#', processors: [:cropper] } }
-  belongs_to                :project, class_name: 'DesignerProject', inverse_of: :artworks
+  has_mongoid_attached_file :asset,   styles: {
+    large:  { geometry: '1200x900#', processors: [:cropper] },
+    medium: { geometry: '800x600#',  processors: [:cropper] },
+    small:  { geometry: '400x300#',  processors: [:cropper] },
+    small_edit_cover: '400'
+  }
+
+  belongs_to :project, class_name: 'DesignerProject', inverse_of: :artworks
 
   validates :direct_upload_url, format: { with: DIRECT_UPLOAD_URL_FORMAT }, allow_blank: true
 
@@ -31,8 +36,6 @@ class DesignerProjectArtwork
   end
 
   def crop_cover(crop_x, crop_y, crop_w, crop_h)
-    self.is_cover = true
-
     self.crop_x = crop_x
     self.crop_y = crop_y
     self.crop_w = crop_w
@@ -46,35 +49,49 @@ class DesignerProjectArtwork
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
+  def processed?
+    self.status == :processed
+  end
+
   protected
 
   def transfer_and_cleanup
-    begin
-      self.status = :processing
-      self.asset = URI.parse(URI.escape(direct_upload_url))
-      save
+    self.status = :processing
+    self.asset = URI.parse(URI.escape(direct_upload_url))
+    save
 
-      s3 = AWS::S3.new
-      direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
-      s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
-      self.status = :processed
-      save
-    rescue Exception => e
-      self.status = :failed
-      save
-      raise e
-    end
+    s3 = AWS::S3.new
+    direct_upload_url_data = DIRECT_UPLOAD_URL_FORMAT.match(direct_upload_url)
+    s3.buckets[Rails.configuration.aws[:bucket]].objects[direct_upload_url_data[:path]].delete
+    self.status = :processed
+    save
+  rescue Exception => e
+    self.status = :failed
+    save
+    raise e
   end
   handle_asynchronously :transfer_and_cleanup
 
   def reprocess_asset!
-    asset.reprocess!(:cover)
+    self.status = :processing
+    save
+    delayed_reprocess!
   end
-  handle_asynchronously :reprocess_asset!
+
+  def delayed_reprocess!
+    asset.reprocess!
+    self.status = :processed
+    save
+  rescue Exception => e
+    self.status = :failed
+    save
+    raise e
+  end
+  handle_asynchronously :delayed_reprocess!
 
   def save_image_dimensions
     self.geometry ||= {}
-    [:original, :large, :medium, :small, :cover].each do |style|
+    [:original, :large, :medium, :small, :small_edit_cover].each do |style|
       begin
         geo = Paperclip::Geometry.from_file(asset.queued_for_write[style])
         self.geometry[style] = {width: geo.width, height: geo.height}

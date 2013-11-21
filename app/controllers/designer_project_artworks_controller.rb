@@ -1,7 +1,7 @@
 class DesignerProjectArtworksController < ApplicationController
 
   before_filter :set_designer, :set_project
-  before_filter :set_artwork, only: [:edit_cover, :update_cover]
+  before_filter :set_artwork, only: [:crop, :update_crop]
 
   inherit_resources
   defaults resource_class: DesignerProjectArtwork, collection_name: 'artworks'
@@ -18,23 +18,22 @@ class DesignerProjectArtworksController < ApplicationController
     render partial: 'designer_projects/artworks', locals: { project: @designer_project, artwork: @designer_project.artworks.processed.first }
   end
 
-  def edit_cover
+  def crop
     render layout: false
   end
 
-  def update_cover
-    @designer_project.artworks.update_all(is_cover: false)
+  def update_crop
     @artwork.crop_cover(
       params[:designer_project_artwork][:crop_x],
       params[:designer_project_artwork][:crop_y],
       params[:designer_project_artwork][:crop_w],
       params[:designer_project_artwork][:crop_h]
     )
-    redirect_to edit_cover_designer_project_artwork_path(@designer, @designer_project, @artwork)
+    redirect_to edit_designer_project_path(@designer, @designer_project), notice: 'Artwork is being cropped, please wait a few seconds.'
   end
 
   def destroy
-    destroy!(notice: 'Artwork was successfully removed') { edit_designer_project_path(@designer, @designer_project) }
+    destroy!(notice: 'Artwork was successfully removed!') { edit_designer_project_path(@designer, @designer_project) }
   end
 
   protected

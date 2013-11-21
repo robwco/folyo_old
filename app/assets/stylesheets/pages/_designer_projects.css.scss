@@ -2,8 +2,11 @@
 
   .artworks {
     margin-top: 35px;
-    .remove {
-      display: block;
+    .crop {
+      &:before {
+        content: ' - ';
+        color: $darkgrey1;
+      }
     }
   }
 
@@ -18,4 +21,10 @@
     }
   }
 
+}
+
+.submit-crop {
+  display: block !important;
+  width: 175px;
+  margin: 10px auto 0;
 }

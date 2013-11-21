@@ -20,10 +20,6 @@ class DesignerProject
     self.artworks.where(:status.nin => [:processed, :failed] ).count == 0
   end
 
-  def cover
-    self.artworks.where(is_cover: true).first
-  end
-
   protected
 
   def process_skills

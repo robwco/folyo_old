@@ -12,29 +12,22 @@
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
     = f.submit value: 'Save Project', class: 'button big-button'
 
-  - if @designer_project.cover
-    %label Project cover
-    = image_tag @designer_project.cover.asset(:cover)
-
   .artworks{data: {url: designer_project_artworks_path(@designer, @designer_project)}}
 
-    - if @designer_project.artworks.processed.length > 0
-      = render 'artworks', project: @designer_project, artwork: @designer_project.artworks.processed.first
+    - if @artwork
+      - if @artwork.processed?
+        = render 'artworks', project: @designer_project, artwork: @artwork
+      - else
+        .spinner{data: {'polling-path' => upload_status_designer_project_path(@designer, @designer_project) }}
 
     - else
       %label= 'Artworks (max size 2MB)'
       = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
         = file_field_tag :file, multiple: false
-      .spinner.hidden
 
   %script#template-upload{type: "text/x-tmpl"}
     .upload{id: "file-{%=o.unique_id%}"}
       = "{%=o.name%}"
       .progress
         .bar{style: "width: 0%"}
-
-
-
-
-
 
