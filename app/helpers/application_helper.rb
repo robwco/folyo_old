@@ -5,8 +5,15 @@ module ApplicationHelper
   def current_link_to(title, target, link_class='')
     # see http://www.liquidfoot.com/2010/09/28/add-highlight-link-to-current-page-in-rails/
     # and http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to_unless_current
+
     link_to_unless_current title, target do
-      link_to title, target, :class => "current "+link_class
+      link_to title, target, class: "current #{link_class}"
+    end
+  end
+
+  def current_link_to_unless(condition, title, target, link_class='')
+    link_to_unless condition, title, target do
+      link_to title, target, class: "current #{link_class}"
     end
   end
 

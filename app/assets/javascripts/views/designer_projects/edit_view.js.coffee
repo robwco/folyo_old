@@ -33,6 +33,8 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
 
   start_polling: (url) ->
     $('.artworks .spinner').removeClass('hidden')
+    $('.artworks label').remove()
+    $('.artworks form').remove()
     polling = true
     poller = setInterval(=>
       $.ajax

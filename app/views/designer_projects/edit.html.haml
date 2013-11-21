@@ -16,12 +16,16 @@
     %label Project cover
     = image_tag @designer_project.cover.asset(:cover)
 
-  %label= 'Artworks (max size 2MB)'
+  .artworks{data: {url: designer_project_artworks_path(@designer, @designer_project)}}
 
-  = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
-    = file_field_tag :file, multiple: true
+    - if @designer_project.artworks.processed.length > 0
+      = render 'artworks', project: @designer_project, artwork: @designer_project.artworks.processed.first
 
-  = render 'artworks', project: @designer_project
+    - else
+      %label= 'Artworks (max size 2MB)'
+      = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
+        = file_field_tag :file, multiple: false
+      .spinner.hidden
 
   %script#template-upload{type: "text/x-tmpl"}
     .upload{id: "file-{%=o.unique_id%}"}

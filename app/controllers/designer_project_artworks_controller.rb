@@ -15,7 +15,7 @@ class DesignerProjectArtworksController < ApplicationController
   end
 
   def index
-    render partial: 'designer_projects/artworks', locals: { project: @designer_project }
+    render partial: 'designer_projects/artworks', locals: { project: @designer_project, artwork: @designer_project.artworks.processed.first }
   end
 
   def edit_cover
@@ -31,6 +31,10 @@ class DesignerProjectArtworksController < ApplicationController
       params[:designer_project_artwork][:crop_h]
     )
     redirect_to edit_cover_designer_project_artwork_path(@designer, @designer_project, @artwork)
+  end
+
+  def destroy
+    destroy!(notice: 'Artwork was successfully removed') { edit_designer_project_path(@designer, @designer_project) }
   end
 
   protected

@@ -1,5 +1,3 @@
-.artworks{data: {url: designer_project_artworks_path(project.designer, project)}}
-  .spinner.hidden
-  - project.artworks.processed.each do |artwork|
-    = image_tag artwork.asset.url(:small)
-    = link_to artwork.is_cover ? 'Edit cover' : 'Set as cover', edit_cover_designer_project_artwork_path(project.designer, project, artwork), class: 'edit-cover'
+- if artwork
+  = image_tag artwork.asset.url(:small)
+  = link_to 'Remove artwork', designer_project_artwork_path(project.designer, project, artwork), method: 'DELETE'
