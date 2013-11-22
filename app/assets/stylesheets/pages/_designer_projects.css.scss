@@ -1,12 +1,18 @@
 .designer-project {
 
   .artworks {
-    margin-top: 35px;
+    margin: 35px 0 40px;
     .crop {
       &:before {
         content: ' - ';
         color: $darkgrey1;
       }
+    }
+  }
+
+  #main-form {
+    .designer_project_skills {
+      display: none;
     }
   }
 
@@ -23,17 +29,33 @@
     input[type=file] {
       opacity: 0;
     }
+    .upload {
+      font-size: 0;
+      padding-top: 0;
+      border-top: none;
+    }
     margin-bottom: 50px;
   }
 
-  .spinner {
-    display: block;
-    height: 32px;
-    width: 32px;
-    margin: 0 auto;
-    background:image-url('ajax-loader.gif') no-repeat center center;
-    &.hidden {
-      visibility: hidden;
+  .upload-spinner-placeholder {
+    height: 300px;
+    width: 400px;
+    background-image: image-url('project-placeholder.png');
+    background-size: contain;
+    position: relative;
+
+    .spinner {
+      position: absolute;
+      left: 184px;
+      top: 134px;
+      display: block;
+      height: 32px;
+      width: 32px;
+      margin: 0 auto;
+      background:image-url('ajax-loader.gif') no-repeat center center;
+      &.hidden {
+        visibility: hidden;
+      }
     }
   }
 

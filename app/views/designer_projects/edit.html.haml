@@ -6,11 +6,10 @@
   .block
     %p Add a new project to your portfolio.
 
-  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project) do |f|
+  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'
     = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
-    = f.submit value: 'Save Project', class: 'button big-button'
 
   .artworks{data: {url: designer_project_artworks_path(@designer, @designer_project)}}
 
@@ -18,10 +17,12 @@
       - if @artwork.processed?
         = render 'artworks', project: @designer_project, artwork: @artwork
       - else
-        .spinner{data: {'polling-path' => upload_status_designer_project_path(@designer, @designer_project) }}
+        %label Artwork
+        .upload-spinner-placeholder
+          .spinner{data: {'polling-path' => upload_status_designer_project_path(@designer, @designer_project) }}
 
     - else
-      %label= 'Artworks (max size 2MB)'
+      %label= 'Artwork (max size 2MB)'
       .upload-placeholder
         = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
           = file_field_tag :file, multiple: false
@@ -31,4 +32,10 @@
       = "{%=o.name%}"
       .progress
         .bar{style: "width: 0%"}
+
+  -# since s3_form_uploader doesn't work when nested under a form element, form is split in two parts and JS code copy values from #skills-form to #main-form
+  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: { id: 'skills-form' } do |f|
+    = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
+
+  %a{href: '#', class: 'submit button big-button'}= 'Save Project'
 

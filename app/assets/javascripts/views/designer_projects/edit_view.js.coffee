@@ -8,10 +8,22 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
 
   render: ->
     super()
-
     Widgets.MarkdownEditor.enable()
     Widgets.LimitedText.enable()
+    @enableFormBehavior()
+    @enableUploader()
+    @enableCropLink()
 
+  enableFormBehavior: ->
+    $('a.submit').click (e) ->
+      e.preventDefault()
+      $('#main-form').submit()
+    $('#skills-form input').on 'change', (e) ->
+      skill = $(e.target).val()
+      checked = $(e.target).prop('checked')
+      $("#main-form input[value='#{skill}']").prop('checked', checked)
+
+  enableUploader: ->
     $('#s3-uploader').S3Uploader
       before_add: (file) ->
         if file.size > 2 * 1024 * 1024 # 2MB
@@ -24,15 +36,11 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
     # only one poller is running even if multiple files are uploaded at the same time
     $('#s3-uploader').on 'ajax:success', (e, data) =>
       unless polling
-        $('.artworks').html("<div class='spinner'/>")
-        $('.artworks label').remove()
-        $('.artworks form').remove()
+        $('.upload-placeholder').html("<div class='upload-spinner-placeholder'><div class='spinner'/></div>")
         @start_polling(data.polling_path)
 
     if $('.spinner').length > 0
       @start_polling($('.spinner').attr('data-polling-path'))
-
-    @enableCropLink()
 
   enableCropLink: ->
     $('a.crop').fancybox
@@ -66,7 +74,7 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
     , 1000)
 
   stop_polling: ->
-    $('.artworks .spinner').remove()
+    $('.artworks .upload-spinner-placeholder').remove()
     clearInterval(poller) if poller?
     polling = false
 
