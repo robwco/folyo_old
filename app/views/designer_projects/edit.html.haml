@@ -3,8 +3,6 @@
   = render :partial => '/designers/account_nav'
 
 .designer-project
-  .block
-    %p Add a new project to your portfolio.
 
   = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'
