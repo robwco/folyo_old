@@ -22,8 +22,9 @@
 
     - else
       %label= 'Artworks (max size 2MB)'
-      = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
-        = file_field_tag :file, multiple: false
+      .upload-placeholder
+        = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
+          = file_field_tag :file, multiple: false
 
   %script#template-upload{type: "text/x-tmpl"}
     .upload{id: "file-{%=o.unique_id%}"}
