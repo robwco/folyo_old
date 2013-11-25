@@ -66,6 +66,7 @@ group :assets do
   gem 'compass-rails'
   gem 'susy'
   gem 'uglifier'
+  gem 'sprockets-image_compressor'
 end
 
 group :development do
