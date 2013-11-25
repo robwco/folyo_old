@@ -16,7 +16,7 @@ class DesignerReply
 
   ## validations ##
   validates_presence_of :job_offer, :designer
-  validates_length_of   :message, maximum: 350
+  validates_length_of   :message, maximum: 350, tokenizer: lambda { |str| str.scan(/./) }
 
   ## callbacks ##
   after_create :send_creation_notification!, :track_creation_event
