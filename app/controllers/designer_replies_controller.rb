@@ -9,10 +9,13 @@ class DesignerRepliesController < ApplicationController
   end
 
   def create
-    @designer_reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
-    @designer_reply.designer = current_user
-    @designer_reply.save
-    create! { offer_path(@job_offer) }
+    @reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
+    @reply.designer = current_user
+    @reply.save
+    create! do |success, failure|
+      success.html { redirect_to offer_path(@job_offer) }
+      failure.html { render template: 'job_offers/show' }
+    end
   end
 
   def pick
@@ -30,16 +33,21 @@ class DesignerRepliesController < ApplicationController
   respond_to :html, :json
 
   def update
+    @reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
     super do |format|
       format.json do
         if params[:collapsed]
-          @designer_reply.collapsed = params[:collapsed]
+          @reply.collapsed = params[:collapsed]
         end
-        @designer_reply.save
-        render :json => @designer_reply
+        @reply.save
+        render :json => @reply
       end
       format.html do
-        redirect_to offer_path(@job_offer)
+        if @reply.valid?
+          redirect_to offer_path(@job_offer)
+        else
+          render template: 'job_offers/show'
+        end
       end
     end
   end
