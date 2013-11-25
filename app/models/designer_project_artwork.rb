@@ -15,11 +15,13 @@ class DesignerProjectArtwork
   field :crop_w
   field :crop_h
 
+  # auto_orient processor helps with iOS uploaded photos which have interverted height/width attributes (when device is used in portrait mode)
   has_mongoid_attached_file :asset,   styles: {
-    large:  { geometry: '1200x900#', processors: [:cropper] },
-    medium: { geometry: '800x600#',  processors: [:cropper] },
-    small:  { geometry: '400x300#',  processors: [:cropper] },
-    small_edit_cover: '400'
+    original:         { geometry: '5000x5000>', processors: [:auto_orient, :thumbnail] }, # adding an original size prevents arbitrary large files to be stored
+    large:            { geometry: '1200x900#',  processors: [:auto_orient, :cropper] },   # large, medium & small are center-cropped by default at 4/3
+    medium:           { geometry: '800x600#',   processors: [:auto_orient, :cropper] },
+    small:            { geometry: '400x300#',   processors: [:auto_orient, :cropper] },
+    small_edit_cover: { geometry: '400',        processors: [:auto_orient, :thumbnail] }  # this one keeps original ratio. It will be used to edit cropping
   }
 
   belongs_to :project, class_name: 'DesignerProject', inverse_of: :artworks
