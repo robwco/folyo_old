@@ -19,8 +19,9 @@
 		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANUlEQVQYV2NkIBIw/v//35iRkfEsunqYOIxmJNJABgyF6CaRbyIuk2BOI96NhEyi3ERc4QkAki48CxxSFJ4AAAAASUVORK5CYII=);
 		width: 100%;
 		padding:0;
-		@include medium{
+		@include medium {
 			min-height: 1024px;//100vh;
+			position: fixed;
 			z-index: 1;
 			top:0;
 		}
@@ -57,6 +58,9 @@
 	}
 	.secondary{
 		background:white;
+		@include medium {
+			margin-top: 1024px;
+		}
 		.block{
 			padding-bottom: 40px;
 			border-bottom: 2px solid #dde5e9;
