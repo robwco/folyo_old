@@ -3,7 +3,7 @@ class DesignerPost
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  belongs_to :designer, inverse_of: :posts
+  belongs_to :designer, inverse_of: :posts, dependent: :destroy
 
   field :comment,           type: String
   field :duration,          type: String

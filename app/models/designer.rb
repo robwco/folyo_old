@@ -2,8 +2,6 @@ class Designer < User
 
   trackable :email, :full_name, :role, :created_at
 
-  has_many :posts, class_name: 'DesignerPost', dependent: :destroy
-
   field :status,                  type: Symbol, default: :pending
   field :profile_type,            type: Symbol, default: :public
 
@@ -41,7 +39,7 @@ class Designer < User
   end
 
   ## relations ##
-  has_many :posts, class_name: 'DesignerPost'
+  has_many :posts, class_name: 'DesignerPost', dependent: :destroy
 
   ## reference data ##
 
@@ -87,6 +85,7 @@ class Designer < User
   after_save         :tweet_out,            if: :status_changed?
   after_save         :geocode,              if: :location_changed?
   after_save         :update_dribbble_info, if: :dribbble_info_changed?
+  before_destroy     :before_destroy
 
   ## indexes ##
   index coordinates: '2d'
@@ -209,6 +208,12 @@ class Designer < User
   def fix_dribbble_username
     if self.dribbble_username =~ /http:\/\/dribbble.com\/(.*)/
       self.dribbble_username = $1
+    end
+  end
+
+  def before_destroy
+    JobOffer.elem_match(designer_replies: {designer_id: self.id}).each do |offer|
+      offer.designer_replies.where(designer_id: self.id).destroy_all
     end
   end
 
