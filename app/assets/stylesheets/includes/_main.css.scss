@@ -913,3 +913,13 @@ h2.pending a{
 	height:70px;
 	margin-bottom:10px;
 }
+
+.delete-account {
+	float: right;
+	color: red;
+	font-weight: normal;
+	margin-top: 10px;
+	&:hover {
+		text-decoration: underline;
+	}
+}

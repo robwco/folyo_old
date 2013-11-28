@@ -54,6 +54,12 @@ class DesignersController < ApplicationController
     render 'edit'
   end
 
+  def destroy
+    sign_out(current_user)
+    @designer.destroy
+    redirect_to new_user_session_path, notice: 'Your account has been deleted. Hope to see you back soon!'
+  end
+
   protected
 
   def collection
