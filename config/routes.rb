@@ -71,7 +71,6 @@ Folyo::Application.routes.draw do
     get 'reapply',                on: :member
     resources :messages
     resources :designer_posts,    path: 'posts',    as: 'posts'
-    resources :designer_projects, path: 'projects', as: 'projects'
   end
 
   resources :clients
