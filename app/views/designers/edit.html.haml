@@ -19,10 +19,6 @@
 = content_for :featured_shot_hint do
   %span Enter the <a href="http://blog.folyo.me/post/11096321674">Dribbble ID</a> of the shot you want to feature on your profile. Leave blank to use your latest shot.
 
-- if current_user.is_a?(Admin) && @designer.is_a?(Html::Designer)
-  = content_for :sidebar do
-    = link_to 'Convert to Markdown', to_markdown_admin_designer_path(@designer), class: 'button big-button', method: 'put'
-
 = simple_form_for @designer, as: 'designer', url: designer_path(@designer) do |f|
 
   = content_for :error_messages do

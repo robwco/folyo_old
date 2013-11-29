@@ -26,14 +26,6 @@ class DesignersController < ApplicationController
     @designers = Designer.accepted.public_only
   end
 
-  def edit
-    if @designer.is_a?(Html::Designer)
-      @designer.to_markdown!
-      redirect_to(edit_designer_path(@designer))
-      return
-    end
-  end
-
   def update
     update! { edit_designer_path(@designer) }
   end
@@ -41,11 +33,6 @@ class DesignersController < ApplicationController
   def reapply
     if @designer.status != :rejected
       redirect_to edit_designer_path(@designer)
-      return
-    end
-    if @designer.is_a?(Html::Designer)
-      @designer.to_markdown!
-      redirect_to(reapply_designer_path(@designer))
       return
     end
     @designer.status = :pending

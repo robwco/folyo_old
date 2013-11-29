@@ -34,16 +34,15 @@ class Designer < User
 
   field :designer_pg_id # id of the designer in postgresql. Will be removed someday
 
-  attr_accessor :skip_validation
-  alias_method  :designer_projects, :projects
-
   with_options(unless: ->(d) { d.skip_validation }) do |d|
     d.validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
   end
 
-  ## relations ##
   has_many :posts,    class_name: 'DesignerPost', dependent: :destroy
   has_many :projects, class_name: 'DesignerProject', dependent: :destroy
+
+  attr_accessor :skip_validation
+  alias_method  :designer_projects, :projects
 
   ## reference data ##
 
@@ -65,8 +64,6 @@ class Designer < User
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
 
   ## scopes ##
-  default_scope where(:_type.in => %w(Designer Html::Designer))
-
   scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
   scope :random_order,      ->(order = :act){ order_by(:randomization_key => order) }
 

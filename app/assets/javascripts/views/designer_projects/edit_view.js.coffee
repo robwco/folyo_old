@@ -36,7 +36,7 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
     # only one poller is running even if multiple files are uploaded at the same time
     $('#s3-uploader').on 'ajax:success', (e, data) =>
       unless polling
-        $('.upload-placeholder').html("<div class='upload-spinner-placeholder'><div class='spinner'/></div>")
+        $('.upload-placeholder').replaceWith("<div class='upload-spinner-placeholder'><div class='spinner'/></div>")
         @start_polling(data.polling_path)
 
     if $('.spinner').length > 0
@@ -70,7 +70,9 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
             @stop_polling()
             $artworks = $('.artworks')
             artworks_url = $artworks.attr('data-url')
-            $.get artworks_url, (data) -> $artworks.html(data)
+            $.get artworks_url, (data) =>
+              $artworks.html(data)
+              @enableCropLink()
     , 1000)
 
   stop_polling: ->

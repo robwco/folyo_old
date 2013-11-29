@@ -16,6 +16,7 @@ class Widgets.MarkdownEditor
         $(epiceditor.getElement('editor').body).addClass('error')
 
     $('.markdown label').append("<a href='/markdown' tabindex='-1' title='Help for markdown syntax' class='markdown-logo fancybox fancybox.ajax'></a>")
+    Widgets.FancyBox.enable()
 
     $('.inline-hints').each ->
       $hint = $(this)

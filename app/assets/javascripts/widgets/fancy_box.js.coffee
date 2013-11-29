@@ -4,8 +4,8 @@ class Widgets.FancyBox
 
   @enable: ->
     $(".lightbox").fancybox maxWidth: 400
-
     $(".fancybox").each ->
+      console.log 'toto'
       link = $(this).attr("href") + ".js"
       $(this).fancybox
         width: 400
