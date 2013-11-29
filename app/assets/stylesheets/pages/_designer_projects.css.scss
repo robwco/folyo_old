@@ -7,11 +7,19 @@
     @include cf;
     padding: 12px 0;
     display: block;
-    height: 100px;
+    height: 115px;
     width: 100%;
     margin:0;
     cursor: pointer;
     padding-left: 5px;
+    .placeholder {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
     .description {
       width: 400px;
       height: 50px;
@@ -24,16 +32,25 @@
       right: 10px;
       height: 80px;
     }
-    .placeholder {
+    .remove-project {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
+      display: none;
+      font-size: 13px;
+      font-weight: normal;
+      right: 12px;
+      bottom: 2px;
+      z-index: 20;
+      color: $red1;
+      &:hover {
+        text-decoration: underline;
+      }
     }
+
     &:hover {
       background: $lightgrey2;
+      .remove-project {
+        display: block;
+      }
     }
     &:last-child {
       border-bottom: none;

@@ -32,4 +32,6 @@
         - else
           = image_tag 'project-placeholder.png', class: 'artwork'
 
+        = link_to 'Delete project', designer_project_path(p.designer, p), method: 'DELETE', confirm: 'Are you sure you want to delete your project?', class: 'remove-project'
+
 
