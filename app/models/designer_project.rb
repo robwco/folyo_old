@@ -10,7 +10,7 @@ class DesignerProject
 
   slug        :name, history: true, scope: :designer_id
   belongs_to  :designer, inverse_of: :projects
-  has_many    :artworks, class_name: 'DesignerProjectArtwork', inverse_of: :project
+  has_many    :artworks, class_name: 'DesignerProjectArtwork', inverse_of: :project, dependent: :destroy
 
   before_validation  :process_skills
 
@@ -18,6 +18,10 @@ class DesignerProject
 
   def all_artworks_processed?
     self.artworks.where(:status.nin => [:processed, :failed] ).count == 0
+  end
+
+  def artwork
+    self.artworks.processed.first rescue nil
   end
 
   protected

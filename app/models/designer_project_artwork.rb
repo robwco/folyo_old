@@ -21,6 +21,7 @@ class DesignerProjectArtwork
     large:            { geometry: '1200x900#',  processors: [:auto_orient, :cropper] },   # large, medium & small are center-cropped by default at 4/3
     medium:           { geometry: '800x600#',   processors: [:auto_orient, :cropper] },
     small:            { geometry: '400x300#',   processors: [:auto_orient, :cropper] },
+    thumbnail:        { geometry: '200x150#',   processors: [:auto_orient, :cropper] },
     small_edit_cover: { geometry: '400',        processors: [:auto_orient, :thumbnail] }  # this one keeps original ratio. It will be used to edit cropping
   }
 
@@ -93,7 +94,7 @@ class DesignerProjectArtwork
 
   def save_image_dimensions
     self.geometry ||= {}
-    [:original, :large, :medium, :small, :small_edit_cover].each do |style|
+    [:original, :large, :medium, :small, :thumbnail, :small_edit_cover].each do |style|
       begin
         geo = Paperclip::Geometry.from_file(asset.queued_for_write[style])
         self.geometry[style] = {width: geo.width, height: geo.height}

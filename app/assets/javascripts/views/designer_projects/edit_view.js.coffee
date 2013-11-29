@@ -43,9 +43,10 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
       @start_polling($('.spinner').attr('data-polling-path'))
 
   enableCropLink: ->
+    $cropboxHolder = $('<div id="cropbox-holder"></div>').appendTo(document.body)
     $('a.crop').fancybox
+      parent: $cropboxHolder
       autoSize: false
-      type: "inline"
       content: "<div id=\"cropbox-content\"></div>"
       beforeLoad: ->
         @width  = parseInt(@element.attr('data-width')) + 2

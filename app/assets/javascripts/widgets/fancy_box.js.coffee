@@ -4,10 +4,11 @@ class Widgets.FancyBox
 
   @enable: ->
     $(".lightbox").fancybox maxWidth: 400
+    $fancyboxHolder = $('<div id="fancybox-holder"></div>').appendTo(document.body)
     $(".fancybox").each ->
-      console.log 'toto'
       link = $(this).attr("href") + ".js"
       $(this).fancybox
+        parent: $fancyboxHolder
         width: 400
         autoSize: false
         height: 170

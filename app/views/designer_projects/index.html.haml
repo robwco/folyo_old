@@ -6,13 +6,30 @@
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
-.block
-  %p You can add up to three projects to be displayed on your profile. 
-  %h3 Your projects
-  - if @designer_projects.empty?
-    %p You don't have any projects yet. Start by uploading one now. 
-  - else
-    %ul
-      - @designer_projects.each do |p|
-        %li
-          %h4= link_to p.name || 'Untitled', edit_designer_project_path(p.designer, p)
+%p Create as many projects as you want, and star up to 3 of them (they will be highlighted on your profile)
+%h3 Your projects
+
+- if @designer_projects.empty?
+  %p You don't have any projects yet. Start by creating one now.
+
+- else
+  %ul.designer-projects
+
+    - @designer_projects.each do |p|
+
+      %li.project
+
+        %h4
+          = link_to edit_designer_project_path(p.designer, p) do
+            %span= p.name || 'Untitled'
+            %span.placeholder
+
+        .description
+          = raw(format_text(p, 'description'))
+
+        - if p.artwork
+          = image_tag p.artwork.asset(:small), class: 'artwork'
+        - else
+          = image_tag 'project-placeholder.png', class: 'artwork'
+
+
