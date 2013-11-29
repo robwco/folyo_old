@@ -10,18 +10,8 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
     super()
     Widgets.MarkdownEditor.enable()
     Widgets.LimitedText.enable()
-    @enableFormBehavior()
     @enableUploader()
     @enableCropLink()
-
-  enableFormBehavior: ->
-    $('a.submit').click (e) ->
-      e.preventDefault()
-      $('#main-form').submit()
-    $('#skills-form input').on 'change', (e) ->
-      skill = $(e.target).val()
-      checked = $(e.target).prop('checked')
-      $("#main-form input[value='#{skill}']").prop('checked', checked)
 
   enableUploader: ->
     $('#s3-uploader').S3Uploader
@@ -69,7 +59,7 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
         success: (data) =>
           if data.complete
             @stop_polling()
-            $artworks = $('.artworks')
+            $artworks = $('.designer-project-artworks')
             artworks_url = $artworks.attr('data-url')
             $.get artworks_url, (data) =>
               $artworks.html(data)
@@ -77,7 +67,7 @@ class Views.DesignerProjects.EditView extends Views.ApplicationView
     , 1000)
 
   stop_polling: ->
-    $('.artworks .upload-spinner-placeholder').remove()
+    $('.designer-project-artworks .upload-spinner-placeholder').remove()
     clearInterval(poller) if poller?
     polling = false
 

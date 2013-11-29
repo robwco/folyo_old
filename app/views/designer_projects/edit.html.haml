@@ -2,15 +2,8 @@
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
-.designer-project
-
-  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
-    = f.input :name, label: 'Project Name'
-    = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
-    = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
-
-  .artworks{data: {url: designer_project_artworks_path(@designer, @designer_project)}}
-
+= content_for :sidebar do
+  .designer-project-artworks{data: {url: designer_project_artworks_path(@designer, @designer_project)}}
     - if @artwork
       - if @artwork.processed?
         = render 'artworks', project: @designer_project, artwork: @artwork
@@ -25,18 +18,22 @@
         = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
           = file_field_tag :file, multiple: false
 
-  %script#template-upload{type: "text/x-tmpl"}
-    .upload{id: "file-{%=o.unique_id%}"}
-      = "{%=o.name%}"
-      .progress
-        .bar{style: "width: 0%"}
+        %script#template-upload{type: "text/x-tmpl"}
+          .upload{id: "file-{%=o.unique_id%}"}
+            = "{%=o.name%}"
+            .progress
+              .bar{style: "width: 0%"}
 
-  -# since s3_form_uploader doesn't work when nested under a form element, form is split in two parts and JS code copy values from #skills-form to #main-form
-  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: { id: 'skills-form' } do |f|
+
+.designer-project
+
+  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
+    = f.input :name, label: 'Project Name'
+    = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
 
-  = link_to 'Save Project', '#', class: 'submit button big-button'
+    = f.submit 'Save Project', class: 'submit button big-button'
 
-  = link_to 'Delete project', designer_project_path(@designer, @designer_project), method: 'DELETE', confirm: 'Are you sure you want to delete your project?', class: 'delete-project'
+    = link_to 'Delete project', designer_project_path(@designer, @designer_project), method: 'DELETE', confirm: 'Are you sure you want to delete your project?', class: 'delete-project'
 
 

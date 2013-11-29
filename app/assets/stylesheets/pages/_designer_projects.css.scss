@@ -45,8 +45,24 @@
 
 .designer-project {
 
-  .artworks {
-    margin: 35px 0 40px;
+  .delete-project {
+    float: right;
+    color: $red1;
+    font-weight: normal;
+    margin-top: 10px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
+
+.designer-project-artworks {
+
+  width: 200px;
+
+  .actions {
+    text-align: right;
     .crop {
       &:before {
         content: ' - ';
@@ -55,15 +71,9 @@
     }
   }
 
-  #main-form {
-    .designer_project_skills {
-      display: none;
-    }
-  }
-
   .upload-placeholder {
-    height: 300px;
-    width: 400px;
+    height: 150px;
+    width: 200px;
     background-image: image-url('project-placeholder-upload.png');
     background-size: contain;
     border: 2px solid white;
@@ -82,42 +92,33 @@
       font-size: 0;
       padding-top: 0;
       border-top: none;
+      width: 195px;
     }
     margin-bottom: 50px;
   }
 
   .upload-spinner-placeholder {
-    height: 300px;
-    width: 400px;
+    height: 150px;
+    width: 200px;
     background-image: image-url('project-placeholder-empty.png');
     background-size: contain;
     position: relative;
 
     .spinner {
       position: absolute;
-      left: 184px;
-      top: 134px;
+      left: 92px;
+      top: 67px;
       display: block;
-      height: 32px;
-      width: 32px;
+      height: 16px;
+      width: 16px;
       margin: 0 auto;
       background:image-url('ajax-loader.gif') no-repeat center center;
+      background-size: 16px 16px;
       &.hidden {
         visibility: hidden;
       }
     }
   }
-
-  .delete-project {
-    float: right;
-    color: $red1;
-    font-weight: normal;
-    margin-top: 10px;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
 }
 
 .submit-crop {

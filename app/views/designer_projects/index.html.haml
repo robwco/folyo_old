@@ -28,7 +28,7 @@
           = raw(format_text(p, 'description'))
 
         - if p.artwork
-          = image_tag p.artwork.asset(:small), class: 'artwork'
+          = image_tag p.artwork.asset(:thumbnail), class: 'artwork'
         - else
           = image_tag 'project-placeholder.png', class: 'artwork'
 
