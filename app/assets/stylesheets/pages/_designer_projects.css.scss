@@ -59,7 +59,12 @@
 
 .designer-project-artworks {
 
-  width: 200px;
+  width: 300px;
+
+  img {
+    height: 225px;
+    width: 300px;
+  }
 
   .actions {
     text-align: right;
@@ -72,8 +77,8 @@
   }
 
   .upload-placeholder {
-    height: 150px;
-    width: 200px;
+    height: 225px;
+    width: 300px;
     background-image: image-url('project-placeholder-upload.png');
     background-size: contain;
     border: 2px solid white;
@@ -98,16 +103,16 @@
   }
 
   .upload-spinner-placeholder {
-    height: 150px;
-    width: 200px;
+    height: 225px;
+    width: 300px;
     background-image: image-url('project-placeholder-empty.png');
     background-size: contain;
     position: relative;
 
     .spinner {
       position: absolute;
-      left: 92px;
-      top: 67px;
+      left: 142px;
+      top: 105px;
       display: block;
       height: 16px;
       width: 16px;

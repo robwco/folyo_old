@@ -1,6 +1,6 @@
 %label Artwork
 - if artwork
-  = image_tag artwork.asset.url(:thumbnail)
+  = image_tag artwork.asset.url(:small)
   .actions
     = link_to 'Remove', designer_project_artwork_path(project.designer, project, artwork), class: 'remove', method: 'DELETE', confirm: 'Are your sure you want to remove your artwork?'
     = link_to 'Crop', crop_designer_project_artwork_path(project.designer, project, artwork), class: 'crop', data: {height: artwork.geometry['small_edit_cover']['height'], width: artwork.geometry['small_edit_cover']['width']}
