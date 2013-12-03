@@ -3,6 +3,5 @@ Paperclip::Attachment.default_options.merge!(
   path:                 ':class/:attachment/:id/:style/:filename',
   storage:              :s3,
   s3_credentials:       Rails.configuration.aws,
-  s3_permissions:       'public-read',
-  s3_protocol:          'https'
+  s3_permissions:       'public-read'
 )
