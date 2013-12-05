@@ -1,0 +1,8 @@
+.section
+  %h3 Your account
+  = f.input :full_name, required: true
+  = f.input :email, required: true
+  = f.input :password, :as => :password, required: true
+  = f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
+  - unless params[:offer_id].blank?
+    = hidden_field_tag :offer_id, params[:offer_id]

@@ -3,7 +3,6 @@
   .subnav
     %ul
       %li= current_link_to 'Edit Profile', edit_designer_path(current_user)
-      %li= current_link_to 'Edit Account', edit_user_registration_path
       - if current_user.accepted?
         %li= current_link_to_unless (controller.controller_name == 'designer_projects'), 'Portfolio',  designer_projects_path(current_user)
         %li= current_link_to 'Notifications', notifications_designer_path(current_user)

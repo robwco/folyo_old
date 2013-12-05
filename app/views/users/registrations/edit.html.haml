@@ -1,5 +1,3 @@
-
-
 - if params[:offer_id]
   = content_for :title, "Your Job Offer"
   = render 'job_offers/client/wizard', active: :signup, offer: JobOffer.find(params[:offer_id]), signup: 'true'
@@ -15,16 +13,5 @@
   = devise_error_messages!
 
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-  .section
-    %h3 Your account
-    = f.input :full_name, required: true
-    = f.input :email, required: true
-    = f.input :password, :as => :password, required: true
-    = f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
-    - unless params[:offer_id].blank?
-      = hidden_field_tag :offer_id, params[:offer_id]
-
-  = f.submit "Update Profile", :class => "button big-button"
-
-  - if resource.is_a?(Designer)
-    = link_to 'Delete account', designer_path(resource), class: 'delete-account', method: 'DELETE', confirm: 'Are you sure you want to delete your account? No way back possible.'
+  = render 'edit_form', f: f
+  = f.submit "Update Profile", class: 'button big-button'

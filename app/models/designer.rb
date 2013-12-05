@@ -38,8 +38,9 @@ class Designer < User
     d.validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
   end
 
-  has_many :posts,    class_name: 'DesignerPost', dependent: :destroy
+  has_many :posts,    class_name: 'DesignerPost',    dependent: :destroy
   has_many :projects, class_name: 'DesignerProject', dependent: :destroy
+  has_one  :profile_picture,  as: 'profile',         dependent: :destroy
 
   attr_accessor :skip_validation
   alias_method  :designer_projects, :projects

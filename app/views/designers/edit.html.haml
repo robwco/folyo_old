@@ -3,13 +3,15 @@
   = content_for :subtitle, @designer.email
   = content_for :parent_level do
     = link_to "Designers", admin_designers_path
-
 - else
   = content_for :title, "My Account"
 
 = content_for :body_class, "with-subnav"
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
+
+= content_for :sidebar do
+  = render 'paperclipable/upload', images_path: designer_profile_picture_path(@designer), image: @designer.profile_picture, image_name: 'profile picture', singleton: true
 
 = content_for :profile_type_hint do
   %span <strong>Public:</strong> anybody can see your profile.
@@ -21,6 +23,8 @@
 
 = simple_form_for @designer, as: 'designer', url: designer_path(@designer) do |f|
 
+  = render '/users/registrations/edit_form', f: f
+
   = content_for :error_messages do
     = error_messages(@designer)
 
@@ -30,15 +34,18 @@
       = f.input :status, :as => :radio_buttons, :label => 'Status', collection: Designer.statuses, label_method: sym_label_method
   - else
     = f.input :status, as: :hidden
+
   .section
     %h3 Settings
     = f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
+
   .section
     %h3 About You
     = f.input :short_bio, :label => 'Tagline', :hint => "Short descriptive phrase (i.e. \"I design functional user interfaces that also look great\")", :wrapper_html=> {:class => "limit limit-80"}
     = f.input :long_bio, :as => :limited_text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :wrapper_html => {:class => 'markdown'}
     = f.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
     = f.input :coordinates, :as => :hidden
+
   .section
     %h3 Your Work
     = f.input :portfolio_url
@@ -47,14 +54,17 @@
 
   .section
     %h3 Social Media
-    = f.input :twitter_username, :required => false
-    = f.input :skype_username, :required => false
-    = f.input :dribbble_username, :required => false
-    = f.input :zerply_username, :required => false
-    = f.input :behance_username, :required => false
+    = f.input :twitter_username,  required: false
+    = f.input :skype_username,    required: false
+    = f.input :dribbble_username, required: false
+    = f.input :zerply_username,   required: false
+    = f.input :behance_username,  required: false
+
   .section
     %h3 Pricing
     = f.input :rate, :label => "Hourly rate", :hint => "Your hourly rate. For statistical purpose only, will not be displayed on the site."
+
   = f.submit @submit_label || "Update Profile", :class => "button big-button"
+  = link_to 'Delete account', designer_path(resource), class: 'delete-account', method: 'DELETE', confirm: 'Are you sure you want to delete your account? No way back possible.'
 
 

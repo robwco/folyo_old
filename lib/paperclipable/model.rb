@@ -8,6 +8,8 @@ module Paperclipable
 
     included do
 
+      include Mongoid::Paperclip
+
       field :direct_upload_url, type: String
       field :status,            type: Symbol,  default: :initialized
       field :geometry,          type: Hash

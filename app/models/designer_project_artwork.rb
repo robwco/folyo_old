@@ -18,4 +18,9 @@ class DesignerProjectArtwork
 
   belongs_to :project, class_name: 'DesignerProject', inverse_of: :artworks
 
+  # for now, enforcing that there is only one artwork per project
+  after_create do
+    project.artworks.where(:_id.ne => self.id).destroy_all
+  end
+
 end

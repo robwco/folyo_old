@@ -18,17 +18,17 @@ module Paperclipable
       def create
         params[resource_class.to_s.underscore] = params[:image]
         create! do |format|
-          format.json { render json: {polling_path: status_resource_path(format: :json)} }
+          format.json { render json: { polling_path: status_resource_path(format: :json) } }
         end
       end
 
       def destroy
-        destroy!(notice: "#{resource_name.capitalize} was successfully removed!") { parent_path }
+        destroy!(notice: "#{resource_name.capitalize} was successfully removed!") { edit_parent_path }
       end
 
       def status
         status! do |format|
-          format.json { render json: { status: resource.status, image_id: resource.id } }
+          format.json { render json: { status: resource.status, image_path: resource_path } }
         end
       end
 
@@ -46,7 +46,7 @@ module Paperclipable
             params[:image][:crop_w],
             params[:image][:crop_h]
           )
-          format.html { redirect_to parent_path, notice: "#{resource_name.capitalize} is being cropped, please wait a few seconds." }
+          format.html { redirect_to edit_parent_path, notice: "#{resource_name.capitalize} is being cropped, please wait a few seconds." }
         end
       end
 

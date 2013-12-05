@@ -57,10 +57,13 @@ class Widgets.Paperclipable
           if data.status == 'processed'
             @stop_polling()
             $paperclipable = $('.paperclipable')
-            url = "#{$paperclipable.attr('data-url')}/#{data.image_id}"
+            url = data.image_path
             $.get url, (data) =>
               $paperclipable.html(data)
               @enableCropLink()
+          else if data.status == 'failed'
+            @stop_polling()
+
     , 1000)
 
   stop_polling: ->

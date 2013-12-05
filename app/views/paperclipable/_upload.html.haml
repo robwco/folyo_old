@@ -1,16 +1,17 @@
-.paperclipable{data: {url: image_path}}
+.paperclipable{data: {url: images_path}}
   - if image
+    - image_path = singleton ? images_path : "#{images_path}/#{image.id}"
     - if image.processed?
-      = render 'paperclipable/image', resource: image, resource_path: "#{image_path}/#{image.id}", resource_name: image_name
+      = render 'paperclipable/image', resource: image, resource_path: image_path, resource_name: image_name
     - else
       %label= image_name.capitalize
       .upload-spinner-placeholder
-        .spinner{data: {'polling-path' => "#{image_path}/#{image.id}/status" }}
+        .spinner{data: {'polling-path' => "#{image_path}/status" }}
 
   - else
     %label= "#{image_name.capitalize} (max size 2MB)"
     .upload-placeholder
-      = s3_uploader_form id: 's3-uploader', callback_url: "#{image_path}.json", callback_method: 'POST', callback_param: "image[direct_upload_url]", max_file_size: 2.megabytes do
+      = s3_uploader_form id: 's3-uploader', callback_url: "#{images_path}.json", callback_method: 'POST', callback_param: "image[direct_upload_url]", max_file_size: 2.megabytes do
         = file_field_tag :file, multiple: false
 
       %script#template-upload{type: "text/x-tmpl"}

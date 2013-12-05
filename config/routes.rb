@@ -78,6 +78,11 @@ Folyo::Application.routes.draw do
         get 'status',        on: :member
       end
     end
+    resource :profile_picture do
+      get 'crop'
+      put 'update_crop'
+      get 'status'
+    end
   end
 
   resources :clients

@@ -20,7 +20,7 @@ class DesignerProjectsController < ApplicationController
   end
 
   def edit
-    @artwork = @designer_project.artworks.first
+    @artwork = @designer_project.artwork
   end
 
   protected

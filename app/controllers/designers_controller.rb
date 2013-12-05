@@ -27,7 +27,20 @@ class DesignersController < ApplicationController
   end
 
   def update
-    update! { edit_designer_path(@designer) }
+    if params[:designer][:password].blank?
+      params[:designer].delete("password")
+      params[:designer].delete("password_confirmation")
+    end
+    update! do |success, failure|
+      success.html do
+        sign_in 'user', @designer, bypass: true
+        redirect_to edit_designer_path(@designer)
+      end
+      failure.html do
+        @designer.clean_up_passwords
+        render :edit
+      end
+    end
   end
 
   def reapply
