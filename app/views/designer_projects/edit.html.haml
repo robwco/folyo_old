@@ -3,27 +3,7 @@
   = render :partial => '/designers/account_nav'
 
 = content_for :sidebar do
-  .designer-project-artworks{data: {url: designer_project_artworks_path(@designer, @designer_project)}}
-    - if @artwork
-      - if @artwork.processed?
-        = render 'artworks', project: @designer_project, artwork: @artwork
-      - else
-        %label Artwork
-        .upload-spinner-placeholder
-          .spinner{data: {'polling-path' => upload_status_designer_project_path(@designer, @designer_project) }}
-
-    - else
-      %label Artwork (max size 2MB)
-      .upload-placeholder
-        = s3_uploader_form id: 's3-uploader', callback_url: designer_project_artworks_path(@designer, @designer_project, format: :json), callback_method: 'POST', callback_param: "designer_project_artwork[direct_upload_url]", max_file_size: 2.megabytes do
-          = file_field_tag :file, multiple: false
-
-        %script#template-upload{type: "text/x-tmpl"}
-          .upload{id: "file-{%=o.unique_id%}"}
-            = "{%=o.name%}"
-            .progress
-              .bar{style: "width: 0%"}
-
+  = render 'paperclipable/upload', image_path: designer_project_artworks_path(@designer, @designer_project), image: @artwork, image_name: 'artwork'
 
 .designer-project
 

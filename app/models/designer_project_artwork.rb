@@ -14,7 +14,7 @@ class DesignerProjectArtwork
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
-  include Mongoid::Paperclipable
+  include Paperclipable::Model
 
   belongs_to :project, class_name: 'DesignerProject', inverse_of: :artworks
 

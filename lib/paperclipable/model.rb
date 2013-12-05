@@ -1,6 +1,6 @@
-module Mongoid
+module Paperclipable
 
-  module Paperclipable
+  module Model
 
     DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/folyo-#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
@@ -93,6 +93,9 @@ module Mongoid
           geo = ::Paperclip::Geometry.from_file(asset.queued_for_write[style])
           self.geometry[style] = {width: geo.width, height: geo.height}
         rescue
+          self.status = :failed
+          save
+          raise e
         end
       end
     end

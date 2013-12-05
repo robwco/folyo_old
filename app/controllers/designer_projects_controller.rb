@@ -19,12 +19,6 @@ class DesignerProjectsController < ApplicationController
     update! { edit_designer_project_path(@designer, @designer_project)}
   end
 
-  def upload_status
-    respond_to do |format|
-      format.json { render json: { complete: @designer_project.all_artworks_processed? } }
-    end
-  end
-
   def edit
     @artwork = @designer_project.artworks.first
   end

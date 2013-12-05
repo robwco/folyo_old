@@ -16,10 +16,6 @@ class DesignerProject
 
   validates_length_of :description, maximum: 300, tokenizer: lambda { |str| str.scan(/./) }
 
-  def all_artworks_processed?
-    self.artworks.where(:status.nin => [:processed, :failed] ).count == 0
-  end
-
   def artwork
     self.artworks.processed.first rescue nil
   end

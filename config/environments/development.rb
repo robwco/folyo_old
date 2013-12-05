@@ -60,4 +60,7 @@ Folyo::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  require 'openssl'
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
 end

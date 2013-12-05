@@ -5,7 +5,7 @@ GIT
     hominid (3.0.5)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.14)
       actionpack (= 3.2.14)
@@ -162,7 +162,7 @@ GEM
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
-    i18n (0.6.5)
+    i18n (0.6.9)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
@@ -220,7 +220,7 @@ GEM
       mongoid (> 3.0)
       stringex (~> 1.4)
     moped (1.5.1)
-    multi_json (1.8.0)
+    multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     netrc (0.7.7)

@@ -1,0 +1,8 @@
+%html
+  %body
+    = image_tag resource.asset.url(:small_edit_cover), id: 'paperclipable-cropbox', data: {width: resource.geometry['small_edit_cover']['width'], height: resource.geometry['small_edit_cover']['height'], ratio: resource.geometry['original']['width'] / resource.geometry['small_edit_cover']['width'] }
+
+    = form_for resource, url: update_crop_resource_path, as: 'image' do |f|
+      - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h]
+        = f.hidden_field attribute, id: attribute
+      = f.submit "Crop the #{resource_name}", class: 'button submit'

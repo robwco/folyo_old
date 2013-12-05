@@ -1,65 +1,22 @@
 class DesignerProjectArtworksController < ApplicationController
 
-  before_filter :set_designer, :set_project
-  before_filter :set_artwork, only: [:crop, :update_crop]
-
   inherit_resources
-  defaults resource_class: DesignerProjectArtwork, collection_name: 'artworks'
 
-  respond_to :json, only: :create
+  defaults resource_class: DesignerProjectArtwork,
+           collection_name: 'artworks', route_collection_name: 'artwork',
+           instance_name: 'artwork',    route_instance_name: 'artwork'
 
-  def create
-    create! do |format|
-      format.json { render json: {polling_path: upload_status_designer_project_path(@designer, @designer_project)} }
-    end
+  belongs_to :designer do
+    belongs_to :project, param: 'project_id'
   end
 
-  def index
-    render partial: 'designer_projects/artworks', locals: { project: @designer_project, artwork: @designer_project.artworks.processed.first }
-  end
-
-  def crop
-    render layout: false
-  end
-
-  def update_crop
-    @artwork.crop_cover(
-      params[:designer_project_artwork][:crop_x],
-      params[:designer_project_artwork][:crop_y],
-      params[:designer_project_artwork][:crop_w],
-      params[:designer_project_artwork][:crop_h]
-    )
-    redirect_to edit_designer_project_path(@designer, @designer_project), notice: 'Artwork is being cropped, please wait a few seconds.'
-  end
-
-  def destroy
-    destroy!(notice: 'Artwork was successfully removed!') { edit_designer_project_path(@designer, @designer_project) }
-  end
+  include Paperclipable::Controller
 
   protected
 
-  def set_designer
-    @designer ||= if params[:designer_id]
-       Designer.find(params[:designer_id])
-    elsif current_user.is_a?(Designer)
-      current_user
-    else
-      nil
-    end
+  def resource_name
+    'artwork'
   end
-
-  protected
-
-  def set_project
-    @designer_project = @designer.projects.find(params[:project_id])
-  end
-
-  def set_artwork
-    @artwork = @designer_project.artworks.find(params[:id])
-  end
-
-  def begin_of_association_chain
-    @designer_project
-  end
+  helper_method :resource_name
 
 end
