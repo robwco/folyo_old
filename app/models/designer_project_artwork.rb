@@ -23,4 +23,8 @@ class DesignerProjectArtwork
     project.artworks.where(:_id.ne => self.id).destroy_all
   end
 
+  def crop_ratio
+    4/3
+  end
+
 end

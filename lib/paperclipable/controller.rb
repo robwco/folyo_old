@@ -34,7 +34,7 @@ module Paperclipable
 
       def crop
         crop! do |format|
-          format.html { render 'paperclipable/crop', layout: false }
+          format.html { render partial: '/paperclipable/crop', locals: {crop_ratio: resource.crop_ratio} }
         end
       end
 

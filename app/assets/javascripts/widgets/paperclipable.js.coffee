@@ -77,7 +77,7 @@ class Widgets.Paperclipable
       onChange: @update_crop
       onSelect: @update_crop
       setSelect: [10, 10, 200, 150]
-      aspectRatio: 4/3
+      aspectRatio: $cropbox.attr('data-crop-ratio')
 
   update_crop: (coords) ->
     ratio = $cropbox.attr('data-ratio');
