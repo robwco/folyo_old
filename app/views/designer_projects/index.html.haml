@@ -1,12 +1,15 @@
 = content_for :title, 'My Portfolio'
 = content_for :sidebar do
-  = link_to 'Add a project', new_designer_project_path(@designer), class: 'button big-button'
+  - if @designer.can_create_project?
+    = link_to 'Add a project', new_designer_project_path(@designer), class: 'button big-button'
+  - else
+    = link_to 'You already have created 3 projects', '', class: 'button big-button disabled'
 
 = content_for :body_class, "with-subnav"
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
-%p Create as many projects as you want, and star up to 3 of them (they will be highlighted on your profile)
+%p You can add up to three projects to be displayed on your profile.
 %h3 Your projects
 
 - if @designer_projects.empty?

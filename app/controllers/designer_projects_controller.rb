@@ -11,8 +11,12 @@ class DesignerProjectsController < ApplicationController
   end
 
   def new
-    @designer_project = @designer.projects.create
-    redirect_to edit_designer_project_path(@designer, @designer_project)
+    if @designer.can_create_project?
+      @designer_project = @designer.projects.create
+      redirect_to edit_designer_project_path(@designer, @designer_project)
+    else
+      redirect_to designer_projects_path(@designer)
+    end
   end
 
   def update

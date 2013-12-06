@@ -41,6 +41,10 @@ BEM Cheatsheet:
 		position:relative;
 		top:1px;
 	}
+	&.disabled {
+		background: $lightgrey2;
+		cursor: default;
+	}
 }
 %btn--inactive{ // inactive button style
 	&, &:active, &:hover{
@@ -55,7 +59,7 @@ BEM Cheatsheet:
 		@include box-shadow(
 			inset rgba(255,255,255,0.4) 0px 1px 0px 0px,
 			inset rgba(255,255,255,0.6) 0px 0px 5px 0px
-		);	
+		);
 	}
 }
 %btn--gradient-blue{ // blue gradient button style
@@ -66,7 +70,7 @@ BEM Cheatsheet:
 	}
 	&:active{
 		@include background-image(linear-gradient(adjust-lightness(#75c9f1,-10), adjust-lightness(#3c98c3,-10)));
-	}	
+	}
 }
 %btn--gradient-inactive{ // inactive gradient button style
 	@include background-image(linear-gradient(#91a3af, #798d9a));
@@ -74,7 +78,7 @@ BEM Cheatsheet:
 		@include background-image(linear-gradient(#afc1cc, #91a3af));
 	}
 	&:active{
-		@include background-image(linear-gradient(#91a3af, #798d9a));		
+		@include background-image(linear-gradient(#91a3af, #798d9a));
 	}
 }
 %btn--big{ // big button style
