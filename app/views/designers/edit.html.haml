@@ -11,7 +11,8 @@
   = render :partial => '/designers/account_nav'
 
 = content_for :sidebar do
-  = render 'paperclipable/upload', images_path: designer_profile_picture_path(@designer), image: @designer.profile_picture, image_name: 'profile picture', singleton: true
+  .profile-picture
+    = render 'paperclipable/upload', images_path: designer_profile_picture_path(@designer), image: @designer.profile_picture, image_name: 'profile picture', singleton: true
 
 = content_for :profile_type_hint do
   %span <strong>Public:</strong> anybody can see your profile.

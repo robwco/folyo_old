@@ -3,7 +3,8 @@
   = render :partial => '/designers/account_nav'
 
 = content_for :sidebar do
-  = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @designer_project), image: @artwork, image_name: 'artwork', singleton: false
+  .artwork
+    = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @designer_project), image: @artwork, image_name: 'artwork', singleton: false
 
 .designer-project
 

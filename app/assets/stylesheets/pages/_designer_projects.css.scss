@@ -1,3 +1,18 @@
+.artwork {
+  .upload-placeholder {
+    height: 225px;
+    width: 300px;
+  }
+  .upload-spinner-placeholder {
+    height: 225px;
+    width: 300px;
+    .spinner {
+      left: 142px;
+      top: 105px;
+    }
+  }
+}
+
 .designer-projects {
   margin-top: -5px;
 
