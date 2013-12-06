@@ -1,6 +1,6 @@
 = content_for :title, @designer.full_name
 = content_for :subtitle, @designer.short_bio.truncate(70)
-= content_for :avatar, '/assets/avatar-placeholder.jpg'
+= content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : '/assets/avatar-placeholder.jpg'
 = content_for :body_class, "designer-profile"
 
 - if current_user
@@ -18,13 +18,12 @@
   - if @designer.long_bio
     %p!= format_text(@designer, :long_bio)
 
-
-
 = content_for :hero do
 
-  = render :partial => '/designers/designer_reply', :locals => {:designer => @designer}
+  -#= render :partial => '/designers/designer_reply', :locals => {:designer => @designer}
 
-  = render :partial => '/designers/featured_work', :locals => {:designer => @designer}
+  - if @designer.has_projects?
+    = render '/designers/featured_work', designer: @designer
 
 = content_for :sidebar do
   %ul.profile-meta

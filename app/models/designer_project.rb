@@ -6,6 +6,7 @@ class DesignerProject
 
   field :name
   field :description
+  field :url
   field :skills, type: Array, default: []
 
   slug        :name, history: true, scope: :designer_id

@@ -11,10 +11,9 @@
   = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'
     = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
+    = f.input :url,         label: 'Project url'
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
 
     = f.submit 'Save Project', class: 'submit button big-button'
 
     = link_to 'Delete project', designer_project_path(@designer, @designer_project), method: 'DELETE', confirm: 'Are you sure you want to delete your project?', class: 'delete-project'
-
-

@@ -1,36 +1,18 @@
 .featured-work
-  .project
-    - if current_user.is_a? Designer # if this is the designer's own profile
-      = link_to designer_projects_path(current_user), class: 'project-image' do
-        = image_tag 'project-placeholder-upload.png'
-    - else
-      = link_to 'project-placeholder.png', class: 'project-image' do
-        = image_tag 'project-placeholder.png'
-    %h4.project-title Sharypic
-    %p.project-description UI design for a photo-sharing site.
-    %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
-  .project
-    - if current_user.is_a? Designer
-      = link_to designer_projects_path(current_user), class: 'project-image' do
-        = image_tag 'project-placeholder-upload.png'
-    - else
-      = link_to 'project-placeholder.png', class: 'project-image' do
-        = image_tag 'project-placeholder.png'
-    %h4.project-title Sharypic
-    %p.project-description UI design for a photo-sharing site.
-    %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
-  .project
-    - if current_user.is_a? Designer
-      = link_to designer_projects_path(current_user), class: 'project-image' do
-        = image_tag 'project-placeholder-upload.png'
-    - else
-      = link_to 'project-placeholder.png', class: 'project-image' do
-        = image_tag 'project-placeholder.png'
-    %h4.project-title Sharypic
-    %p.project-description UI design for a photo-sharing site.
-    %a.project-link{:href => 'http://work.sachagreif.com/#sharypic'} View More
-
-/ - unless designer.featured_shot_url.blank?
-/   %figure.featured-work
-/     = link_to  designer.featured_shot_url, class: 'image' do
-/       = image_tag designer.featured_shot_url
+  - designer.projects.each do |project|
+    .project
+      - if can?(:manage, project)
+        = link_to edit_designer_project_path(designer, project), class: 'project-image' do
+          - if project.artwork && project.artwork.processed?
+            = image_tag project.artwork.asset(:small)
+          - else
+            = image_tag 'project-placeholder.png'
+      - else
+        - if project.artwork
+          = image_tag project.artwork.asset(:small)
+        - else
+          = image_tag 'project-placeholder.png'
+      %h4.project-title= project.name || 'Untitled'
+      %p.project-description= project.description
+      - if project.url
+        = link_to 'View more', project.url, class: 'project-link'

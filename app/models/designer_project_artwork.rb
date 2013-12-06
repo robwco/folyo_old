@@ -24,7 +24,7 @@ class DesignerProjectArtwork
   end
 
   def crop_ratio
-    4/3
+    4.fdiv(3)
   end
 
 end
