@@ -25,6 +25,7 @@ class Designer < User
 
   field :featured_shot_id,        type: String
   field :featured_shot_url,       type: String
+  field :featured_shot_image_url, type: String
 
   field :uploaded_photo
 
@@ -135,6 +136,10 @@ class Designer < User
 
   def track_signup_event
     track_user_event('Signup Designer')
+  end
+
+  def can_create_project?
+    self.projects.count < 3
   end
 
   protected
