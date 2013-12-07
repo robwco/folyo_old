@@ -1,18 +1,12 @@
 .featured-work
   - designer.projects.each do |project|
     .project
-      - if can?(:manage, project)
-        = link_to edit_designer_project_path(designer, project), class: 'project-image' do
-          - if project.artwork && project.artwork.processed?
-            = image_tag project.artwork.asset(:small)
-          - else
-            = image_tag 'project-placeholder.png'
-      - else
-        - if project.artwork
+      - if project.artwork
+        = link_to project.artwork.asset.url(:medium), class: 'fancybox project-image', rel: 'featured-work', title: project.name do
           = image_tag project.artwork.asset(:small)
-        - else
-          = image_tag 'project-placeholder.png'
+      - else
+        = image_tag 'project-placeholder.png'
       %h4.project-title= project.name || 'Untitled'
       %p.project-description= project.description
       - if project.url
-        = link_to 'View more', project.url, class: 'project-link'
+        = link_to 'View more', project.url, class: 'project-link', target: '_blank'

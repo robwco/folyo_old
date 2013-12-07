@@ -4,6 +4,11 @@
 
   img {
     width: 300px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    &:hover {
+      border-color: $green;
+    }
   }
 
   .actions {
@@ -22,7 +27,7 @@
     background-image: image-url('project-placeholder-upload.png');
     background-size: contain;
     background-position: center;
-    border: 2px solid white;
+    border: 2px solid transparent;
     &:hover {
       border-color: $green;
     }

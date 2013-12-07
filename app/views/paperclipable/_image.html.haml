@@ -1,5 +1,6 @@
 %label= resource_name.capitalize
-= image_tag resource.asset.url(:small)
+= link_to resource.asset.url(:medium), class: 'fancybox' do
+  = image_tag resource.asset.url(:small)
 .actions
   = link_to 'Remove', resource_path, class: 'remove', method: 'DELETE', confirm: "Are your sure you want to remove your #{resource_name}?"
   = link_to 'Crop', "#{resource_path}/crop", class: 'crop', data: {height: resource.geometry['small_edit_cover']['height'], width: resource.geometry['small_edit_cover']['width']}

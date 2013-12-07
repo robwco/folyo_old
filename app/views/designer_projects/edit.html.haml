@@ -8,6 +8,8 @@
 
 .designer-project
 
+  = link_to 'Back to portfolio', designer_projects_path(@designer), class: 'back'
+
   = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'
     = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
