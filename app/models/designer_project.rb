@@ -3,19 +3,24 @@ class DesignerProject
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
+  include Mongoid::EmbeddedFindable
 
   field :name
   field :description
   field :url
   field :skills, type: Array, default: []
 
-  slug        :name, history: true, scope: :designer_id
-  belongs_to  :designer, inverse_of: :projects
-  has_many    :artworks, class_name: 'DesignerProjectArtwork', inverse_of: :project, dependent: :destroy
+  slug           :name, history: true, scope: :designer_id
+  embedded_in    :designer, inverse_of: :projects
+  embeds_many    :artworks, class_name: 'DesignerProjectArtwork', inverse_of: :project
 
   before_validation  :process_skills
 
   validates_length_of :description, maximum: 300, tokenizer: lambda { |str| str.scan(/./) }
+
+  def self.find(id)
+    find_by(Designer, :projects, id)
+  end
 
   def artwork
     self.artworks.first rescue nil

@@ -14,9 +14,14 @@ class DesignerProjectArtwork
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
+  include Mongoid::EmbeddedFindable
   include Paperclipable::Model
 
-  belongs_to :project, class_name: 'DesignerProject', inverse_of: :artworks
+  embedded_in :project, class_name: 'DesignerProject', inverse_of: :artworks
+
+  def self.find(id)
+    find_by(Designer, 'projects.artworks', id)
+  end
 
   # for now, enforcing that there is only one artwork per project
   after_create do

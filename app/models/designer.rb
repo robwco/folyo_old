@@ -40,8 +40,8 @@ class Designer < User
   end
 
   has_many :posts,    class_name: 'DesignerPost',    dependent: :destroy
-  has_many :projects, class_name: 'DesignerProject', dependent: :destroy
-  has_one  :profile_picture,  as: 'profile',         dependent: :destroy
+  embeds_many :projects, class_name: 'DesignerProject'
+  embeds_one  :profile_picture,  as: 'profile'
 
   attr_accessor :skip_validation
   alias_method  :designer_projects, :projects

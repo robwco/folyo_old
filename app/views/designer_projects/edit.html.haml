@@ -4,13 +4,13 @@
 
 = content_for :sidebar do
   .artwork
-    = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @designer_project), image: @artwork, image_name: 'artwork', singleton: false
+    = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @project), image: @artwork, image_name: 'artwork', singleton: false
 
 .designer-project
 
   = link_to 'Back to portfolio', designer_projects_path(@designer), class: 'back'
 
-  = simple_form_for [@designer, @designer_project], url: designer_project_path(@designer, @designer_project), html: {id: 'main-form'} do |f|
+  = simple_form_for [@designer, @project], url: designer_project_path(@designer, @project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'
     = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
     = f.input :url,         label: 'Project url'
@@ -18,4 +18,4 @@
 
     = f.submit 'Save Project', class: 'submit button big-button'
 
-    = link_to 'Delete project', designer_project_path(@designer, @designer_project), method: 'DELETE', confirm: 'Are you sure you want to delete your project?', class: 'delete-project'
+    = link_to 'Delete project', designer_project_path(@designer, @project), method: 'DELETE', confirm: 'Are you sure you want to delete your project?', class: 'delete-project'
