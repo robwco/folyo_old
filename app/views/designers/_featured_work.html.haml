@@ -5,7 +5,8 @@
         = link_to project.artwork.asset.url(:medium), class: 'fancybox project-image', rel: 'featured-work', title: project.name do
           = image_tag project.artwork.asset(:small)
       - else
-        = image_tag 'project-placeholder.png'
+        .project-image
+          = image_tag 'project-placeholder.png'
       %h4.project-title= project.name || 'Untitled'
       %p.project-description= project.description
       - if project.url

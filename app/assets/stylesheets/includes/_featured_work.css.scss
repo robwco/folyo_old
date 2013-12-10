@@ -1,10 +1,12 @@
 .project{
+
 	margin-bottom: $spacing;
 	@include medium{
 		@include span-columns(4);
 		@include nth-omega(3n, of-type);
 	}
-	.project-image{
+
+	.project-image, .project-placeholder {
 		display: block;
 		margin-bottom: $halfspacing;
 		img{
@@ -12,12 +14,16 @@
 			display: block;
 		}
 		border: 2px solid transparent;
-    cursor: pointer;
+	}
+	.project-image {
+		cursor: pointer;
     &:hover {
       border-color: $green;
     }
-	}
+  }
+
 	.project-description{
 		margin-bottom: 0;
 	}
+
 }

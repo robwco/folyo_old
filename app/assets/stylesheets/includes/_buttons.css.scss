@@ -19,7 +19,6 @@ BEM Cheatsheet:
 	font-size:16px;
 	background:$primaryButton;
 	color:white;
-	@include animate();
 	.action{
 		color:white;
 		display:block;

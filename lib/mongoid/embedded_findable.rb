@@ -28,16 +28,23 @@ module Mongoid
         relation = relation.to_s unless relation.is_a?(String)
 
         relation_parts = relation.split('.')
-        parent = embedding_class
+        parent = embedding_class.send(:all)
 
         while relation_parts.length > 0
-          result = parent.where("#{relation_parts.join('.')}._id" => id)
-          item = result.is_a?(Criteria) ? result.first : result
+          item = if parent.is_a?(Mongoid::Criteria) || parent.is_a?(Array)
+            parent.where("#{relation_parts.join('.')}._id" => id).first
+          else
+            parent
+          end
           return nil if item.nil?
           parent = item.send(relation_parts.shift)
         end
 
-        parent.is_a?(Criteria) ? parent.first : parent
+        if parent.is_a?(Mongoid::Criteria) || parent.is_a?(Array)
+          parent.where('_id' => id).first
+        else
+          parent
+        end
       end
 
     end
