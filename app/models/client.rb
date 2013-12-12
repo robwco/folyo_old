@@ -24,10 +24,6 @@ class Client < User
     "http://www.folyo.me/clients/#{self.to_param}"
   end
 
-  def text_format
-    :markdown
-  end
-
   def track_signup_event
     track_user_event('Signup Client')
   end

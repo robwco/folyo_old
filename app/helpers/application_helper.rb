@@ -90,15 +90,4 @@ module ApplicationHelper
     end
   end
 
-  def textarea_type(model)
-    if model.send(:text_format) == :markdown
-      'markdown'
-    else
-      'wysiwyg'
-    end
-  end
-
-  private
-
-
 end

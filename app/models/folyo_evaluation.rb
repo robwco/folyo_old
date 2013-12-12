@@ -7,8 +7,4 @@ class FolyoEvaluation
 
   belongs_to :user
 
-  def text_format
-    :markdown
-  end
-
 end

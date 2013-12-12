@@ -56,9 +56,4 @@ class DesignerReply
     )
   end
 
-  def text_format
-    :markdown
-  end
-
-
 end
