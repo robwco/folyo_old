@@ -7,8 +7,8 @@ class JobOffersController < ApplicationController
 
   def show
     if current_user && current_user.is_a?(Designer)
-      unless @reply = @job_offer.reply_by(current_user)
-        @reply = @job_offer.designer_replies.build
+      unless @designer_reply = @job_offer.reply_by(current_user)
+        @designer_reply = @job_offer.designer_replies.build
       end
     end
     show!

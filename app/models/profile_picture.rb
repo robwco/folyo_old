@@ -13,13 +13,13 @@ class ProfilePicture
 
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Paperclipable::Model
   include Mongoid::EmbeddedFindable
+  include Paperclipable::Model
 
   embedded_in :profile, polymorphic: true
 
   def self.find(id)
-    find_by(Designer, :profile_picture, id)
+    find_through(Designer, :profile_picture, id)
   end
 
   def crop_ratio

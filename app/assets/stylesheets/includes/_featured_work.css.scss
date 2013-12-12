@@ -8,7 +8,7 @@
 
 	.project-image, .project-placeholder {
 		display: block;
-		margin-bottom: $halfspacing;
+		margin-bottom: 5px;
 		img{
 			width: 100%;
 			display: block;
@@ -20,6 +20,10 @@
     &:hover {
       border-color: $green;
     }
+  }
+
+  .project-title, .project-description {
+  	margin-left: 2px;
   }
 
 	.project-description{

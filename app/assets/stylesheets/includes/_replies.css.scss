@@ -30,6 +30,7 @@
 	cursor: pointer;
 	margin: 0;
 	position: relative;
+	height: 107px;
 	.placeholder{
 		position: absolute;
 		top: 0px;
@@ -52,6 +53,9 @@
 		@include medium{
 			@include span-columns(7);
 		}
+		&.full {
+			width: 98%;
+		}
 	}
 	.reply-avatar{
 		width:60px;
@@ -65,7 +69,9 @@
 		margin-bottom: 0;
 	}
 	.reply-work{
+		position: absolute;
 		padding-right: 10px;
+		z-index: 101;
 		@include medium{
 			@include span-columns(5 omega);
 		}

@@ -2,6 +2,7 @@ class DesignerReply
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::EmbeddedFindable
 
   field :message,    type: String
   field :collapsed,  type: Boolean
@@ -25,15 +26,19 @@ class DesignerReply
   ## scopes ##
   scope :ordered, order_by(created_at: :desc)
 
-  def send_creation_notification!
-    # indirection here because we cannot directly use an embedded instance with delayed_job
-    job_offer.delay.send_job_offer_reply_notification(self.id, false)
+  def self.find(id)
+    find_through(JobOffer, :designer_replies, id)
   end
 
-  def send_update_notification!
-    # indirection here because we cannot directly use an embedded instance with delayed_job
-    job_offer.delay.send_job_offer_reply_notification(self.id, true)
+  def send_creation_notification!
+    ClientMailer.job_offer_replied(self).deliver
   end
+  handle_asynchronously :send_creation_notification!
+
+  def send_update_notification!
+    ClientMailer.updated_reply(self).deliver
+  end
+  handle_asynchronously :send_update_notification!
 
   def track_creation_event
     self.designer.track_user_event('Job Offer Reply',

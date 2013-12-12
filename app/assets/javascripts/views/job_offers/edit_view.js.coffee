@@ -21,11 +21,6 @@ class Views.JobOffers.EditView extends Views.ApplicationView
 
   render: ->
     super()
-
-    # form features
-    Widgets.MarkdownEditor.enable()
-    Widgets.LimitedText.enable()
-
     # saving form every 30 secs (if changes have occured)
     lastFormState = $('form').serialize()
     interval = setInterval(saveForm, 30000)
@@ -39,6 +34,7 @@ class Views.JobOffers.EditView extends Views.ApplicationView
         $(".coding-note").fadeOut "fast"
 
   cleanup: ->
+    super()
     clearInterval(interval)
     saveForm()
 

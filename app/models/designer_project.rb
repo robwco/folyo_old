@@ -19,7 +19,7 @@ class DesignerProject
   validates_length_of :description, maximum: 300, tokenizer: lambda { |str| str.scan(/./) }
 
   def self.find(id)
-    find_by(Designer, :projects, id)
+    find_through(Designer, :projects, id)
   end
 
   def artwork

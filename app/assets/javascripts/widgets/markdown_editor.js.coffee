@@ -15,8 +15,8 @@ class Widgets.MarkdownEditor
       if $(item).parent(".input").hasClass('error')
         $(epiceditor.getElement('editor').body).addClass('error')
 
+
     $('.markdown label').append("<a href='/markdown' tabindex='-1' title='Help for markdown syntax' class='markdown-logo fancybox fancybox.ajax'></a>")
-    Widgets.FancyBox.enable()
 
     $('.inline-hints').each ->
       $hint = $(this)
@@ -33,3 +33,7 @@ class Widgets.MarkdownEditor
 
       $input?.on 'blur',     -> $(".inline-hints").removeClass('in-focus')
       epiceditor?.on 'blur', -> $(".inline-hints").removeClass('in-focus')
+
+  @cleanup: ->
+    $('.epiceditor').remove()
+    $('.markdown-logo').remove()

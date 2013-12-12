@@ -7,6 +7,11 @@ class Views.ApplicationView
     $('body').addClass("js-animate") unless ($.browser.mozilla)
 
     Widgets.FancyBox.enable()
+    Widgets.MarkdownEditor.enable()
+    Widgets.LimitedText.enable()
 
-  cleanup: -> # empty, must be implemented by child classes
+  cleanup: ->
+    Widgets.FancyBox.cleanup()
+    Widgets.MarkdownEditor.cleanup()
+    Widgets.LimitedText.cleanup()
 

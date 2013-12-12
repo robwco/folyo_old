@@ -5,7 +5,7 @@ module Mongoid
   #   - add to your model "include Mongoid::EmbeddedFindable"
   #   - override find method with:
   #     def find(id)
-  #       find_by(Book, 'chapter', id)
+  #       find_through(Book, 'chapter', id)
   #     end
   module EmbeddedFindable
 
@@ -16,12 +16,12 @@ module Mongoid
       # Search an embedded document by id.
       #
       # Document is stored within embedding_class collection, and can be accessed through provided relation.
-      # Also supports chained relation chips (if the searched document is nested in several embedded documents)
+      # Also supports chained relationships (if the searched document is nested in several embedded documents)
       #
       # Example, with a chapter embedded in a book, the book being embedded in a library.
-      # use find_by(Library, "books", book_id) in Book class
-      # and find_by(Library, "books.chapters", chapter_id) in Chapter class
-      def self.find_by(embedding_class, relation, id = nil)
+      # use find_through(Library, "books", book_id) in Book class
+      # and find_through(Library, "books.chapters", chapter_id) in Chapter class
+      def self.find_through(embedding_class, relation, id = nil)
         return nil if id.nil? || id.blank?
 
         id = Moped::BSON::ObjectId.from_string(id) if id.is_a?(String)

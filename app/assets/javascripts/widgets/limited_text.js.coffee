@@ -3,7 +3,6 @@ window.Widgets ||= {}
 class Widgets.LimitedText
 
   @enable: ->
-
     $(".limited").on "focus", ->
       $(this).trigger('keyup') # refresh current character count
       $(this).siblings(".character-counter-main-wrapper").fadeIn("fast")
@@ -21,3 +20,6 @@ class Widgets.LimitedText
         $(this).characterCounter
           maximumCharacters: limit_size
           characterCounterNeeded: false
+
+  @cleanup: ->
+    $(".limited").off()
