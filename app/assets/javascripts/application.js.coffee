@@ -32,7 +32,9 @@ head ->
     page_load()
 
     $(document).on 'page:load', page_load
-    $(document).on 'page:before-change', window.application_view.cleanup
+    $(document).on 'page:before-change', ->
+      window.application_view.cleanup()
+      true
     $(document).on 'page:change', animateIn
     $(document).on 'page:fetch', animateOut
     $(document).on 'page:restore', ->
