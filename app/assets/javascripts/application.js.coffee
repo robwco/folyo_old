@@ -24,7 +24,7 @@ animatedElement = -> if $(window.lastElementClicked).parents('.subnav').length >
 
 animateIn =  ->
   $(animatedElement()).addClass('animated').removeClass('fadeOut').addClass('fadeIn')
-  $('.logo').css('position', 'absolute')
+  $('.logo').css('position', '')
   spinner.stop()
 
 animateOut = ->
