@@ -8,7 +8,7 @@
 
 .designer-project
 
-  = link_to 'Back to portfolio', designer_projects_path(@designer), class: 'back'
+  = link_to 'Back to portfolio', designer_projects_path(@designer), class: 'backlink'
 
   = simple_form_for [@designer, @project], url: designer_project_path(@designer, @project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'

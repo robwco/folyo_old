@@ -3,11 +3,13 @@
   = render 'job_offers/designer/nav'
 
 - if current_user.accepted?
+
   %p.note These job offers are no longer active.
   %ul.offer-list
     - @job_offers.each do |job|
-      %li
-        = render 'job_offers/designer/job_offer', job: job
+      - if job.client
+        %li
+          = render 'job_offers/designer/job_offer', job: job
 
   = paginate @job_offers
 

@@ -18,7 +18,7 @@ page_load = ->
     new Views.ApplicationView()
   window.application_view.render()
 
-spinner = new Spinner(radius: 42, length: 1, lines: 24, color: '#FFF')
+spinner = new Spinner(radius: 42, length: 1, lines: 24, color: '#DADADA')
 
 animatedElement = -> if $(window.lastElementClicked).parents('.subnav').length > 0 then '#page-content' else '#page'
 animateIn =  ->

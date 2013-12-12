@@ -923,3 +923,15 @@ h2.pending a{
 		text-decoration: underline;
 	}
 }
+
+.backlink {
+  display: block;
+  margin-bottom: 20px;
+  color: $green1;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:before {
+    content: '< '
+  }
+}

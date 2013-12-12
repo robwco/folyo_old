@@ -60,18 +60,6 @@
 
 .designer-project {
 
-  .back {
-    display: block;
-    margin-bottom: 15px;
-    color: $green1;
-    &:hover {
-      text-decoration: underline;
-    }
-    &:before {
-      content: '< '
-    }
-  }
-
   .delete-project {
     float: right;
     color: $red1;
