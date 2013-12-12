@@ -19,10 +19,11 @@ page_load = ->
 
 animationIn = 'fadeInUpBig'
 animationOut= 'fadeOutUpBig'
-animatedElement = -> if $(window.lastElementClicked).parents('.topbar').length > 0 then '#page' else '#page-content'
-
+animatedElement = -> if $(window.lastElementClicked).parents('.subnav').length > 0 then '#page-content' else '#page'
 animateIn =  -> $(animatedElement()).toggleClass('animated', true).removeClass(animationOut).addClass(animationIn)
-animateOut = -> $(animatedElement()).toggleClass('animated', true).removeClass(animationIn).addClass(animationOut)
+animateOut = ->
+  $('section.footer').remove()
+  $(animatedElement()).toggleClass('animated', true).removeClass(animationIn).addClass(animationOut)
 
 head ->
   $ ->
@@ -31,11 +32,8 @@ head ->
     page_load()
 
     $(document).on 'page:load', page_load
-    $(document).on 'page:before-change', (data) ->
-      console.log data
-      window.application_view.cleanup()
-    $(document).on 'page:change', (data) ->
-      animateIn()
+    $(document).on 'page:before-change', window.application_view.cleanup
+    $(document).on 'page:change', animateIn
     $(document).on 'page:fetch', animateOut
     $(document).on 'page:restore', ->
       window.application_view.cleanup()
