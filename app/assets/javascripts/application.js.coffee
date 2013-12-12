@@ -2,6 +2,7 @@
 #= require map
 #= require epiceditor
 #= require s3_direct_upload
+#= require spin
 
 #= require_tree ./widgets
 #= require_tree ./views
@@ -17,13 +18,20 @@ page_load = ->
     new Views.ApplicationView()
   window.application_view.render()
 
-animationIn = 'fadeInUpBig'
-animationOut= 'fadeOutUpBig'
+spinner = new Spinner(radius: 42, length: 1, lines: 24, color: '#FFF')
+
 animatedElement = -> if $(window.lastElementClicked).parents('.subnav').length > 0 then '#page-content' else '#page'
-animateIn =  -> $(animatedElement()).toggleClass('animated', true).removeClass(animationOut).addClass(animationIn)
+animateIn =  ->
+  $(animatedElement()).addClass('animated').removeClass('fadeOut').addClass('fadeIn')
+  spinner.stop()
 animateOut = ->
+  $clickedItem = $(window.lastElementClicked)
+  $('a', $clickedItem.parents('ul')).removeClass('current')
+  $clickedItem.addClass('current')
+  $('h1.title').html($clickedItem.attr('title')) if $clickedItem.attr('title')
   $('section.footer').remove()
-  $(animatedElement()).toggleClass('animated', true).removeClass(animationIn).addClass(animationOut)
+  $(animatedElement()).addClass('animated').removeClass('fadeIn').addClass('fadeOut')
+  spinner.spin($('.logo')[0])
 
 head ->
   $ ->
