@@ -17,12 +17,31 @@ page_load = ->
     new Views.ApplicationView()
   window.application_view.render()
 
+animationIn = 'fadeInUpBig'
+animationOut= 'fadeOutUpBig'
+animatedElement = -> if $(window.lastElementClicked).parents('.topbar').length > 0 then '#page' else '#page-content'
+
+animateIn =  -> $(animatedElement()).toggleClass('animated', true).removeClass(animationOut).addClass(animationIn)
+animateOut = -> $(animatedElement()).toggleClass('animated', true).removeClass(animationIn).addClass(animationOut)
+
 head ->
   $ ->
+    $(document).click (event) -> window.lastElementClicked = event.target
+
     page_load()
-    document.addEventListener 'page:load', page_load
-    document.addEventListener 'page:before-change', window.application_view.cleanup
-    document.addEventListener 'page:restore', ->
+
+    $(document).on 'page:load', page_load
+    $(document).on 'page:before-change', (data) ->
+      console.log data
       window.application_view.cleanup()
+    $(document).on 'page:change', (data) ->
+      animateIn()
+    $(document).on 'page:fetch', animateOut
+    $(document).on 'page:restore', ->
+      window.application_view.cleanup()
+      animateIn()
       page_load()
+
+
+
 

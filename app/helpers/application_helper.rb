@@ -34,11 +34,11 @@ module ApplicationHelper
 
   def render_site_nav
     if current_user
-      if current_user.is_a? Designer
+      if current_user._type == 'Designer'
         render '/designers/top_bar'
-      elsif current_user.is_a? Client
+      elsif current_user._type == 'Client'
         render '/clients/top_bar'
-      elsif current_user.is_a? Admin
+      elsif current_user._type == 'Admin'
         render '/admin/top_bar'
       else
         render '/site/top_bar'

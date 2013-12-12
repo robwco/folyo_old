@@ -3,7 +3,7 @@
 		%h1.logo
 			= link_to 'Folyo', root_path, :title => 'Home'
 		%nav.nav
-			%ul
+			%ul.topbar
 				%li= section_link_to "My Offers", offers_path, :job_offers
 				%li= section_link_to "All Designers", designers_path, :designers
 				%li= section_link_to "My Account", edit_client_path(current_user), [:account, :clients]

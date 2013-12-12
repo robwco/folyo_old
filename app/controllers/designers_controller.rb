@@ -19,11 +19,11 @@ class DesignersController < ApplicationController
 
   def map
     track_event("Viewing Designer Map")
-    @designers = Designer.accepted.public_only.where(:coordinates.ne => nil)
+    @designers = ::Designer.accepted.public_only.where(:coordinates.ne => nil)
   end
 
   def san_francisco_bay_area
-    @designers = Designer.accepted.public_only
+    @designers = ::Designer.accepted.public_only
   end
 
   def update
