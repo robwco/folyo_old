@@ -20,8 +20,8 @@
 
 = content_for :hero do
 
-  - if designer_reply
-    = render '/designer_replies/designer_reply', designer_reply: designer_reply
+  - if @designer_reply
+    = render '/designer_replies/designer_reply', designer_reply: @designer_reply
 
   - if designer.has_projects?
     = render '/designers/featured_work', designer: designer

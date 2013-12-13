@@ -38,6 +38,7 @@ animateOut = ->
   $('a', $clickedItem.parents('ul')).removeClass('current')
   $clickedItem.addClass('current')
   $('body').css('height', $('body').height())
+  $('section.footer').hide()
   $(animatedElement()).hide()
   spinner.spin($('.logo')[0])
 

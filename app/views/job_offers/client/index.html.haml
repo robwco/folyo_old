@@ -68,10 +68,11 @@
               %span.posted= "Posted #{time_ago_in_words(job.created_at.to_date)} ago, "
               %span.last-reply= last_reply_text_for_job_offer(job)
             %ul.controls
-              %li= link_to 'View designer replies', offer_replies_path(job)
+              %li= link_to 'Payment info', offer_order_path(job)
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-              %li= link_to 'Payment info', offer_order_path(job)
+              %li= link_to 'View designer replies', offer_replies_path(job)
+
               %li.archive= link_to 'Archive', show_archive_offer_path(job), title: "Archive the offer once you've picked a designer", class: 'tooltip'
 
   - unless @job_offers.archived_or_rated.empty?
@@ -87,10 +88,11 @@
               %span.posted= "Posted #{time_ago_in_words(job.created_at.to_date)} ago, "
               %span.last-reply= last_reply_text_for_job_offer(job)
             %ul.controls
-              %li= link_to 'View designer replies', offer_replies_path(job)
+              %li= link_to 'Payment info', offer_order_path(job)
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
-              %li= link_to 'Payment info', offer_order_path(job)
+              %li= link_to 'View designer replies', offer_replies_path(job)
+
               %li.archive= link_to 'Rate Designer', edit_offer_evaluations_path(job), :title =>"Let us know how it went!", :class => 'tooltip'
 
   = paginate @job_offers
