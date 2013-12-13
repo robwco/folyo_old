@@ -20,7 +20,14 @@ page_load = ->
 
 spinner = new Spinner(radius: 42, length: 1, lines: 24, color: '#DADADA')
 
-animatedElement = -> if $(window.lastElementClicked).parents('.subnav').length > 0 then '#page-content' else '#page'
+animatedElement = ->
+  if $(window.lastElementClicked).parents('.subnav').length > 0
+    if $(window.lastElementClicked).parents('.sidebar').length > 0
+      '#page-content .container .main'
+    else
+      '#page-content'
+  else
+    '#page'
 
 animateIn =  ->
   $(animatedElement()).show()
@@ -30,7 +37,7 @@ animateOut = ->
   $clickedItem = $(window.lastElementClicked)
   $('a', $clickedItem.parents('ul')).removeClass('current')
   $clickedItem.addClass('current')
-  $('section.footer').remove()
+  $('body').css('height', $('body').height())
   $(animatedElement()).hide()
   spinner.spin($('.logo')[0])
 

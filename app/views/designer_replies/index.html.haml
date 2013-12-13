@@ -25,7 +25,7 @@
           - else
             = image_tag('default-avatar.png', class: 'avatar reply-avatar')
           %p.reply-infos
-            %a.reply-name{:href => designer_path(r.designer)}
+            = link_to offer_reply_path(r.job_offer, r) do
               = r.designer.full_name
               %span.placeholder
             %span.reply-location= r.designer.location
