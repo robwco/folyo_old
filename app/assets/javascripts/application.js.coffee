@@ -23,18 +23,15 @@ spinner = new Spinner(radius: 42, length: 1, lines: 24, color: '#DADADA')
 animatedElement = -> if $(window.lastElementClicked).parents('.subnav').length > 0 then '#page-content' else '#page'
 
 animateIn =  ->
-  $(animatedElement()).addClass('animated').removeClass('fadeOut').addClass('fadeIn')
-  $('.logo').css('position', '')
+  $(animatedElement()).show()
   spinner.stop()
 
 animateOut = ->
   $clickedItem = $(window.lastElementClicked)
   $('a', $clickedItem.parents('ul')).removeClass('current')
   $clickedItem.addClass('current')
-  $('h1.title').html($clickedItem.attr('title')) if $clickedItem.attr('title')
   $('section.footer').remove()
-  $(animatedElement()).addClass('animated').removeClass('fadeIn').addClass('fadeOut')
-  $('.logo').css('position', 'fixed')
+  $(animatedElement()).hide()
   spinner.spin($('.logo')[0])
 
 head ->
