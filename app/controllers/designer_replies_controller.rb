@@ -15,11 +15,7 @@ class DesignerRepliesController < ApplicationController
   def index
     index! do
       # in order to prevent 1 + N queries, we fetch all designers at once
-      @designers = Designer.where(:_id.in => @designer_replies.map(&:designer_id)).inject({}) do |hash, designer|
-        hash.tap do |hash|
-          hash[designer.id] = designer
-        end
-      end
+      Designer.where(:_id.in => @designer_replies.map(&:designer_id)).to_a
     end
 
   end

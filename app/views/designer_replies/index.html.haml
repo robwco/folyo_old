@@ -18,22 +18,21 @@
 
   %ul.replies
     - @designer_replies.each do |r|
-      - designer = @designers[r.designer_id]
       %li.reply
-        .reply-designer{class: designer.has_projects? ? '' : 'full' }
-          - if designer.profile_picture.try(:processed?)
-            = image_tag(designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
+        .reply-designer{class: r.designer.has_projects? ? '' : 'full' }
+          - if r.designer.profile_picture.try(:processed?)
+            = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
           - else
             = image_tag('default-avatar.png', class: 'avatar reply-avatar')
           %p.reply-infos
-            %a.reply-name{:href => designer_path(designer)}
-              = designer.full_name
+            %a.reply-name{:href => designer_path(r.designer)}
+              = r.designer.full_name
               %span.placeholder
-            %span.reply-location= designer.location
+            %span.reply-location= r.designer.location
           %p.reply-message= Sanitize.clean(r.message)
-        - if designer.has_projects?
+        - if r.designer.has_projects?
           .reply-work
-            = render '/designers/featured_work', designer: designer
+            = render '/designers/featured_work', designer: r.designer
 
 
       / -if r.collapsed == true

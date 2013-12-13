@@ -29,6 +29,8 @@ class JobOffersController < ApplicationController
 
   def index
     @job_offers = collection
+    # in order to prevent 1 + N queries, we fetch all designers at once
+    Client.where(:_id.in => @job_offers.map(&:client_id)).to_a
     if current_user && current_user.is_a?(Client)
       render 'job_offers/client/index'
     else
