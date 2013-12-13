@@ -146,7 +146,8 @@ class Designer < User
 
   def tweet_out
     if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
-      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
+      twitter = Twitter::Client.new
+      twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
   handle_asynchronously :tweet_out
