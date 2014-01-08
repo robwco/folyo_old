@@ -1,18 +1,23 @@
 = content_for :title, designer.full_name
 = content_for :subtitle, designer.short_bio.truncate(70)
 = content_for :avatar, designer.profile_picture ? designer.profile_picture.asset(:thumbnail) : 'default-avatar.png'
+- if @designer_reply
+  = content_for :back_path, offer_replies_path(@job_offer)
+  = content_for :back_name, 'Replies'
 = content_for :body_class, "designer-profile"
 
 - if current_user
   - if current_user.id == designer.id
     = content_for :subnav do
-      = render :partial => '/designers/account_nav'
-  - else
+      = render partial: '/designers/account_nav'
+  - elsif @designer_reply
     = content_for :mainaction do
-      = link_to 'Get in Touch', new_designer_message_path(designer), :id => "get-in-touch", :class => "button big-button"
+      = link_to 'Get in Touch', new_designer_message_path(designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
+      .reply-navigation
+        = link_to '< Prev.', @previous_reply ? offer_reply_path(@job_offer, @previous_reply) : '#', class: "previous #{@previous_reply ? '' : 'disabled'}"
+        = link_to 'Next >', @next_reply ? offer_reply_path(@job_offer, @next_reply) : '#', class: "next #{@next_reply ? '' : 'disabled'}"
 
 .block.about
-
 
   %h3 About Me
   - if designer.long_bio
@@ -31,15 +36,15 @@
     %li.profile-links
       %h3 Links
       %ul.social-media
-        %li.site= link_to 'Portfolio', designer.portfolio_url,:title =>designer.portfolio_url, :class => 'tooltip', :target => "_blank"
+        %li.site= link_to 'Portfolio', designer.portfolio_url, title: designer.portfolio_url, class: 'tooltip', target: "_blank"
         - unless designer.dribbble_url.blank?
-          %li.dribbble= link_to "Dribbble", designer.dribbble_url, :title =>'Dribbble', :class => 'tooltip', :target => "_blank"
+          %li.dribbble= link_to "Dribbble", designer.dribbble_url, title: 'Dribbble', class: 'tooltip', target: "_blank"
         - unless designer.twitter_username.blank?
-          %li.twitter= link_to "Twitter", "http://www.twitter.com/"+designer.twitter_username,:title =>'Twitter', :class => 'tooltip', :target => "_blank"
+          %li.twitter= link_to "Twitter", "http://www.twitter.com/#{designer.twitter_username}", title: 'Twitter', class: 'tooltip', target: "_blank"
         - unless designer.behance_url.blank?
-          %li.behance= link_to "Behance", designer.behance_url ,:title =>'Behance', :class => 'tooltip', :target => "_blank"
+          %li.behance= link_to "Behance", designer.behance_url, title: 'Behance', class: 'tooltip', target: "_blank"
         - unless designer.zerply_username.blank?
-          %li.zerply= link_to "Zerply", "http://www.zerply.com/profile/"+designer.zerply_username+"/public",:title =>'Zerply', :class => 'tooltip', :target => "_blank"
+          %li.zerply= link_to "Zerply", "http://www.zerply.com/profile/#{designer.zerply_username}/public", title: 'Zerply', class: 'tooltip', target: "_blank"
     %li.skills
       %h3 Skills
       %ul.skills-list

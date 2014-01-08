@@ -13,7 +13,7 @@
 		width: 0;
 		position: absolute;
 		pointer-events: none;
-	}	
+	}
 }
 
 @mixin top-arrow(){
@@ -35,7 +35,7 @@
 		border-width: 14px;
 		left: 50%;
 		margin-left: -14px;
-	}	
+	}
 }
 
 @mixin right-arrow(){
@@ -90,11 +90,11 @@
 		}
 	}
 	.contents{
-		
+
 		@extend .message-contents;
 
 		@include small{
-			@include top-arrow;	
+			@include top-arrow;
 		}
 		@include medium{
 			@include right-arrow;
@@ -134,7 +134,7 @@
 			}
 		}
 		@include medium{
-			@include left-arrow;	
+			@include left-arrow;
 		}
 	}
 	.avatar{
@@ -171,10 +171,32 @@
 		font-weight: bold();
 	}
 }
-.avatar-company{
 
+.main-header .back {
+	color: white;
+	font-size: 18px;
+	&:hover {
+		color: rgba(0, 0, 0, 0.7);
+	}
 }
 
+.reply-navigation {
+	position: relative;
+	top: 5px;
+	a {
+		color: white;
+		&:hover {
+			color: rgba(0, 0, 0, 0.7);
+		}
+		&.previous {
+			margin-right: 30px;
+		}
+		&.disabled {
+			color: gray;
+			cursor: not-allowed;
+		}
+	}
+}
 
 // steps
 .js-animate{
@@ -193,7 +215,7 @@
 	0% {
 		opacity: 0;
 		@include transform(scale(.3));
-	}	
+	}
 	80% {
 		opacity: 1;
 		@include transform(scale(1.05));

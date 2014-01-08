@@ -12,6 +12,13 @@ class DesignerRepliesController < ApplicationController
 
   respond_to :html, :json
 
+  def show
+    show! do
+      @previous_reply = @designer_reply.previous
+      @next_reply = @designer_reply.next
+    end
+  end
+
   def index
     index! do
       # in order to prevent 1 + N queries, we fetch all designers at once
@@ -48,10 +55,5 @@ class DesignerRepliesController < ApplicationController
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Excellent, you just picked a designer! Once you're done working with them, you can come back here to let us know how it went :)"
   end
 
-  protected
-
-  def collection
-    @designer_replies ||= end_of_association_chain.ordered
-  end
 
 end

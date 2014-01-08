@@ -7,7 +7,13 @@ class Widgets.FancyBox
     $(".fancybox").fancybox(
       parent:       $fancyboxHolder,
       openEffect:   'none',
-      closeEffect:  'none'
+      closeEffect:  'none',
+    )
+    $(".fancybox-ajax").fancybox(
+      parent:       $fancyboxHolder,
+      openEffect:   'none',
+      closeEffect:  'none',
+      type:         'ajax'
     )
     $(".swipebox").swipebox(hideBarsDelay: 0)
 

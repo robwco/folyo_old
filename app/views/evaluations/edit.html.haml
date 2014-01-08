@@ -6,12 +6,12 @@
   = render current_user.try(:is_a?, Client) ? 'job_offers/client/nav' : 'job_offers/designer/nav', job_offer: @job_offer
 
 = content_for :evaluation_hint do
-  %span You can also include links to examples of work done for you by the designer, or any other relevant information.
+  %span Speak freely, only Folyo crew will be able to read this evaluation.
 
 - if @reply
   %h2 How did it go?
   = simple_form_for @reply, url: offer_evaluations_path(@job_offer, reply_id: @reply.id) do |f|
-    = f.input :evaluation, :as => :text, :hint => yield(:evaluation_hint), :wrapper_html => {:class => 'markdown'}, label: "Please leave a short evaluation to let us know if you enjoyed working with #{link_to @designer.full_name, @designers}."
+    = f.input :evaluation, :as => :text, :hint => yield(:evaluation_hint), :wrapper_html => {:class => 'markdown'}, label: raw("Please leave a short evaluation to let us know if you enjoyed working with #{link_to @designer.full_name, @designer}.")
     %hr
     = simple_fields_for @folyo_evaluation do |f_e|
       = f_e.input :evaluation, :as => :text, :wrapper_html => {:class => 'markdown'}, label: "What did you think of Folyo? Do you have any comments to help us improve the service?"

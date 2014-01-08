@@ -24,7 +24,7 @@ class DesignerReply
   after_update :send_update_notification!,   :track_update_event, if: :message_changed?
 
   ## scopes ##
-  scope :ordered, order_by(created_at: :desc)
+  default_scope order_by(created_at: :desc)
 
   def self.find(id)
     find_through(JobOffer, :designer_replies, id)
@@ -54,6 +54,14 @@ class DesignerReply
       job_offer_id:       job_offer.id,
       message:            message
     )
+  end
+
+  def next
+    job_offer.designer_replies.where(:created_at.lt => self.created_at).first
+  end
+
+  def previous
+    job_offer.designer_replies.where(:created_at.gt => self.created_at).last
   end
 
 end

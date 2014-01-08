@@ -7,6 +7,8 @@ class MessagesController < ApplicationController
   before_filter :set_to_user
   before_filter :get_referer, only: :new
 
+  layout false
+
   def create
     @message = Message.new(:comment => params[:message][:comment])
     @message.to_user = @to_user
@@ -14,10 +16,11 @@ class MessagesController < ApplicationController
     @message.save
 
     create! do |success, failure|
+      notice = 'Message was successfully sent'
       if session[:return_to]
-        success.html { redirect_to session[:return_to] }
+        success.html { redirect_to session[:return_to], notice: notice }
       else
-        success.html { redirect_to :back }
+        success.html { redirect_to :back, notice: notice }
       end
     end
   end
