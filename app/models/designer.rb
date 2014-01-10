@@ -80,7 +80,6 @@ class Designer < User
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
   after_save         :geocode,              if: :location_changed?
-  after_save         :update_dribbble_info, if: :dribbble_info_changed?
   after_save         :update_vero_attributes
   before_destroy     :remove_replies
 
@@ -187,19 +186,6 @@ class Designer < User
     end
   end
   handle_asynchronously :geocode
-
-  def update_dribbble_info
-    unless Rails.env.test?
-      shot = featured_shot_id.blank? ? Dribbble::Player.find(dribbble_username).shots.first : Dribbble::Shot.find(featured_shot_id)
-      if shot && !shot.respond_to?(:message) # to handle a #<Dribbble::Shot:0x007fee5f1bde10 @created_at=nil, @message="Not found">
-        self.featured_shot_image_url = shot.image_url
-        self.featured_shot_url = shot.url
-        self.featured_shot_id = shot.id
-        save!
-      end
-    end
-  end
-  handle_asynchronously :update_dribbble_info
 
   def process_skills
     self.skills.reject!(&:blank?) if self.skills_changed?
