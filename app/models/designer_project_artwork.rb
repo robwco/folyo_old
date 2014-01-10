@@ -26,6 +26,7 @@ class DesignerProjectArtwork
   # for now, enforcing that there is only one artwork per project
   after_create do
     project.artworks.where(:_id.ne => self.id).destroy_all
+    project.designer.set_completeness
   end
 
   def crop_ratio

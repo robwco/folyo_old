@@ -1,4 +1,6 @@
 = content_for :title, "Add A New Project"
+= content_for :back_path, designer_projects_path(@designer)
+= content_for :back_name, 'Portfolio'
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
@@ -7,8 +9,6 @@
     = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @project), image: @artwork, image_name: 'artwork', singleton: false
 
 .designer-project
-
-  = link_to 'Back to portfolio', designer_projects_path(@designer), class: 'backlink'
 
   = simple_form_for [@designer, @project], url: designer_project_path(@designer, @project), html: {id: 'main-form'} do |f|
     = f.input :name, label: 'Project Name'

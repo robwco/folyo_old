@@ -3,7 +3,6 @@ class Client < User
   trackable :email, :full_name, :role, :company_name, :created_at
 
   field :twitter_username,    type: String
-  field :client_pg_id
 
   field :location,            type: String
   field :company_name,        type: String
@@ -26,6 +25,16 @@ class Client < User
 
   def track_signup_event
     track_user_event('Signup Client')
+  end
+
+  def set_vero_attributes_by_email
+    vero.users.edit_user!(email: self.email, changes: {id: id.to_s, full_name: self.full_name, role: self.role, company_name: self.company_name, slug: self.slug, created_at: self.created_at})
+  end
+
+  def update_vero_attributes
+    if company_name_changed? || email_changed? || full_name_changed?
+      vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, full_name: self.full_name, slug: self.slug, company_name: self.company_name})
+    end
   end
 
 end

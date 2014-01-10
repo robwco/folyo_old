@@ -8,7 +8,7 @@
 
 = content_for :body_class, "with-subnav"
 = content_for :subnav do
-  = render :partial => '/designers/account_nav'
+  = render '/designers/account_nav'
 
 = content_for :sidebar do
   .profile-picture
@@ -51,7 +51,7 @@
     %h3 Your Work
     = f.input :portfolio_url
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, value_method: :to_sym
-    = f.input :featured_shot_id, label: 'Featured shot ID', hint: yield(:featured_shot_hint)
+    -#= f.input :featured_shot_id, label: 'Featured shot ID', hint: yield(:featured_shot_hint)
 
   .section
     %h3 Social Media

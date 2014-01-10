@@ -7,3 +7,5 @@
       - if current_user.accepted?
         %li= current_link_to 'Notifications', notifications_designer_path(current_user)
       %li= current_link_to 'View Profile', designer_path(current_user)
+
+    .profile-completeness= raw("Your profile is <span class='figure'>#{current_user.profile_completeness}%</span> complete")
