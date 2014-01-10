@@ -1,5 +1,8 @@
 = content_for :title, @job_offer.title
 = content_for :body_class, "offer-client"
+- if session[:job_offer_index_path]
+  = content_for :back_path, session[:job_offer_index_path]
+  = content_for :back_name, 'Offers'
 
 = content_for :subnav do
   = render '/job_offers/client/nav', job_offer: @job_offer

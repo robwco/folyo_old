@@ -19,33 +19,33 @@ class DesignersController < ApplicationController
 
   def map
     track_event("Viewing Designer Map")
-    @designers = Designer.accepted.public_only.where(:coordinates.ne => nil)
+    @designers = ::Designer.accepted.public_only.where(:coordinates.ne => nil)
   end
 
   def san_francisco_bay_area
-    @designers = Designer.accepted.public_only
-  end
-
-  def edit
-    if @designer.is_a?(Html::Designer)
-      @designer.to_markdown!
-      redirect_to(edit_designer_path(@designer))
-      return
-    end
+    @designers = ::Designer.accepted.public_only
   end
 
   def update
-    update! { edit_designer_path(@designer) }
+    if params[:designer][:password].blank?
+      params[:designer].delete("password")
+      params[:designer].delete("password_confirmation")
+    end
+    update! do |success, failure|
+      success.html do
+        sign_in 'user', @designer, bypass: true
+        redirect_to edit_designer_path(@designer)
+      end
+      failure.html do
+        @designer.clean_up_passwords
+        render :edit
+      end
+    end
   end
 
   def reapply
     if @designer.status != :rejected
       redirect_to edit_designer_path(@designer)
-      return
-    end
-    if @designer.is_a?(Html::Designer)
-      @designer.to_markdown!
-      redirect_to(reapply_designer_path(@designer))
       return
     end
     @designer.status = :pending
@@ -63,7 +63,7 @@ class DesignersController < ApplicationController
   protected
 
   def collection
-    @designers = Designer.page(params[:page]).per(10).ordered_by_status
+    @designers = ::Designer.page(params[:page]).per(10).ordered_by_status
 
     if current_user && (current_user.is_a?(Admin) || current_user.is_a?(Client))
       @designers = @designers.accepted.public_private

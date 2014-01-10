@@ -7,8 +7,8 @@ class JobOffersController < ApplicationController
 
   def show
     if current_user && current_user.is_a?(Designer)
-      unless @reply = @job_offer.reply_by(current_user)
-        @reply = @job_offer.designer_replies.build
+      unless @designer_reply = @job_offer.reply_by(current_user)
+        @designer_reply = @job_offer.designer_replies.build
       end
     end
     show!
@@ -28,7 +28,9 @@ class JobOffersController < ApplicationController
   end
 
   def index
+    session[:job_offer_index_path] = request.fullpath
     @job_offers = collection
+    fetch_clients_for(@job_offers)
     if current_user && current_user.is_a?(Client)
       render 'job_offers/client/index'
     else
@@ -37,12 +39,16 @@ class JobOffersController < ApplicationController
   end
 
   def archives
+    session[:job_offer_index_path] = request.fullpath
     @job_offers = JobOffer.page(params[:page]).per(10).archived
+    fetch_clients_for(@job_offers)
     render 'job_offers/designer/archives'
   end
 
   def history
+    session[:job_offer_index_path] = request.fullpath
     @job_offers = JobOffer.for_designer(current_user)
+    fetch_clients_for(@job_offers)
     render 'job_offers/designer/history'
   end
 
@@ -85,6 +91,11 @@ class JobOffersController < ApplicationController
   end
 
   protected
+
+  # in order to prevent 1 + N queries, we fetch all clients at once
+  def fetch_clients_for(job_offers)
+    Client.where(:_id.in => job_offers.map(&:client_id)).to_a
+  end
 
   def collection
     @job_offers = if current_user.is_a? Client

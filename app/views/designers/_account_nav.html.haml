@@ -2,12 +2,10 @@
 - if current_user.is_a? Designer
   .subnav
     %ul
-      %li
-        = current_link_to 'Edit Profile', edit_designer_path(current_user)
-      %li
-        = current_link_to 'Edit Info', edit_user_registration_path
+      %li= current_link_to 'Edit Profile', edit_designer_path(current_user)
+      %li= current_link_to_unless (controller.controller_name == 'designer_projects'), 'Portfolio',  designer_projects_path(current_user)
       - if current_user.accepted?
-        %li
-          = current_link_to 'View Your Profile', designer_path(current_user)
-        %li
-          = current_link_to 'Notifications', notifications_designer_path(current_user)
+        %li= current_link_to 'Notifications', notifications_designer_path(current_user)
+      %li= current_link_to 'View Profile', designer_path(current_user)
+
+    .profile-completeness= raw("Your profile is <span class='figure'>#{current_user.profile_completeness}%</span> complete")

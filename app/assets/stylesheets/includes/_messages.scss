@@ -1,68 +1,103 @@
+.message-contents{
+	padding:15px;
+	background:white;
+	@include border-radius(5px);
+	@include box-shadow(0px 3px 12px 0px black(0.25), inset 0 0 0 3px $green);
+	color:$darkText;
+	font-size:16px;
+	position: relative;
+	&:after, &:before{
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+}
+
+@mixin top-arrow(){
+	// top arrow
+	&:after, &:before {
+		bottom: 100%;
+		margin-bottom:-3px;
+	}
+	&:after {
+		border-color: rgba(136, 183, 213, 0);
+		border-bottom-color: #ffffff;
+		border-width: 10px;
+		left: 50%;
+		margin-left: -10px;
+	}
+	&:before {
+		border-color: rgba(194, 225, 245, 0);
+		border-bottom-color: $green;
+		border-width: 14px;
+		left: 50%;
+		margin-left: -14px;
+	}
+}
+
+@mixin right-arrow(){
+	// right arrow
+	&:after, &:before {
+		left: 100%;
+		margin-left:-3px;
+	}
+	&:after {
+		border-color: rgba(255, 255, 255, 0);
+		border-left-color: #ffffff;
+		border-width: 10px;
+		top: 50%;
+		margin-top: -10px;
+	}
+	&:before {
+		border-color: rgba(0, 0, 0, 0);
+		border-left-color: $green;
+		border-width: 14px;
+		top: 50%;
+		margin-top: -14px;
+	}
+}
+
+@mixin left-arrow(){
+	// left arrow
+	&:after, &:before {
+		right: 100%;
+		left:inherit;
+		margin-left:inherit;
+		margin-right:-3px;
+	}
+	&:after {
+		border-color: rgba(255, 255, 255, 0);
+		border-right-color: #ffffff;
+	}
+	&:before {
+		border-color: rgba(0, 0, 0, 0);
+		border-right-color: $lightBlue;
+	}
+}
+
 .message{
 	position:relative;
 	margin: 0px auto 40px auto;
 	@include small{
 		padding-top:120px;
 	}
-	@include medium{
-		width: columns(7);
+	.home &{
+		@include medium{
+			width: columns(7);
+		}
 	}
 	.contents{
-		padding:15px;
-		background:white;
-		@include border-radius(5px);
-		@include box-shadow(0px 3px 12px 0px black(0.25), inset 0 0 0 3px $green);
-		color:$darkText;
-		font-size:16px;
-		&:after, &:before{
-			border: solid transparent;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			pointer-events: none;
-		}
+
+		@extend .message-contents;
+
 		@include small{
-			// top arrow
-			&:after, &:before {
-				bottom: 100%;
-				margin-bottom:-3px;
-			}
-			&:after {
-				border-color: rgba(136, 183, 213, 0);
-				border-bottom-color: #ffffff;
-				border-width: 10px;
-				left: 50%;
-				margin-left: -10px;
-			}
-			&:before {
-				border-color: rgba(194, 225, 245, 0);
-				border-bottom-color: $green;
-				border-width: 14px;
-				left: 50%;
-				margin-left: -14px;
-			}
+			@include top-arrow;
 		}
 		@include medium{
-			// right arrow
-			&:after, &:before {
-				left: 100%;
-				margin-left:-3px;
-			}
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-left-color: #ffffff;
-				border-width: 10px;
-				top: 50%;
-				margin-top: -10px;
-			}
-			&:before {
-				border-color: rgba(0, 0, 0, 0);
-				border-left-color: $green;
-				border-width: 14px;
-				top: 50%;
-				margin-top: -14px;
-			}
+			@include right-arrow;
 		}
 	}
 	.avatar{
@@ -99,21 +134,7 @@
 			}
 		}
 		@include medium{
-			// left arrow
-			&:after, &:before {
-				right: 100%;
-				left:inherit;
-				margin-left:inherit;
-				margin-right:-3px;
-			}
-			&:after {
-				border-color: rgba(255, 255, 255, 0);
-				border-right-color: #ffffff;
-			}
-			&:before {
-				border-color: rgba(0, 0, 0, 0);
-				border-right-color: $lightBlue;
-			}
+			@include left-arrow;
 		}
 	}
 	.avatar{
@@ -150,10 +171,32 @@
 		font-weight: bold();
 	}
 }
-.avatar-company{
 
+.main-header .back {
+	color: white;
+	font-size: 18px;
+	&:hover {
+		color: rgba(0, 0, 0, 0.7);
+	}
 }
 
+.reply-navigation {
+	position: relative;
+	top: 5px;
+	a {
+		color: white;
+		&:hover {
+			color: rgba(0, 0, 0, 0.7);
+		}
+		&.previous {
+			margin-right: 30px;
+		}
+		&.disabled {
+			color: gray;
+			cursor: not-allowed;
+		}
+	}
+}
 
 // steps
 .js-animate{
@@ -172,7 +215,7 @@
 	0% {
 		opacity: 0;
 		@include transform(scale(.3));
-	}	
+	}
 	80% {
 		opacity: 1;
 		@include transform(scale(1.05));
@@ -185,15 +228,15 @@
 // messages
 
 .js-animate{
-	.message .contents{
+	.home .message .contents{
 		@include transform(translateX(2000px));
 		@include animation-name(bounceInRight);
 	}
-	.message-company .contents{
+	.home .message-company .contents{
 		@include transform(translateX(-2000px));
 		@include animation-name(bounceInLeft);
 	}
-	.message.animate .contents{
+	.home .message.animate .contents{
 		@include animation-fill-mode(both);
 		@include animation-delay(300ms);
 		@include animation-duration(700ms);

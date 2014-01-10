@@ -86,7 +86,7 @@ Folyo::Application.configure do
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end
 
-  MIXPANEL_TOKEN = '2388395228d8868aafa56bed6e5df55c'
+  # MIXPANEL_TOKEN = '2388395228d8868aafa56bed6e5df55c'
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)

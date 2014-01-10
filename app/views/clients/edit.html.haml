@@ -16,10 +16,6 @@
   %span <strong>Your users</strong>: who uses your service?
   %span.bottom For more ideas, check out our guide on <a target="_blank" href="http://www.folyo.me/guides/how_to_write_a_good_job_description">How to Write a Good Job Description</a>.
 
-- if current_user.is_a?(Admin) && @client.is_a?(Html::Client)
-  = content_for :sidebar do
-    = link_to 'Convert to Markdown', to_markdown_admin_client_path(@client), class: 'button big-button', method: 'put'
-
 = simple_form_for(@client, url: client_path(@client)) do |f|
 
   = content_for :error_messages do

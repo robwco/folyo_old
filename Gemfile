@@ -26,13 +26,19 @@ gem 'jobbr'
 gem 'haml-rails'
 gem 'jquery-rails', '2.1.4'
 gem 'turbolinks'
-gem 'jquery-turbolinks'
 gem 'headjs-rails'
 gem 'simple_form'
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'redcarpet'
 gem 'chronic_duration'
+
+# Upload
+gem 'aws-sdk' # S3 API
+gem 'paperclip' # file attachment syntax and callbacks
+gem 'mongoid-paperclip', :require => "mongoid_paperclip"
+gem 's3_direct_upload' # direct upload form helper and assets
+gem 'rmagick'
 
 # Monitoring
 gem 'airbrake'
@@ -61,6 +67,7 @@ group :assets do
   gem 'compass-rails'
   gem 'susy'
   gem 'uglifier'
+  gem 'sprockets-image_compressor'
 end
 
 group :development do
@@ -71,6 +78,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'quiet_assets'
 end
 
 group :test do

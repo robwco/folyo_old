@@ -5,8 +5,15 @@ module ApplicationHelper
   def current_link_to(title, target, link_class='')
     # see http://www.liquidfoot.com/2010/09/28/add-highlight-link-to-current-page-in-rails/
     # and http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to_unless_current
+
     link_to_unless_current title, target do
-      link_to title, target, :class => "current "+link_class
+      link_to title, target, class: "current #{link_class}"
+    end
+  end
+
+  def current_link_to_unless(condition, title, target, link_class='')
+    link_to_unless condition, title, target do
+      link_to title, target, class: "current #{link_class}"
     end
   end
 
@@ -27,11 +34,11 @@ module ApplicationHelper
 
   def render_site_nav
     if current_user
-      if current_user.is_a? Designer
+      if current_user._type == 'Designer'
         render '/designers/top_bar'
-      elsif current_user.is_a? Client
+      elsif current_user._type == 'Client'
         render '/clients/top_bar'
-      elsif current_user.is_a? Admin
+      elsif current_user._type == 'Admin'
         render '/admin/top_bar'
       else
         render '/site/top_bar'
@@ -82,16 +89,5 @@ module ApplicationHelper
       html
     end
   end
-
-  def textarea_type(model)
-    if model.send(:text_format) == :markdown
-      'markdown'
-    else
-      'wysiwyg'
-    end
-  end
-
-  private
-
 
 end

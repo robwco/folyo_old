@@ -2,7 +2,7 @@
 
 .sub-header{
 	@include clearfix;
-	padding: 40px 0;	
+	padding: 40px 0;
 	// background:#454d53;
 	// @extend %dark-background;
 	.wizard, .subnav{
@@ -30,7 +30,7 @@
 			}
 			line-height:40px;
 			height:40px;
-			
+
 			text-shadow:black(0.35) 0 1px 0;
 			&.active{
 				color:white;
@@ -68,10 +68,24 @@
 		font-weight:normal;
 	}
 	.main-action{
-		// float:right;
-		text-align:right;
-		vertical-align:middle;
-		display:table-cell;
+		@include small{
+			margin-top: 20px;
+			a{
+				width: 100%;
+				display: block;
+			}
+		}
+		@include medium{
+			text-align:right;
+			vertical-align:middle;
+			display:table-cell;
+		}
+	}
+	.header-avatar{
+		width: 60px;
+		height: 60px;
+		float: left;
+		margin-right: $halfspacing;
 	}
 }
 
@@ -81,5 +95,15 @@ ol.wizard{
 		li{
 			padding-left:20px;
 		}
+	}
+}
+
+.profile-completeness {
+	float: right;
+	position: relative;
+	top: 7px;
+	color: rgba(255, 255, 255, 0.8);
+	.figure {
+		font-weight: bold;
 	}
 }

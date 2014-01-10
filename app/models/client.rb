@@ -3,7 +3,6 @@ class Client < User
   trackable :email, :full_name, :role, :company_name, :created_at
 
   field :twitter_username,    type: String
-  field :client_pg_id
 
   field :location,            type: String
   field :company_name,        type: String
@@ -14,11 +13,7 @@ class Client < User
 
   has_many :job_offers
 
-  #validates_presence_of :company_name, :company_description
   validates_inclusion_of :next_offer_discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
-
-  ## scopes ##
-  default_scope where(:_type.in => %w(Client Html::Client))
 
   def role_name
     'client'
@@ -28,12 +23,18 @@ class Client < User
     "http://www.folyo.me/clients/#{self.to_param}"
   end
 
-  def text_format
-    :markdown
-  end
-
   def track_signup_event
     track_user_event('Signup Client')
+  end
+
+  def set_vero_attributes_by_email
+    vero.users.edit_user!(email: self.email, changes: {id: id.to_s, full_name: self.full_name, role: self.role, company_name: self.company_name, slug: self.slug, created_at: self.created_at})
+  end
+
+  def update_vero_attributes
+    if company_name_changed? || email_changed? || full_name_changed?
+      vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, full_name: self.full_name, slug: self.slug, company_name: self.company_name})
+    end
   end
 
 end

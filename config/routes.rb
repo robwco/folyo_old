@@ -71,6 +71,18 @@ Folyo::Application.routes.draw do
     get 'reapply',                on: :member
     resources :messages
     resources :designer_posts,    path: 'posts',    as: 'posts'
+    resources :designer_projects, path: 'projects', as: 'projects' do
+      resources :designer_project_artworks, path: 'artworks', as: 'artworks' do
+        get 'crop',          on: :member
+        put 'update_crop',   on: :member
+        get 'status',        on: :member
+      end
+    end
+    resource :profile_picture do
+      get 'crop'
+      put 'update_crop'
+      get 'status'
+    end
   end
 
   resources :clients

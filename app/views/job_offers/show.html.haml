@@ -1,5 +1,8 @@
 = content_for :title, @job_offer.title.blank? ? 'New Offer' : @job_offer.title
 = content_for :body_class, "offer-designer"
+- if session[:job_offer_index_path]
+  = content_for :back_path, session[:job_offer_index_path]
+  = content_for :back_name, 'Offers'
 
 - if current_user.is_a? Designer
   = content_for :subtitle, @job_offer.title

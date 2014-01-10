@@ -82,9 +82,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    if current_user.is_a? Designer
+    if resource.role == 'designer'
       offers_path(signup: true)
-    elsif current_user.is_a? Client
+    elsif resource.role == 'client'
       new_offer_path(signup: true)
     end
   end

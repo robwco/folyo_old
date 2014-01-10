@@ -4,6 +4,7 @@ class User
   include Mongoid::Timestamps
   include Mongoid::Slug
   include Vero::Trackable
+  include Vero::DSL
 
   slug      :full_name, history: true
   devise    :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
@@ -12,8 +13,8 @@ class User
   field :referrer,  type: String
 
   ## Database authenticatable
-  field :email,              :type => String, :default => ''
-  field :encrypted_password, :type => String, :default => ''
+  field :email,              :type => String
+  field :encrypted_password, :type => String
 
   ## Recoverable
   field :reset_password_token,   :type => String
@@ -40,6 +41,7 @@ class User
   scope :for_email, ->(email){ where(email: email) }
 
   after_create :track_signup_event
+  after_create :set_vero_id
 
   ## Validation ##
   validates_presence_of :full_name
@@ -55,6 +57,12 @@ class User
 
   def track_signup_event
     track_user_event('Signup')
+  end
+
+  protected
+
+  def set_vero_id
+    vero.users.edit_user!(email: self.email, changes: {id: self.id.to_s})
   end
 
 end

@@ -1,7 +1,8 @@
 = content_for :title, @job_offer.title.blank? ? 'Your Job Offer' : @job_offer.title
-
-
 = content_for :body_class, " offer-client"
+- if session[:job_offer_index_path]
+  = content_for :back_path, session[:job_offer_index_path]
+  = content_for :back_name, 'Offers'
 
 - if @job_offer.waiting_for_payment? || @job_offer.waiting_for_submission?
   = render 'job_offers/client/wizard', active: :offer, offer: @job_offer, signup: params[:signup]
@@ -19,9 +20,7 @@
   = render '/admin/job_offers/workflow'
 
 = content_for :sidebar do
-  - if current_user.is_a?(Admin) && @job_offer.is_a?(Html::JobOffer)
-    = link_to 'Convert to Markdown', to_markdown_admin_offer_path(@job_offer), class: 'button big-button', method: 'put'
-  - elsif current_user.is_a?(Admin) && @job_offer.can_refund?
+  - if current_user.is_a?(Admin) && @job_offer.can_refund?
     = link_to 'Refund the offer', refund_admin_offer_order_path(@job_offer), method: :put, class: 'button big-button', confirm: 'Are you sure you want to refund? It cannot be canceled.'
   - else
     .testimonial
@@ -39,35 +38,4 @@
 = simple_form_for @job_offer, as: 'job_offer', url: offer_path(@job_offer.id) do |f|
 
   = render '/job_offers/form', f: f, job_offer: @job_offer, client: @client
-
-:coffeescript
-  head ->
-    $ ->
-      if $('.edit_job_offer').length > 0
-        window.editFormInitialized = true
-        lastFormState = $('form').serialize()
-
-        saveForm = ->
-          if $('form').serialize() != lastFormState
-            lastFormState = $('form').serialize()
-            $.ajax
-              url:        "#{offer_path(@job_offer.id)}"
-              type:       'POST'
-              data:       "\#{lastFormState}&workflow_save=1"
-              success: ->
-                now = new Date()
-                # getting time in this format 09:30 (filled with leading zeros)
-                now_as_string = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2)
-                $('.autosave-notice').hide().html("Autosaved at \#{now_as_string}").fadeIn()
-
-        # saving form every 30 secs (if changes have occured)
-        interval = setInterval(saveForm, 30000)
-
-        beforeChangeSave = ->
-          saveForm()
-          clearInterval(interval)
-          document.removeEventListener('page:before-change', beforeChangeSave)
-
-        # saving form before changing page
-        document.addEventListener 'page:before-change', beforeChangeSave
 

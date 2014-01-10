@@ -1,4 +1,13 @@
-- unless designer.featured_shot_image_url.blank?
-  %figure.featured-work
-    = link_to  designer.featured_shot_url, class: 'image' do
-      = image_tag designer.featured_shot_image_url
+.featured-work
+  - designer.projects.each do |project|
+    .project
+      - if project.artwork
+        = link_to project.artwork.asset.url(:large), class: 'swipebox project-image', rel: "featured-work-#{designer.id}", title: "#{designer.full_name} -   #{project.name}" do
+          = image_tag project.artwork.asset(:small)
+      - else
+        .project-image
+          = image_tag 'project-placeholder.png'
+      %h4.project-title= project.name || 'Untitled'
+      %p.project-description= project.description
+      - unless project.url.blank?
+        = link_to 'View more', project.url, class: 'project-link', target: '_blank'

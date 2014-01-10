@@ -1,3 +1,7 @@
 %li.status-selector
-	= select_tag d.id, options_from_collection_for_select(Designer.statuses, 'to_sym', 'to_s', d.status)
-	%span.hidden.checkmark OK!
+  = select_tag d.id, options_from_collection_for_select(Designer.statuses, 'to_sym', 'to_s', d.status), data: {url: admin_designer_path(d.id)}
+  .hidden.rejection-section
+    .text
+      = text_area_tag :rejection_message, d.rejection_message, placeholder: 'Explain why designer is rejected. You can also leave this field empty.'
+    = link_to 'Reject', '#', class: 'button reject-btn'
+  %span.hidden.checkmark OK!

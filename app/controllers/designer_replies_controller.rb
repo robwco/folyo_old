@@ -1,19 +1,44 @@
 class DesignerRepliesController < ApplicationController
 
   inherit_resources
+
+  defaults resource_class: DesignerReply,
+           route_collection_name: 'replies',
+           route_instance_name: 'reply'
+
+  belongs_to :job_offer, param: 'offer_id'
+
   load_and_authorize_resource
 
+  respond_to :html, :json
+
+  def show
+    show! do
+      @previous_reply = @designer_reply.previous
+      @next_reply = @designer_reply.next
+    end
+  end
+
   def index
-    @designer_replies = self.collection.ordered
-    index!
+    index! do
+      # in order to prevent 1 + N queries, we fetch all designers at once
+      Designer.where(:_id.in => @designer_replies.map(&:designer_id)).to_a
+    end
+
   end
 
   def create
-    @reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
-    @reply.designer = current_user
-    @reply.save
+    @designer_reply = @job_offer.designer_replies.build(params[:designer_reply])
+    @designer_reply.designer = current_user
     create! do |success, failure|
-      success.html { redirect_to offer_path(@job_offer) }
+      success.html { redirect_to offer_path(@job_offer), notice: 'Your offer has been successfully created, the client has been noticed by email.' }
+      failure.html { render template: 'job_offers/show' }
+    end
+  end
+
+  def update
+    update! do |success, failure|
+      success.html { redirect_to offer_path(@job_offer), notice: 'Your offer has been successfully updated, the client has been noticed by email.' }
       failure.html { render template: 'job_offers/show' }
     end
   end
@@ -21,7 +46,7 @@ class DesignerRepliesController < ApplicationController
   def pick
     respond_to do |format|
       format.html
-      format.js { render :layout => false }
+      format.js { render layout: false }
     end
   end
 
@@ -30,32 +55,5 @@ class DesignerRepliesController < ApplicationController
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Excellent, you just picked a designer! Once you're done working with them, you can come back here to let us know how it went :)"
   end
 
-  respond_to :html, :json
-
-  def update
-    @reply = begin_of_association_chain.designer_replies.build(params[:designer_reply])
-    super do |format|
-      format.json do
-        if params[:collapsed]
-          @reply.collapsed = params[:collapsed]
-        end
-        @reply.save
-        render :json => @reply
-      end
-      format.html do
-        if @reply.valid?
-          redirect_to offer_path(@job_offer)
-        else
-          render template: 'job_offers/show'
-        end
-      end
-    end
-  end
-
-  protected
-
-  def begin_of_association_chain
-    @job_offer ||= JobOffer.find(params[:offer_id])
-  end
 
 end

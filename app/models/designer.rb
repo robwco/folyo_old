@@ -1,26 +1,23 @@
 class Designer < User
 
-  trackable :email, :full_name, :role, :created_at
+  trackable :email, :full_name, :role, :created_at, :status
 
   field :status,                  type: Symbol, default: :pending
+  field :rejection_message
   field :profile_type,            type: Symbol, default: :public
+  field :profile_completeness,    type: Integer
 
   field :short_bio,               type: String
   field :long_bio,                type: String
   field :location,                type: String
   field :coordinates,             type: Array
 
-  field :minimum_budget,          type: Integer
-  field :rate,                    type: Integer
-
   field :portfolio_url,           type: String
-  field :linkedin_url,            type: String
 
   field :twitter_username,        type: String
   field :behance_username,        type: String
   field :skype_username,          type: String
   field :dribbble_username,       type: String
-  field :zerply_username,         type: String
 
   field :featured_shot_id,        type: String
   field :featured_shot_url,       type: String
@@ -30,16 +27,13 @@ class Designer < User
 
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
 
-  field :designer_pg_id # id of the designer in postgresql. Will be removed someday
+  validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
-  attr_accessor :skip_validation
+  has_many :posts,    class_name: 'DesignerPost',    dependent: :destroy
+  embeds_many :projects, class_name: 'DesignerProject'
+  embeds_one  :profile_picture,  as: 'profile'
 
-  with_options(unless: ->(d) { d.skip_validation }) do |d|
-    d.validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
-  end
-
-  ## relations ##
-  has_many :posts, class_name: 'DesignerPost', dependent: :destroy
+  alias_method  :designer_projects, :projects
 
   ## reference data ##
 
@@ -55,14 +49,16 @@ class Designer < User
     [:public, :private, :hidden]
   end
 
+  def self.completeness_fields
+    [ :short_bio, :long_bio, :location, :portfolio_url, :twitter_username, :behance_username, :dribbble_username, :skype_username, :skills ]
+  end
+
   ## validations ##
   validates_presence_of     :portfolio_url
   validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
 
   ## scopes ##
-  default_scope where(:_type.in => %w(Designer Html::Designer))
-
   scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
   scope :random_order,      ->(order = :act){ order_by(:randomization_key => order) }
 
@@ -80,12 +76,13 @@ class Designer < User
 
   ## callbacks ##
   before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
-  before_save        :generate_mongoid_random_key
+  before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
   after_save         :geocode,              if: :location_changed?
   after_save         :update_dribbble_info, if: :dribbble_info_changed?
-  before_destroy     :before_destroy
+  after_save         :update_vero_attributes
+  before_destroy     :remove_replies
 
   ## indexes ##
   index coordinates: '2d'
@@ -135,11 +132,31 @@ class Designer < User
     track_user_event('Signup Designer')
   end
 
+  def can_create_project?
+    self.projects.count < 3
+  end
+
+  def set_completeness
+    completeness = ::Designer.completeness_fields.sum { |f| self.send(f).blank? ? 0.0 : 1.0 } / ::Designer.completeness_fields.length * 65
+    completeness += 5 if self.profile_picture
+    completeness += projects.sum { |p| p.has_artworks? && !p.name.blank? && !p.description.blank? ? 10 : 0 }
+    completeness = completeness.round(0)
+    if self.profile_completeness != completeness
+      self.update_attribute(:profile_completeness, completeness)
+      track_user_event('Completed designer profile', completeness: completeness)
+    end
+  end
+
+  def set_vero_attributes_by_email
+    vero.users.edit_user!(email: self.email, changes: {id: id.to_s, status: self.status, full_name: self.full_name, role: self.role, slug: self.slug, created_at: self.created_at})
+  end
+
   protected
 
   def tweet_out
     if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
-      Twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
+      twitter = Twitter::Client.new
+      twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
   handle_asynchronously :tweet_out
@@ -211,9 +228,15 @@ class Designer < User
     end
   end
 
-  def before_destroy
+  def remove_replies
     JobOffer.elem_match(designer_replies: {designer_id: self.id}).each do |offer|
       offer.designer_replies.where(designer_id: self.id).destroy_all
+    end
+  end
+
+  def update_vero_attributes
+    if status_changed? || email_changed? || full_name_changed?
+      vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, status: self.status, full_name: self.full_name, slug: self.slug})
     end
   end
 

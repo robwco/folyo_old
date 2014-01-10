@@ -255,16 +255,6 @@ class JobOffer
     end
   end
 
-  def send_job_offer_reply_notification(reply_id, updated = false)
-    reply = self.designer_replies.find(reply_id)
-    if updated
-      ClientMailer.updated_reply(reply).deliver
-    else
-      ClientMailer.job_offer_replied(reply).deliver
-    end
-
-  end
-
   def location
     self[:location] || self.client.try(:location)
   end

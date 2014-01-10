@@ -17,6 +17,7 @@ body, input, textarea, .button, p{
 
 /*------------------- Page ------------------ */
 #page-content{
+	padding-top: $spacing;
 	@include border-bottom-radius(3px);
 	background:white ;
 	@include box-shadow(rgba(0,0,0,0.15) 0px 1px 3px 0px);
@@ -303,13 +304,10 @@ h3{
 	font-weight:600;
 	color:$darkgrey2;
 }
-.main h3, .sidebar h3{
-	height:25px;
-	line-height:25px;
-}
-.main h3, .offer-list .offer-status {
+.main h3, .offer-list .offer-status, .sidebar h3 {
 	font-weight: bold;
-	margin:0 0 20px 0;
+	margin:0 0 $quarterspacing 0;
+	padding-bottom: 5px;
 	border-bottom:2px $darkgrey2 solid;
 	&.waiting_for_review{
 		border-color:$lightgrey4;
@@ -718,28 +716,7 @@ h2.pending a{
 	padding-top:3px;
 }
 
-.footer{
-	text-align:center;
-	padding:20px 0;
-	@include letterpress(0.2);
-	a{
-		color:white;
-		text-shadow:black(0.35) 0px 1px 2px;
-	}
-	.footer-nav{
-		display:table;
-		margin: 0 auto 10px auto;
-		@include box-shadow(inset black(0.2) 0px -1px 0 0);
-		border-bottom:1px white(0.15) solid;
-		padding-bottom:10px;
-		ul{
-			@include nav-ul;
-			li{
-				margin:0 15px;
-			}
-		}
-	}
-}
+
 
 /*------------------- statuses -------------------- */
 .offer-status{
@@ -939,10 +916,22 @@ h2.pending a{
 
 .delete-account {
 	float: right;
-	color: red;
+	color: $red1;
 	font-weight: normal;
 	margin-top: 10px;
 	&:hover {
 		text-decoration: underline;
 	}
+}
+
+.backlink {
+  display: block;
+  margin-bottom: 20px;
+  color: $green1;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:before {
+    content: '< '
+  }
 }
