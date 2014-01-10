@@ -20,8 +20,6 @@
             %li.twitter= link_to "Twitter", "http://www.twitter.com/"+d.twitter_username,:title =>'Twitter', :class => 'tooltip', :target => "_blank"
           - unless d.behance_username.blank?
             %li.behance= link_to "Behance", "http://www.behance.net/"+d.behance_username,:title =>'Behance', :class => 'tooltip', :target => "_blank"
-          - unless d.zerply_username.blank?
-            %li.zerply= link_to "Zerply", "http://www.zerply.com/profile/"+d.zerply_username+"/public",:title =>'Zerply', :class => 'tooltip', :target => "_blank"
       .designer-work
         .dribbble-work
           - if d.dribbble_username.blank?

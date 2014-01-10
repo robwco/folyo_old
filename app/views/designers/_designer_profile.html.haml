@@ -43,8 +43,6 @@
           %li.twitter= link_to "Twitter", "http://www.twitter.com/#{designer.twitter_username}", title: 'Twitter', class: 'tooltip', target: "_blank"
         - unless designer.behance_url.blank?
           %li.behance= link_to "Behance", designer.behance_url, title: 'Behance', class: 'tooltip', target: "_blank"
-        - unless designer.zerply_username.blank?
-          %li.zerply= link_to "Zerply", "http://www.zerply.com/profile/#{designer.zerply_username}/public", title: 'Zerply', class: 'tooltip', target: "_blank"
     %li.skills
       %h3 Skills
       %ul.skills-list
