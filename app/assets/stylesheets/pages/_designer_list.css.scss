@@ -10,6 +10,14 @@
 			margin: 10px 0;
 			height: 75px;
 		}
+		ul.actions li {
+			padding-left: 20px;
+			background: image-url('site16.png') no-repeat left 5px;
+			&.site { background: image-url('site16.png') no-repeat left 5px; }
+			&.dribbble { background: image-url('dribbble16.png') no-repeat left 5px; }
+			&.twitter { background: image-url('twitter16.png') no-repeat left 5px; }
+			&.behance { background: image-url('behance16.png') no-repeat left 5px; }
+		}
 	}
 	.featured-work{
 		margin-bottom:10px;

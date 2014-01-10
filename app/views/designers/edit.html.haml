@@ -60,10 +60,6 @@
     = f.input :dribbble_username, required: false
     = f.input :behance_username,  required: false
 
-  .section
-    %h3 Pricing
-    = f.input :rate, :label => "Hourly rate", :hint => "Your hourly rate. For statistical purpose only, will not be displayed on the site."
-
   = f.submit @submit_label || "Update Profile", :class => "button big-button"
   = link_to 'Delete account', designer_path(resource), class: 'delete-account', method: 'DELETE', confirm: 'Are you sure you want to delete your account? No way back possible.'
 

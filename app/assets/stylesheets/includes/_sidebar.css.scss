@@ -1,12 +1,9 @@
 .sidebar{
-	// padding:20px;
-	// background: $lightgrey7;
-	// @include border-radius(5px);
 	>ul{
 		>li{
 			margin-bottom: $spacing;
 		}
-	}	
+	}
 	.subnav{
 		a{
 			&.current{
