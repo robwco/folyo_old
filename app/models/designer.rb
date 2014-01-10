@@ -1,7 +1,5 @@
 class Designer < User
 
-  trackable :email, :full_name, :role, :created_at, :status
-
   field :status,                  type: Symbol, default: :pending
   field :rejection_message
   field :profile_type,            type: Symbol, default: :public
@@ -146,8 +144,8 @@ class Designer < User
     end
   end
 
-  def set_vero_attributes_by_email
-    vero.users.edit_user!(email: self.email, changes: {id: id.to_s, status: self.status, full_name: self.full_name, role: self.role, slug: self.slug, created_at: self.created_at})
+  def vero_attributes
+    {id: id.to_s, email: self.email, status: self.status, full_name: self.full_name, role: self.role, slug: self.slug, created_at: self.created_at}
   end
 
   protected

@@ -1,7 +1,5 @@
 class Admin < User
 
-  trackable :email, :full_name, :role, :created_at
-
   def role_name
     'admin'
   end

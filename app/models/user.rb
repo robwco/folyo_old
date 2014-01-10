@@ -3,7 +3,6 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
-  include Vero::Trackable
   include Vero::DSL
 
   slug      :full_name, history: true
@@ -41,7 +40,7 @@ class User
   scope :for_email, ->(email){ where(email: email) }
 
   after_create :track_signup_event
-  after_create :set_vero_id
+  after_create :create_vero_user
 
   ## Validation ##
   validates_presence_of :full_name
@@ -51,8 +50,7 @@ class User
   end
 
   def track_user_event(event, properties = {})
-    Rails.logger.debug "tracking event #{event} with properties #{properties.inspect}"
-    EventTracker.track_user_action(self, event, properties)
+    vero.events.track!(event_name: event, data: properties, identity: {id: self.id.to_s})
   end
 
   def track_signup_event
@@ -61,8 +59,8 @@ class User
 
   protected
 
-  def set_vero_id
-    vero.users.edit_user!(email: self.email, changes: {id: self.id.to_s})
+  def create_vero_user
+    vero.users.track!(id: self.id.to_s, data: vero_attributes)
   end
 
 end
