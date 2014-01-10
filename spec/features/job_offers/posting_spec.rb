@@ -55,13 +55,13 @@ feature 'Posting a job offer', devise: true do
 
         # now on payment page
         assert_page_title title
-        assert_active_wizard_item 'Confirmation'
+        assert_active_wizard_item 'Payment'
 
         # navigating in wizard
         click_link 'Your Project'
         assert_active_wizard_item 'Your Project'
-        click_link 'Confirmation'
-        assert_active_wizard_item 'Confirmation'
+        click_link 'Payment'
+        assert_active_wizard_item 'Payment'
       }.to change { Client.count + JobOffer.count }.by(2)
 
       client = Client.last
@@ -104,13 +104,13 @@ feature 'Posting a job offer', devise: true do
 
         # now on payment page
         assert_page_title title
-        assert_active_wizard_item 'Confirmation'
+        assert_active_wizard_item 'Payment'
 
         # navigating in wizard
         click_link 'Your Project'
         assert_active_wizard_item 'Your Project'
-        click_link 'Confirmation'
-        assert_active_wizard_item 'Confirmation'
+        click_link 'Payment'
+        assert_active_wizard_item 'Payment'
       }.to change { User.count + JobOffer.count }.by(1)
 
       assert_job_offer_creation(client)

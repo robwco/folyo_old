@@ -24,12 +24,12 @@ feature 'Paying a job offer', devise: true do
         visit new_offer_order_url(offer)
 
         page.should have_content 'Complete Your Payment'
-        assert_active_wizard_item 'Confirmation'
+        assert_active_wizard_item 'Payment'
         page.should have_content offer.display_price
 
         click_link 'paypal-checkout'
         current_url.should == confirm_url
-        assert_active_wizard_item 'Confirmation'
+        assert_active_wizard_item 'Payment'
 
         click_button 'Confirm Payment'
       }.to change {offer.reload.status}.from(:waiting_for_payment).to(:waiting_for_review)

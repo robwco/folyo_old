@@ -150,7 +150,6 @@ FactoryGirl.define do
     twitter_username 'sachagreif'
     skype_username 'sachagreif'
     dribbble_username'sacha'
-    linkedin_url 'http://fr.linkedin.com/in/sachagreif'
     behance_username 'SashaGreif'
   end
 
