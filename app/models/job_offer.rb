@@ -3,6 +3,7 @@
 class JobOffer
 
   PRICE = 99
+  DEFAULT_DISCOUNT = 20
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -247,9 +248,12 @@ class JobOffer
     fire_events(:reject)
   end
 
-  def refund
+  def refund(discount = false)
     if order.refund
       fire_events(:refund)
+      if discount
+        client.update_attribute(:next_offer_discount, DEFAULT_DISCOUNT)
+      end
     else
       Rails.logger.warn("Could not refund offer #{self.slug || self.id}")
     end

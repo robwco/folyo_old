@@ -4,7 +4,7 @@ class Admin::OrdersController < Admin::BaseController
 
   def refund
     @job_offer = JobOffer.find(params[:offer_id])
-    if @job_offer.refund
+    if @job_offer.refund(true)
       redirect_to offer_order_path(@job_offer), notice: 'Order successfully refunded'
     else
       redirect_to offer_order_path(@job_offer), alert: "Could not refund the order. #{@job_offer.order.try(:error_message)}"
