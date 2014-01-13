@@ -10,6 +10,7 @@ html {
 }
 
 body {
+  height: 100%;
   border: 1px solid $lightgrey4;
   @include border-radius(3px);
   @include box-shadow(inset $lightgrey2  0px 0px 0px 3px);
@@ -19,6 +20,7 @@ body {
   padding:10px;
   line-height:1.35em;
   margin:0;
+
   &:focus {
     outline:none;
     background:#f1f6f8;
