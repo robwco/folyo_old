@@ -14,8 +14,8 @@ class Ability
         can :read, Client
         can [:create, :update], DesignerReply
         can :manage, DesignerPost
-        can :manage, DesignerProject
       end
+      can :manage, DesignerProject
       can [:history, :archives], JobOffer
       can [:read, :map, :san_francisco_bay_area], Designer do |designer|
         designer.public?
