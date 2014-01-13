@@ -17,4 +17,3 @@ staging:
 production:
   <<: *defaults
   bucket: "folyo-production"
-  bucket: "myapp"
