@@ -145,7 +145,7 @@ class Designer < User
 
   def tweet_out
     if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
-      twitter = Twitter::Rest::Client.new
+      twitter = Twitter::REST::Client.new
       twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
