@@ -2,7 +2,7 @@
 
 class JobOffer
 
-  PRICE = 150
+  PRICE = 99
 
   include Mongoid::Document
   include Mongoid::Timestamps
