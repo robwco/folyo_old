@@ -145,8 +145,7 @@ class Designer < User
 
   def tweet_out
     if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
-      twitter = Twitter::REST::Client.new
-      twitter.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
+      FolyoTwitter.new.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
   handle_asynchronously :tweet_out
