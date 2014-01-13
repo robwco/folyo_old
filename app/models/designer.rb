@@ -33,9 +33,7 @@ class Designer < User
 
   alias_method  :designer_projects, :projects
 
-  ## reference data ##
-
-   def self.skills
+  def self.skills
     [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
   end
 
@@ -51,28 +49,23 @@ class Designer < User
     [ :short_bio, :long_bio, :location, :portfolio_url, :twitter_username, :behance_username, :dribbble_username, :skype_username, :skills ]
   end
 
-  ## validations ##
   validates_presence_of     :portfolio_url
   validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
 
-  ## scopes ##
-  scope :ordered_by_status, order_by(:status => :asc, :created_at => :desc)
-  scope :random_order,      ->(order = :act){ order_by(:randomization_key => order) }
+  scope :ordered_by_status,     order_by(:status => :asc, :created_at => :desc)
+  scope :random_order,          ->(order = :act){ order_by(:randomization_key => order) }
+  scope :pending,               where(:status => :pending)
+  scope :rejected,              where(:status => :rejected)
+  scope :accepted,              where(:status => :accepted)
+  scope :for_status,            ->(status) { where(status: status) }
+  scope :public_only,           where(:profile_type => :public)
+  scope :public_private,        where(:profile_type.in => [:public, :private])
+  scope :san_francisco,         where(location: /San Francisco/i)
+  scope :palo_alto,             where(location: /Palo Alto/i)
+  scope :with_portfolio,        nor({:projects.exists => false}, {:projects.with_size => 0})
+  scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
-  scope :pending,           where(:status => :pending)
-  scope :rejected,          where(:status => :rejected)
-  scope :accepted,          where(:status => :accepted)
-  scope :for_status,        ->(status) { where(status: status) }
-
-  scope :public_only,       where(:profile_type => :public)
-  scope :public_private,    where(:profile_type.in => [:public, :private])
-
-  scope :san_francisco,     where(location: /San Francisco/i)
-  scope :palo_alto,         where(location: /Palo Alto/i)
-
-
-  ## callbacks ##
   before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
   before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?

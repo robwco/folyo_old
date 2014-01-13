@@ -50,7 +50,7 @@ class User
   end
 
   def track_user_event(event, properties = {})
-    vero.events.track!(event_name: event, data: properties, identity: {id: self.id.to_s})
+    vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties)
   end
 
   def track_signup_event
