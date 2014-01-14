@@ -163,16 +163,14 @@ class Designer < User
 
   def subscribe_to_newsletter
     if Rails.env.production?
-      hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
-      hominidapi.list_subscribe('d2a9f4aa7d', self.email, {}, 'html', false, true, true, false)
+      MailChimpHelper.new.list_subscribe(self.email)
     end
   end
   handle_asynchronously :subscribe_to_newsletter
 
   def unsubscribe_to_newsletter
     if Rails.env.production?
-      hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
-      hominidapi.list_unsubscribe('d2a9f4aa7d', self.email, false, false, false)
+      MailChimpHelper.new.list_unsubscribe(self.email)
     end
   end
   handle_asynchronously :unsubscribe_to_newsletter

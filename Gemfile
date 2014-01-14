@@ -54,7 +54,6 @@ gem 'vero'
 gem 'twitter'
 gem 'geocoder'
 gem 'activemerchant' # paypal
-gem 'hominid', github: 'psachs/hominid' # mailchimp
 gem 'mailchimp-api'
 gem 'swish' # dribbble
 
