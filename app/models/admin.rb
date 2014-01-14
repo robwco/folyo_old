@@ -8,4 +8,8 @@ class Admin < User
     "N/A"
   end
 
+  def vero_attributes
+    {}
+  end
+
 end

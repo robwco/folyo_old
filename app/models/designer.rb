@@ -72,7 +72,7 @@ class Designer < User
   after_save         :tweet_out,            if: :status_changed?
   after_save         :geocode,              if: :location_changed?
   after_save         :update_vero_attributes
-  before_destroy     :remove_replies
+  before_destroy     :remove_replies, :unsubscribe_to_newsletter
 
   ## indexes ##
   index coordinates: '2d'
@@ -138,7 +138,7 @@ class Designer < User
   end
 
   def vero_attributes
-    {id: id.to_s, email: self.email, status: self.status, full_name: self.full_name, role: self.role, slug: self.slug, created_at: self.created_at}
+    { email: self.email, status: self.status, full_name: self.full_name, role: self.role, slug: self.slug, created_at: self.created_at }
   end
 
   protected
@@ -168,6 +168,14 @@ class Designer < User
     end
   end
   handle_asynchronously :subscribe_to_newsletter
+
+  def unsubscribe_to_newsletter
+    if Rails.env.production?
+      hominidapi = Hominid::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
+      hominidapi.list_unsubscribe('d2a9f4aa7d', self.email, false, false, false)
+    end
+  end
+  handle_asynchronously :unsubscribe_to_newsletter
 
   def geocode
     unless Rails.env.test?

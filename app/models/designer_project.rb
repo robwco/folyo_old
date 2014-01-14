@@ -26,6 +26,10 @@ class DesignerProject
     self.artworks.first rescue nil
   end
 
+  def can_show?
+    !!artwork.try(:processed?)
+  end
+
   protected
 
   def process_skills

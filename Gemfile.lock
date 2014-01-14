@@ -122,7 +122,6 @@ GEM
     dotenv (0.9.0)
     equalizer (0.0.9)
     erubis (2.7.0)
-    escape (0.0.4)
     excon (0.25.3)
     execjs (2.0.2)
     factory_girl (4.3.0)
@@ -197,6 +196,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailchimp-api (2.0.4)
+      excon (>= 0.16.0)
+      json (>= 1.7.7)
     memoizable (0.4.0)
       thread_safe (~> 0.1.3)
     meta_request (0.2.8)
@@ -206,10 +208,6 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
-    mixpanel (4.1.1)
-      escape
-      json
-      rack
     money (6.0.0)
       i18n (~> 0.6.4)
     mongoid (3.1.6)
@@ -427,8 +425,8 @@ DEPENDENCIES
   jquery-rails (= 2.1.4)
   kaminari
   lorem
+  mailchimp-api
   meta_request
-  mixpanel
   mongoid
   mongoid-paperclip
   mongoid_rails_migrations

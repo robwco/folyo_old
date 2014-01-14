@@ -26,7 +26,7 @@ class Client < User
   end
 
   def vero_attributes
-    {id: id.to_s, email: self.email, full_name: self.full_name, role: self.role, company_name: self.company_name, slug: self.slug, created_at: self.created_at}
+    { email: self.email, full_name: self.full_name, role: self.role, company_name: self.company_name, slug: self.slug, created_at: self.created_at }
   end
 
   def update_vero_attributes

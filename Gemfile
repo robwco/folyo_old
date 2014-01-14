@@ -53,9 +53,9 @@ gem 'sanitize'
 gem 'vero'
 gem 'twitter'
 gem 'geocoder'
-gem 'mixpanel'
 gem 'activemerchant' # paypal
 gem 'hominid', github: 'psachs/hominid' # mailchimp
+gem 'mailchimp-api'
 gem 'swish' # dribbble
 
 # Email

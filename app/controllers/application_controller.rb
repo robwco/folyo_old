@@ -1,11 +1,7 @@
-require "event_tracker"
-
 class ApplicationController < ActionController::Base
 
-  before_filter :initialize_env
   before_filter :store_location
   after_filter  :set_xhr_flash
-
   helper_method :js_class_name
 
   protect_from_forgery
@@ -87,11 +83,7 @@ class ApplicationController < ActionController::Base
   end
 
   def track_event(event, properties = {})
-    if current_user
-      EventTracker.track_user_action(current_user, event, properties, @request_env)
-    else
-      EventTracker.track_action(event, properties, @request_env)
-    end
+    current_user.try(:track_user_event, event, properties) unless Rails.env.test?
   end
 
   def self.section(section_name, params = {})
@@ -124,19 +116,6 @@ class ApplicationController < ActionController::Base
     end.camelize
 
     "Views.#{self.class.name.gsub('::', '.').gsub(/Controller$/, '')}.#{action}View"
-  end
-
-  private
-
-  def initialize_env
-    # Similar to the Resque problem above, we need to help DJ serialize the
-    # request object.
-    @request_env = {
-      'REMOTE_ADDR' => request.env['REMOTE_ADDR'],
-      'HTTP_X_FORWARDED_FOR' => request.env['HTTP_X_FORWARDED_FOR'],
-      'rack.session' => request.env['rack.session'].to_hash,
-      'mixpanel_events' => request.env['mixpanel_events']
-    }
   end
 
 end

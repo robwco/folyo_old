@@ -1,7 +1,7 @@
 .featured-work
   - designer.projects.each do |project|
     .project
-      - if project.artwork
+      - if project.can_show?
         = link_to project.artwork.asset.url(:large), class: 'swipebox project-image', rel: "featured-work-#{designer.id}", title: "#{designer.full_name} -   #{project.name}" do
           = image_tag project.artwork.asset(:small)
       - else
