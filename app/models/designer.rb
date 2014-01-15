@@ -1,3 +1,5 @@
+require 'mailchimp_helper'
+
 class Designer < User
 
   field :status,                  type: Symbol, default: :pending

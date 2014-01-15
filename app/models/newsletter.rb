@@ -19,7 +19,7 @@ class Newsletter
   after_update      :update_mailchimp_newsletter, if: Proc.new {|n| n.subject_changed? || n.job_offer_ids_changed? }
   before_destroy    :destroy_mailchimp_newsletter
 
-  def send_newsletter
+  def fire!
     MailChimpHelper.new.campaign_send(self.mailchimp_cid)
     self.job_offers.each(&:mark_as_sent)
     self.sent_at = DateTime.now
@@ -27,7 +27,7 @@ class Newsletter
   end
   handle_asynchronously :send_newsletter
 
-  def send_newsletter_test(email = nil)
+  def send_test(email = nil)
     MailChimpHelper.new.campaign_send_test(self.mailchimp_cid, email)
   end
   handle_asynchronously :send_newsletter_test
