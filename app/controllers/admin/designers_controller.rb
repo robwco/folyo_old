@@ -16,10 +16,6 @@ class Admin::DesignersController < Admin::BaseController
    end
   end
 
-  def posts
-    @designer_posts = DesignerPost.ordered.page(params[:page]).per(10)
-  end
-
   def messages
     @designer_messages = Message.ordered.page(params[:page]).per(10)
   end

@@ -13,7 +13,6 @@ class Ability
       if user.accepted?
         can :read, Client
         can [:create, :update], DesignerReply
-        can :manage, DesignerPost
       end
       can :manage, DesignerProject
       can [:history, :archives], JobOffer
@@ -26,7 +25,6 @@ class Ability
       can :read, JobOffer
 
     elsif user.is_a? Client
-      can :read, DesignerPost
       can [:read, :pick], DesignerReply
       can :update_pick, DesignerReply do |reply|
         reply.job_offer.client_id == user.id

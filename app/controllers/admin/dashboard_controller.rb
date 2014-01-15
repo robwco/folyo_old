@@ -24,7 +24,6 @@ class Admin::DashboardController < ApplicationController
 
     @new_designers = Designer.accepted.between(created_at: @start_date..@end_date)
     @new_clients = Client.between(created_at: @start_date..@end_date)
-    @new_posts = DesignerPost.between(created_at: @start_date..@end_date)
   end
 
 end

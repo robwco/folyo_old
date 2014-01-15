@@ -34,7 +34,6 @@ Folyo::Application.routes.draw do
 
   namespace :admin do
     resources :designers do
-      get 'posts',       on: :collection
       get 'messages',    on: :collection
       put 'to_markdown', on: :member
     end
@@ -70,7 +69,6 @@ Folyo::Application.routes.draw do
     get 'notifications',          on: :member
     get 'reapply',                on: :member
     resources :messages
-    resources :designer_posts,    path: 'posts',    as: 'posts'
     resources :designer_projects, path: 'projects', as: 'projects' do
       resources :designer_project_artworks, path: 'artworks', as: 'artworks' do
         get 'crop',          on: :member
@@ -105,8 +103,6 @@ Folyo::Application.routes.draw do
     end
     resource :evaluations
   end
-
-  resources :designer_posts, path: 'posts', as: 'posts'
 
   #scope '/designers' do
   #  resources :designer_searches, path: 'search' do

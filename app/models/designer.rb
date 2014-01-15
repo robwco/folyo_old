@@ -27,7 +27,6 @@ class Designer < User
 
   validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
-  has_many :posts,    class_name: 'DesignerPost',    dependent: :destroy
   embeds_many :projects, class_name: 'DesignerProject'
   embeds_one  :profile_picture,  as: 'profile'
 

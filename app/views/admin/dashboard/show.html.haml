@@ -43,10 +43,6 @@
     .name= "new clients"
     .value= @new_clients.count
 
-  .metric
-    .name= "new posts"
-    .value= @new_posts.count
-
 %p.text-center
   = link_to '<< Previous month', admin_dashboard_path(year: @month == 1 ?  @year - 1 : @year, month: @month == 1 ? 12 : @month - 1)
   = '  |  '
