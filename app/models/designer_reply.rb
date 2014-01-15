@@ -9,8 +9,6 @@ class DesignerReply
   field :picked,     type: Boolean, default: false
   field :evaluation, type: String
 
-  field :pg_id
-
   ## associations ##
   embedded_in :job_offer
   belongs_to  :designer

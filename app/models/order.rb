@@ -13,8 +13,6 @@ class Order
   field :refunded_at,       type: DateTime
   field :error_message,     type: String
 
-  field :pg_id
-
   ## associations ##
   embedded_in :job_offer
 

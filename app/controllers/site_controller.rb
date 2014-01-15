@@ -1,7 +1,6 @@
 class SiteController < ApplicationController
 
   def home
-    @featured_designers = Designer.where(:pg_id.in => [184,120,265,62,10])
     render :layout => 'home_layout'
   end
 

@@ -29,8 +29,6 @@ class User
   field :last_sign_in_at,    :type => Time
   field :last_sign_in_ip,    :type => String
 
-  field :pg_id
-
   ## Relations ##
   has_many    :messages, inverse_of: :from_user
   belongs_to  :referrer_designer, class_name: 'Designer'

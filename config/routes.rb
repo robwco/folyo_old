@@ -60,9 +60,6 @@ Folyo::Application.routes.draw do
     resource :dashboard, controller: 'Dashboard'
   end
 
-  # supporting old Folyo url with PostgreSQL ids
-  match 'designers/:id' => 'designers#show_by_pg_id', :id => /\d{1,4}/
-
   resources :designers do
     get 'map',                    on: :collection
     get 'san_francisco_bay_area', on: :collection
@@ -84,9 +81,6 @@ Folyo::Application.routes.draw do
   end
 
   resources :clients
-
-  # supporting old Folyo url with PostgreSQL ids
-  match 'client/offers/:id' => 'job_offers#show_by_pg_id', :id => /\d{1,4}/
 
   resources :job_offers, path: 'offers', as: 'offers' do
     get 'history',      on: :collection

@@ -1,15 +1,7 @@
 class DesignersController < ApplicationController
 
   inherit_resources
-  load_and_authorize_resource except: :show_by_pg_id
-
   before_filter :set_section
-
-  def show_by_pg_id
-    @designer = Designer.where(designer_pg_id: params[:id].to_i).first
-    raise Mongoid::Errors::DocumentNotFound.new(Designer, pg_id: params[:id].to_i) if @designer.nil?
-    redirect_to designer_url(@designer), status: :moved_permanently
-  end
 
   def index
     track_event("Viewing Designers")

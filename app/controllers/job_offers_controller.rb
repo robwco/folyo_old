@@ -1,7 +1,6 @@
 class JobOffersController < ApplicationController
 
   inherit_resources
-  load_and_authorize_resource except: :show_by_pg_id
 
   section :job_offers
 
@@ -19,12 +18,6 @@ class JobOffersController < ApplicationController
     @job_offer.skip_validation = true
     @job_offer.publish
     redirect_for_offer(@job_offer, signup: params[:signup])
-  end
-
-  def show_by_pg_id
-    @job_offer = JobOffer.where(pg_id: params[:id].to_i).first
-    raise Mongoid::Errors::DocumentNotFound.new(JobOffer, pg_id: params[:id].to_i) if @job_offer.nil?
-    redirect_to offer_url(@job_offer), status: :moved_permanently
   end
 
   def index

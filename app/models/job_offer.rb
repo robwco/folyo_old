@@ -137,8 +137,6 @@ class JobOffer
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
   scope :not_dead,               where(:dead.ne => true)
 
-  index pg_id: 1
-
   attr_accessor :skip_validation
 
   def self.new_for_client(client)
