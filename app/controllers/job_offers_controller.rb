@@ -1,6 +1,7 @@
 class JobOffersController < ApplicationController
 
   inherit_resources
+  load_and_authorize_resource
 
   section :job_offers
 
