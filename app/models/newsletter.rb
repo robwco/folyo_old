@@ -25,12 +25,12 @@ class Newsletter
     self.sent_at = DateTime.now
     save!
   end
-  handle_asynchronously :send_newsletter
+  handle_asynchronously :fire!
 
   def send_test(email = nil)
     MailChimpHelper.new.campaign_send_test(self.mailchimp_cid, email)
   end
-  handle_asynchronously :send_newsletter_test
+  handle_asynchronously :send_test
 
   def sent?
     !self.sent_at.nil?
