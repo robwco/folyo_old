@@ -64,6 +64,8 @@
 		position: absolute;
 		top: 22px;
 		left:10px;
+		background-image: image-url('default-avatar.png');
+		background-size: 60px 60px;
 	}
 	.reply-infos{
 		margin-bottom: 0;
@@ -75,8 +77,16 @@
 		@include medium{
 			@include span-columns(5 omega);
 		}
+		@include small{
+			display: none;
+		}
 		.project, .project-image{
 			margin-bottom: 0;
+			img {
+				width: 106px;
+				height: 80px;
+				background-size: 106px 80px;
+			}
 		}
 		.project-title{
 			display: none;

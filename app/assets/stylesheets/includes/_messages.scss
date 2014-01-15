@@ -196,6 +196,18 @@
 			cursor: not-allowed;
 		}
 	}
+	@include small{
+		width: auto;
+		a {
+			width: auto !important;
+			&.previous {
+				float: left;
+			}
+			&.next {
+				float: right;
+			}
+		}
+	}
 }
 
 // steps
