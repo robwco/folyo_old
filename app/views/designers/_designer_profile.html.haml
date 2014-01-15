@@ -29,7 +29,7 @@
     = render '/designer_replies/designer_reply', designer_reply: @designer_reply
 
   - if designer.has_projects?
-    = render '/designers/featured_work', designer: designer
+    = render '/designers/featured_work', designer: designer, with_description: true
 
 = content_for :sidebar do
   %ul.profile-meta

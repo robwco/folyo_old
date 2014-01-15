@@ -18,6 +18,13 @@ class MailChimpHelper
       {sections: {body: content }})
   end
 
+  def campaign_update(campaign, subject, content)
+  end
+
+  def campaign_delete(campaign)
+    @mc.campaigns.delete(campaign['id'])
+  end
+
   def campaign_send_test(campaign, email = 'folyologs@gmail.com')
     @mc.campaigns.send_test(campaign['id'], email)
   end
