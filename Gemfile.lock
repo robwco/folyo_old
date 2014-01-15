@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/psachs/hominid.git
-  revision: c8e88282de7e4f9d9342d0270449e0baff3fc890
-  specs:
-    hominid (3.0.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -419,7 +413,6 @@ DEPENDENCIES
   haml-rails
   headjs-rails
   heroku
-  hominid!
   inherited_resources
   jobbr
   jquery-rails (= 2.1.4)

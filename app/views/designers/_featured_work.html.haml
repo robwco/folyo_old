@@ -7,7 +7,8 @@
       - else
         .project-image
           = image_tag 'project-placeholder.png'
-      %h4.project-title= project.name || 'Untitled'
-      %p.project-description= project.description
-      - unless project.url.blank?
-        = link_to 'View more', project.url, class: 'project-link', target: '_blank'
+      - if with_description
+        %h4.project-title= project.name || 'Untitled'
+        %p.project-description= project.description
+        - unless project.url.blank?
+          = link_to 'View more', project.url, class: 'project-link', target: '_blank'

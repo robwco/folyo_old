@@ -5,15 +5,16 @@
 %ul.designers
 	- @designers.each do |d|
 		%li.designer
-			- if d.status == :pending
+
+			- if d.pending?
 				%h2{class: d.status.to_s.downcase}
 					= link_to d.full_name, designer_path(d)
 				%ul.actions
 					%li= link_to 'Edit', edit_designer_url(d)
-					%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
+					%li.site= link_to 'Site', d.portfolio_url, class: 'tooltip', title: d.portfolio_url
 					- unless d.dribbble_url.blank?
 						%li.dribbble= link_to "Dribbble", d.dribbble_url
-					= render 'admin/designers/status', :d => d
+					= render 'admin/designers/status', d: d
 
 			- else
 				.bio
@@ -24,7 +25,7 @@
 					%p!= first_words(format_text(d, :long_bio, sanitize: true), 50)
 
 				.col2
-					= render '/designers/featured_work', designer: d
+					= render '/designers/featured_work', designer: d, with_description: false
 					%ul.actions
 						%li= link_to 'Preview', designer_path(d)
 						%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url

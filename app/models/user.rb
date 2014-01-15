@@ -50,7 +50,7 @@ class User
   end
 
   def track_user_event(event, properties = {})
-    vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties)
+    vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties) unless Rails.env.test?
   end
 
   def track_signup_event

@@ -9,11 +9,6 @@
 - if @job_offer.archived?
   = content_for :body_class, " offer-archived"
 
-/ .replies-header
-/   .header-designer Designer
-/   .header-message Message
-/   .header-work Work
-
 - if @designer_replies.empty?
   %p.note Sorry, you haven't received any replies yet
 - else
@@ -34,37 +29,4 @@
           %p.reply-message= Sanitize.clean(r.message)
         - if r.designer.has_projects?
           .reply-work
-            = render '/designers/featured_work', designer: r.designer
-
-
-      / -if r.collapsed == true
-      /   - @class = "collapsed"
-      / -else
-      /   - @class = ""
-      / -if r.picked
-      /   - @class += " picked"
-      / %li.reply{class: @class+" new", data: {url: offer_reply_path(@job_offer, r)}}
-      /   .reply__work
-      /     = render '/designers/featured_work', designer: r.designer
-      /   .reply__message
-      /     %h2
-      /       = link_to r.designer.full_name, designer_path(r.designer)
-      /     %p!= auto_link(Sanitize.clean(r.message))
-      /   %ul.reply__actions.actions
-      /     %li.site= link_to 'Site', r.designer.portfolio_url, :class => "tooltip", :title => r.designer.portfolio_url
-      /     - unless r.designer.dribbble_username.blank?
-      /       %li.dribbble= link_to "Dribbble", "http://www.dribbble.com/#{r.designer.dribbble_username}"
-      /     %li.email
-      /       = link_to 'Email', 'mailto:'+r.designer.email
-      /     %li.location
-      /       = r.designer.location
-      /     %li.profile
-      /       = link_to 'View full profile', designer_path(r.designer)
-      /     %li.pick
-      /       - if @job_offer.archived?
-      /         - if r.picked
-      /           %strong Your pick
-      /       - else
-      /         = link_to 'Pick this designer', pick_offer_reply_path(@job_offer, r), :class => "fancybox fancybox.ajax"
-      /   %a.collapse{href: "\##{r.id}"}
-      /     %span Collapse
+            = render '/designers/featured_work', designer: r.designer, with_description: true
