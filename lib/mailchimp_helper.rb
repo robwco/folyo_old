@@ -1,3 +1,5 @@
+require 'mailchimp'
+
 class MailChimpHelper
 
   API_KEY = '1ba18f507cfd9c56d21743736aee9a40-us2'
@@ -9,32 +11,36 @@ class MailChimpHelper
   end
 
   def campaign_create(subject, content)
-    @mc.campaigns.create('regular', {
+    campaign = @mc.campaigns.create('regular', {
       template_id: TEMPLATE_ID,
       from_email: 'hello@folyo.me',
       from_name:  'Folyo',
       list_id: LIST_ID,
+      title: subject,
       subject: subject },
-      {sections: {body: content }})
+      { sections: { body: content } })
+    campaign['id']
   end
 
-  def campaign_update(campaign, subject, content)
+  def campaign_update(cid, subject, content)
+    @mc.campaigns.update(cid, 'options', { title: subject, subject: subject})
+    @mc.campaigns.update(cid, 'content', { sections: { body: content } })
   end
 
-  def campaign_delete(campaign)
-    @mc.campaigns.delete(campaign['id'])
+  def campaign_delete(cid)
+    @mc.campaigns.delete(cid)
   end
 
-  def campaign_send_test(campaign, email = 'folyologs@gmail.com')
-    @mc.campaigns.send_test(campaign['id'], email)
-  end
-
-  def campaign_send(campaign)
+  def campaign_send(cid)
     if Rails.env.production?
-      @mc.campaigns.send(campaign['id'])
+      @mc.campaigns.send(cid)
     else
-      campaign_send_test(campaign)
+      campaign_send_test(cid)
     end
+  end
+
+  def campaign_send_test(cid, email = 'folyologs@gmail.com')
+    @mc.campaigns.send_test(cid, [email])
   end
 
   def list_subscribe(email)

@@ -5,24 +5,5 @@
 - @job_offers.each do |job|
 	%h3 #{job.client.company_name}: #{job.title}
 	%textarea.mailchimp-text
-		%h3.company-name
-			= job.client.company_name
-		%h2
-			= link_to job.title, offer_url(job)
-		= link_to job.client.company_url, job.client.company_url
-		%ul.project-info
-			%li
-				Project Budget: #{job.budget_range} (#{job.budget_type})
-			%li
-				Skills: #{job.skills.map{|s| s.to_s.humanize}.join(',')}
-		= format_text(job.client, :company_description).gsub(/<p>[\s$]*<\/p>/, '').html_safe
-		- unless job[:full_description].blank?
-			= job[:full_description].gsub(/<p>[\s$]*<\/p>/, '').html_safe
-		- unless job.project_summary.blank?
-			= format_text(job, :project_summary).gsub(/<p>[\s$]*<\/p>/, '').html_safe
-		= link_to offer_url(job) do
-			%img{:src => "http://www.folyo.me/assets/email-read-more.png", :height => "28px", :width => "115px", :alt => "Read more…"}
-		%br
-		%hr
-
+		= render 'newsletter_offer', job_offer: job
 = paginate @job_offers

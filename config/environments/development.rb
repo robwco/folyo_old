@@ -32,6 +32,7 @@ Folyo::Application.configure do
   HOST = 'folyo.dev'
 
   config.action_mailer.default_url_options = { host: HOST }
+  Rails.application.routes.default_url_options[:host] = HOST
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

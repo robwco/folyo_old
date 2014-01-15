@@ -65,6 +65,7 @@ Folyo::Application.configure do
 
   # Devise default URL for this environment
   config.action_mailer.default_url_options = { :host => HOST }
+  Rails.application.routes.default_url_options[:host] = HOST
 
   # SendGrid settings
   config.action_mailer.delivery_method = :smtp

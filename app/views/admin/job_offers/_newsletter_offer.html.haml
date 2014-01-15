@@ -1,0 +1,17 @@
+%h3.company-name
+  = job_offer.client.company_name
+%h2
+  = link_to job_offer.title, offer_url(job_offer)
+= link_to job_offer.client.company_url, job_offer.client.company_url
+%ul.project-info
+  %li
+    Project Budget: #{job_offer.budget_range} (#{job_offer.budget_type})
+  %li
+    Skills: #{job_offer.skills.map{|s| s.to_s.humanize}.join(',')}
+= format_text(job_offer.client, :company_description).gsub(/<p>[\s$]*<\/p>/, '').html_safe
+- unless job_offer[:full_description].blank?
+  = job_offer[:full_description].gsub(/<p>[\s$]*<\/p>/, '').html_safe
+- unless job_offer.project_summary.blank?
+  = format_text(job_offer, :project_summary).gsub(/<p>[\s$]*<\/p>/, '').html_safe
+= link_to offer_url(job_offer) do
+  %img{:src => "http://www.folyo.me/assets/email-read-more.png", :height => "28px", :width => "115px", :alt => "Read more…"}
