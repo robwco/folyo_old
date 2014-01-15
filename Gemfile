@@ -36,7 +36,7 @@ gem 'chronic_duration'
 # Upload
 gem 'aws-sdk' # S3 API
 gem 'paperclip' # file attachment syntax and callbacks
-gem 'mongoid-paperclip', :require => "mongoid_paperclip"
+gem 'mongoid-paperclip', require: "mongoid_paperclip"
 gem 's3_direct_upload' # direct upload form helper and assets
 gem 'rmagick'
 

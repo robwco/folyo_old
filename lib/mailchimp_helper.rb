@@ -44,11 +44,11 @@ class MailChimpHelper
   end
 
   def list_subscribe(email)
-    @mc.list.subscribe(LIST_ID, {email: {email: email}}, {}, 'html', false, true, true, false)
+    @mc.lists.subscribe(LIST_ID, { email: email}, {}, 'html', false, true, true, false)
   end
 
   def list_unsubscribe(email)
-    @mc.list.unsubscribe(LIST_ID, {email: {email: email}}, false, false, false)
+    @mc.lists.unsubscribe(LIST_ID, { email: email }, false, false, false)
   end
 
 end
