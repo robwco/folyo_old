@@ -19,7 +19,7 @@ class MailChimpHelper
       title: subject,
       subject: subject },
       { sections: { body: content } })
-    campaign['id']
+    campaign
   end
 
   def campaign_update(cid, subject, content)

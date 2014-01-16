@@ -58,6 +58,7 @@ Folyo::Application.routes.draw do
       put 'to_markdown',                on: :member
     end
     resource :dashboard, controller: 'Dashboard'
+    resources :newsletters
   end
 
   resources :designers do

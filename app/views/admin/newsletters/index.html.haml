@@ -1,0 +1,33 @@
+= content_for :title, 'Newsletters'
+= content_for :sidebar do
+  - if Newsletter.can_create?
+    = link_to 'Create a newsletter', new_admin_newsletter_path, class: 'button big-button'
+  - else
+    = link_to 'No new job offer to publish', '', class: 'button big-button disabled'
+
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render '/admin/job_offers/job_offers_nav'
+
+- if @newsletters.empty?
+  %p No newsletter yet. Why not create the first one?
+
+- else
+  %ul.newsletters
+
+    - @newsletters.each do |n|
+
+      %li.newsletter
+
+        %h4
+          = link_to edit_admin_newsletter_path(n) do
+            %span= n.formated_index
+            %span.placeholder
+
+        .description= n.company_names
+
+        - if n.sent?
+          .sent
+
+
+

@@ -1,9 +1,0 @@
-= content_for :title, "Newsletter Setup"
-= content_for :sidebar do
-	= render :partial => '/admin/job_offers/job_offers_nav'
-
-- @job_offers.each do |job|
-	%h3 #{job.client.company_name}: #{job.title}
-	%textarea.mailchimp-text
-		= render 'newsletter_offer', job_offer: job
-= paginate @job_offers

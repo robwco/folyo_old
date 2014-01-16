@@ -21,16 +21,6 @@ class Admin::JobOffersController < Admin::BaseController
     end
   end
 
-  def newsletter_setup
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted
-  end
-
-  def send_newsletter
-    mc = Mailchimp::API.new('1ba18f507cfd9c56d21743736aee9a40-us2')
-    campaign = mc.campaigns.create('regular', {template_id: 261141, from_email: 'hello@folyo.me', from_name: 'Folyo', list_id: 'bebdd75ee3', subject: 'Folyo Newsletter - Test'}, {sections:{body: 'test <b>bold</b> html'}})
-    mc.campaigns.send_test(campaign['id'], ['cblavier@gmail.com'])
-  end
-
   def destroy
     destroy!{ admin_offers_path }
   end

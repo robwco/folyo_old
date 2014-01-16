@@ -1,0 +1,35 @@
+= content_for :title, @newsletter.subject
+= content_for :back_path, admin_newsletters_path
+= content_for :back_name, 'Newsletters'
+
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render '/admin/job_offers/job_offers_nav'
+
+= content_for :sidebar do
+  - if @newsletter.preview_url
+    = link_to 'Preview email', @newsletter.preview_url, target: '_blank', class: 'button big-button preview'
+
+.newsletter
+
+  = simple_form_for @newsletter, url: admin_newsletter_path(@newsletter) do |f|
+    = f.input :subject
+    = f.input :intro, as: :text, wrapper_html: {class: 'markdown'}
+    - if @newsletter.can_send?
+      .button-bar
+        = f.submit "Save", class: "button big-button"
+        = f.submit "Save and send test", class: "button", name: 'send-test'
+        = f.submit "Save and send to list",      class: "button", name: 'fire', confirm: "You are about to send this email to about #{Designer.accepted.count} designers. Still sure?"
+
+  %hr
+
+  - @newsletter.job_offers.each do |o|
+    = render 'admin/newsletters/job_offer', job_offer: o
+
+  %hr
+
+  - unless @newsletter.sent?
+    = link_to 'Delete newsletter', admin_newsletter_path(@newsletter), method: 'DELETE', confirm: 'Are you sure you want to delete your newsletter?', class: 'delete-newsletter'
+
+
+

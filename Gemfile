@@ -18,7 +18,7 @@ gem 'reverse_markdown'
 
 # DJ
 gem 'delayed_job'
-gem 'delayed_job_mongoid'
+gem 'delayed_job_mongoid', github: 'collectiveidea/delayed_job_mongoid'
 gem 'delayed-plugins-airbrake'
 gem 'jobbr'
 

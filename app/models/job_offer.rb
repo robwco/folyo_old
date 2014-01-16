@@ -132,7 +132,7 @@ class JobOffer
   scope :rated,                  where(status: :rated)
   scope :pending,                where(:status.in => [:waiting_for_submission, :waiting_for_payment, :waiting_for_review, :rejected])
   scope :archived_or_rated,      where(:status.in => [:archived, :rated])
-  scope :accepted_or_sent,       where(:status.in => [:accepted, :sent])
+  scope :accepted_or_sent,       where(:status.in => [:accepted, :sending, :sent])
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
   scope :not_dead,               where(:dead.ne => true)
@@ -175,7 +175,13 @@ class JobOffer
       transition :waiting_for_review => :rejected
     end
 
+    event :prepare_for_sending do
+      transition :accepted => :sending
+      transition :sending  => same
+    end
+
     event :mark_as_sent do
+      transition :sending =>  :sent
       transition :accepted => :sent
     end
 
@@ -212,7 +218,7 @@ class JobOffer
   end
 
   def live?
-    [:accepted, :archived, :sent, :rated, :refunded].include? self.status
+    [:accepted, :archived, :sending, :sent, :rated, :refunded].include? self.status
   end
 
   def reply_by(designer)

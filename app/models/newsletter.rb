@@ -7,25 +7,30 @@ class Newsletter
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :subject,          type: String
-  field :sent_at,          type: DateTime
-  field :newsletter_index, type: Integer
-  field :mailchimp_cid,    type: String
+  field :subject,           type: String
+  field :intro,             type: String
+  field :sent_at,           type: DateTime
+  field :newsletter_index,  type: Integer
+  field :mailchimp_cid,     type: String
+  field :mailchimp_web_id,  type: String
 
   has_and_belongs_to_many :job_offers
 
   after_initialize  :set_offers, :set_index, :set_subject, unless: :persisted?
-  after_create      :create_mailchimp_newsletter
-  after_update      :update_mailchimp_newsletter, if: Proc.new {|n| n.subject_changed? || n.job_offer_ids_changed? }
+  after_create      :mark_offers_as_sending, :create_mailchimp_newsletter
+  after_update      :update_mailchimp_newsletter, if: Proc.new { |n| n.subject_changed? || n.job_offer_ids_changed? || n.intro_changed? }
   before_destroy    :destroy_mailchimp_newsletter
 
   def fire!
-    MailChimpHelper.new.campaign_send(self.mailchimp_cid)
-    self.job_offers.each(&:mark_as_sent)
-    self.sent_at = DateTime.now
-    save!
+    if can_send?
+      MailChimpHelper.new.campaign_send(self.mailchimp_cid)
+      self.job_offers.each(&:mark_as_sent)
+      self.sent_at = DateTime.now
+      save!
+    else
+      false
+    end
   end
-  handle_asynchronously :fire!
 
   def send_test(email = nil)
     MailChimpHelper.new.campaign_send_test(self.mailchimp_cid, email)
@@ -34,6 +39,30 @@ class Newsletter
 
   def sent?
     !self.sent_at.nil?
+  end
+
+  def can_send?
+    !sent?
+  end
+
+  def preview_url
+    if self.mailchimp_web_id
+      "https://us2.admin.mailchimp.com/campaigns/preview?id=#{self.mailchimp_web_id}"
+    else
+      nil
+    end
+  end
+
+  def self.can_create?
+    JobOffer.accepted.count > 0
+  end
+
+  def formated_index
+    "Folyo ##{self.newsletter_index}"
+  end
+
+  def company_names
+    self.job_offers.pluck(:company_name).join(', ')
   end
 
   protected
@@ -47,12 +76,17 @@ class Newsletter
   end
 
   def set_subject
-    company_names = self.job_offers.pluck(:company_name).join(', ')
-    self.subject = "Folyo ##{self.newsletter_index}: #{company_names}"
+    self.subject = "#{formated_index}: #{company_names}"
+  end
+
+  def mark_offers_as_sending
+    self.job_offers.each(&:prepare_for_sending)
   end
 
   def create_mailchimp_newsletter
-    self.mailchimp_cid = MailChimpHelper.new.campaign_create(self.subject, content)
+    campaign = MailChimpHelper.new.campaign_create(self.subject, content)
+    self.mailchimp_cid = campaign['id']
+    self.mailchimp_web_id = campaign['web_id']
     save!
   end
   handle_asynchronously :create_mailchimp_newsletter
@@ -68,9 +102,14 @@ class Newsletter
   handle_asynchronously :destroy_mailchimp_newsletter
 
   def content
-    self.job_offers.map do |offer|
-      render_partial '/admin/job_offers/newsletter_offer', {job_offer: offer}
-    end.join('<br/><hr/>')
+    content = []
+    unless self.intro.blank?
+      content.append(render_partial('/admin/newsletters/intro', {newsletter: self}))
+    end
+    self.job_offers.each do |offer|
+      content.append(render_partial('/admin/newsletters/job_offer', {job_offer: offer}))
+    end
+    content.join('<br/><hr/>')
   end
 
   def render_partial(partial, assigns)

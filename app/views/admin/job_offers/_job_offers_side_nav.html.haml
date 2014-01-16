@@ -1,0 +1,27 @@
+= content_for :body_class, " with-subnav"
+.subnav
+	%ul
+		%li
+			= current_link_to 'All Job Offers', admin_offers_path
+			%span.count=JobOffer.count
+		%li
+			= current_link_to 'Waiting for Submission', waiting_for_submission_admin_offers_path
+			%span.count=JobOffer.waiting_for_submission.not_dead.count
+		%li
+			= current_link_to 'Waiting for Payment', waiting_for_payment_admin_offers_path
+			%span.count=JobOffer.waiting_for_payment.not_dead.count
+		%li
+			= current_link_to 'Waiting for Review', waiting_for_review_admin_offers_path
+			%span.count=JobOffer.waiting_for_review.count
+		%li
+			= current_link_to 'Rejected', rejected_admin_offers_path
+			%span.count=JobOffer.rejected.count
+		%li
+			= current_link_to 'Accepted', accepted_admin_offers_path
+			%span.count=JobOffer.accepted.count
+		%li
+			= current_link_to 'Archived', archived_admin_offers_path
+			%span.count=JobOffer.archived.count
+		%li
+			= current_link_to 'Refunded', refunded_admin_offers_path
+			%span.count=JobOffer.refunded.count
