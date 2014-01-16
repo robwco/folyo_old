@@ -19,7 +19,7 @@ class Newsletter
   after_initialize  :set_offers, :set_index, :set_subject,                unless: :persisted?
   after_create      :mark_offers_as_sending, :create_mailchimp_newsletter
   after_update      :update_mailchimp_newsletter,                         if: Proc.new { |n| n.subject_changed? || n.job_offer_ids_changed? || n.intro_changed? }
-  before_destroy    :destroy_mailchimp_newsletter
+  before_destroy    :check_can_be_destroyed, :destroy_mailchimp_newsletter
   after_destroy     :cancel_offers_sending
 
   def fire!
@@ -102,10 +102,8 @@ class Newsletter
   handle_asynchronously :update_mailchimp_newsletter
 
   def destroy_mailchimp_newsletter
-    Rails.logger.debug "in destroy_mailchimp_newsletter"
     MailChimpHelper.new.campaign_delete(self.mailchimp_cid)
   end
-  handle_asynchronously :destroy_mailchimp_newsletter
 
   def content
     content = []
