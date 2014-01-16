@@ -180,6 +180,11 @@ class JobOffer
       transition :sending  => same
     end
 
+    event :cancel_sending do
+      transition :sending  => :accepted
+      transition :accepted => same
+    end
+
     event :mark_as_sent do
       transition :sending =>  :sent
       transition :accepted => :sent

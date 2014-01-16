@@ -19,7 +19,8 @@ class Newsletter
   after_initialize  :set_offers, :set_index, :set_subject, unless: :persisted?
   after_create      :mark_offers_as_sending, :create_mailchimp_newsletter
   after_update      :update_mailchimp_newsletter, if: Proc.new { |n| n.subject_changed? || n.job_offer_ids_changed? || n.intro_changed? }
-  before_destroy    :destroy_mailchimp_newsletter
+  before_destroy    :check_can_be_destroyed, :destroy_mailchimp_newsletter
+  after_destroy     :cancel_offers_sending
 
   def fire!
     if can_send?
@@ -83,6 +84,10 @@ class Newsletter
     self.job_offers.each(&:prepare_for_sending)
   end
 
+  def cancel_offers_sending
+    self.job_offers.each(&:cancel_sending)
+  end
+
   def create_mailchimp_newsletter
     campaign = MailChimpHelper.new.campaign_create(self.subject, content)
     self.mailchimp_cid = campaign['id']
@@ -119,6 +124,10 @@ class Newsletter
       include Rails.application.routes.url_helpers
     end
     view.render(partial: partial, locals: assigns)
+  end
+
+  def check_can_be_destroyed
+    !sent?
   end
 
 end
