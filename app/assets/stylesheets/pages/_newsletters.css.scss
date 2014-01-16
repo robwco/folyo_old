@@ -47,6 +47,16 @@
 }
 
 .newsletter {
+  ul {
+    margin-top: 10px;
+    list-style-type:circle;
+    padding-left:30px;
+    color: $green1;
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
   .delete-newsletter {
     float: right;
     color: $red1;

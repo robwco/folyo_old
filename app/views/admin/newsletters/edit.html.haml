@@ -15,18 +15,18 @@
   = simple_form_for @newsletter, url: admin_newsletter_path(@newsletter) do |f|
     = f.input :subject
     = f.input :intro, as: :text, wrapper_html: {class: 'markdown'}
+
+    %label Job offers
+    %ul
+      - @newsletter.job_offers.each do |o|
+        %li
+          = link_to o.title, offer_path(o)
+
     - if @newsletter.can_send?
       .button-bar
         = f.submit "Save", class: "button big-button"
         = f.submit "Save and send test", class: "button", name: 'send-test'
         = f.submit "Save and send to list",      class: "button", name: 'fire', confirm: "You are about to send this email to about #{Designer.accepted.count} designers. Still sure?"
-
-  %hr
-
-  - @newsletter.job_offers.each do |o|
-    = render 'admin/newsletters/job_offer', job_offer: o
-
-  %hr
 
   - unless @newsletter.sent?
     = link_to 'Delete newsletter', admin_newsletter_path(@newsletter), method: 'DELETE', confirm: 'Are you sure you want to delete your newsletter?', class: 'delete-newsletter'

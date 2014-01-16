@@ -18,10 +18,18 @@
       %li.paid_at
         %label Paid
         %span= job.paid_at.strftime("%B %e %Y, %H:%I")
+    - if job.rejected_at
+      %li.rejected_at
+        %label Rejected
+        %span= job.rejected_at.strftime("%B %e %Y, %H:%I")
     - if job.approved_at
       %li.accepted_at
         %label Approved
         %span= job.approved_at.strftime("%B %e %Y, %H:%I")
+    - if job.sent_at
+      %li.sent_at
+        %label Sent
+        %span= job.sent_at.strftime("%B %e %Y, %H:%I")
     - if job.archived_at
       %li.archived_at
         %label Archived
