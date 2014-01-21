@@ -95,7 +95,7 @@ class JobOffersController < ApplicationController
     @job_offers = if current_user.is_a? Client
       current_user.job_offers
     else
-      JobOffer.accepted
+      JobOffer.accepted_or_sent
     end
     @job_offers = @job_offers.page(params[:page]).per(10).ordered
   end

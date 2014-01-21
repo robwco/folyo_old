@@ -33,7 +33,7 @@
       %li If <strong>it's not accepted</strong>, we will get in touch with you to let you know why, and provide suggestions on how to improve your job description.
     %p In any case, you can contact us at any time at <a href="mailto:hello@folyo.me">hello@folyo.me</a>.
 
-  - elsif @job_offer.accepted?
+  - elsif @job_offer.accepted? || @job_offer.sending?
 
     %h2 Your project has been accepted.
     %p It's now live on the site, and designers will get in touch with you directly if they are interested.
