@@ -16,7 +16,7 @@
   %ul.replies
     - @designer_replies.each do |r|
       %li.reply
-        .reply-designer{class: r.designer.has_projects? ? '' : 'full' }
+        .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
           - if r.designer.profile_picture.try(:processed?)
             = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
           - else
@@ -27,6 +27,6 @@
               %span.placeholder
             %span.reply-location= r.designer.location
           %p.reply-message= Sanitize.clean(r.message)
-        - if r.designer.has_projects?
+        - if r.designer.has_showable_projects?
           .reply-work
             = render '/designers/featured_work', designer: r.designer, with_description: true

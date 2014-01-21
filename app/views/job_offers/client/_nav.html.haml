@@ -11,11 +11,11 @@
     %li.edit-offer
       = current_link_to 'Edit Project', edit_offer_path(job_offer)
 
-    - if job_offer.accepted? || job_offer.sent? || job_offer.archived? || job_offer.rated?
+    - if job_offer.accepted? || job_offer.sending? || job_offer.sent? || job_offer.archived? || job_offer.rated?
       %li.view-replies
         = current_link_to 'Designer Replies', offer_replies_path(job_offer)
 
-    - if job_offer.accepted?
+    - if job_offer.accepted? || job_offer.sending? || job_offer.sent?
       %li.archive
         = current_link_to 'Archive Offer', show_archive_offer_path(job_offer)
 

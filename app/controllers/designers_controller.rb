@@ -27,11 +27,15 @@ class DesignersController < ApplicationController
     end
     update! do |success, failure|
       success.html do
-        sign_in 'user', @designer, bypass: true
+        if current_user.id == @designer.id
+          sign_in 'user', @designer, bypass: true
+        end
         redirect_to edit_designer_path(@designer)
       end
       failure.html do
-        @designer.clean_up_passwords
+        if current_user.id == @designer.id
+          @designer.clean_up_passwords
+        end
         render :edit
       end
     end

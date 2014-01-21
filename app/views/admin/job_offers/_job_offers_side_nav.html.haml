@@ -18,7 +18,7 @@
 			%span.count=JobOffer.rejected.count
 		%li
 			= current_link_to 'Accepted', accepted_admin_offers_path
-			%span.count=JobOffer.accepted.count
+			%span.count=JobOffer.accepted_or_sent.count
 		%li
 			= current_link_to 'Archived', archived_admin_offers_path
 			%span.count=JobOffer.archived.count

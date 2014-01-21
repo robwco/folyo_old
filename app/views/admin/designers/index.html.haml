@@ -31,6 +31,8 @@
 						%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
 						- unless d.dribbble_url
 							%li.dribbble= link_to "Dribbble", d.dribbble_url
+						- unless d.behance_url
+							%li.behance= link_to "Behance", d.behance_url
 						%li.edit
 							= link_to 'Edit designer', edit_designer_path(d)
 						= render 'admin/designers/status', :d => d

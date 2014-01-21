@@ -64,7 +64,7 @@ class Designer < User
   scope :public_private,        where(:profile_type.in => [:public, :private])
   scope :san_francisco,         where(location: /San Francisco/i)
   scope :palo_alto,             where(location: /Palo Alto/i)
-  scope :with_portfolio,        nor({:projects.exists => false}, {:projects.with_size => 0})
+  scope :with_portfolio,        where('projects.artworks.status' => :processed)
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
   before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
@@ -124,6 +124,14 @@ class Designer < User
 
   def can_create_project?
     self.projects.count < 3
+  end
+
+  def showable_projects
+    self.projects.where('artworks.status' => :processed)
+  end
+
+  def has_showable_projects?
+    self.showable_projects.count > 0
   end
 
   def set_completeness
