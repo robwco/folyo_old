@@ -42,7 +42,7 @@ class MailChimpHelper
 
   def campaign_schedule(cid, schedule_time)
     if Rails.env.production?
-      @mc.campaigns.unschedule(cid) rescue
+      @mc.campaigns.unschedule(cid) rescue nil
       @mc.campaigns.schedule(cid, schedule_time.strftime("%Y-%m-%d %H:%M:%S"))
     end
   end

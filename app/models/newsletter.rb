@@ -50,6 +50,7 @@ class Newsletter
       false
     end
   end
+  handle_asynchronously :schedule!
 
   def sent?
     !self.sent_at.nil? && self.sent_at <= DateTime.now
