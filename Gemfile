@@ -20,7 +20,7 @@ gem 'reverse_markdown'
 gem 'delayed_job'
 gem 'delayed_job_mongoid', github: 'collectiveidea/delayed_job_mongoid'
 gem 'delayed-plugins-airbrake'
-gem 'jobbr'
+gem 'jobbr', '1.1.5'
 
 # UI
 gem 'haml-rails'

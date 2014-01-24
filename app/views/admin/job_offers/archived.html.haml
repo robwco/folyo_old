@@ -1,10 +1,13 @@
 = content_for :title, "Job Offers"
-=content_for :sidebar do
-	= render :partial => '/admin/job_offers/job_offers_nav'
+= content_for :subnav do
+  = render '/admin/job_offers/job_offers_nav'
+= content_for :sidebar do
+  = render '/admin/job_offers/job_offers_side_nav'
+
 
 .archived
-	%h3.archived Archived / Rated
-	%ul.offer-list
-		- @job_offers.each do |job|
-			= render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job, :display_status => false}
+  %h3.archived Archived / Rated
+  %ul.offer-list
+    - @job_offers.each do |job|
+      = render :partial => '/admin/job_offers/job_offer',  :locals => {:job => job, :display_status => false}
 = paginate @job_offers

@@ -1,9 +1,9 @@
 = content_for :title, "Job Offers"
 = content_for :subnav do
   = render '/admin/job_offers/job_offers_nav'
-
 = content_for :sidebar do
   = render '/admin/job_offers/job_offers_side_nav'
+
 
 %ul.offer-list
   - @job_offers.each_with_index do |job, i|

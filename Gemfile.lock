@@ -170,12 +170,12 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    jobbr (1.1.4)
+    jobbr (1.1.5)
       chronic_duration
       delayed_job_mongoid
       haml
-      mongoid (~> 3.0)
-      rails (~> 3.2)
+      mongoid
+      rails
       whenever
     journey (1.0.4)
     jquery-fileupload-rails (0.4.1)
@@ -384,7 +384,7 @@ GEM
       rest-client
     warden (1.2.3)
       rack (>= 1.0)
-    whenever (0.8.4)
+    whenever (0.9.0)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     xpath (2.0.0)
@@ -419,7 +419,7 @@ DEPENDENCIES
   headjs-rails
   heroku
   inherited_resources
-  jobbr
+  jobbr (= 1.1.5)
   jquery-rails (= 2.1.4)
   kaminari
   lorem
