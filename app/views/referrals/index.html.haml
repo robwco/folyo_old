@@ -1,0 +1,43 @@
+= content_for :title, 'Referrals'
+
+.referrals
+  .input.referral.url
+
+    %h3 Your referral url
+
+    %input{type: 'url', value: "http://www.folyo.me/referrals/#{@referral_token}", onClick: "this.select();"}
+
+    = link_to '#', class: 'button clipboard-copy' do
+      = fa_icon 'clipboard'
+      Copy
+
+    = link_to '#', class: 'button twitter-share' do
+      = fa_icon 'twitter'
+      Share
+
+  .balance
+    %h3 Balance
+    %p $60 available
+    = link_to '#', class: 'button withdraw' do
+      Withdraw
+
+  .history
+    %h3 History
+
+    - if @referrals.empty?
+      No referrals yet
+    - else
+      %table
+        %thead
+          %th Client name
+          %th Job offer
+          %th Money earned
+        %tbody
+          - @referrals.each do |referral|
+            %tr{ class: referral[:status] }
+              %td= referral[:offer].client.full_name
+              %td= referral[:offer].name
+              %td= referral[:label]
+
+
+

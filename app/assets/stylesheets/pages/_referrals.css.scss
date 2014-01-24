@@ -1,0 +1,18 @@
+.referrals {
+
+  .referral input {
+    width: 315px;
+  }
+
+  .twitter-share {
+    background-color: #4298ED;
+    &:hover {
+      background-color: #333;
+    }
+  }
+
+  .balance, .history {
+    margin-top: 30px;
+  }
+
+}

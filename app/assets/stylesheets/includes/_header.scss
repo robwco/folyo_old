@@ -89,7 +89,7 @@
 			// color:$green;
 		}
 	}
-	.post-job a{
+	.post-job a, .refer-client a {
 		@extend %btn;
 		background: black(0.2) !important;
 		&:hover{

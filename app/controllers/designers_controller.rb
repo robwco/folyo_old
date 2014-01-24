@@ -61,7 +61,7 @@ class DesignersController < ApplicationController
   protected
 
   def collection
-    @designers = ::Designer.page(params[:page]).per(10).ordered_by_status
+    @designers = ::Designer.page(params[:page]).per(10).ordered_by_name
 
     if current_user && (current_user.is_a?(Admin) || current_user.is_a?(Client))
       @designers = @designers.accepted.public_private

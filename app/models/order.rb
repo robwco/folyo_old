@@ -67,6 +67,18 @@ class Order
     end
   end
 
+  def referral_fee
+    self.total.to_f * 100 / JobOffer::REFERRAL_FEE
+  end
+
+  def referral_fee_available_at
+    if job_offer.published?
+      self.accepted_at + 60.days
+    else
+      nil
+    end
+  end
+
   private
 
   def process_purchase(job_offer)

@@ -20,7 +20,7 @@ gem 'reverse_markdown'
 gem 'delayed_job'
 gem 'delayed_job_mongoid', github: 'collectiveidea/delayed_job_mongoid'
 gem 'delayed-plugins-airbrake'
-gem 'jobbr'
+gem 'jobbr', '1.1.5'
 
 # UI
 gem 'haml-rails'
@@ -32,6 +32,7 @@ gem 'inherited_resources'
 gem 'kaminari'
 gem 'redcarpet'
 gem 'chronic_duration'
+gem 'font-awesome-rails'
 
 # Upload
 gem 'aws-sdk' # S3 API

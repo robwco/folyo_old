@@ -26,6 +26,7 @@ class Designer < User
   field :skills,                  type: Array, default: []
 
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
+  field :referral_token,           type: String
 
   validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
@@ -55,6 +56,7 @@ class Designer < User
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
 
   scope :ordered_by_status,     order_by(:status => :asc, :created_at => :desc)
+  scope :ordered_by_name,       order_by(full_name: :asc)
   scope :random_order,          ->(order = :act){ order_by(:randomization_key => order) }
   scope :pending,               where(:status => :pending)
   scope :rejected,              where(:status => :rejected)
@@ -67,6 +69,7 @@ class Designer < User
   scope :with_portfolio,        where('projects.artworks.status' => :processed)
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
+  before_create      :set_referral_token
   before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
   before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?
@@ -77,6 +80,7 @@ class Designer < User
 
   ## indexes ##
   index coordinates: '2d'
+  index referral_token: 1
 
   def role_name
     'designer'
@@ -148,6 +152,24 @@ class Designer < User
   def vero_attributes
     { email: self.email, status: self.status, full_name: self.full_name, role: self.role, slug: self.slug, created_at: self.created_at }
   end
+
+  def referrals
+    JobOffer.where(referring_designer: self).order_by(created_at: :desc).map do |offer|
+      status, status_label = if offer.pending?
+        [ :pending, 'Waiting for publication' ]
+      elsif offer.rejected? || offer.refunded?
+        [ :ko, 'Canceled' ]
+      else
+        if offer.referral_fee_available_at <= DateTime.now
+          [ :ok, "$#{offer.order.referral_fee}" ]
+        else
+          [ :pending, "Your fee will be available on #{offer.referral_fee_available_at}" ]
+        end
+      end
+      { offer: offer, status: status, label: status_label }
+    end
+  end
+
 
   protected
 
@@ -228,6 +250,10 @@ class Designer < User
     if status_changed? || email_changed? || full_name_changed?
       vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, status: self.status, full_name: self.full_name, slug: self.slug})
     end
+  end
+
+  def set_referral_token
+    self.referral_token = Mongoid::UidGenerator.get_uid_for(Designer, 8, 'referral_token')
   end
 
 end

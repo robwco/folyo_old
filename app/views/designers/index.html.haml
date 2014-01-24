@@ -8,7 +8,7 @@
 = content_for :subnav do
   = render :partial => 'designers_nav'
 
-%ul.designers(data-swiftype-index='false')
+%ul.designers
   - @designers.each do |d|
     = render "designer_card", :d => d
 = paginate @designers
@@ -18,26 +18,26 @@
     %p.note Some designers only make their profile available to registered users. Submit a job offer to get access to more profiles.
 
   %p.browse-map.block=link_to "Browse the map →", map_designers_path
-
-  .search.block
-    %form
-      %input#st-search-input.st-search-input{:type => "text"}/
-    #st-results-container
-    :javascript
-      var Swiftype = window.Swiftype || {};
-      (function() {
-      Swiftype.key = 'RyighWemkiBzUmrCRfbY';
-      Swiftype.inputElement = '#st-search-input';
-      Swiftype.resultContainingElement = '#st-results-container';
-      Swiftype.attachElement = '#st-search-input';
-      Swiftype.renderStyle = "overlay";
-
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.async = true;
-      script.src = "//swiftype.com/embed.js";
-      var entry = document.getElementsByTagName('script')[0];
-      entry.parentNode.insertBefore(script, entry);
-      }());
-
   = render 'skill_filters', :current_skill => @skill
+
+  -#.search.block
+  -#  %form-#
+  -#    %input#st-search-input.st-search-input{:type => "text"}/
+  -#  #st-results-container
+  -#  :javascript
+  -#    var Swiftype = window.Swiftype || {};
+  -#    (function() {
+  -#    Swiftype.key = 'RyighWemkiBzUmrCRfbY';
+  -#    Swiftype.inputElement = '#st-search-input';
+  -#    Swiftype.resultContainingElement = '#st-results-container';
+  -#    Swiftype.attachElement = '#st-search-input';
+  -#    Swiftype.renderStyle = "overlay";
+-#
+  -#    var script = document.createElement('script');
+  -#    script.type = 'text/javascript';
+  -#    script.async = true;
+  -#    script.src = "//swiftype.com/embed.js";
+  -#    var entry = document.getElementsByTagName('script')[0];
+  -#    entry.parentNode.insertBefore(script, entry);
+  -#    }());
+

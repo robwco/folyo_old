@@ -79,6 +79,7 @@ Folyo::Application.routes.draw do
       put 'update_crop'
       get 'status'
     end
+    resources :referrals
   end
 
   resources :clients
@@ -99,15 +100,8 @@ Folyo::Application.routes.draw do
     resource :evaluations
   end
 
-  #scope '/designers' do
-  #  resources :designer_searches, path: 'search' do
-  #    put 'accept', on: :member
-  #    put 'reject', on: :member
-  #    get 'next',   on: :member
-  #  end
-  #end
 
-  root :to => "site#home"
+  root to: "site#home"
 
   mount Jobbr::Engine => "/jobbr"
 

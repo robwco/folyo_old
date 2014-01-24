@@ -1,3 +1,5 @@
+require "yaml_frontmatter"
+
 class ApplicationController < ActionController::Base
 
   before_filter :store_location

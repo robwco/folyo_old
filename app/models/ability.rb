@@ -41,7 +41,6 @@ class Ability
         order.job_offer.client_id == user.id
       end
       can [:read, :map, :san_francisco_bay_area], Designer
-
     else
       can :read, Designer do |designer|
         designer.public? && designer.accepted?

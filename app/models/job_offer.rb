@@ -4,6 +4,7 @@ class JobOffer
 
   PRICE = 99
   DEFAULT_DISCOUNT = 20
+  REFERAL_FEE = 20
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -55,6 +56,7 @@ class JobOffer
   slug :title, history: true
 
   belongs_to  :client
+  belongs_to  :referring_designer, class_name: 'Designer'
   embeds_many :designer_replies
   embeds_one  :order
 
@@ -224,6 +226,10 @@ class JobOffer
 
   def live?
     [:accepted, :archived, :sending, :sent, :rated, :refunded].include? self.status
+  end
+
+  def published?
+    [:accepted, :archived, :sending, :sent, :rated].include? self.status
   end
 
   def reply_by(designer)
