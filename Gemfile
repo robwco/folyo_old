@@ -32,6 +32,7 @@ gem 'inherited_resources'
 gem 'kaminari'
 gem 'redcarpet'
 gem 'chronic_duration'
+gem 'font-awesome-rails'
 
 # Upload
 gem 'aws-sdk' # S3 API
