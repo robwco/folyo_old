@@ -17,6 +17,8 @@
     = f.input :intro, as: :text, wrapper_html: {class: 'markdown'}
 
     %label Job offers
+    -# @newsletter.job_offers.each do |o|
+    -# = render 'job_offer', job_offer: o
     %ul
       - @newsletter.job_offers.each do |o|
         %li

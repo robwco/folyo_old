@@ -8,9 +8,7 @@
     Project Budget: #{job_offer.budget_range} (#{job_offer.budget_type})
   %li
     Skills: #{job_offer.skills.map{|s| s.to_s.humanize}.join(',')}
-= format_text(job_offer.client, :company_description).gsub(/<p>[\s$]*<\/p>/, '').html_safe
-- unless job_offer[:full_description].blank?
-  = job_offer[:full_description].gsub(/<p>[\s$]*<\/p>/, '').html_safe
+= format_text(job_offer.client, :company_description).gsub(/<p>[\s$]*<\/p>/, '').truncate(300).html_safe
 - unless job_offer.project_summary.blank?
   = format_text(job_offer, :project_summary).gsub(/<p>[\s$]*<\/p>/, '').html_safe
 = link_to offer_url(job_offer) do
