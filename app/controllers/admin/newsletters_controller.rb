@@ -1,3 +1,5 @@
+require 'chronic'
+
 class Admin::NewslettersController < ApplicationController
 
   inherit_resources
@@ -15,6 +17,7 @@ class Admin::NewslettersController < ApplicationController
   end
 
   def update
+    params[:newsletter][:schedule_date] = parse_time(params[:newsletter][:schedule_date])
     update! { edit_admin_newsletter_path(@newsletter) }
     if params['send-test']
       @newsletter.send_test(current_user.email)
@@ -22,11 +25,22 @@ class Admin::NewslettersController < ApplicationController
     elsif params['fire']
       @newsletter.fire!
       flash[:notice] = "Newsletter has been updated and sent to designers!"
+    elsif params['schedule']
+      @newsletter.schedule!
+      flash[:notice] = "Newsletter has been updated and scheduled for sending"
     end
   end
 
   def show
     redirect_to edit_admin_newsletter_path(@newsletter)
+  end
+
+  protected
+
+  def parse_time(time)
+    Time.zone = 'UTC'
+    Chronic.time_class = Time.zone
+    Chronic.parse(time)
   end
 
 end

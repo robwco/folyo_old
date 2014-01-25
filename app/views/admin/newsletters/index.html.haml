@@ -27,7 +27,11 @@
         .description= n.company_names
 
         - if n.sent?
-          .sent
+          = fa_icon 'check-circle', class: 'sent'
+        - elsif n.scheduled?
+          = fa_icon 'clock-o', class: 'scheduled'
+        - else
+          = fa_icon 'pencil', class: 'edit'
 
 
 

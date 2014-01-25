@@ -26,15 +26,19 @@
       overflow: hidden;
       color: $lightgrey5;
     }
-    .sent {
+    .scheduled, .sent, .edit{
       display: block;
-      width: 32px;
-      height: 32px;
-      background-size: contain;
-      background: image-url('check-medium.png');
       position: absolute;
       top: 30px;
       right: 20px;
+      font-size: 34px;
+      color: $green1;
+    }
+    .scheduled {
+      color: $yellow1;
+    }
+    .edit {
+      color: $lightgrey4;
     }
     &:hover {
       background: $lightgrey2;

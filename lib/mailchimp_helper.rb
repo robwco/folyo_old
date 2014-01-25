@@ -10,11 +10,12 @@ class MailChimpHelper
     @mc = Mailchimp::API.new(API_KEY)
   end
 
-  def campaign_create(subject, content)
+  def campaign_create(subject, content, timewarp)
     campaign = @mc.campaigns.create('regular', {
       template_id: TEMPLATE_ID,
       from_email: 'hello@folyo.me',
       from_name:  'Folyo',
+      timewarp: timewarp,
       list_id: LIST_ID,
       title: subject,
       subject: subject },
@@ -22,8 +23,8 @@ class MailChimpHelper
     campaign
   end
 
-  def campaign_update(cid, subject, content)
-    @mc.campaigns.update(cid, 'options', { title: subject, subject: subject})
+  def campaign_update(cid, subject, content, timewarp)
+    @mc.campaigns.update(cid, 'options', { title: subject, subject: subject, timewarp: timewarp })
     @mc.campaigns.update(cid, 'content', { sections: { body: content } })
   end
 
@@ -36,6 +37,13 @@ class MailChimpHelper
       @mc.campaigns.send(cid)
     else
       campaign_send_test(cid)
+    end
+  end
+
+  def campaign_schedule(cid, schedule_time)
+    if Rails.env.production?
+      @mc.campaigns.unschedule(cid) rescue nil
+      @mc.campaigns.schedule(cid, schedule_time.strftime("%Y-%m-%d %H:%M:%S"))
     end
   end
 

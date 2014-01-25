@@ -13,12 +13,14 @@ class Newsletter
   field :newsletter_index,  type: Integer
   field :mailchimp_cid,     type: String
   field :mailchimp_web_id,  type: String
+  field :schedule_date,     type: DateTime
+  field :timewarp,          type: Boolean, default: true
 
   has_and_belongs_to_many :job_offers
 
   after_initialize  :set_offers, :set_index, :set_subject,                unless: :persisted?
   after_create      :mark_offers_as_sending, :create_mailchimp_newsletter
-  after_update      :update_mailchimp_newsletter,                         if: Proc.new { |n| n.subject_changed? || n.job_offer_ids_changed? || n.intro_changed? }
+  after_update      :update_mailchimp_newsletter,                         if: Proc.new { |n| n.subject_changed? || n.job_offer_ids_changed? || n.intro_changed? || n.timewarp_changed? }
   before_destroy    :check_can_be_destroyed, :destroy_mailchimp_newsletter
   after_destroy     :cancel_offers_sending
 
@@ -38,12 +40,32 @@ class Newsletter
   end
   handle_asynchronously :send_test
 
+  def schedule!
+    if can_schedule? && schedule_date
+      MailChimpHelper.new.campaign_schedule(self.mailchimp_cid, schedule_date)
+      #self.job_offers.each(&:mark_as_sent) # replace by webhooks
+      self.sent_at = schedule_date
+      save!
+    else
+      false
+    end
+  end
+  handle_asynchronously :schedule!
+
   def sent?
-    !self.sent_at.nil?
+    !self.sent_at.nil? && self.sent_at <= DateTime.now
+  end
+
+  def scheduled?
+    !self.sent_at.nil? && self.sent_at > DateTime.now
   end
 
   def can_send?
     !sent?
+  end
+
+  def can_schedule?
+    !sent? || sent_at > 1.day.from_now
   end
 
   def preview_url
@@ -89,7 +111,7 @@ class Newsletter
   end
 
   def create_mailchimp_newsletter
-    campaign = MailChimpHelper.new.campaign_create(self.subject, content)
+    campaign = MailChimpHelper.new.campaign_create(self.subject, content, timewarp)
     self.mailchimp_cid = campaign['id']
     self.mailchimp_web_id = campaign['web_id']
     save!
@@ -97,12 +119,14 @@ class Newsletter
   handle_asynchronously :create_mailchimp_newsletter
 
   def update_mailchimp_newsletter
-    MailChimpHelper.new.campaign_update(self.mailchimp_cid, self.subject, content)
+    MailChimpHelper.new.campaign_update(self.mailchimp_cid, self.subject, content, timewarp)
   end
   handle_asynchronously :update_mailchimp_newsletter
 
   def destroy_mailchimp_newsletter
-    MailChimpHelper.new.campaign_delete(self.mailchimp_cid)
+    if self.mailchimp_cid
+      MailChimpHelper.new.campaign_delete(self.mailchimp_cid)
+    end
   end
 
   def content
@@ -126,7 +150,7 @@ class Newsletter
   end
 
   def check_can_be_destroyed
-    !sent?
+    !sent? || sent_at > 1.day.from_now
   end
 
 end
