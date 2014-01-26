@@ -58,7 +58,7 @@ class User
   protected
 
   def create_vero_user
-    vero.users.track!(id: self.id.to_s, data: vero_attributes)
+    vero.users.track!(id: self.id.to_s, data: vero_attributes) unless Rails.env.test?
   end
 
 end

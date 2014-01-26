@@ -226,7 +226,7 @@ class Designer < User
 
   def update_vero_attributes
     if status_changed? || email_changed? || full_name_changed?
-      vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, status: self.status, full_name: self.full_name, slug: self.slug})
+      vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, status: self.status, full_name: self.full_name, slug: self.slug}) unless Rails.env.test?
     end
   end
 
