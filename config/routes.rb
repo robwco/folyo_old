@@ -58,6 +58,7 @@ Folyo::Application.routes.draw do
     end
     resource :dashboard, controller: 'Dashboard'
     resources :newsletters do
+      get 'webhook', on: :collection
       post 'webhook', on: :collection
     end
   end

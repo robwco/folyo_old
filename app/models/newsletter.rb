@@ -114,10 +114,11 @@ class Newsletter
   end
 
   def create_mailchimp_newsletter
-    campaign = MailChimpHelper.new.campaign_create(self.subject, content, timewarp)
-    self.mailchimp_cid = campaign['id']
-    self.mailchimp_web_id = campaign['web_id']
-    save!
+    if campaign = MailChimpHelper.new.campaign_create(self.subject, content, timewarp)
+      self.mailchimp_cid = campaign['id']
+      self.mailchimp_web_id = campaign['web_id']
+      save!
+    end
   end
   handle_asynchronously :create_mailchimp_newsletter
 
