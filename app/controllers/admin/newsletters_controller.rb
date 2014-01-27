@@ -35,6 +35,16 @@ class Admin::NewslettersController < ApplicationController
     redirect_to edit_admin_newsletter_path(@newsletter)
   end
 
+  # called by mailchimp after a newsletter has been sent
+  def webhook
+    if params['type'] == 'campaign' && params['data'] && params['data']['status'] == 'sent'
+      if newsletter = Newsletter.where(mailchimp_cid: params['data']['id']).first
+        newsletter.mark_as_sent!
+      end
+    end
+    render text: 'ok'
+  end
+
   protected
 
   def parse_time(time)

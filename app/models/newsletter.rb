@@ -27,9 +27,7 @@ class Newsletter
   def fire!
     if can_send?
       MailChimpHelper.new.campaign_send(self.mailchimp_cid)
-      self.job_offers.each(&:mark_as_sent)
-      self.sent_at = DateTime.now
-      save!
+      mark_as_sent!
     else
       false
     end
@@ -43,7 +41,6 @@ class Newsletter
   def schedule!
     if can_schedule? && schedule_date
       MailChimpHelper.new.campaign_schedule(self.mailchimp_cid, schedule_date)
-      #self.job_offers.each(&:mark_as_sent) # replace by webhooks
       self.sent_at = schedule_date
       save!
     else
@@ -51,6 +48,12 @@ class Newsletter
     end
   end
   handle_asynchronously :schedule!
+
+  def mark_as_sent!
+    self.job_offers.each(&:mark_as_sent)
+    self.sent_at = DateTime.now
+    save!
+  end
 
   def sent?
     !self.sent_at.nil? && self.sent_at <= DateTime.now
@@ -111,10 +114,11 @@ class Newsletter
   end
 
   def create_mailchimp_newsletter
-    campaign = MailChimpHelper.new.campaign_create(self.subject, content, timewarp)
-    self.mailchimp_cid = campaign['id']
-    self.mailchimp_web_id = campaign['web_id']
-    save!
+    if campaign = MailChimpHelper.new.campaign_create(self.subject, content, timewarp)
+      self.mailchimp_cid = campaign['id']
+      self.mailchimp_web_id = campaign['web_id']
+      save!
+    end
   end
   handle_asynchronously :create_mailchimp_newsletter
 

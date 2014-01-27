@@ -37,6 +37,8 @@ Folyo::Application.configure do
 
   HOST = 'folyo.test'
 
+  Rails.application.routes.default_url_options[:host] = HOST
+
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::BogusGateway.new

@@ -188,8 +188,9 @@ class JobOffer
     end
 
     event :mark_as_sent do
-      transition :sending =>  :sent
+      transition :sending  => :sent
       transition :accepted => :sent
+      transition :sent     => same
     end
 
     event :archive do

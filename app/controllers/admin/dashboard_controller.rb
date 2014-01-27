@@ -22,7 +22,7 @@ class Admin::DashboardController < ApplicationController
     @designer_replies_count = replied_offers.map{|offer| offer.designer_replies.between(created_at: @start_date..@end_date).count}.sum
     @picked_designer_replies_count = replied_offers.map{|offer| offer.designer_replies.between(updated_at: @start_date..@end_date).where(picked: true).count}.sum
 
-    @new_designers = Designer.accepted.between(created_at: @start_date..@end_date)
+    @new_designers = Designer.between(created_at: @start_date..@end_date)
     @new_clients = Client.between(created_at: @start_date..@end_date)
   end
 

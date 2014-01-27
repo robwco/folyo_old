@@ -165,4 +165,8 @@ FactoryGirl.define do
     evaluation 'a random evaluation'
   end
 
+  factory :newsletter do
+    mailchimp_cid '8a25ff1d98'
+  end
+
 end

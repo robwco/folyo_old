@@ -11,25 +11,29 @@ class MailChimpHelper
   end
 
   def campaign_create(subject, content, timewarp)
-    campaign = @mc.campaigns.create('regular', {
-      template_id: TEMPLATE_ID,
-      from_email: 'hello@folyo.me',
-      from_name:  'Folyo',
-      timewarp: timewarp,
-      list_id: LIST_ID,
-      title: subject,
-      subject: subject },
-      { sections: { body: content } })
-    campaign
+    unless Rails.env.test?
+      campaign = @mc.campaigns.create('regular', {
+        template_id: TEMPLATE_ID,
+        from_email: 'hello@folyo.me',
+        from_name:  'Folyo',
+        timewarp: timewarp,
+        list_id: LIST_ID,
+        title: subject,
+        subject: subject },
+        { sections: { body: content } })
+      campaign
+    end
   end
 
   def campaign_update(cid, subject, content, timewarp)
-    @mc.campaigns.update(cid, 'options', { title: subject, subject: subject, timewarp: timewarp })
-    @mc.campaigns.update(cid, 'content', { sections: { body: content } })
+    unless Rails.env.test?
+      @mc.campaigns.update(cid, 'options', { title: subject, subject: subject, timewarp: timewarp })
+      @mc.campaigns.update(cid, 'content', { sections: { body: content } })
+    end
   end
 
   def campaign_delete(cid)
-    @mc.campaigns.delete(cid)
+    @mc.campaigns.delete(cid) unless Rails.env.test?
   end
 
   def campaign_send(cid)
@@ -48,15 +52,21 @@ class MailChimpHelper
   end
 
   def campaign_send_test(cid, email = 'folyologs@gmail.com')
-    @mc.campaigns.send_test(cid, [email])
+    unless Rails.env.test?
+      @mc.campaigns.send_test(cid, [email])
+    end
   end
 
   def list_subscribe(email)
-    @mc.lists.subscribe(LIST_ID, { email: email}, {}, 'html', false, true, true, false)
+    unless Rails.env.test?
+      @mc.lists.subscribe(LIST_ID, { email: email}, {}, 'html', false, true, true, false)
+    end
   end
 
   def list_unsubscribe(email)
-    @mc.lists.unsubscribe(LIST_ID, { email: email }, false, false, false)
+    unless Rails.env.test?
+      @mc.lists.unsubscribe(LIST_ID, { email: email }, false, false, false)
+    end
   end
 
 end

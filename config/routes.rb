@@ -52,13 +52,15 @@ Folyo::Application.routes.draw do
       get 'accepted',                   on: :collection
       get 'archived',                   on: :collection
       get 'refunded',                   on: :collection
-      get 'newsletter_setup',           on: :collection
       put 'accept',                     on: :member
       put 'reject',                     on: :member
       put 'to_markdown',                on: :member
     end
     resource :dashboard, controller: 'Dashboard'
-    resources :newsletters
+    resources :newsletters do
+      get 'webhook', on: :collection
+      post 'webhook', on: :collection
+    end
   end
 
   resources :designers do
