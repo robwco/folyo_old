@@ -5,9 +5,9 @@
 
     %h3 Your referral url
 
-    %input{type: 'url', value: "http://www.folyo.me/referrals/#{@referral_token}", onClick: "this.select();"}
+    %input#referral-url{type: 'url', value: "http://www.folyo.me/referrals/#{@referral_token}", onClick: "this.select();"}
 
-    = link_to '#', class: 'button clipboard-copy' do
+    = link_to '#', class: 'button clipboard-copy', "data-clipboard-target" => 'referral-url' do
       = fa_icon 'clipboard'
       Copy
 

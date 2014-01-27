@@ -3,6 +3,7 @@
 #= require epiceditor
 #= require s3_direct_upload
 #= require spin
+#= require zeroclipboard
 
 #= require_tree ./widgets
 #= require_tree ./views

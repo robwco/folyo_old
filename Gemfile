@@ -33,6 +33,7 @@ gem 'kaminari'
 gem 'redcarpet'
 gem 'chronic_duration'
 gem 'font-awesome-rails'
+gem 'zeroclipboard-rails'
 
 # Upload
 gem 'aws-sdk' # S3 API
