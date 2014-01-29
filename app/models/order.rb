@@ -68,12 +68,12 @@ class Order
   end
 
   def referral_fee
-    self.total.to_f * 100 / JobOffer::REFERRAL_FEE
+    self.total.to_f * JobOffer::REFERRAL_FEE / 100
   end
 
   def referral_fee_available_at
     if job_offer.published?
-      self.accepted_at + 60.days
+      job_offer.approved_at + 60.days
     else
       nil
     end

@@ -2,7 +2,7 @@ module Paperclipable
 
   module Model
 
-    DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/folyo-#{Rails.env}\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
+    DIRECT_UPLOAD_URL_FORMAT = %r{\Ahttps:\/\/s3\.amazonaws\.com\/folyo-\w+\/(?<path>uploads\/.+\/(?<filename>.+))\z}.freeze
 
     extend ActiveSupport::Concern
 

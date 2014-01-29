@@ -113,11 +113,26 @@ FactoryGirl.define do
     budget_range { JobOffer.budget_ranges.sample }
     status :accepted
     association :client
+
+    factory :accepted_job_offer do
+      status :accepted
+      order { FactoryGirl.build :order }
+      approved_at 5.days.ago
+    end
+
+    factory :rejected_job_offer do
+      status :rejected
+      order { FactoryGirl.build :order }
+      rejected_at 5.days.ago
+      review_comment 'rejected'
+    end
+
   end
 
   factory :order do
     transaction_id { rand_str }
     created_at {FactoryGirl.generate(:created_at)}
+    total JobOffer::PRICE
   end
 
   factory :admin do |admin|

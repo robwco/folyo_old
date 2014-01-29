@@ -84,7 +84,6 @@ feature 'Posting a job offer', devise: true do
       login_as(client)
       visit root_path
       click_link 'My Offers'
-
     end
 
     scenario 'post a new offer' do

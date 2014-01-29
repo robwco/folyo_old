@@ -5,13 +5,13 @@
 
     %h3 Your referral url
 
-    %input#referral-url{type: 'url', value: "http://www.folyo.me/referrals/#{@referral_token}", onClick: "this.select();"}
+    %input#referral-url{type: 'url', value: @referral_url, onClick: "this.select();"}
 
     = link_to '#', class: 'button clipboard-copy', "data-clipboard-target" => 'referral-url' do
       = fa_icon 'clipboard'
       Copy
 
-    = link_to '#', class: 'button twitter-share' do
+    = link_to "https://twitter.com/share?text=Finding a Designer, Made Easy&url=#{CGI.escape(@referral_url)}", class: 'button twitter-share', target: '_blank' do
       = fa_icon 'twitter'
       Share
 
@@ -36,7 +36,7 @@
           - @referrals.each do |referral|
             %tr{ class: referral[:status] }
               %td= referral[:offer].client.full_name
-              %td= referral[:offer].name
+              %td= referral[:offer].title.truncate(30)
               %td= referral[:label]
 
 

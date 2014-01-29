@@ -26,7 +26,7 @@ class Designer < User
   field :skills,                  type: Array, default: []
 
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
-  field :referral_token,           type: String
+  field :referral_token,          type: String
 
   validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
@@ -155,18 +155,16 @@ class Designer < User
 
   def referrals
     JobOffer.where(referring_designer: self).order_by(created_at: :desc).map do |offer|
-      status, status_label = if offer.pending?
-        [ :pending, 'Waiting for publication' ]
-      elsif offer.rejected? || offer.refunded?
-        [ :ko, 'Canceled' ]
-      else
-        if offer.referral_fee_available_at <= DateTime.now
-          [ :ok, "$#{offer.order.referral_fee}" ]
+      referral = if offer.rejected? || offer.refunded?
+        { status: :ko, label: 'Offer has been canceled' }
+      elsif offer.live?
+        if offer.order.referral_fee_available_at <= DateTime.now
+          { status: :ok, label: "$#{offer.order.referral_fee}" }
         else
-          [ :pending, "Your fee will be available on #{offer.referral_fee_available_at}" ]
+          { status: :pending, label: "Your fee will be available on #{offer.order.referral_fee_available_at.strftime("%m/%d/%Y")}" }
         end
       end
-      { offer: offer, status: status, label: status_label }
+      { offer: offer, status: referral[:status], label: referral[:label] }
     end
   end
 

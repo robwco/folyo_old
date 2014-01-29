@@ -4,7 +4,7 @@ class JobOffer
 
   PRICE = 99
   DEFAULT_DISCOUNT = 20
-  REFERAL_FEE = 20
+  REFERRAL_FEE = 20
 
   include Mongoid::Document
   include Mongoid::Timestamps
