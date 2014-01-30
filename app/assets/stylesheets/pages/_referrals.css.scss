@@ -1,5 +1,9 @@
 .referrals {
 
+  .referral.input {
+    position: relative;
+  }
+
   .referral input {
     width: 315px;
   }
@@ -22,13 +26,14 @@
     }
   }
 
-  .balance, .history {
-    margin-top: 40px;
+  .bonus, .history {
+    margin-top: 50px;
   }
 
-  .balance {
+  .bonus {
     p strong {
-      font-size: 26px;
+      font-size: 24px;
+      color: $green1;
     }
     input[type=submit] {
       position: relative;
@@ -40,6 +45,9 @@
     td {
       font-size: 14px;
       padding: 10px 5px 10px 0;
+    }
+    .ko td {
+      text-decoration: line-through;
     }
     tr {
       border-bottom: 1px solid $lightgrey1;

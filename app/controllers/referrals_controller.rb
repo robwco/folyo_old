@@ -5,7 +5,7 @@ class ReferralsController < ApplicationController
   before_filter :set_designer
 
   def index
-    @referral_url = "http://www.folyo.me/referrals/#{@designer.referral_token}"
+    @referral_url = "http://www.folyo.me/?ref=#{@designer.referral_token}"
     @balance = @designer.referral_balance
   end
 
