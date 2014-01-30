@@ -28,6 +28,8 @@ class Designer < User
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
   field :referral_token,          type: String
 
+  field :paypal_email,            type: String
+
   validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
   embeds_many :projects, class_name: 'DesignerProject'
@@ -69,7 +71,7 @@ class Designer < User
   scope :with_portfolio,        where('projects.artworks.status' => :processed)
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
-  before_create      :set_referral_token
+  before_create      :set_referral_token, :set_paypal_email
   before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
   before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?
@@ -156,18 +158,25 @@ class Designer < User
   def referrals
     JobOffer.where(referring_designer: self).order_by(created_at: :desc).map do |offer|
       referral = if offer.rejected? || offer.refunded?
-        { status: :ko, label: 'Offer has been canceled' }
+        { status: :ko, label: 'Offer has been canceled.' }
       elsif offer.live?
-        if offer.order.referral_fee_available_at <= DateTime.now
-          { status: :ok, label: "$#{offer.order.referral_fee}" }
+        if offer.order.referral_bonus_available?
+          if offer.order.referral_bonus_transfered_at
+            { status: :transfered, label: "Your $#{offer.order.referral_bonus.round(2)} bonus has been transfered on #{offer.order.referral_bonus_transfered_at.strftime("%m/%d/%Y")}." }
+          else
+            { status: :available, label: "Your $#{offer.order.referral_bonus.round(2)} bonus is available." }
+          end
         else
-          { status: :pending, label: "Your fee will be available on #{offer.order.referral_fee_available_at.strftime("%m/%d/%Y")}" }
+          { status: :pending, label: "Your $#{offer.order.referral_bonus} bonus will be available on #{offer.order.referral_bonus_available_at.strftime("%m/%d/%Y")}." }
         end
       end
       { offer: offer, status: referral[:status], label: referral[:label] }
     end
   end
 
+  def referral_balance
+    JobOffer.were_displayed.where(referring_designer: self, "order.referral_bonus_transfered_at" => nil).select{|o| o.order.referral_bonus_available?}.sum {|o| o.order.referral_bonus }
+  end
 
   protected
 
@@ -252,6 +261,10 @@ class Designer < User
 
   def set_referral_token
     self.referral_token = Mongoid::UidGenerator.get_uid_for(Designer, 8, 'referral_token')
+  end
+
+  def set_paypal_email
+    self.paypal_email = self.email
   end
 
 end

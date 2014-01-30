@@ -6,7 +6,7 @@ class ReferralsController < ApplicationController
 
   def index
     @referral_url = "http://www.folyo.me/referrals/#{@designer.referral_token}"
-    @referrals = @designer.referrals
+    @balance = @designer.referral_balance
   end
 
   protected

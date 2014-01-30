@@ -81,7 +81,9 @@ Folyo::Application.routes.draw do
       put 'update_crop'
       get 'status'
     end
-    resources :referrals
+    resources :referrals do
+      put 'transfer', on: :collection
+    end
   end
 
   resources :clients

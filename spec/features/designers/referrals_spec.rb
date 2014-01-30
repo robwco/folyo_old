@@ -9,35 +9,20 @@ feature 'Manage referrals', devise: true do
     visit root_path
   end
 
-  context 'with recently accepted offer' do
+  feature 'referral balance' do
 
-    given!(:offer) { FactoryGirl.create :accepted_job_offer, referring_designer: designer }
-
-    it 'shows a pending offer' do
+    background do
+      FactoryGirl.create :accepted_job_offer, approved_at: 3.month.ago, referring_designer: designer, order: FactoryGirl.build(:order, referral_bonus_transfered_at: 3.days.ago)
+      FactoryGirl.create :accepted_job_offer, approved_at: 3.month.ago, referring_designer: designer, order: FactoryGirl.build(:order, referral_bonus_transfered_at: nil)
+      FactoryGirl.create :accepted_job_offer, approved_at: 3.weeks.ago, referring_designer: designer
+      FactoryGirl.create :rejected_job_offer, referring_designer: designer
       click_refer_client
-      assert_referrals_count(1, :pending)
     end
 
-  end
-
-  context 'with 3 months old accepted offer' do
-
-    given!(:offer) { FactoryGirl.create :accepted_job_offer, approved_at: 3.month.ago, referring_designer: designer }
-
-    it 'shows an accepted offer' do
-      click_refer_client
-      assert_referrals_count(1, :ok, '$19.8')
+    it "shows my exact balance" do
+      find('.balance').should have_content("$19.8")
     end
 
-  end
-
-  context 'with rejected offer' do
-    given!(:offer) { FactoryGirl.create :rejected_job_offer, referring_designer: designer }
-
-    it 'shows a rejected offer' do
-      click_refer_client
-      assert_referrals_count(1, :ko)
-    end
   end
 
   def click_refer_client

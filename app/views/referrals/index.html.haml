@@ -1,5 +1,9 @@
 = content_for :title, 'Referrals'
 
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render '/designers/account_nav'
+
 .referrals
   .input.referral.url
 
@@ -17,27 +21,26 @@
 
   .balance
     %h3 Balance
-    %p $60 available
-    = link_to '#', class: 'button withdraw' do
-      Withdraw
+    %p= raw("<strong>$#{@balance.round(2)}</strong> available for transfer.")
+    - if @balance > 0
+      = simple_form_for @designer, path: transfer_designer_referrals_path(@designer) do |f|
+        = f.input :paypal_email
+        = f.submit "Transfer on my Paypal account", class: 'button big-button'
 
   .history
     %h3 History
 
-    - if @referrals.empty?
+    - if @designer.referrals.empty?
       No referrals yet
     - else
       %table
-        %thead
-          %th Client name
-          %th Job offer
-          %th Money earned
         %tbody
-          - @referrals.each do |referral|
+          - @designer.referrals.each do |referral|
             %tr{ class: referral[:status] }
-              %td= referral[:offer].client.full_name
-              %td= referral[:offer].title.truncate(30)
+              %td= referral[:offer].client.full_name.truncate(30)
+              %td= referral[:offer].title.truncate(50)
               %td= referral[:label]
+              %td= fa_icon
 
 
 

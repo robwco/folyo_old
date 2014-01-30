@@ -23,7 +23,50 @@
   }
 
   .balance, .history {
-    margin-top: 30px;
+    margin-top: 40px;
+  }
+
+  .balance {
+    p strong {
+      font-size: 26px;
+    }
+    input[type=submit] {
+      position: relative;
+      top: -20px;
+    }
+  }
+
+  .history table {
+    td {
+      font-size: 14px;
+      padding: 10px 5px 10px 0;
+    }
+    tr {
+      border-bottom: 1px solid $lightgrey1;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    .fa {
+      font-size: 18px;
+    }
+    .pending .fa:before {
+      content: "\f017";
+      color: $yellow1;
+    }
+    .ko .fa:before {
+      content: "\f05c";
+      color: $red1;
+    }
+    .transfered .fa:before {
+      content: "\f058";
+      color: $green1;
+    }
+    .available .fa:before {
+      content: "\f06b";
+      color: $green1;
+    }
+
   }
 
 }

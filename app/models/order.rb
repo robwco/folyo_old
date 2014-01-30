@@ -3,17 +3,17 @@ class Order
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :express_token,     type: String
-  field :express_payer_id,  type: String
-  field :transaction_id,    type: String
-  field :ip_address,        type: String
-  field :email,             type: String
-  field :details,           type: String
-  field :total,             type: Integer
-  field :refunded_at,       type: DateTime
-  field :error_message,     type: String
+  field :express_token,                type: String
+  field :express_payer_id,             type: String
+  field :transaction_id,               type: String
+  field :ip_address,                   type: String
+  field :email,                        type: String
+  field :details,                      type: String
+  field :total,                        type: Float
+  field :refunded_at,                  type: DateTime
+  field :error_message,                type: String
+  field :referral_bonus_transfered_at, type: DateTime
 
-  ## associations ##
   embedded_in :job_offer
 
   def setup_purchase(return_url, cancel_return_url, remote_ip)
@@ -67,16 +67,20 @@ class Order
     end
   end
 
-  def referral_fee
-    self.total.to_f * JobOffer::REFERRAL_FEE / 100
-  end
-
-  def referral_fee_available_at
+  def referral_bonus_available_at
     if job_offer.published?
       job_offer.approved_at + 60.days
     else
       nil
     end
+  end
+
+  def referral_bonus_available?
+    referral_bonus_available_at <= DateTime.now
+  end
+
+  def referral_bonus
+    (self.total || job_offer.discounted_price).to_f * JobOffer::REFERRAL_BONUS / 100
   end
 
   private

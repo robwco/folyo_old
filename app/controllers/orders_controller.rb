@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
     @order.ip_address = request.remote_ip
     if @order.save
       if @order.purchase(@job_offer)
-        track_event("Payment", { mp_note: @job_offer.title, job_offer_title: @job_offer.title, job_offer_id: @job_offer.id })
+        track_event("Payment", { job_offer_title: @job_offer.title, job_offer_id: @job_offer.id })
         redirect_for_offer(@job_offer)
       else
         render action: 'failure'

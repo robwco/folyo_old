@@ -4,7 +4,7 @@ class JobOffer
 
   PRICE = 99
   DEFAULT_DISCOUNT = 20
-  REFERRAL_FEE = 20
+  REFERRAL_BONUS = 20
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -118,7 +118,6 @@ class JobOffer
   after_save        :set_client_attributes
 
   ## scopes ##
-  # TODO: still need to put null values at the end
   scope :ordered, order_by(refunded_at: :desc, archived_at: :desc, approved_at: :desc, paid_at: :desc, created_at: :desc)
   scope :ordered_by_creation, order_by(created_at: :desc)
   scope :ordered_by_status, order_by(status: :asc)
@@ -135,6 +134,7 @@ class JobOffer
   scope :pending,                where(:status.in => [:waiting_for_submission, :waiting_for_payment, :waiting_for_review, :rejected])
   scope :archived_or_rated,      where(:status.in => [:archived, :rated])
   scope :accepted_or_sent,       where(:status.in => [:accepted, :sending, :sent])
+  scope :were_displayed,         where(:status.in => [:accepted, :sending, :sent, :archived, :rated])
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
   scope :not_dead,               where(:dead.ne => true)
