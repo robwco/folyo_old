@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'Posting a job offer', devise: true do
 
   given(:client)          { FactoryGirl.create :client }
+  given(:designer)        { FactoryGirl.create :designer }
   given(:email)           { FactoryGirl.generate :email }
   given(:full_name)       { 'Bobby Joe' }
   given(:password)        { 'password' }
@@ -18,7 +19,7 @@ feature 'Posting a job offer', devise: true do
     let(:wizard_size) { 3 }
 
     background do
-      visit root_path
+      visit root_path(ref: designer.referral_token)
       click_link 'Find a Designer'
     end
 
@@ -69,9 +70,11 @@ feature 'Posting a job offer', devise: true do
       client.email.should == email
       client.company_name.should == company_name
       client.company_description.should == company_desc
+      client.referring_designer.should == designer
 
       assert_job_offer_creation(client)
       last_offer.should be_waiting_for_payment
+      last_offer.referring_designer.should == designer
     end
 
   end

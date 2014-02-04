@@ -273,7 +273,7 @@ class Designer < User
   end
 
   def set_referral_token
-    self.referral_token = Mongoid::UidGenerator.get_uid_for(Designer, 8, 'referral_token')
+    self.referral_token ||= Mongoid::UidGenerator.get_uid_for(Designer, 8, 'referral_token')
   end
 
   def set_paypal_email
