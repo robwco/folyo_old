@@ -92,7 +92,7 @@ Folyo::Application.routes.draw do
     get 'history',      on: :collection
     get 'archives',     on: :collection
     get 'show_archive', on: :member
-    post 'archive',      on: :member
+    post 'archive',     on: :member
     resource :order do
       get 'checkout'
       get 'confirm'
@@ -104,6 +104,7 @@ Folyo::Application.routes.draw do
     resource :evaluations
   end
 
+  get '/referrals', controller: 'referrals', action: 'index_for_current_user'
 
   root to: "site#home"
 

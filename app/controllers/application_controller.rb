@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     flash[:error] = exception.message
 
     unless current_user
+      session[:previous_url] = request.path
       redirect_to sign_in_path
     else
       if current_user.is_a? Designer

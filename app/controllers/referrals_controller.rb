@@ -2,11 +2,25 @@ class ReferralsController < ApplicationController
 
   section :referrals
 
-  before_filter :set_designer, :set_section
+  load_and_authorize_resource :designer, except: :index_for_current_user
+
+  before_filter :set_section
 
   def index
     @referral_url = "http://www.folyo.me/?ref=#{@designer.referral_token}"
     @balance = @designer.referral_balance
+  end
+
+  # Handles a www.folyo.me/referrals access (no need to hard code designer slug in url)
+  # For newsletter purpose
+  def index_for_current_user
+    if current_user
+      redirect_to designer_referrals_path(current_user)
+    else
+      session[:previous_url] = request.path
+      flash[:error] = 'You are not authorized to access this page.'
+      redirect_to sign_in_path
+    end
   end
 
   def transfer
@@ -24,10 +38,6 @@ class ReferralsController < ApplicationController
   end
 
   protected
-
-  def set_designer
-    @designer = Designer.find(params[:designer_id])
-  end
 
   def set_section
     if @designer && current_user && @designer.id == current_user.id
