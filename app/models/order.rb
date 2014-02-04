@@ -83,6 +83,10 @@ class Order
     (self.total || job_offer.discounted_price).to_f * JobOffer::REFERRAL_BONUS / 100
   end
 
+  def mark_bonus_as_transfered!
+    self.update_attribute(:referral_bonus_transfered_at, DateTime.now)
+  end
+
   private
 
   def process_purchase(job_offer)

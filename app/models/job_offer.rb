@@ -151,6 +151,11 @@ class JobOffer
     end
   end
 
+  def self.with_available_bonus_for_designer(designer)
+    offers = JobOffer.were_displayed.where(referring_designer: designer, "order.referral_bonus_transfered_at" => nil)
+    offers.select{ |o| o.order.referral_bonus_available? }
+  end
+
   state_machine :status, initial: :initialized do
 
     event :publish do

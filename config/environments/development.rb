@@ -48,9 +48,9 @@ Folyo::Application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test
       paypal_options = {
-        :login => 'cblavier-seller_api1.gmail.com',
-        :password => '1372261485',
-        :signature => 'A61RzVCRzgrLAz7JG4koncg8jYP2As.-3x4Ftnir1f.ErNEI31rkL0nG'
+        login: 'cblavier-seller_api1.gmail.com',
+        password: '1372261485',
+        signature: 'A61RzVCRzgrLAz7JG4koncg8jYP2As.-3x4Ftnir1f.ErNEI31rkL0nG'
       }
       ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end

@@ -56,6 +56,7 @@ class Designer < User
   validates_presence_of     :portfolio_url
   validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
   validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
+  validates                 :paypal_email, presence: true, format: { with: /\A[^@]+@[^@]+\z/, message: 'is not a valid email adress' }
 
   scope :ordered_by_status,     order_by(:status => :asc, :created_at => :desc)
   scope :ordered_by_name,       order_by(full_name: :asc)
@@ -174,8 +175,20 @@ class Designer < User
     end
   end
 
+  def transfer_referral_bonus
+    response = EXPRESS_GATEWAY.transfer(self.referral_balance * 100, self.paypal_email, subject:  'Folyo Referral bonus', note: 'Thanks for sharing Folyo around!')
+    if response.success?
+      JobOffer.with_available_bonus_for_designer(self).each do |offer|
+        offer.order.mark_bonus_as_transfered!
+      end
+      true
+    else
+      false
+    end
+  end
+
   def referral_balance
-    JobOffer.were_displayed.where(referring_designer: self, "order.referral_bonus_transfered_at" => nil).select{|o| o.order.referral_bonus_available?}.sum {|o| o.order.referral_bonus }
+    JobOffer.with_available_bonus_for_designer(self).sum { |offer| offer.order.referral_bonus }
   end
 
   protected
