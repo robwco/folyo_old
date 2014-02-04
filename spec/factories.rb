@@ -155,6 +155,7 @@ FactoryGirl.define do
 
   factory :designer do |designer|
     email {FactoryGirl.generate(:email)}
+    paypal_email {FactoryGirl.generate(:email)}
     full_name {FactoryGirl.generate(:full_name)}
     password 'password'
     password_confirmation 'password'

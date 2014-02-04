@@ -4,7 +4,6 @@ class Views.Site.HomeView extends Views.ApplicationView
 
   resizePrimarySection: ->
     ori = window.orientation
-    #viewportHeight = if (ori is 90 || ori is -90) then $(window).width() else $(window).height()
     viewportHeight = $(window).innerHeight()
 
     if $(window).width() > 640

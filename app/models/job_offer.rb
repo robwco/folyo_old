@@ -148,6 +148,7 @@ class JobOffer
       o.company_name = client.company_name
       o.company_description = client.company_description
       o.company_url = client.company_url
+      o.referring_designer = client.referring_designer
     end
   end
 

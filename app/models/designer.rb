@@ -72,8 +72,8 @@ class Designer < User
   scope :with_portfolio,        where('projects.artworks.status' => :processed)
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
-  before_create      :set_referral_token, :set_paypal_email
-  before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username
+  before_create      :set_referral_token
+  before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username, :set_paypal_email
   before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
@@ -277,7 +277,7 @@ class Designer < User
   end
 
   def set_paypal_email
-    self.paypal_email = self.email
+    self.paypal_email ||= self.email
   end
 
 end

@@ -9,7 +9,7 @@ feature 'Manage referrals', devise: true do
     visit root_path
   end
 
-  feature 'referral balance' do
+  feature 'referral bonus' do
 
     background do
       FactoryGirl.create :accepted_job_offer, approved_at: 3.month.ago, referring_designer: designer, order: FactoryGirl.build(:order, referral_bonus_transfered_at: 3.days.ago)
@@ -20,7 +20,7 @@ feature 'Manage referrals', devise: true do
     end
 
     it "shows my exact balance" do
-      find('.balance').should have_content("$19.8")
+      find('.bonus').should have_content("$19.8")
     end
 
   end

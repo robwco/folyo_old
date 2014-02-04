@@ -3,6 +3,7 @@ require "yaml_frontmatter"
 class ApplicationController < ActionController::Base
 
   before_filter :store_location
+  before_filter :set_referral_code
   after_filter  :set_xhr_flash
   helper_method :js_class_name
 
@@ -118,6 +119,12 @@ class ApplicationController < ActionController::Base
     end.camelize
 
     "Views.#{self.class.name.gsub('::', '.').gsub(/Controller$/, '')}.#{action}View"
+  end
+
+  def set_referral_code
+    if params[:ref]
+      session[:referral_token] = params[:ref]
+    end
   end
 
 end

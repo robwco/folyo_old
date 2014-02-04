@@ -13,6 +13,8 @@ class Client < User
 
   validates_inclusion_of :next_offer_discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
 
+  belongs_to  :referring_designer, class_name: 'Designer'
+
   def role_name
     'client'
   end

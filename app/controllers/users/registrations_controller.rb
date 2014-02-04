@@ -31,7 +31,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     when 'designer'
       Designer.new(params[:user])
     when 'client'
-      Client.new(params[:user])
+      client = Client.new(params[:user])
+      if session[:referral_token]
+        client.referring_designer = Designer.where(referral_token: session[:referral_token]).first
+      end
+      client
     end
     if resource.save
       if resource.active_for_authentication?
