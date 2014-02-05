@@ -93,7 +93,12 @@ class JobOffer
   end
 
   def display_price
-    number_to_currency(discounted_price)
+    price = discounted_price
+    if price % 1 == 0
+      number_to_currency(discounted_price, precision: 0)
+    else
+      number_to_currency(discounted_price)
+    end
   end
 
   ## validations ##

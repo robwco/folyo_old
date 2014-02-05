@@ -669,11 +669,15 @@ h2.pending a{
 }
 
 .pay{
+	display: block;
 	overflow: hidden;
-	margin-bottom: 10px;
+	width: 340px;
+	height: 66px;
+	margin: 0 auto 10px;
+	margin-bottom: 3px !important;
 	.price{
-		@include border-left-radius(40px);
-		background:$green1;
+		@include border-left-radius(10px);
+		background:$darkgrey2;
 		color:white;
 		padding:0px 20px;
 		float:left;
@@ -681,14 +685,25 @@ h2.pending a{
 		line-height:66px;
 	}
 	.paypal{
-		@include border-right-radius(40px);
+		display: block;
+		@include border-left-radius(0);
+		@include border-right-radius(10px);
 		float:left;
 		padding:14px 20px 10px 20px;
-		background:$lightgrey2;
-		a{
-			display:block;
-			height:42px;
-		}
+		background:$green1;
+		font-size: 20px;
+		padding: 23px;
+	}
+}
+.no-paypal {
+	font-size: 12px;
+	font-weight: normal;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	color: $darkgrey2;
+	&:hover {
+		text-decoration: underline;
 	}
 }
 
