@@ -69,6 +69,8 @@ group :assets do
   gem 'susy'
   gem 'uglifier'
   gem 'sprockets-image_compressor'
+  gem 'asset_sync'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :development do
