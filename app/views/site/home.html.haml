@@ -25,23 +25,13 @@
 				/ “Finding the right designer just takes too much time!”
 				“Why is finding the right designer so hard!?”
 			%p Ever had that thought? The truth is that <strong>looking for a designer sucks</strong>. Most of the designers you come across will be:
-			/ %img.illustration{:src => "/assets/new/illustration1.png"}
-			%ul.items.cross
-				%li Inexperienced
-				%li Not available
-				%li Not Interested
-				%li Too expensive
+			= image_tag 'new/illustration1.png', class: 'illustration'
 			%p Every hour spent looking at design portfolios is time that you could be working on your product instead. So why not speed things up a little?
 			/ %p And even if you <em>do</em> find someone good, there's no guarantee that they’ll be available or interested in your project.
 		.block
 			%h2 Receive a shortlist of recommended designers…
 			%p Give Folyo a try. We’ll send your project to our community of vetted freelance designers, and give you a shortlist of designers who are:
-			/ %img.illustration{:src => "/assets/new/illustration2.png"}
-			%ul.items.check
-				%li Pre-vetted
-				%li Available now
-				%li Interested
-				%li Within Budget
+			= image_tag 'new/illustration2.png', class: 'illustration'
 		.block
 			%h2 …and we'll help you pick the best
 			%p Once you get enough replies, we'll also help suggest the best fit. It's like having a design agency in your corner, but without the hefty commission!
@@ -53,30 +43,28 @@
 		.designers
 			.designer
 				%a.avatar{:href => "http://lefft.com/"}
-					%img{:src => "/assets/photos/paddy.jpg"}
+					= image_tag 'photos/paddy.jpg'
 				%h3
 					%a.name{:href => "http://lefft.com/"} Paddy Donelly
 				.location Belgium
 				.bio Paddy's work seamlessly weaves illustration and design to create impactful homepages.
 			.designer
 				%a.avatar{:href => "http://brookekao.com/2013/"}
-					%img{:src => "/assets/photos/brooke.jpg"}
+					= image_tag 'photos/brooke.jpg'
 				%h3
 					%a.name{:href => "http://brookekao.com/2013/"} Brooke Kao
 				.location Los Angeles
 				.bio Brooke's bold colors and strong shapes give a unique edge to her digital and print work.
 			.designer
 				%a.avatar{:href => "http://sethrexilius.com/"}
-					%img{:src => "/assets/photos/seth.jpg"}
+					= image_tag 'photos/seth.jpg'
 				%h3
 					%a.name{:href => "http://sethrexilius.com/"} Seth Rexilius
 				.location Lincoln
 				.bio Seth specializes in hard-hitting, dynamic work that features photos prominently.
 			.designer
-				/ %a.work{:href => "http://creativeda.sh/"}
-				/ 	%img{:src => "/assets/work/dash-work.jpg"}
 				%a.avatar{:href => "http://creativeda.sh/"}
-					%img{:src => "/assets/photos/dash.jpg"}
+					= image_tag 'photos/dash.jpg'
 				%h3
 					%a.name{:href => "http://creativeda.sh/"} Dash Ponce de Leon
 				.location San Francisco
@@ -102,24 +90,24 @@
 		%h3.step.title-1.waypoint Companies post their project details…
 		.message.message-company.message-1.waypoint.bounceIn
 			.avatar.avatar-company
-				%img{:src => '/assets/avatar.png'}
+				= image_tag 'avatar.png'
 				%span.name John C. Client
 			.contents Hi! Our product, WidgetFindr, lets people rate and compare widgets. We're looking for a great designer to help us redesign our iPhone app. Our budget is $3000, and if things go well we might have more work for you in the future.
 
 		%h3.step.title-2.waypoint …then receive designer replies:
 		.message.message-designer.message-2.waypoint
 			%a.avatar{:href => 'http://lefft.com/'}
-				%img{:src => '/assets/photos/paddy.jpg'}
+				= image_tag 'photos/paddy.jpg'
 				%span.name Paddy
 			.contents This sounds like a great project! I'm available and I'd love to learn more.
 		.message.message-designer.message-3.waypoint
 			%a.avatar{:href => 'http://brookekao.com/2013/'}
-				%img{:src => '/assets/photos/brooke.jpg'}
+				= image_tag 'photos/brooke.jpg'
 				%span.name Brooke
 			.contents I think I'd be a good fit for this, and the budget looks good. Take a look at my portfolio and let me know what you think.
 		.message.message-designer.message-4.waypoint
 			%a.avatar{:href => 'http://creativeda.sh/'}
-				%img{:src => '/assets/photos/dash.jpg'}
+				= image_tag 'photos/dash.jpg'
 				%span.name Dash
 			.contents I've got a lot of experience designing mobile apps, so this project is right up my alley!
 %section.folyo-guides.home-content
@@ -152,7 +140,7 @@
 				%cite
 					Antoine Martin,
 					%a.testimonial-logo{:href => 'http://www.alert.us/'}
-						%img{:src => '/assets/logos/alertus.png', :style => 'top:4px;'}
+						= image_tag 'logos/alertus.png', style: 'top: 4px'
 			%hr
 		.block
 			%h2 Who else is using Folyo?
@@ -160,23 +148,22 @@
 		.clients
 			.client
 				%a{:href => 'http://www.learnupon.com/', :style => 'margin-top:50px;'}
-					%img{:src => '/assets/logos/learnupon.png'}
+					= image_tag 'logos/learnupon.png'
 			.client
 				%a{:href => 'http://grabaperch.com', :style => 'margin-top:6px; width:70%;'}
-					%img{:src => '/assets/logos/perch.png'}
+					= image_tag 'logos/perch.png'
 			.client
 				%a{:href => 'http://www.familyleaf.com/', :style => 'margin-top:5px;'}
-					%img{:src => '/assets/logos/familyleaf.png'}
+					= image_tag 'logos/familyleaf.png'
 			.client
 				%a{:href => 'https://airbrake.io/'}
-					%img{:src => '/assets/logos/airbrake.png', :style => 'margin-top:47px;'}
+					= image_tag 'logos/airbrake.png', style: 'margin-top:47px;'
 %section.try.home-content
 	.container
 		.block
 			%a#pricing
 			%h2 Try Folyo risk-free with our #{JobOffer::DEFAULT_DISCOUNT + 100}% money-back guarantee
 			%p Posting a project on Folyo costs $#{JobOffer::PRICE}. If you can't find a designer, we'll refund you completely <em>and</em> give you a #{JobOffer::DEFAULT_DISCOUNT}% discount on next time!
-			/ %p (And unlike most other find-a-designer sites, we only charge a <strong>one-time fee</strong>, we don't take a percentage of the project budget.)
 
 		.block
 			/ %h2 Get started now

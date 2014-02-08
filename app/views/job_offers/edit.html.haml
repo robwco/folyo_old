@@ -29,7 +29,7 @@
       %cite
         Antoine Martin,
         %a.testimonial-logo{:href => 'http://www.alert.us/'}
-          %img{:src => '/assets/logos/alertus.png', :style => 'top:4px;'}
+          = image_tag 'logos/alertus.png', style: 'top:4px;'
 
 - if @job_offer.waiting_for_submission?
   %p.page-intro
