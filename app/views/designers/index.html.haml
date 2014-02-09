@@ -1,6 +1,6 @@
 - if @skill
   = content_for :body_class, 'has-breadcrumbs'
-  = content_for :title, "Designers specialized in #{@skill.to_s.humanize}"
+  = content_for :title, "Designers specialized in #{symbol_humanize(@skill)}"
   = content_for :parent_level do
     = link_to "All Designers", designers_path
 - else

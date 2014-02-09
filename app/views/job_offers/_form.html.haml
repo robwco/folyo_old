@@ -82,4 +82,5 @@
     = f.input :work_type, :label => "Contract Type", :as => :radio_buttons, :hint => "Please consider that freelance offers generally get a lot more replies.", collection: JobOffer.work_types, label_method: sym_label_method
 
 .button-bar
-  = f.submit "Submit", class: "button big-button", name: 'workflow_submit'
+  = f.submit "Submit your job offer", class: "button big-button", name: 'workflow_submit'
+  = f.submit "or save it for later", name: 'workflow_save'

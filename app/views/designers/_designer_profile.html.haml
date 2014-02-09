@@ -47,7 +47,7 @@
       %h3 Skills
       %ul.skills-list
         - designer.skills.each do |s|
-          %li{:class=> s.to_s.dasherize}= s.to_s.humanize
+          %li{:class=> s.to_s.dasherize}= symbol_humanize(s)
     %li.location
       %h3 Location
       %p= designer.location

@@ -1,3 +1,3 @@
 = content_for :intro, raw("#{link_to @message.from_user.full_name, @message.from_user.profile_url} wrote you a message from your Folyo profile:")
 
-= @message.comment
+= @message.comment.lines.join('<br>').html_safe

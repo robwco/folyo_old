@@ -2,6 +2,10 @@ window.Views.Site ||= {}
 
 class Views.Site.HomeView extends Views.ApplicationView
 
+  render: ->
+    @enableAutoResize()
+    @enableAnchorLinkScrolling()
+
   resizePrimarySection: ->
     ori = window.orientation
     viewportHeight = $(window).innerHeight()
@@ -32,5 +36,7 @@ class Views.Site.HomeView extends Views.ApplicationView
     $(window).on 'resize', debouncedResize
     $(window).on 'onorientationchange', debouncedResize
 
-  render: ->
-    @enableAutoResize()
+  enableAnchorLinkScrolling: ->
+    $("a[href*=#]").click (e) ->
+      $('html, body').animate({ scrollTop: $( this.hash ).offset().top}, 500)
+      false

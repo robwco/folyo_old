@@ -55,7 +55,12 @@ module ApplicationHelper
   end
 
   def sym_label_method
-    ->(sym){sym.to_s.humanize}
+    ->(sym) { symbol_humanize(sym) }
+  end
+
+  def symbol_humanize(symbol)
+    s = symbol.to_s.gsub('_', ' ')
+    s.slice(0,1).capitalize + s.slice(1..-1)
   end
 
   def error_messages(objects, resource_name = nil)

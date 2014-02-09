@@ -6,4 +6,4 @@
         = link_to 'Show all'
   %ul.filter
     - Designer.skills.each do |s|
-      %li{:class => current_skill == s ? 'selected' : ''}= link_to(s.to_s.humanize, :skill => s)
+      %li{:class => current_skill == s ? 'selected' : ''}= link_to(symbol_humanize(s), :skill => s)

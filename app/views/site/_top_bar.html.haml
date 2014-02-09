@@ -1,9 +1,10 @@
 %header.top
-	.container
-		%h1.logo
-			= link_to 'Folyo', root_path, :title => 'Home'
-		%nav.nav
-			%ul.topbar
-				%li= current_link_to 'Apply as a Designer', '/apply'
-				%li= current_link_to 'Log In', '/sign_in'
-				%li.post-job= section_link_to 'Find a Designer', new_user_with_role_path(initial_role: 'client'), :post_job
+  .container
+    %h1.logo
+      = link_to 'Folyo', root_path, :title => 'Home'
+    %nav.nav
+      %ul.topbar
+        %li= current_link_to 'Pricing', root_path(anchor: 'pricing')
+        %li= current_link_to 'Apply as a Designer', '/apply'
+        %li= current_link_to 'Log In', '/sign_in'
+        %li.post-job= section_link_to 'Find a Designer', new_user_with_role_path(initial_role: 'client'), :post_job

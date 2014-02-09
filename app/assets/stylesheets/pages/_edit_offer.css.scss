@@ -1,0 +1,16 @@
+.edit_job_offer {
+
+  input[name=workflow_save] {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: $blue1;
+    font-weight: bold;
+    outline: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
