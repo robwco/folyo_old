@@ -47,7 +47,7 @@ Folyo::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
-  config.action_controller.asset_host = "//staging.assets%d.folyo.me"
+  config.action_controller.asset_host = "//assets%d.staging.folyo.me"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
@@ -65,7 +65,7 @@ Folyo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  HOST = 'folyo-staging.herokuapp.com'
+  HOST = 'staging.folyo.me'
 
   config.action_mailer.default_url_options = { :host => HOST }
   Rails.application.routes.default_url_options[:host] = HOST
