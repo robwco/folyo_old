@@ -14,8 +14,8 @@
     = content_for :mainaction do
       = link_to 'Get in Touch', new_designer_message_path(designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
       .reply-actions
-        %a.star.button.small-button{href: '#', title: 'Favorite'}= fa_icon 'star'
-        %a.hide.button.small-button{href: '#', title: 'Hide'}= fa_icon 'ban'
+        %a.star.button.small-button{href: '#', title: 'Favorite this reply'}= fa_icon 'star'
+        %a.hide.button.small-button{href: '#', title: 'Hide this reply'}= fa_icon 'ban'
     = content_for :prev_next do
       - if @previous_reply
         = link_to offer_reply_path(@job_offer, @previous_reply), title: "Previous: #{@previous_reply.designer.full_name}", class: 'prev has-tooltip' do

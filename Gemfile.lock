@@ -94,7 +94,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.3)
+    coffee-script-source (1.7.0)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -379,7 +379,7 @@ GEM
     turbo-sprockets-rails3 (0.3.10)
       railties (> 3.2.8, < 4.0.0)
       sprockets (>= 2.0.0)
-    turbolinks (2.0.0)
+    turbolinks (2.2.1)
       coffee-rails
     twitter (5.5.1)
       addressable (~> 2.3)
