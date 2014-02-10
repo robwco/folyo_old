@@ -7,24 +7,25 @@
       - if yield(:header).blank?
         %section.subheader#page-header
           .container
+            - unless yield(:prev_next).blank?
+              .subheader-pagination
+                = yield(:prev_next) 
+            - unless yield(:mainaction).blank?
+              .main-action
+                = yield(:mainaction)    
             .main-header
               - unless yield(:avatar).blank?
                 = image_tag(yield(:avatar), class: 'avatar header-avatar')
-              %h1.title
-                - unless yield(:back_name).blank? || yield(:back_path).blank?
-                  = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
-                = yield(:title)
-              - unless yield(:subtitle).blank?
-                %h2.subtitle
-                  = yield(:subtitle)
-              - unless yield(:mainaction).blank?
-                .main-action
-                  = yield(:mainaction)
+              .header-title
+                %h1.title
+                  - unless yield(:back_name).blank? || yield(:back_path).blank?
+                    = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
+                  %span= yield(:title)
+                - unless yield(:subtitle).blank?
+                  %h2.subtitle
+                    = yield(:subtitle)
             - unless yield(:subnav).blank?
-              = yield(:subnav)
-          - unless yield(:prev_next).blank?
-            .subheader-pagination
-              = yield(:prev_next)      
+              = yield(:subnav)     
       - else
         = yield(:header)
       #page-content

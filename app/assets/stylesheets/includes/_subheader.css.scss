@@ -53,14 +53,16 @@
 }
 .main-header{
 	@include clearfix;
-	display:table;
-	width:100%;
+	.header-title{
+		float: left;
+	}
 	.title{
 		line-height:30px;
 		height:30px;
 		margin:0;
 		font-weight:bold;
 		font-size:24px;
+		white-space: nowrap;
 	}
 	.subtitle{
 		color:white(0.9);
@@ -68,25 +70,29 @@
 		font-size:16px;
 		font-weight:normal;
 	}
-	.main-action{
-		@include small{
-			margin-top: 20px;
-			a{
-				width: 100%;
-				display: block;
-			}
-		}
-		@include medium{
-			text-align:right;
-			vertical-align:middle;
-			display:table-cell;
-		}
-	}
 	.header-avatar{
 		width: 60px;
 		height: 60px;
 		float: left;
 		margin-right: $halfspacing;
+		background: white(0.1);
+	}
+}
+
+
+.main-action{
+	@include small{
+		margin-top: 20px;
+		a{
+			width: 100%;
+			display: block;
+		}
+	}
+	@include medium{
+		// text-align:right;
+		// vertical-align:middle;
+		// display:table-cell;
+		float: right;
 	}
 }
 
@@ -110,6 +116,11 @@ ol.wizard{
 }
 
 .subheader-pagination{
+	@include small{
+		position: relative;
+		height: 40px;
+		margin-bottom: 20px;
+	}
 	a{
 		position: absolute;
 		display: block;

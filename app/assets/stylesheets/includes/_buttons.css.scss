@@ -95,31 +95,6 @@ input.button{
 	@extend %btn;
 }
 
-// input.button, button.button{
-// 	line-height:16px;
-// }
-// .button:hover{
-// 	text-decoration:none;
-// 	@include background-image(linear-gradient(#75c9f1, #3c98c3));
-// 	@include box-shadow(
-// 		inset rgba(255,255,255,0.4) 0px 1px 0px 0px,
-// 		rgba(255,255,255,0.9) 0px 1px 0px 0px,
-// 		inset rgba(255,255,255,0.6) 0px 0px 5px 0px
-// 	);
-// }
-// .button:active{
-// 	@include background-image(linear-gradient(adjust-lightness(#75c9f1,-10), adjust-lightness(#3c98c3,-10)));
-// 	position:relative;
-// 	top:1px;
-// }
-// .big-button{
-// 	//@include border-radius(18px);
-// 	height:36px;
-// 	line-height:36px;
-
-// }
-// input.big-button, button.big-button{
-// 	line-height:32px;
-// 	padding:0 15px;
-// }
-
+.small-button{
+	padding:5px 10px;
+}

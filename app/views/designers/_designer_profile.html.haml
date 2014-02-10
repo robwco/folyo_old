@@ -13,9 +13,9 @@
   - elsif @designer_reply
     = content_for :mainaction do
       = link_to 'Get in Touch', new_designer_message_path(designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
-      .reply-navigation
-        = link_to '< Prev.', @previous_reply ? offer_reply_path(@job_offer, @previous_reply) : '#', class: "previous #{@previous_reply ? '' : 'disabled'}"
-        = link_to 'Next >', @next_reply ? offer_reply_path(@job_offer, @next_reply) : '#', class: "next #{@next_reply ? '' : 'disabled'}"
+      .reply-actions
+        %a.star.button.small-button{:href => '#'} Star
+        %a.hide.button.small-button{:href => '#'} Hide
     = content_for :prev_next do
       - if @previous_reply
         %a.prev.has-tooltip{:href => offer_reply_path(@job_offer, @previous_reply), :title => "Previous: "+@previous_reply.designer.full_name}
