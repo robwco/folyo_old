@@ -5,7 +5,7 @@
     = render_site_nav
     #page
       - if yield(:header).blank?
-        %section.sub-header#page-header
+        %section.subheader#page-header
           .container
             .main-header
               - unless yield(:avatar).blank?
@@ -22,6 +22,9 @@
                   = yield(:mainaction)
             - unless yield(:subnav).blank?
               = yield(:subnav)
+          - unless yield(:prev_next).blank?
+            .subheader-pagination
+              = yield(:prev_next)      
       - else
         = yield(:header)
       #page-content

@@ -1,8 +1,9 @@
 /*------------------- Page Header ------------------ */
 
-.sub-header{
+.subheader{
 	@include clearfix;
 	padding: 40px 0;
+	position: relative;
 	// background:#454d53;
 	// @extend %dark-background;
 	.wizard, .subnav{
@@ -105,5 +106,51 @@ ol.wizard{
 	color: rgba(255, 255, 255, 0.8);
 	.figure {
 		font-weight: bold;
+	}
+}
+
+.subheader-pagination{
+	a{
+		position: absolute;
+		display: block;
+		height: 40px;
+		widows: 40px;
+		top: 50%;
+		margin-top: -20px;
+		opacity: 0.5;
+		@include animate(opacity);
+		&:before{
+			content: ' ';
+			background: image-url('left.svg') no-repeat;
+			background-size: 100% auto;
+			height: 20px;
+			width: 20px;
+			display: block;
+			position: absolute;
+			top: 10px;
+		}
+		&.prev{
+			left:40px;
+			&:before{
+				left: -30px;
+			}
+		}
+		&.next{
+			right: 40px;
+			&:before{
+				background-image: image-url('right.svg');
+				right: -30px;
+			}
+		}
+		&:hover{
+			opacity: 1;
+		}
+		.avatar{
+			width:40px;
+			height: 40px;
+		}
+		.designer-name{
+			font-size: 13px;
+		}
 	}
 }
