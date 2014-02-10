@@ -4,7 +4,8 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  bucket: "folyo-development"
+  #bucket: "folyo-development"
+  bucket: "folyo-production"
 
 test:
   <<: *defaults
