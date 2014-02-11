@@ -12,7 +12,21 @@
 - if @designer_replies.empty?
   %p.note Sorry, you haven't received any replies yet
 - else
-
+  
+  .replies-filter
+    %h5 Filter by:
+    = link_to '#', class: 'filter-new' do
+      %span New
+      %span.count.count-notification 3
+    = link_to '#', class: 'filter-seen' do
+      %span All
+      %span.count 21
+    = link_to '#', class: 'filter-starred' do
+      %span Starred
+      %span.count 4
+    = link_to '#', class: 'filter-hidden' do
+      %span Hidden
+      %span.count 14        
   %ul.replies
     - @designer_replies.each do |r|
       %li.reply
