@@ -188,3 +188,29 @@ ul.messages{
 		display: inline-block;
 	}
 }
+
+.replies-filter{
+	background: $lightgrey7;
+	@include border-radius(3px);
+	padding: 5px 10px;
+	margin-bottom: $spacing;
+	a, h5{
+		display: inline-block;
+		margin-right: $spacing;
+	}
+	.count{
+		@include border-radius(100%);
+		background: $lightgrey4;
+		color: white;
+		font-size: 10px;
+		text-align: center;
+		display: inline-block;
+		height: 16px;
+		width: 16px;
+		line-height: 16px;
+		vertical-align: middle;
+		&.count-notification{
+			background: $green1;
+		}
+	}
+}
