@@ -43,6 +43,7 @@ animateOut = ->
   $(animatedElement()).hide()
   spinner.spin($('.logo')[0])
 
+
 head ->
   $ ->
     $(document).click (event) -> window.lastElementClicked = event.target
