@@ -195,8 +195,14 @@ ul.messages{
 	padding: 5px 10px;
 	margin-bottom: $spacing;
 	a, h5{
-		display: inline-block;
-		margin-right: $spacing;
+		@include small{
+			display: block;
+			margin-bottom: 5px;
+		}
+		@include medium{
+			display: inline-block;
+			margin-right: $spacing;
+		}
 	}
 	.count{
 		@include border-radius(100%);
