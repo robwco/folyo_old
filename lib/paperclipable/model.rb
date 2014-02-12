@@ -19,7 +19,15 @@ module Paperclipable
       field :crop_w
       field :crop_h
 
-      has_mongoid_attached_file :asset, styles: styles
+      has_mongoid_attached_file :asset, styles: styles, url: ":s3_alias_url", s3_host_alias: Proc.new { |asset|
+        if Rails.env.production?
+          "assets#{asset.size.to_i % 4}.folyo.me"
+        elsif Rails.env.staging?
+          "assets#{asset.size.to_i % 4}.staging.folyo.me"
+        else
+          "folyo-development.s3.amazonaws.com"
+        end
+      }
 
       validates :direct_upload_url, format: { with: DIRECT_UPLOAD_URL_FORMAT }, allow_blank: true
 
