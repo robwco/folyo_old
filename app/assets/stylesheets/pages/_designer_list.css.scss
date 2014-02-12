@@ -16,15 +16,13 @@
 				&:before {
 					font-family: 'FontAwesome';
 					content: '\f054';
-					font-size: 15px;
+					font-size: 12px;
 					width: 15px;
 					text-align: center;
 					display: inline-block;
 					color: #4E9EC4;
 					padding-right: 5px;
 				}
-				&.dribbble:before { content: "\f17d"; }
-				&.twitter:before 	{ content: "\f099"; }
 			}
 		}
 	}

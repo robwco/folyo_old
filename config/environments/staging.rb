@@ -23,6 +23,8 @@ Folyo::Application.configure do
   # turbo-sprockets-rails3 assets cleanup
   config.assets.expire_after 2.weeks
 
+  config.assets.cache_store = :dalli_store
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
@@ -47,7 +49,7 @@ Folyo::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
-  config.action_controller.asset_host = "//folyo-staging.s3.amazonaws.com/assets"
+  config.action_controller.asset_host = "//assets%d.staging.folyo.me"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
@@ -65,7 +67,7 @@ Folyo::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  HOST = 'folyo-staging.herokuapp.com'
+  HOST = 'staging.folyo.me'
 
   config.action_mailer.default_url_options = { :host => HOST }
   Rails.application.routes.default_url_options[:host] = HOST

@@ -15,6 +15,7 @@ gem 'mongoid_slug'
 gem 'mongoid_rails_migrations'
 gem 'state_machine'
 gem 'reverse_markdown'
+gem 'dalli'
 
 # DJ
 gem 'delayed_job'
