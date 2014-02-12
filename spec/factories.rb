@@ -172,7 +172,7 @@ FactoryGirl.define do
   factory :designer_reply do
     association :designer
     association :job_offer
-    message 'a random message'
+    message 'a random message quite longer than this'
     picked false
     collapsed false
   end
