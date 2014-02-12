@@ -16,7 +16,7 @@ class DesignerProject
 
   before_validation  :process_skills, :set_designer_completeness
 
-  validates_length_of :description, maximum: 300, tokenizer: lambda { |str| str.scan(/./) }
+  validates_length_of :description, maximum: 150, tokenizer: lambda { |str| str.scan(/./) }
 
   def self.find(id)
     find_through(Designer, :projects, id)

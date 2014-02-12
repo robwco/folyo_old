@@ -32,7 +32,7 @@ class Designer < User
 
   validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
-  embeds_many :projects, class_name: 'DesignerProject'
+  embeds_many :projects, class_name: 'DesignerProject', validate: false
   embeds_one  :profile_picture,  as: 'profile'
 
   alias_method  :designer_projects, :projects

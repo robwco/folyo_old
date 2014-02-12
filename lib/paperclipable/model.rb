@@ -25,7 +25,8 @@ module Paperclipable
         elsif Rails.env.staging?
           "assets#{asset.size.to_i % 4}.staging.folyo.me"
         else
-          "folyo-development.s3.amazonaws.com"
+          "assets#{asset.size.to_i % 4}.folyo.me"
+          # "folyo-development.s3.amazonaws.com"
         end
       }
 

@@ -10,6 +10,8 @@
   .col2
     = render 'featured_work', designer: d, with_description: false
     %ul.actions
-      %li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url, :target => "_blank"
+      %li.site= link_to 'Site', d.portfolio_url, class: "tooltip", title: d.portfolio_url, target: "_blank"
       - unless d.dribbble_url.blank?
-        %li.dribbble= link_to "Dribbble", d.dribbble_url, :target => "_blank"
+        %li.dribbble= link_to "Dribbble", d.dribbble_url, target: "_blank"
+      - unless d.behance_url.blank?
+        %li.dribbble= link_to "Behance", d.behance_url, target: "_blank"
