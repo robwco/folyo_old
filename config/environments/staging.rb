@@ -23,6 +23,8 @@ Folyo::Application.configure do
   # turbo-sprockets-rails3 assets cleanup
   config.assets.expire_after 2.weeks
 
+  config.assets.cache_store = :dalli_store
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
