@@ -7,7 +7,7 @@ Paperclip::Attachment.default_options.merge!(
   s3_host_alias: Proc.new do |asset|
     if Rails.env.production?
       "assets#{asset.size.to_i % 4}.folyo.me"
-    elsif Rails.env.staging
+    elsif Rails.env.staging?
       "assets#{asset.size.to_i % 4}.staging.folyo.me"
     else
       "folyo-#{Rails.env}.s3.amazonaws.com"
