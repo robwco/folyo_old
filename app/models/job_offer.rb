@@ -330,6 +330,11 @@ class JobOffer
     end
   end
 
+  def designer_replies_with_uniq
+    designer_replies_without_uniq.uniq
+  end
+  alias_method_chain :designer_replies, :uniq
+
   protected
 
   def track_event(event_name, optional_data = {})

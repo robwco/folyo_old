@@ -14,7 +14,7 @@
 - else
 
   %ul.replies
-    - @designer_replies.uniq.each do |r|
+    - @designer_replies.each do |r|
       %li.reply
         .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
           - if r.designer.profile_picture.try(:processed?)
