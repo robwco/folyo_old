@@ -62,4 +62,18 @@ class DesignerReply
     job_offer.designer_replies.where(:created_at.gt => self.created_at).last
   end
 
+  def self.deduplicate_for_offer(offer)
+    DesignerReply.skip_callback(:create, :after, :send_creation_notification!)
+    DesignerReply.skip_callback(:create, :after, :track_creation_event)
+
+    replies = offer.designer_replies.uniq.map(&:clone)
+    offer.designer_replies.delete_all
+    offer.designer_replies = replies
+    offer.save
+
+    DesignerReply.set_callback(:create, :after, :track_creation_event)
+    DesignerReply.set_callback(:create, :after, :send_creation_notification!)
+    true
+  end
+
 end
