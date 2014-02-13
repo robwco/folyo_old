@@ -28,7 +28,6 @@ class DesignerRepliesController < ApplicationController
   end
 
   def create
-    @designer_reply = @job_offer.designer_replies.build(params[:designer_reply])
     @designer_reply.designer = current_user
     create! do |success, failure|
       success.html { redirect_to offer_path(@job_offer), notice: 'Your offer has been successfully created, the client has been noticed by email.' }

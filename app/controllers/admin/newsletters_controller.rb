@@ -37,8 +37,10 @@ class Admin::NewslettersController < ApplicationController
 
   # called by mailchimp after a newsletter has been sent
   def webhook
+    logger.debug("mailchimp webhook called: #{params.inspect}")
     if params['type'] == 'campaign' && params['data'] && params['data']['status'] == 'sent'
       if newsletter = Newsletter.where(mailchimp_cid: params['data']['id']).first
+        logger.debug "marking newsletter #{newsletter.id} as sent"
         newsletter.mark_as_sent!
       end
     end
