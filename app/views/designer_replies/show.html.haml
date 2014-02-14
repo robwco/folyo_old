@@ -14,6 +14,7 @@
     %a.hide.button.small-button{href: '#', title: 'Hide this reply'}= fa_icon 'ban'
 
 = content_for :prev_next do
+  %div{ data: { 'no-turbolink' => true } }
   - if @previous_reply
     = link_to offer_reply_path(@job_offer, @previous_reply), title: "Previous: #{@previous_reply.designer.full_name}", class: 'prev has-tooltip' do
       = image_tag @previous_reply.designer.profile_picture ? @previous_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
@@ -29,7 +30,7 @@
       = image_tag '', class: 'avatar'
 
 
-= content_for :container_style, "width: #{@reply_count * 100}%; max-width: #{@reply_count * 100}%; left: -#{@previous_replies.count * 100}%;"
+= content_for :container_style, "width: #{@reply_count * 100}%; max-width: #{@reply_count * 100}%; left: #{-(@previous_replies.count * 100)}%;"
 
 - @previous_replies.each_with_index do |reply, index|
   = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-index * 100}%"
