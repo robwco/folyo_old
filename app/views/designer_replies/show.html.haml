@@ -1,32 +1,40 @@
 = content_for :title, @designer.full_name
 = content_for :subtitle, @designer.short_bio.truncate(70)
-= content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : 'default-avatar.png'
+= content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : image_path('default-avatar.png')
 = content_for :body_class, "designer-profile"
 
 - if @designer_reply
   = content_for :back_path, offer_replies_path(@job_offer)
   = content_for :back_name, 'Replies'
 
-
 = content_for :mainaction do
   = link_to 'Get in Touch', new_designer_message_path(@designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
   .reply-actions
     %a.star.button.small-button{href: '#', title: 'Favorite this reply'}= fa_icon 'star'
     %a.hide.button.small-button{href: '#', title: 'Hide this reply'}= fa_icon 'ban'
+
 = content_for :prev_next do
   - if @previous_reply
     = link_to offer_reply_path(@job_offer, @previous_reply), title: "Previous: #{@previous_reply.designer.full_name}", class: 'prev has-tooltip' do
       = image_tag @previous_reply.designer.profile_picture ? @previous_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
+  - else
+    = link_to '#', title: '', class: 'prev has-tooltip', style: 'display: none' do
+      = image_tag '', class: 'avatar'
+
   - if @next_reply
     = link_to offer_reply_path(@job_offer, @next_reply), title: "Next: #{@next_reply.designer.full_name}", class: 'next has-tooltip' do
       = image_tag @next_reply.designer.profile_picture ? @next_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
+  - else
+    = link_to '#', title: '', class: 'next has-tooltip', style: 'display: none' do
+      = image_tag '', class: 'avatar'
+
 
 = content_for :container_style, "width: #{@reply_count * 100}%; max-width: #{@reply_count * 100}%; left: -#{@previous_replies.count * 100}%;"
 
-- @previous_replies.each do |reply|
-  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply
+- @previous_replies.each_with_index do |reply, index|
+  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-index * 100}%"
 
-= render '/designer_replies/reply', designer: @designer, designer_reply: @designer_reply
+= render '/designer_replies/reply', designer: @designer, designer_reply: @designer_reply, width: "#{(100.0 / @reply_count)}%", left: "#{-@previous_replies.count * 100}%"
 
-- @next_replies.each do |reply|
-  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply
+- @next_replies.each_with_index do |reply, index|
+  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-(index + 1 + @previous_replies.count) * 100}%"

@@ -14,6 +14,7 @@ class DesignerRepliesController < ApplicationController
 
   def show
     show! do
+      fetch_designers
       @designer = @designer_reply.designer
 
       @previous_replies = @designer_reply.previous
@@ -28,10 +29,8 @@ class DesignerRepliesController < ApplicationController
 
   def index
     index! do
-      # in order to prevent 1 + N queries, we fetch all designers at once
-      Designer.where(:_id.in => @designer_replies.map(&:designer_id)).to_a
+      fetch_designers
     end
-
   end
 
   def create
@@ -61,5 +60,11 @@ class DesignerRepliesController < ApplicationController
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Excellent, you just picked a designer! Once you're done working with them, you can come back here to let us know how it went :)"
   end
 
+  protected
+
+  # in order to prevent 1 + N queries, we fetch all designers at once
+  def fetch_designers
+    Designer.where(:_id.in => @job_offer.designer_replies.map(&:designer_id)).to_a
+  end
 
 end
