@@ -1,7 +1,0 @@
-= content_for :parent_level do
-	= link_to "My Offers", offers_path
-= content_for :title, @job_offer.title
-= content_for :body_class, "offer-client"
-= content_for :subnav do
-	= render '/client/job_offers/offer_nav', job_offer: @job_offer
-

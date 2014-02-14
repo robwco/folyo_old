@@ -12,6 +12,7 @@
 	}
 	.main {
 		width: 100%;
+		min-height: 300px;
 	}
 	.reply-carrousel-item {
 		display: block;
@@ -25,6 +26,9 @@
 			}
 			@include medium{
 				padding:0 20px;
+			}
+			.spinner {
+				margin-top: 50px;
 			}
 		}
 	}

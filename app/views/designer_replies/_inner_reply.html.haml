@@ -1,0 +1,9 @@
+.designer-reply
+  %p.reply-intro
+    = designer_reply.designer.full_name
+    replied to your project
+    = link_to designer_reply.job_offer.title, offer_path(designer_reply.job_offer)
+  %p.reply-message
+    = auto_link(designer_reply.message)
+
+= render '/designers/designer_profile', designer: designer_reply.designer

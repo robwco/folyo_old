@@ -1,15 +1,7 @@
 - d = designer_reply.designer
-- o = designer_reply.job_offer
 
 .reply-carrousel-item{style: "width: #{width};", data: {left: left, path: offer_reply_path(designer_reply.job_offer, designer_reply), title: d.full_name, subtitle: d.short_bio.truncate(70), avatar: d.profile_picture ? d.profile_picture.asset(:thumbnail) : image_path('default-avatar.png')}}
-  .inner
-    - if designer_reply
-      .designer-reply
-        %p.reply-intro
-          = designer_reply.designer.full_name
-          replied to your project
-          = link_to designer_reply.job_offer.title, offer_path(designer_reply.job_offer)
-        %p.reply-message
-          = auto_link(designer_reply.message)
 
-    = render '/designers/designer_profile', designer: designer
+  .inner
+    - if inner
+      = render 'inner_reply', designer_reply: designer_reply

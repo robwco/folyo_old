@@ -13,17 +13,23 @@ class DesignerRepliesController < ApplicationController
   respond_to :html, :json
 
   def show
-    show! do
-      fetch_designers
-      @designer = @designer_reply.designer
+    show! do |format|
+      format.html {
+        fetch_designers
+        @designer = @designer_reply.designer
 
-      @previous_replies = @designer_reply.previous
-      @previous_reply = @previous_replies.last
+        @previous_replies = @designer_reply.previous
+        @previous_reply = @previous_replies.last
 
-      @next_replies = @designer_reply.next
-      @next_reply = @next_replies.first
+        @next_replies = @designer_reply.next
+        @next_reply = @next_replies.first
 
-      @reply_count = @previous_replies.length + @next_replies.length + 1
+        @reply_count = @previous_replies.length + @next_replies.length + 1
+      }
+      format.js {
+        render partial: 'inner_reply', locals: { designer_reply: @designer_reply }
+      }
+
     end
   end
 
