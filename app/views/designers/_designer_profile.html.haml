@@ -1,44 +1,12 @@
-= content_for :title, designer.full_name
-= content_for :subtitle, designer.short_bio.truncate(70)
-= content_for :avatar, designer.profile_picture ? designer.profile_picture.asset(:thumbnail) : 'default-avatar.png'
-- if @designer_reply
-  = content_for :back_path, offer_replies_path(@job_offer)
-  = content_for :back_name, 'Replies'
-= content_for :body_class, "designer-profile"
-
-- if current_user
-  - if current_user.id == designer.id
-    = content_for :subnav do
-      = render partial: '/designers/account_nav'
-  - elsif @designer_reply
-    = content_for :mainaction do
-      = link_to 'Get in Touch', new_designer_message_path(designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
-      .reply-actions
-        %a.star.button.small-button{href: '#', title: 'Favorite this reply'}= fa_icon 'star'
-        %a.hide.button.small-button{href: '#', title: 'Hide this reply'}= fa_icon 'ban'
-    = content_for :prev_next do
-      - if @previous_reply
-        = link_to offer_reply_path(@job_offer, @previous_reply), title: "Previous: #{@previous_reply.designer.full_name}", class: 'prev has-tooltip' do
-          = image_tag @previous_reply.designer.profile_picture ? @previous_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
-      - if @next_reply
-        = link_to offer_reply_path(@job_offer, @next_reply), title: "Next: #{@next_reply.designer.full_name}", class: 'next has-tooltip' do
-          = image_tag @next_reply.designer.profile_picture ? @next_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
+- if designer.has_projects?
+  = render '/designers/featured_work', designer: designer, with_description: true
 
 .block.about
-
   %h3 About Me
   - if designer.long_bio
     %p!= format_text(designer, :long_bio)
 
-= content_for :hero do
-
-  - if @designer_reply
-    = render '/designer_replies/designer_reply', designer_reply: @designer_reply
-
-  - if designer.has_projects?
-    = render '/designers/featured_work', designer: designer, with_description: true
-
-= content_for :sidebar do
+.sidebar
   %ul.profile-meta
     %li.profile-links
       %h3 Links
@@ -54,7 +22,7 @@
       %h3 Skills
       %ul.skills-list
         - designer.skills.each do |s|
-          %li{:class=> s.to_s.dasherize}= symbol_humanize(s)
+          %li{class: s.to_s.dasherize}= symbol_humanize(s)
     %li.location
       %h3 Location
       %p= designer.location

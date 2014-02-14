@@ -6,5 +6,5 @@
   %form
 
   = simple_form_for @designer_reply, url: @designer_reply.persisted? ? offer_reply_path(@job_offer, @designer_reply) : offer_replies_path(@job_offer) do |f|
-    = f.input :message, as: :limited_text, label: "Add a short message for the client (optional)"
+    = f.input :message, as: :limited_text, label: "Add a short message for the client"
     = f.submit value: 'Send your profile', class: 'button clearfix submit-reply'

@@ -55,11 +55,11 @@ class DesignerReply
   end
 
   def next
-    job_offer.designer_replies.where(:created_at.lt => self.created_at).first
+    job_offer.designer_replies.order_by(created_at: :desc).where(:created_at.lt => self.created_at)
   end
 
   def previous
-    job_offer.designer_replies.where(:created_at.gt => self.created_at).last
+    job_offer.designer_replies.order_by(created_at: :desc).where(:created_at.gt => self.created_at)
   end
 
   def self.deduplicate_for_offer(offer)

@@ -9,10 +9,10 @@
           .container
             - unless yield(:prev_next).blank?
               .subheader-pagination
-                = yield(:prev_next) 
+                = yield(:prev_next)
             - unless yield(:mainaction).blank?
               .main-action
-                = yield(:mainaction)    
+                = yield(:mainaction)
             .main-header
               - unless yield(:avatar).blank?
                 = image_tag(yield(:avatar), class: 'avatar header-avatar')
@@ -25,11 +25,11 @@
                   %h2.subtitle
                     = yield(:subtitle)
             - unless yield(:subnav).blank?
-              = yield(:subnav)     
+              = yield(:subnav)
       - else
         = yield(:header)
       #page-content
-        .container
+        .container{style: yield(:container_style)}
           - unless yield(:hero).blank?
             .hero
               = content_for(:hero)

@@ -1,3 +1,43 @@
+.designer-profile {
+	#page-content > .container {
+		padding: 0;
+		position: relative;
+		@include transition-property(left);
+   	@include transition-duration(400ms);
+	}
+	.main {
+		width: 100%;
+	}
+	.profile-carrousel-item {
+		display: block;
+		min-height: 1px;
+		float: left;
+		.inner {
+			@include container;
+			margin: 0 auto;
+			@include small{
+				padding:0 10px;
+			}
+			@include medium{
+				padding:0 20px;
+			}
+		}
+	}
+	.block.about {
+		margin-bottom:$spacing;
+		clear: both;
+		@include medium{
+			@include span-columns(7);
+		}
+	}
+	.sidebar {
+		margin-bottom:$spacing;
+		@include medium{
+			@include span-columns(5 omega);
+		}
+	}
+}
+
 .replies-header{
 	border-bottom: 2px solid $lightgrey1;
 	font-weight: bold;

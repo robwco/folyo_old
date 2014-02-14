@@ -14,8 +14,15 @@ class DesignerRepliesController < ApplicationController
 
   def show
     show! do
-      @previous_reply = @designer_reply.previous
-      @next_reply = @designer_reply.next
+      @designer = @designer_reply.designer
+
+      @previous_replies = @designer_reply.previous
+      @previous_reply = @previous_replies.last
+
+      @next_replies = @designer_reply.next
+      @next_reply = @next_replies.first
+
+      @reply_count = @previous_replies.length + @next_replies.length + 1
     end
   end
 
