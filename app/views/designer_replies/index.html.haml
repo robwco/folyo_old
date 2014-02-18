@@ -12,21 +12,21 @@
 - if @designer_replies.empty?
   %p.note Sorry, you haven't received any replies yet
 - else
-  
+
   .replies-filter
     %h5 Filter by:
-    = link_to '#', class: 'filter-new' do
+    = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
       %span New
-      %span.count.count-notification 3
-    = link_to '#', class: 'filter-seen' do
+      %span.count= @designer_replies.unscoped.default.count
+    = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
       %span All
-      %span.count 21
-    = link_to '#', class: 'filter-starred' do
-      %span Starred
-      %span.count 4
-    = link_to '#', class: 'filter-hidden' do
+      %span.count= @designer_replies.unscoped.count
+    = link_to offer_replies_path(@job_offer, status: 'shortlisted'), class: "filter-shortlisted #{active_class_for_filter('shortlisted')}" do
+      %span Shortlisted
+      %span.count= @designer_replies.unscoped.shortlisted.count
+    = link_to offer_replies_path(@job_offer, status: 'hidden'), class: "filter-hidden #{active_class_for_filter('hidden')}" do
       %span Hidden
-      %span.count 14        
+      %span.count= @designer_replies.unscoped.hidden.count
   %ul.replies
     - @designer_replies.each do |r|
       %li.reply
@@ -36,7 +36,7 @@
           - else
             = image_tag('default-avatar.png', class: 'avatar reply-avatar')
           %p.reply-infos
-            = link_to offer_reply_path(r.job_offer, r) do
+            = link_to offer_reply_path(r.job_offer, r, status: params[:status]) do
               = r.designer.full_name
               %span.placeholder
             %span.reply-location= r.designer.location

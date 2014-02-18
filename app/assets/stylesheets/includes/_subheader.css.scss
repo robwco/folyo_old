@@ -163,4 +163,12 @@ ol.wizard{
 			font-size: 13px;
 		}
 	}
+	.placeholder {
+		position: fixed;
+		width: 80px;
+		top: 0;
+		bottom: 0;
+	}
+	.prev .placeholder { left: 0; }
+	.next .placeholder { right: 0; }
 }

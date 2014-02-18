@@ -54,16 +54,12 @@ class DesignerRepliesController < ApplicationController
     end
   end
 
-  def pick
-    respond_to do |format|
-      format.html
-      format.js { render layout: false }
-    end
+  def shortlist
+    render json: { status: @designer_reply.toggle_shortlisted! }
   end
 
-  def update_pick
-    @job_offer.archive(@designer_reply.designer_id)
-    redirect_to edit_offer_evaluations_path(@job_offer), notice: "Excellent, you just picked a designer! Once you're done working with them, you can come back here to let us know how it went :)"
+  def hide
+    render json: { status: @designer_reply.toggle_hidden! }
   end
 
   protected
@@ -71,6 +67,14 @@ class DesignerRepliesController < ApplicationController
   # in order to prevent 1 + N queries, we fetch all designers at once
   def fetch_designers
     Designer.where(:_id.in => @job_offer.designer_replies.map(&:designer_id)).to_a
+  end
+
+  def collection
+    status = params[:status] || 'default'
+    @designer_replies ||= end_of_association_chain
+    unless status == 'all'
+      @designer_replies = @designer_replies.where(status: status.to_sym)
+    end
   end
 
 end

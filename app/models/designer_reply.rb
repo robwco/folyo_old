@@ -8,6 +8,7 @@ class DesignerReply
   field :collapsed,  type: Boolean
   field :picked,     type: Boolean, default: false
   field :evaluation, type: String
+  field :status,     type: Symbol, default: :default
 
   ## associations ##
   embedded_in :job_offer
@@ -23,6 +24,9 @@ class DesignerReply
 
   ## scopes ##
   default_scope order_by(created_at: :desc)
+  scope :shortlisted, -> { where(status: :shortlisted) }
+  scope :hidden,      -> { where(status: :hidden) }
+  scope :default,     -> { where(status: :default) }
 
   def self.find(id)
     find_through(JobOffer, :designer_replies, id)
@@ -74,6 +78,26 @@ class DesignerReply
     DesignerReply.set_callback(:create, :after, :track_creation_event)
     DesignerReply.set_callback(:create, :after, :send_creation_notification!)
     true
+  end
+
+  def hidden?
+    self.status == :hidden
+  end
+
+  def shortlisted?
+    self.status == :shortlisted
+  end
+
+  def toggle_hidden!
+    new_status = self.status == :hidden ? :default : :hidden
+    self.update_attribute(:status, new_status)
+    new_status
+  end
+
+  def toggle_shortlisted!
+    new_status = self.status == :shortlisted ? :default : :shortlisted
+    self.update_attribute(:status, new_status)
+    new_status
   end
 
 end

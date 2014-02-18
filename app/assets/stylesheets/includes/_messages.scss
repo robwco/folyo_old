@@ -216,23 +216,6 @@
 	// }
 }
 
-.star{
-	&:link{
-		background: $yellow1;
-	}
-	&:hover{
-		background: #333;
-	}
-}
-.hide{
-	&:link{
-		background: $red1;
-	}
-	&:hover{
-		background: #333;
-	}
-}
-
 // steps
 .js-animate{
 	.step{

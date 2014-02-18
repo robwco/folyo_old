@@ -9,25 +9,34 @@
 
 = content_for :mainaction do
   = link_to 'Get in Touch', new_designer_message_path(@designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
-  .reply-actions
-    %a.star.button.small-button{href: '#', title: 'Favorite this reply'}= fa_icon 'star'
-    %a.hide.button.small-button{href: '#', title: 'Hide this reply'}= fa_icon 'ban'
+  .reply-actions{class: class_for_reply(@designer_reply)}
+    = link_to shortlist_offer_reply_path(@job_offer, @designer_reply), { class: 'shortlist button small-button', title: 'Shortlist this reply'} do
+      = fa_icon 'check'
+      %span Shortlisted
+
+    = link_to hide_offer_reply_path(@job_offer, @designer_reply), {class: 'hide button small-button', title: 'Hide this reply'} do
+      %span Hidden
+      = fa_icon 'ban'
 
 = content_for :prev_next do
   %div{ data: { 'no-turbolink' => true } }
   - if @previous_reply
     = link_to offer_reply_path(@job_offer, @previous_reply), title: "Previous: #{@previous_reply.designer.full_name}", class: 'prev has-tooltip' do
       = image_tag @previous_reply.designer.profile_picture ? @previous_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
+      .placeholder
   - else
     = link_to '#', title: '', class: 'prev has-tooltip', style: 'display: none' do
       = image_tag 'default-avatar.png', class: 'avatar'
+      .placeholder
 
   - if @next_reply
     = link_to offer_reply_path(@job_offer, @next_reply), title: "Next: #{@next_reply.designer.full_name}", class: 'next has-tooltip' do
       = image_tag @next_reply.designer.profile_picture ? @next_reply.designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar'
+      .placeholder
   - else
     = link_to '#', title: '', class: 'next has-tooltip', style: 'display: none' do
       = image_tag 'default-avatar.png', class: 'avatar'
+      .placeholder
 
 
 = content_for :container_style, "width: #{@reply_count * 100}%; max-width: #{@reply_count * 100}%; left: #{-(@previous_replies.count * 100)}%;"

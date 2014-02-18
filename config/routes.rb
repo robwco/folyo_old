@@ -98,8 +98,8 @@ Folyo::Application.routes.draw do
       get 'confirm'
     end
     resources :designer_replies, path: 'replies', as: 'replies' do
-      get 'pick',        on: :member
-      put 'update_pick', on: :member
+      put 'shortlist', on: :member
+      put 'hide',      on: :member
     end
     resource :evaluations
   end

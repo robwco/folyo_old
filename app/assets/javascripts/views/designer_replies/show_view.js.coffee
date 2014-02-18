@@ -17,6 +17,11 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     $('.title span', $header).html($reply.attr('data-title'))
     $('.subtitle', $header).html($reply.attr('data-subtitle'))
 
+    # updating actions
+    $('#get-in-touch').attr('href', "/designers/#{$reply.attr('data-designer-id')}/messages/new")
+    $('.shortlist.button').attr('href', "#{$reply.attr('data-path')}/shortlist")
+    $('.hide.button').attr('href', "#{$reply.attr('data-path')}/hide")
+
     # updating next link
     if ($next_reply = $reply.next('.reply-carrousel-item')).length > 0
       @loadReplyContent($next_reply)
@@ -37,24 +42,66 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     else
       $('.subheader .prev').hide()
 
+    # updating status
+    status = $reply.attr('data-status')
+    if status == 'shortlisted'
+      $('.reply-actions').removeClass('reply-hidden').addClass('reply-shortlisted')
+      $reply.removeClass('reply-hidden').addClass('reply-shortlisted')
+    else if status == 'hidden'
+      $('.reply-actions').addClass('reply-hidden').removeClass('reply-shortlisted')
+      $reply.addClass('reply-hidden').removeClass('reply-shortlisted')
+    else
+      $('.reply-actions').removeClass('reply-hidden').removeClass('reply-shortlisted')
+      $reply.removeClass('reply-hidden').removeClass('reply-shortlisted')
+
+
   loadReplyContent: ($reply) ->
-    $.ajax
-      url: "#{$reply.attr('data-path')}.js"
-      dataType: 'html'
-      success: (data) -> $('.inner', $reply).html(data)
+    if !$.trim($('.inner', $reply).html())
+      $.ajax
+        url: "#{$reply.attr('data-path')}.js"
+        dataType: 'html'
+        success: (data) -> $('.inner', $reply).html(data)
 
   popstateEventListener: (e) =>
     e.stopPropagation() && e.preventDefault()
     @showReply(document.location.pathname)
 
+  enableActionButtons: ->
+    $('.shortlist.button, .hide.button').click (e) ->
+      $btn = $(this)
+      $reply = $('.reply-carrousel-item:visible,.reply-actions')
+      $btn.addClass('spinning')
+      $.ajax
+        url: $btn.attr('href')
+        type: 'POST'
+        dataType: 'json'
+        data:
+          shortlist: true
+          _method: 'PUT'
+        success: (data) ->
+          $btn.removeClass('spinning')
+          if data.status == 'hidden'
+            $reply.addClass('reply-hidden')
+            $reply.removeClass('reply-shortlisted')
+          else if data.status == 'shortlisted'
+            $reply.addClass('reply-shortlisted')
+            $reply.removeClass('reply-hidden')
+          else
+            $reply.removeClass('reply-shortlisted')
+            $reply.removeClass('reply-hidden')
+
+      false
+
   render: ->
     super()
 
     # tooltips for iconic buttons
-    $(".star,.hide").tipsy(gravity: 'n')
+    $(".shortlist,.hide").tipsy(gravity: 'n')
 
     # overriding turbolinks history support for replies
     window.addEventListener 'popstate', @popstateEventListener
+
+    @enableActionButtons()
 
     $('.designer-profile .subheader').on 'click', '.prev,.next', (e) =>
       path = if $(e.target).attr('href') then $(e.target).attr('href') else $(e.target).parent('a').attr('href')

@@ -47,6 +47,15 @@
 	}
 }
 
+.reply-hidden {
+	.about, .sidebar, .featured-work {
+		opacity: 0.3;
+	}
+	.designer-reply p {
+		opacity: 0.3;
+	}
+}
+
 .replies-header{
 	border-bottom: 2px solid $lightgrey1;
 	font-weight: bold;
@@ -68,6 +77,75 @@
 		}
 	}
 }
+
+#get-in-touch {
+	background: rgba(255, 255, 255, 0.3);
+	&:hover{
+		background: #333;
+	}
+}
+
+.reply-actions {
+	position: relative;
+	padding-bottom: 18px;
+	.shortlist{
+		left: 0;
+		background: $green;
+
+	}
+	.hide{
+		right: 0;
+		background: $red1;
+	}
+
+	.shortlist,.hide {
+		position: absolute;
+		top: 0;
+		@include transition-property(width);
+	  @include transition-duration(300ms);
+	  height: 27px;
+	  overflow: hidden;
+	  white-space: nowrap;
+	  text-overflow: clip;
+	  span {
+	  	display: none;
+	  	font-weight: normal;
+	  	padding: 0 5px;
+	  }
+		&:hover{
+			background: #333;
+		}
+	}
+
+	&.reply-hidden {
+		.shortlist {
+			height: 0;
+			width: 0;
+			padding: 0;
+			i { display: none; }
+		}
+		.hide {
+			width: 100%;
+			span { display: inline; }
+		}
+	}
+
+	&.reply-shortlisted {
+		.hide {
+			height: 0;
+			width: 0;
+			padding: 0;
+			i { display: none; }
+		}
+		.shortlist {
+			width: 100%;
+			span { display: inline; }
+		}
+	}
+
+}
+
+
 .replies{
 	border-top: 1px solid $lightgrey1;
 }
@@ -264,8 +342,8 @@ ul.messages{
 		width: 16px;
 		line-height: 16px;
 		vertical-align: middle;
-		&.count-notification{
-			background: $green1;
-		}
+	}
+	.active .count {
+		background: $green1;
 	}
 }
