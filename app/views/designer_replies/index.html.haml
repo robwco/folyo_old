@@ -9,7 +9,7 @@
 - if @job_offer.archived?
   = content_for :body_class, " offer-archived"
 
-- if @designer_replies.empty?
+- if @designer_replies.unscoped.empty?
   %p.note Sorry, you haven't received any replies yet
 - else
 
@@ -18,29 +18,33 @@
     = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
       %span New
       %span.count= @designer_replies.unscoped.default.count
-    = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
-      %span All
-      %span.count= @designer_replies.unscoped.count
     = link_to offer_replies_path(@job_offer, status: 'shortlisted'), class: "filter-shortlisted #{active_class_for_filter('shortlisted')}" do
       %span Shortlisted
       %span.count= @designer_replies.unscoped.shortlisted.count
     = link_to offer_replies_path(@job_offer, status: 'hidden'), class: "filter-hidden #{active_class_for_filter('hidden')}" do
       %span Hidden
       %span.count= @designer_replies.unscoped.hidden.count
+    = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
+      %span All
+      %span.count= @designer_replies.unscoped.count
+
   %ul.replies
-    - @designer_replies.each do |r|
-      %li.reply
-        .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
-          - if r.designer.profile_picture.try(:processed?)
-            = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
-          - else
-            = image_tag('default-avatar.png', class: 'avatar reply-avatar')
-          %p.reply-infos
-            = link_to offer_reply_path(r.job_offer, r, status: params[:status]) do
-              = r.designer.full_name
-              %span.placeholder
-            %span.reply-location= r.designer.location
-          %p.reply-message= Sanitize.clean(r.message)
-        - if r.designer.has_showable_projects?
-          .reply-work
-            = render '/designers/featured_work', designer: r.designer, with_description: true
+    - if @designer_replies.empty?
+      %p.note Sorry, no #{params[:status]} reply yet
+    - else
+      - @designer_replies.each do |r|
+        %li.reply
+          .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
+            - if r.designer.profile_picture.try(:processed?)
+              = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
+            - else
+              = image_tag('default-avatar.png', class: 'avatar reply-avatar')
+            %p.reply-infos
+              = link_to offer_reply_path(r.job_offer, r, status: params[:status]) do
+                = r.designer.full_name
+                %span.placeholder
+              %span.reply-location= r.designer.location
+            %p.reply-message= Sanitize.clean(r.message)
+          - if r.designer.has_showable_projects?
+            .reply-work
+              = render '/designers/featured_work', designer: r.designer, with_description: true

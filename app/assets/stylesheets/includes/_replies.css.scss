@@ -102,7 +102,7 @@
 		position: absolute;
 		top: 0;
 		@include transition-property(width);
-	  @include transition-duration(300ms);
+	  @include transition-duration(200ms);
 	  height: 27px;
 	  overflow: hidden;
 	  white-space: nowrap;
@@ -321,6 +321,7 @@ ul.messages{
 	@include border-radius(3px);
 	padding: 5px 10px;
 	margin-bottom: $spacing;
+	a { font-weight: normal; }
 	a, h5{
 		@include small{
 			display: block;
@@ -343,7 +344,8 @@ ul.messages{
 		line-height: 16px;
 		vertical-align: middle;
 	}
-	.active .count {
-		background: $green1;
+	.active {
+		font-weight: bold;
+		.count { background: $green1; }
 	}
 }

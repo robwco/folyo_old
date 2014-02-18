@@ -8,28 +8,28 @@ class DesignerRepliesController < ApplicationController
 
   belongs_to :job_offer, param: 'offer_id'
 
-  load_and_authorize_resource
+  authorize_resource
 
   respond_to :html, :json
 
   def show
     show! do |format|
-      format.html {
-        fetch_designers
-        @designer = @designer_reply.designer
+      format.html do
+        if request.xhr?
+          render partial: 'inner_reply', locals: { designer_reply: @designer_reply }
+        else
+          fetch_designers
+          @designer = @designer_reply.designer
 
-        @previous_replies = @designer_reply.previous
-        @previous_reply = @previous_replies.last
+          @previous_replies = @designer_reply.previous(params[:status])
+          @previous_reply = @previous_replies.last
 
-        @next_replies = @designer_reply.next
-        @next_reply = @next_replies.first
+          @next_replies = @designer_reply.next(params[:status])
+          @next_reply = @next_replies.first
 
-        @reply_count = @previous_replies.length + @next_replies.length + 1
-      }
-      format.js {
-        render partial: 'inner_reply', locals: { designer_reply: @designer_reply }
-      }
-
+          @reply_count = @previous_replies.length + @next_replies.length + 1
+        end
+      end
     end
   end
 
@@ -55,26 +55,22 @@ class DesignerRepliesController < ApplicationController
   end
 
   def shortlist
-    render json: { status: @designer_reply.toggle_shortlisted! }
+    render json: { status: resource.toggle_shortlisted! }
   end
 
   def hide
-    render json: { status: @designer_reply.toggle_hidden! }
+    render json: { status: resource.toggle_hidden! }
   end
 
   protected
 
   # in order to prevent 1 + N queries, we fetch all designers at once
   def fetch_designers
-    Designer.where(:_id.in => @job_offer.designer_replies.map(&:designer_id)).to_a
+    Designer.where(:_id.in => collection.map(&:designer_id)).to_a
   end
 
   def collection
-    status = params[:status] || 'default'
-    @designer_replies ||= end_of_association_chain
-    unless status == 'all'
-      @designer_replies = @designer_replies.where(status: status.to_sym)
-    end
+    @designer_replies ||= end_of_association_chain.with_status(params[:status])
   end
 
 end

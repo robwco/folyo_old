@@ -27,6 +27,11 @@ class DesignerReply
   scope :shortlisted, -> { where(status: :shortlisted) }
   scope :hidden,      -> { where(status: :hidden) }
   scope :default,     -> { where(status: :default) }
+  scope :with_status,   ->(status) {
+    status ||= :default
+    status = status.to_sym
+    status == :all ? all : where(status: status)
+  }
 
   def self.find(id)
     find_through(JobOffer, :designer_replies, id)
@@ -58,12 +63,12 @@ class DesignerReply
     )
   end
 
-  def next
-    job_offer.designer_replies.order_by(created_at: :desc).where(:created_at.lt => self.created_at)
+  def next(status = nil)
+    job_offer.designer_replies.with_status(status).order_by(created_at: :desc).where(:created_at.lt => self.created_at)
   end
 
-  def previous
-    job_offer.designer_replies.order_by(created_at: :desc).where(:created_at.gt => self.created_at)
+  def previous(status = nil)
+    job_offer.designer_replies.with_status(status).order_by(created_at: :desc).where(:created_at.gt => self.created_at)
   end
 
   def self.deduplicate_for_offer(offer)

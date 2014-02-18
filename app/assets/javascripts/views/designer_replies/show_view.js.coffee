@@ -19,8 +19,8 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
 
     # updating actions
     $('#get-in-touch').attr('href', "/designers/#{$reply.attr('data-designer-id')}/messages/new")
-    $('.shortlist.button').attr('href', "#{$reply.attr('data-path')}/shortlist")
-    $('.hide.button').attr('href', "#{$reply.attr('data-path')}/hide")
+    $('.shortlist.button').attr('href', $reply.attr('data-shortlist-path'))
+    $('.hide.button').attr('href', $reply.attr('data-hide-path'))
 
     # updating next link
     if ($next_reply = $reply.next('.reply-carrousel-item')).length > 0
@@ -58,7 +58,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
   loadReplyContent: ($reply) ->
     if !$.trim($('.inner', $reply).html())
       $.ajax
-        url: "#{$reply.attr('data-path')}.js"
+        url: "#{$reply.attr('data-path')}"
         dataType: 'html'
         success: (data) -> $('.inner', $reply).html(data)
 
