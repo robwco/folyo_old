@@ -21,6 +21,8 @@
                   - unless yield(:back_name).blank? || yield(:back_path).blank?
                     = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
                   %span= yield(:title)
+                  - unless yield(:location).blank?
+                    %span.reply-location= yield(:location)
                 - unless yield(:subtitle).blank?
                   %h2.subtitle
                     = yield(:subtitle)
