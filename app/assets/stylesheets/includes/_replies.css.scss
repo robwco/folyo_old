@@ -234,7 +234,7 @@
 		position: relative;
 
 		&:after{
-			@include background(linear-gradient(left, rgba(0,0,0,0), #fff));
+			@include background(linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)));
 			content: " ";
 			height: 40px;
 			width: 40px;
@@ -256,7 +256,7 @@
 	&:hover{
 		background: $lightgrey2;
 		.reply-message:after{
-			@include background(linear-gradient(left, rgba(0,0,0,0), $lightgrey2));
+			@include background(linear-gradient(left, rgba(255, 255, 255, 0), $lightgrey2));
 		}
 	}
 
