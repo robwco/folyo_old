@@ -64,7 +64,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
 
   popstateEventListener: (e) =>
     e.stopPropagation() && e.preventDefault()
-    @showReply(document.location.pathname)
+    @showReply("#{document.location.pathname}#{document.location.search}")
 
   enableActionButtons: ->
     $('.shortlist.button, .hide.button').click (e) ->
@@ -80,15 +80,20 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
           _method: 'PUT'
         success: (data) ->
           $btn.removeClass('spinning')
+          $btn.tipsy('hide')
           if data.status == 'hidden'
+            $btn.attr('title', 'Un-hide this reply')
             $reply.addClass('reply-hidden')
             $reply.removeClass('reply-shortlisted')
           else if data.status == 'shortlisted'
+            $btn.attr('title', 'Remove from shortlist')
             $reply.addClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
           else
+            $('.reply-actions a').each (i, r) -> $(r).attr('title', $(r).attr('default-title'))
             $reply.removeClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
+
 
       false
 

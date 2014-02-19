@@ -21,13 +21,13 @@ page_load = ->
 
 spinner = new Spinner(radius: 42, length: 1, lines: 24, color: '#DADADA')
 
-animateIn =  ->
-  spinner.stop()
+animateIn =  -> spinner.stop()
 
 animateOut = ->
   $clickedItem = $(window.lastElementClicked)
-  $('a', $clickedItem.parents('ul')).removeClass('current')
+  $('a', $clickedItem.parents('ul,.menu')).removeClass('current')
   $clickedItem.addClass('current')
+  $clickedItem.parents('a').addClass('current')
   $('body').css('height', $('body').height())
   spinner.spin($('.logo')[0])
 

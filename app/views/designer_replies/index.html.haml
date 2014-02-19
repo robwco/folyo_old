@@ -13,7 +13,7 @@
   %p.note Sorry, you haven't received any replies yet
 - else
 
-  .replies-filter
+  .replies-filter.menu
     %h5 Filter by:
     = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
       %span New
