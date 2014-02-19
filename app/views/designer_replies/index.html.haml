@@ -30,7 +30,7 @@
 
   %ul.replies
     - if @designer_replies.empty?
-      %p.note Sorry, no #{params[:status]} reply yet
+      %p.note Sorry, no #{params[:status] || 'new'} reply yet
     - else
       - @designer_replies.each do |r|
         %li.reply

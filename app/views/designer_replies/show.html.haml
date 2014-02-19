@@ -5,10 +5,12 @@
 
 - if @designer_reply
   = content_for :back_path, offer_replies_path(@job_offer, status: params[:status])
-  = content_for :back_name, 'Replies'
+  = content_for :back_name, back_name_for_status(params[:status])
 
 = content_for :mainaction do
-  = link_to 'Get in Touch', new_designer_message_path(@designer) , id: "get-in-touch", class: "button big-button fancybox-ajax"
+  = link_to new_designer_message_path(@designer) , id: "get-in-touch", class: "button big-button fancybox-ajax" do
+    = fa_icon 'envelope'
+    %span Get in Touch
   .reply-actions{class: class_for_reply(@designer_reply)}
     = link_to shortlist_offer_reply_path(@job_offer, @designer_reply), { class: 'shortlist button small-button', title: 'Shortlist this reply'} do
       = fa_icon 'check'

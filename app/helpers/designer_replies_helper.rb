@@ -20,4 +20,16 @@ module DesignerRepliesHelper
     end
   end
 
+  def back_name_for_status(status)
+    if status.blank?
+      'New replies'
+    elsif status == 'all'
+      'All replies'
+    elsif status == 'shortlisted'
+      'Shortlist'
+    elsif status == 'hidden'
+      'Hidden replies'
+    end
+  end
+
 end

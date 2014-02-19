@@ -1,6 +1,7 @@
+- r = designer_reply
 - d = designer_reply.designer
 
-.reply-carrousel-item{class: class_for_reply(designer_reply), style: "width: #{width};", data: {left: left, path: offer_reply_path(designer_reply.job_offer, designer_reply, status: params[:status]), shortlist_path: shortlist_offer_reply_path(designer_reply.job_offer, designer_reply, status: params[:status]), hide_path: hide_offer_reply_path(designer_reply.job_offer, designer_reply, status: params[:status]), title: d.full_name, subtitle: d.short_bio.truncate(70), avatar: d.profile_picture ? d.profile_picture.asset(:thumbnail) : image_path('default-avatar.png'), designer_id: d.slug, status: designer_reply.status } }
+.reply-carrousel-item{class: class_for_reply(r), style: "width: #{width};", data: {left: left, path: offer_reply_path(r.job_offer, r, status: params[:status]), shortlist_path: shortlist_offer_reply_path(r.job_offer, r), hide_path: hide_offer_reply_path(r.job_offer, r), title: d.full_name, subtitle: d.short_bio.truncate(70), avatar: d.profile_picture ? d.profile_picture.asset(:thumbnail) : image_path('default-avatar.png'), designer_id: d.slug, status: r.status } }
 
   .inner
     - if inner
