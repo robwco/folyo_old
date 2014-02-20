@@ -9,6 +9,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     document.title = "Folyo - #{$reply.attr('data-title')}"
     $('#page-content .container').css('left', $reply.attr('data-left'))
     $('#page-content .container .main').height($reply.height())
+    Widgets.FancyBox.cleanup()
     Widgets.FancyBox.enable()
 
     # updating header with reply content
