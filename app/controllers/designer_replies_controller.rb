@@ -43,14 +43,14 @@ class DesignerRepliesController < ApplicationController
     @designer_reply = parent.designer_replies.build(params[:designer_reply])
     @designer_reply.designer = current_user
     create! do |success, failure|
-      success.html { redirect_to offer_path(@job_offer), notice: 'Your offer has been successfully created, the client has been noticed by email.' }
+      success.html { redirect_to offer_path(@job_offer), notice: 'Your reply has been successfully posted, the client has been noticed by email.' }
       failure.html { render template: 'job_offers/show' }
     end
   end
 
   def update
     update! do |success, failure|
-      success.html { redirect_to offer_path(@job_offer), notice: 'Your offer has been successfully updated, the client has been noticed by email.' }
+      success.html { redirect_to offer_path(@job_offer), notice: 'Your reply has been successfully updated, the client has been noticed by email.' }
       failure.html { render template: 'job_offers/show' }
     end
   end
