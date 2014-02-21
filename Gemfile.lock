@@ -79,6 +79,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     chronic (0.10.2)
     chronic_duration (0.10.2)
       numerizer (~> 0.1.1)
@@ -349,6 +353,8 @@ GEM
     simple_oauth (0.2.0)
     sinatra (1.0)
       rack (>= 1.0)
+    sitemap_generator (5.0.0)
+      builder
     slop (3.4.7)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -431,6 +437,7 @@ DEPENDENCIES
   bson_ext
   cancan
   capybara
+  carrierwave
   chronic_duration
   coffee-rails
   compass-rails
@@ -473,6 +480,7 @@ DEPENDENCIES
   sanitize
   sass-rails
   simple_form
+  sitemap_generator
   sprockets-image_compressor
   state_machine
   susy
