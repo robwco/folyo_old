@@ -4,7 +4,8 @@
 .block.about
   %h3 About Me
   - if designer.long_bio
-    %p!= format_text(designer, :long_bio)
+    %span{itemprop: 'description'}
+      != format_text(designer, :long_bio)
 
 .sidebar
   %ul.profile-meta
