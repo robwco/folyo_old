@@ -24,6 +24,6 @@
       %ul.skills-list
         - designer.skills.each do |s|
           %li{class: s.to_s.dasherize}= symbol_humanize(s)
-    %li.location
+    %li.location{itemprop: 'address', itemscope: true, itemtype: 'http://data-vocabulary.org/Address'}
       %h3 Location
-      %p= designer.location
+      %p{itemprop: 'locality'}= designer.location

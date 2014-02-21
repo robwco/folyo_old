@@ -11,4 +11,6 @@
   = content_for :subnav do
     = render partial: '/designers/account_nav'
 
+%meta{itemprop: 'role', content: 'designer'}
+
 = render '/designers/designer_profile', designer: @designer
