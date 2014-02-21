@@ -7,8 +7,12 @@ module ScheduledJobs
     heroku_run :daily, priority: 0
 
     def perform
+      Rails.logger.debug "Generating sitemap"
       SitemapGenerator::Interpreter.run
-      SitemapGenerator::Sitemap.ping_search_engines if Rails.env.production?
+      if Rails.env.production?
+        Rails.logger.debug "Pinging search engines"
+        SitemapGenerator::Sitemap.ping_search_engines
+      end
     end
 
   end
