@@ -1,6 +1,6 @@
 module ScheduledJobs
 
-  class GenerateSitemapJo < Jobbr::ScheduledJob
+  class GenerateSitemapJob < Jobbr::ScheduledJob
 
     description 'Generate sitemap and upload it to S3'
 
@@ -8,7 +8,7 @@ module ScheduledJobs
 
     def perform
       SitemapGenerator::Interpreter.run
-      SitemapGenerator::Sitemap.ping_search_engines
+      SitemapGenerator::Sitemap.ping_search_engines if Rails.env.production?
     end
 
   end
