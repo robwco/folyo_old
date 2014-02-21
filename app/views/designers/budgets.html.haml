@@ -1,0 +1,39 @@
+= content_for :title, "Budgets"
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render :partial => '/designers/account_nav'
+
+.block
+  %p Would you design a logo for $10000? Probably. Would you do it for $14.99? Probably not. 
+  %p By filling in your <strong>starting acceptable budget</strong> for each project category, you can help weed out underfunded jobs, and push clients to allocate more resources to their projects. 
+  %p Note that this data will remain <strong>strictly confidential</strong>, and will only be used in aggregate to provide budget guidelines. 
+
+.block
+  %h3 Branding & Identity Design
+  %p Logo
+  %p Full Identity
+
+.block
+  %h3 Web Design
+  %p Homepage
+  %p Full site
+
+.block 
+  %h3 User Interface Design
+  %p Web App
+  %p Mobile App
+
+.block
+  %h3 UX and Interaction Design
+  %p UX Research
+  %p Wireframing & Prototyping
+
+.block
+  %h3 Illustration
+  %p Illustration
+  %p Mobile App Icon
+  %p Icon Set
+
+.block
+  %h3 Other
+  %p Suggest other categories…
