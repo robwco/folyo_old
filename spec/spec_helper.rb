@@ -5,12 +5,15 @@ require 'rspec/rails'
 require Rails.root.join('db','seeds')
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+
+  Capybara.javascript_driver = :poltergeist
 
   config.mock_with :rspec
 

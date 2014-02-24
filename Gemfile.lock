@@ -89,6 +89,7 @@ GEM
     chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cliver (0.3.2)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -264,6 +265,11 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    poltergeist (1.5.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
     premailer (1.7.9)
       css_parser (>= 1.1.9)
@@ -414,6 +420,7 @@ GEM
       rest-client
     warden (1.2.3)
       rack (>= 1.0)
+    websocket-driver (0.3.2)
     whenever (0.9.0)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -467,6 +474,7 @@ DEPENDENCIES
   mongoid_slug
   newrelic_rpm
   paperclip
+  poltergeist
   premailer-rails
   pry-rails
   quiet_assets

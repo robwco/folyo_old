@@ -77,7 +77,6 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
         type: 'POST'
         dataType: 'json'
         data:
-          shortlist: true
           _method: 'PUT'
         success: (data) ->
           $btn.removeClass('spinning')
@@ -94,7 +93,6 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
             $('.reply-actions a').each (i, r) -> $(r).attr('title', $(r).attr('default-title'))
             $reply.removeClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
-
 
       false
 
