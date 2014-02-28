@@ -7,6 +7,7 @@ class Newsletter
   include Mongoid::Document
   include Mongoid::Timestamps
   include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers::OutputSafetyHelper
 
   field :subject,           type: String
   field :intro,             type: String
@@ -137,10 +138,10 @@ class Newsletter
   def content
     content = []
     unless self.intro.blank?
-      content.append(render_partial('/admin/newsletters/intro', {newsletter: self}))
+      content.append(render_partial('/admin/newsletters/intro', { newsletter: self }))
     end
     self.job_offers.each do |offer|
-      content.append(render_partial('/admin/newsletters/job_offer', {job_offer: offer}))
+      content.append(render_partial('/admin/newsletters/job_offer', { job_offer: offer }))
     end
     content.join('<br/><hr/>')
   end
@@ -152,7 +153,8 @@ class Newsletter
       include Rails.application.routes.url_helpers
     end
     result = view.render(partial: partial, locals: assigns)
-    Nokogiri::HTML::fragment(sanitize(result)).to_xml
+    result = Nokogiri::HTML::fragment(sanitize(result)).to_xml
+    raw(result)
   end
 
   def check_can_be_destroyed
