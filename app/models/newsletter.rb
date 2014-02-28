@@ -6,6 +6,7 @@ class Newsletter
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ActionView::Helpers::SanitizeHelper
 
   field :subject,           type: String
   field :intro,             type: String
@@ -14,9 +15,11 @@ class Newsletter
   field :mailchimp_cid,     type: String
   field :mailchimp_web_id,  type: String
   field :schedule_date,     type: DateTime
-  field :timewarp,          type: Boolean, default: true
+  field :timewarp,          type: Boolean, default: false
 
   has_and_belongs_to_many :job_offers
+
+  validates_length_of :subject, maximum: 100
 
   after_initialize  :set_offers, :set_index, :set_subject,                unless: :persisted?
   after_create      :mark_offers_as_sending, :create_mailchimp_newsletter
@@ -102,7 +105,7 @@ class Newsletter
   end
 
   def set_subject
-    self.subject = "#{formated_index}: #{company_names}"
+    self.subject = "#{formated_index}: #{company_names}".truncate(100)
   end
 
   def mark_offers_as_sending
@@ -120,12 +123,10 @@ class Newsletter
       save!
     end
   end
-  handle_asynchronously :create_mailchimp_newsletter
 
   def update_mailchimp_newsletter
     MailChimpHelper.new.campaign_update(self.mailchimp_cid, self.subject, content, timewarp)
   end
-  handle_asynchronously :update_mailchimp_newsletter
 
   def destroy_mailchimp_newsletter
     if self.mailchimp_cid
@@ -150,7 +151,8 @@ class Newsletter
     class << view
       include Rails.application.routes.url_helpers
     end
-    view.render(partial: partial, locals: assigns)
+    result = view.render(partial: partial, locals: assigns)
+    Nokogiri::HTML::fragment(sanitize(result)).to_xml
   end
 
   def check_can_be_destroyed
