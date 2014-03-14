@@ -36,6 +36,9 @@ class Ability
       can :manage, JobOffer do |job_offer|
         job_offer.client_id == user.id
       end
+      can :manage, DesignerReply do |reply|
+        reply.job_offer.client_id == user.id
+      end
       can :create, Order
       can [:read, :confirm, :checkout], Order do |order|
         order.job_offer.client_id == user.id

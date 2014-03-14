@@ -118,7 +118,6 @@ class ApplicationController < ActionController::Base
     when 'update' then 'Edit'
     else action_name
     end.camelize
-
     "Views.#{self.class.name.gsub('::', '.').gsub(/Controller$/, '')}.#{action}View"
   end
 

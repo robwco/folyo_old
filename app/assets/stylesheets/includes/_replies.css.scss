@@ -5,7 +5,8 @@
 	}
 
 	#page-content > .container {
-		padding: 0;
+		padding-top: 0;
+		padding-bottom: 0;
 		position: relative;
 		@include transition-property(left);
    	@include transition-duration(400ms);
@@ -234,7 +235,7 @@
 		position: relative;
 
 		&:after{
-			@include background(linear-gradient(left, rgba(0,0,0,0), #fff));
+			@include background(linear-gradient(left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)));
 			content: " ";
 			height: 40px;
 			width: 40px;
@@ -256,7 +257,7 @@
 	&:hover{
 		background: $lightgrey2;
 		.reply-message:after{
-			@include background(linear-gradient(left, rgba(0,0,0,0), $lightgrey2));
+			@include background(linear-gradient(left, rgba(255, 255, 255, 0), $lightgrey2));
 		}
 	}
 
@@ -345,7 +346,7 @@ ul.messages{
 		line-height: 16px;
 		vertical-align: middle;
 	}
-	.active {
+	.current {
 		font-weight: bold;
 		.count { background: $green1; }
 	}

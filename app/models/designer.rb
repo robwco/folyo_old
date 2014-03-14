@@ -191,6 +191,15 @@ class Designer < User
     JobOffer.with_available_bonus_for_designer(self).sum { |offer| offer.order.referral_bonus }
   end
 
+
+  def self.featured_designers(count)
+    designers = Designer.accepted.with_portfolio.with_profile_picture # we pick only designers with profile picture & portfolio
+    designers = designers.order_by(randomization_key: :asc)           # sort them in pseudo-random order
+    designers = designers.offset(rand(designers.count - count + 1))   # start from a random position (with enough designers ahead)
+    designers = designers.limit(3 * count)                            # get more designers than needed
+    designers.to_a.sample(count)                                      # pick an exact size sample of designers
+  end
+
   protected
 
   def tweet_out

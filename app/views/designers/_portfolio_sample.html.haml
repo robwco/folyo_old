@@ -1,0 +1,10 @@
+.portfolio-sample
+  %ul
+    - designers.each do |designer|
+      - if project = designer.showable_projects.first rescue nil
+        %li
+          = image_tag project.artwork.asset(:small)
+          = designer.full_name
+          - if designer.profile_picture
+            = image_tag designer.profile_picture.asset(:thumbnail)
+

@@ -60,6 +60,7 @@ Folyo::Application.routes.draw do
     resources :newsletters do
       get 'webhook', on: :collection
       post 'webhook', on: :collection
+      delete 'offer', on: :member
     end
   end
 
