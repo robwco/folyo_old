@@ -5,7 +5,8 @@
 	}
 
 	#page-content > .container {
-		padding: 0;
+		padding-top: 0;
+		padding-bottom: 0;
 		position: relative;
 		@include transition-property(left);
    	@include transition-duration(400ms);

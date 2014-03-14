@@ -1,3 +1,5 @@
+= content_for :location, designer.location
+
 - if designer.has_projects?
   = render '/designers/featured_work', designer: designer, with_description: true
 
