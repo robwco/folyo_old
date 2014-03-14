@@ -1,15 +1,33 @@
-= content_for :title, "Budgets"
+= content_for :title, "Skills & Budgets"
 = content_for :body_class, "with-subnav"
 = content_for :subnav do
   = render :partial => '/designers/account_nav'
 
-.block
-  %p By filling in your acceptable <strong>starting budget</strong> for each category, you can help weed out underfunded jobs, and push clients to allocate more resources to their projects. 
-  %p Note that this data will remain <strong>strictly confidential</strong>, and will only be used in aggregate to provide budget guidelines. 
+- values = [0, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6500, 8000, 10000, 15000, 17500, 20000, 25000, 30000, 40000]
 
 .block
+  %p By filling in your acceptable <strong>starting budget</strong> for each service you provide, you can help weed out underfunded jobs and push clients to allocate more resources to their projects. 
+  %p Note that this data will remain <strong>strictly confidential</strong>, and will only be used in aggregate to provide budget guidelines. 
+
+.block.skills
+  .skill
+    %h3.skill-title
+      %input.skill-checkbox{:type => :checkbox, :id => "xyz"}
+      %label.skill-name{:for => "xyz"} Branding & Identity Design
+    .subskill
+      %h4.subskill-title Logo Design
+      %select.subskill-budget
+        - values.each do |value|
+          - if value == 0
+            %option{:value => value} No minimum
+          - elsif value == 40000
+            %option{:value => value} Above $30,000
+          - else
+            %option{:value => value} $#{number_with_delimiter(value, :delimiter => ',')}
+  
+.block
   %h3 Branding & Identity Design
-  %p Logo
+  %p Logo Design
   %p Full Identity
 
 .block
