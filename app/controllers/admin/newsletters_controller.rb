@@ -48,8 +48,8 @@ class Admin::NewslettersController < ApplicationController
   end
 
   def offer
-    #JobOffer.find(params[:job_offer_id]).cancel_sending
-    #@newsletter.job_offers.where(_id: params[:job_offer_id]).delete
+    offer = JobOffer.find(params[:job_offer_id])
+    @newsletter.remove_job_offer(offer)
     redirect_to admin_newsletter_path(@newsletter)
   end
 

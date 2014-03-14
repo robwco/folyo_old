@@ -45,8 +45,7 @@ class Newsletter
   def schedule!
     if can_schedule? && schedule_date
       MailChimpHelper.new.campaign_schedule(self.mailchimp_cid, schedule_date)
-      self.sent_at = schedule_date
-      save!
+      mark_as_sent!
     else
       false
     end
@@ -93,6 +92,12 @@ class Newsletter
 
   def company_names
     self.job_offers.pluck(:company_name).join(', ')
+  end
+
+  def remove_job_offer(offer)
+    self.job_offer_ids.delete(offer.id)
+    save!
+    offer.cancel_sending
   end
 
   protected
