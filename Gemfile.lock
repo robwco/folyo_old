@@ -79,12 +79,17 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     chronic (0.10.2)
     chronic_duration (0.10.2)
       numerizer (~> 0.1.1)
     chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cliver (0.3.2)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -260,6 +265,11 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    poltergeist (1.5.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
     premailer (1.7.9)
       css_parser (>= 1.1.9)
@@ -349,6 +359,8 @@ GEM
     simple_oauth (0.2.0)
     sinatra (1.0)
       rack (>= 1.0)
+    sitemap_generator (5.0.0)
+      builder
     slop (3.4.7)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -408,6 +420,7 @@ GEM
       rest-client
     warden (1.2.3)
       rack (>= 1.0)
+    websocket-driver (0.3.2)
     whenever (0.9.0)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -431,6 +444,7 @@ DEPENDENCIES
   bson_ext
   cancan
   capybara
+  carrierwave
   chronic_duration
   coffee-rails
   compass-rails
@@ -460,6 +474,7 @@ DEPENDENCIES
   mongoid_slug
   newrelic_rpm
   paperclip
+  poltergeist
   premailer-rails
   pry-rails
   quiet_assets
@@ -473,6 +488,7 @@ DEPENDENCIES
   sanitize
   sass-rails
   simple_form
+  sitemap_generator
   sprockets-image_compressor
   state_machine
   susy

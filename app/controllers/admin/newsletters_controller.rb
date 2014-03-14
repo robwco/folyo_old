@@ -47,6 +47,12 @@ class Admin::NewslettersController < ApplicationController
     render text: 'ok'
   end
 
+  def offer
+    JobOffer.find(params[:job_offer_id]).cancel_sending
+    @newsletter.job_offers.where(_id: params[:job_offer_id]).delete
+    redirect_to admin_newsletter_path(@newsletter)
+  end
+
   protected
 
   def parse_time(time)

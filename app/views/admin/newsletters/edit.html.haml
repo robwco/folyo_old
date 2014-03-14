@@ -23,12 +23,11 @@
     = f.input :intro, as: :text, wrapper_html: {class: 'markdown'}
 
     %label Job offers
-    -# @newsletter.job_offers.each do |o|
-    -# = render 'job_offer', job_offer: o
     %ul
       - @newsletter.job_offers.each do |o|
         %li
-          = link_to o.title, offer_path(o)
+          %span= link_to o.title, offer_path(o)
+          = link_to '(X)', offer_admin_newsletter_path(@newsletter, job_offer_id: o.id), method: :delete, class: 'delete', alt: 'Remove this offer from newsletter'
 
     - if @newsletter.can_send?
       .button-bar

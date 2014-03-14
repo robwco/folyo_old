@@ -1,10 +1,13 @@
+= content_for :location, designer.location
+
 - if designer.has_projects?
   = render '/designers/featured_work', designer: designer, with_description: true
 
 .block.about
   %h3 About Me
   - if designer.long_bio
-    %p!= format_text(designer, :long_bio)
+    %span{itemprop: 'description'}
+      != format_text(designer, :long_bio)
 
 .sidebar
   %ul.profile-meta
@@ -23,6 +26,6 @@
       %ul.skills-list
         - designer.skills.each do |s|
           %li{class: s.to_s.dasherize}= symbol_humanize(s)
-    %li.location
+    %li.location{itemprop: 'address', itemscope: true, itemtype: 'http://data-vocabulary.org/Address'}
       %h3 Location
-      %p= designer.location
+      %p{itemprop: 'locality'}= designer.location

@@ -1,5 +1,4 @@
 = content_for :title, @designer.full_name
-= content_for :location, @designer.location
 = content_for :subtitle, @designer.short_bio.truncate(70)
 = content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : image_path('default-avatar.png')
 = content_for :body_class, "designer-profile"
@@ -13,11 +12,11 @@
     = fa_icon 'envelope'
     %span Get in Touch
   .reply-actions{class: class_for_reply(@designer_reply)}
-    = link_to shortlist_offer_reply_path(@job_offer, @designer_reply), { class: 'shortlist button small-button', title: 'Shortlist this reply'} do
+    = link_to shortlist_offer_reply_path(@job_offer, @designer_reply), { class: 'shortlist button small-button', 'default-title' => shortlist_title(@designer_reply), title: shortlist_title(@designer_reply)} do
       = fa_icon 'check'
       %span Shortlisted
 
-    = link_to hide_offer_reply_path(@job_offer, @designer_reply), {class: 'hide button small-button', title: 'Hide this reply'} do
+    = link_to hide_offer_reply_path(@job_offer, @designer_reply), {class: 'hide button small-button', 'default-title' => hide_title(@designer_reply), title: hide_title(@designer_reply)} do
       %span Hidden
       = fa_icon 'ban'
 
