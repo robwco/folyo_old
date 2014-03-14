@@ -1,6 +1,3 @@
-/= content_for :title, "Put your project in front of the world's best designers"
-/= content_for :title, "Ridding the world of bad design, one company at a time"
-/ = content_for :title, "Looking for a great designer? You've found 250 of them."
 = content_for :title, "Helping companies find great designers"
 = content_for :body_class, "home"
 = content_for :add_to_head, :home
@@ -18,6 +15,7 @@
 				%h3
 					Folyo is a private community of hand-picked designers. Post your project, and you'll receive a shortlist of the best designers for the job.
 				%a.button{:href => '#start'} Read on to find out why Folyo works ↓
+
 %section.secondary.home-content#start
 	.container
 		.block
@@ -35,6 +33,10 @@
 		.block
 			%h2 …and we'll help you pick the best
 			%p Once you get enough replies, we'll also help suggest the best fit. It's like having a design agency in your corner, but without the hefty commission!
+
+%section.potfolio-sample
+	= render 'designers/portfolio_sample', designers: @designers
+
 %section.meet-designers.home-content
 	.container
 		.block
@@ -110,6 +112,7 @@
 				= image_tag 'photos/dash.jpg'
 				%span.name Dash
 			.contents I've got a lot of experience designing mobile apps, so this project is right up my alley!
+
 %section.folyo-guides.home-content
 	.container
 		.block
@@ -128,6 +131,7 @@
 				%a.button{:href => '/guides/how_to_write_a_good_job_description', data: { 'no-turbolink' => true }} Read Now
 			.more
 				%a{:href => '/guides'} More Folyo guides…
+
 %section.testimonials.home-content
 	.container
 		.block
