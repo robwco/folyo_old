@@ -68,9 +68,9 @@ gem 'premailer-rails'
 gem 'sitemap_generator'
 
 group :assets do
-  gem 'sass-rails'
   gem 'coffee-rails'
   gem 'compass-rails'
+  gem 'sass-rails'
   gem 'susy'
   gem 'uglifier'
   gem 'sprockets-image_compressor'

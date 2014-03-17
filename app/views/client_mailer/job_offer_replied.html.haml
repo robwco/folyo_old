@@ -1,5 +1,80 @@
-= content_for :intro, raw("<strong>#{@designer_reply.designer.full_name}</strong> has just replied to your job offer, \"#{@designer_reply.job_offer.title}\":")
-
-%p= @designer_reply.message
-= link_to "View #{@designer_reply.designer.full_name}\'s Profile", offer_reply_url(@designer_reply.job_offer, @designer_reply), :class=>"button"
-%span or just reply to this email to get in touch
+%table.container
+  %tr
+    %td
+      - if @designer_reply.designer.has_showable_projects?
+        %table.row
+          %tr
+            %td.wrapper
+              %table.eight.columns
+                %tr
+                  %td
+                    = image_tag @designer_reply.designer.projects[0].artwork.asset(:small)
+                  %td.expander
+            %td.wrapper.last
+              %table.four.columns
+                %tr
+                  %td
+                    - if @designer_reply.designer.projects[1].try(:can_show?)
+                      = image_tag @designer_reply.designer.projects[1].artwork.asset(:thumbnail)
+                    - if @designer_reply.designer.projects[2].try(:can_show?)
+                      = image_tag @designer_reply.designer.projects[2].artwork.asset(:thumbnail)
+                  %td.expander
+      %br/
+      / Break Tag for row
+      %table.row
+        %tr
+          %td.wrapper
+            %table.six.columns
+              %tr
+                %td
+                  %p= @designer_reply.message.html_safe
+                  %p.note You can reply to this email directly.
+                %td.expander
+          %td.wrapper.last
+            %table.six.columns
+              %tr
+                %td.panel
+                  %table.wrapper
+                    %tr
+                      %td.three.sub-columns
+                        %img.portrait{src: "avatar.jpg"}/
+                      %td.nine.sub-columns.last
+                        %h6= @designer_reply.designer.full_name
+                        %p= @designer_reply.designer.location
+                      %td.expander
+                  %table.button
+                    %tr
+                      %td
+                        %a{href: "#"} Shortlist
+                  %table.button
+                    %tr
+                      %td
+                        %a{href: "#"} Hide
+                  %p Links
+                  %table
+                    %tr
+                      %td
+                        %a{href: "#"} Portfolio »
+                  %hr/
+                  %table
+                    %tr
+                      %td
+                        %a{href: "#"} Dribbble »
+                  %hr/
+                  %table
+                    %tr
+                      %td
+                        %a{href: "#"} Behance »
+                  %hr/
+                  %table
+                    %tr
+                      %td
+                        %a{href: "#"} Twitter »
+                  %hr/
+                  %p Skills
+                  %ul.skills-list
+                    %li.mobile-design Mobile design
+                    %li.UI-design UI design
+                    %li.UX-design UX design
+                    %li.web-design Web design
+                %td.expander

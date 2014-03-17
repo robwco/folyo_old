@@ -63,6 +63,11 @@ class DesignerRepliesController < ApplicationController
     render json: { status: resource.toggle_hidden! }
   end
 
+  def mail
+    resource
+    render 'client_mailer/job_offer_replied', layout: 'mailer'
+  end
+
   protected
 
   # in order to prevent 1 + N queries, we fetch all designers at once

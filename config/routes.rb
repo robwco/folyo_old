@@ -41,7 +41,6 @@ Folyo::Application.routes.draw do
       put 'to_markdown', on: :member
     end
     resources :job_offers, path: 'offers', as: 'offers' do
-      resources :replies
       resource :order do
         put 'refund'
       end
@@ -101,6 +100,7 @@ Folyo::Application.routes.draw do
     resources :designer_replies, path: 'replies', as: 'replies' do
       put 'shortlist', on: :member
       put 'hide',      on: :member
+      get 'mail',      on: :member
     end
     resource :evaluations
   end
