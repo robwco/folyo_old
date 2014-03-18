@@ -43,6 +43,7 @@ class Client < User
       user.user_id = self.id.to_s
       user.email = self.email
       user.name = self.full_name
+      user.created_at = self.created_at
       user.custom_data = {
         type: 'client',
         slug: self.slug,

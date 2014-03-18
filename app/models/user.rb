@@ -59,9 +59,8 @@ class User
   end
 
   def track_intercom_event(event, properties = {})
-    properties[:event_name] = event
-    properties[:user] = { user_id: self.id_to_s }
-    Intercom::UserEvent.create(properties)
+    user = Intercom::User.new(user_id: self.id.to_s)
+    Intercom::UserEvent.create(event_name: event, user: user, metadata: properties )
   end
   handle_asynchronously :track_intercom_event
 
