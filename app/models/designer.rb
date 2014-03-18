@@ -272,6 +272,22 @@ class Designer < User
     end
   end
 
+  def update_intercom_attributes(force = false, by_email = false)
+    if force || status_changed? || email_changed? || full_name_changed? || profile_completeness_changed?
+      user = by_email ? Intercom::User.find(email: self.email) : Intercom::User.find(user_id: self.id) rescue Intercom::User.new
+      user.user_id = self.id.to_s
+      user.email = self.email
+      user.name = self.full_name
+      user.custom_data = {
+        type: 'designer',
+        status: self.status,
+        slug: self.slug,
+        profile_completeness: self.profile_completeness
+      }
+      user.save
+    end
+  end
+
   def set_referral_token
     self.referral_token ||= Mongoid::UidGenerator.get_uid_for(Designer, 8, 'referral_token')
   end

@@ -8,6 +8,9 @@ class SiteController < ApplicationController
     track_event("Viewing Learn More")
   end
 
+  def account
+  end
+
   def markdown
     render layout: false
   end

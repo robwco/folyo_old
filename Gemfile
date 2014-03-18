@@ -60,6 +60,8 @@ gem 'geocoder'
 gem 'activemerchant' # paypal
 gem 'mailchimp-api'
 gem 'swish' # dribbble
+gem 'intercom'
+gem 'intercom-rails'
 
 # Email
 gem 'premailer-rails'
