@@ -13,7 +13,7 @@ namespace :folyo do
     task update_users: :environment do
       User.all.each_with_index do |u, i|
         puts "Updating user ##{i}: #{u.email}"
-        u.send(:update_intercom_attributes, true)
+        u.send(:update_intercom_attributes, true) rescue nil
       end
     end
 
