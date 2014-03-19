@@ -192,6 +192,10 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
+    intercom (0.2.3)
+      json
+    intercom-rails (0.2.24)
+      activesupport (> 3.0)
     jobbr (1.1.5)
       chronic_duration
       delayed_job_mongoid
@@ -462,6 +466,8 @@ DEPENDENCIES
   headjs-rails
   heroku
   inherited_resources
+  intercom
+  intercom-rails
   jobbr (= 1.1.5)
   jquery-rails (= 2.1.4)
   kaminari

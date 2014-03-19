@@ -1,4 +1,4 @@
-class DesignersController < ApplicationController
+class ::DesignersController < ApplicationController
 
   inherit_resources
   load_and_authorize_resource
@@ -6,18 +6,18 @@ class DesignersController < ApplicationController
   before_filter :set_section
 
   def index
-    track_event("Viewing Designers")
+    track_event("Viewing ::Designers")
     @skill = params[:skill].try(:to_sym)
     index!
   end
 
   def map
-    track_event("Viewing Designer Map")
-    @designers = Designer.accepted.public_only.where(:coordinates.ne => nil)
+    track_event("Viewing ::Designer Map")
+    @designers = ::Designer.accepted.public_only.where(:coordinates.ne => nil)
   end
 
   def san_francisco_bay_area
-    @designers = Designer.accepted.public_only
+    @designers = ::Designer.accepted.public_only
   end
 
   def update
@@ -67,7 +67,7 @@ class DesignersController < ApplicationController
   protected
 
   def collection
-    @designers = Designer.page(params[:page]).per(10).order_by(created_at: :desc)
+    @designers = ::Designer.page(params[:page]).per(10).order_by(created_at: :desc)
 
     if current_user && (current_user.is_a?(Admin) || current_user.is_a?(Client))
       @designers = @designers.accepted.public_private
