@@ -127,4 +127,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def account
+    if check_user_access
+      if current_user.is_a?(Designer)
+        redirect_to edit_designer_path(current_user)
+      elsif current_user.is_a?(Client)
+        redirect_to edit_client_path(current_user)
+      else
+        redirect_to edit_user_registration_path(current_user)
+      end
+    else
+      session[:previous_url] = request.url
+    end
+  end
+
 end
