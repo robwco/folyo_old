@@ -22,11 +22,14 @@
                           %table.twelve.columns
                             %tr
                               %td.six.sub-columns
-                                %a{href: "http://folyo.me"}
-                                  %img{alt: "Folyo", height: "30", src: image_path('logo-white.png'), width: "67"}/
+                                = link_to root_path do
+                                  %img{alt: "Folyo", height: "30", src: image_path('logo-white.png'), width: "67"}
+
                               %td.six.sub-columns.last{style: "text-align:right; vertical-align:middle;"}
-                                %span.template-label
-                                  %a{href: "#"} View this online
+                                - if content_for?(:view_online)
+                                  %span.template-label
+                                    = link_to 'View this online', yield(:view_online)
                               %td.expander
             %br/
+
             = yield

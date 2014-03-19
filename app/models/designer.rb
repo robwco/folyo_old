@@ -117,6 +117,10 @@ class Designer < User
     "http://www.behance.net/#{behance_username}" unless behance_username.blank?
   end
 
+  def twitter_url
+    "https://twitter.com/#{twitter_username}" unless twitter_username.blank?
+  end
+
   def resources
     @resources ||= {}.tap do |resources|
       resources[:dribbble] = dribbble_url unless dribbble_username.blank?
