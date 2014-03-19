@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
       elsif current_user.is_a?(Client)
         redirect_to edit_client_path(current_user)
       else
-        redirect_to edit_user_registration_path(current_user)
+        redirect_to edit_user_registration_path
       end
     else
       session[:previous_url] = request.url
