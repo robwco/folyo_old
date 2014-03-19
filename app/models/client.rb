@@ -37,20 +37,18 @@ class Client < User
     end
   end
 
-  def update_intercom_attributes(force = false, by_email = false)
-    if force || company_name_changed? || email_changed? || full_name_changed?
-      user = by_email ? Intercom::User.find(email: self.email) : Intercom::User.find(user_id: self.id) rescue Intercom::User.new
-      user.user_id = self.id.to_s
-      user.email = self.email
-      user.name = self.full_name
-      user.created_at = self.created_at
-      user.custom_data = {
-        type: 'client',
-        slug: self.slug,
-        company_name: self.company_name
-      }
-      user.save
-    end
+  def update_intercom_attributes
+    user = Intercom::User.find(user_id: self.id) rescue Intercom::User.new
+    user.user_id = self.id.to_s
+    user.email = self.email
+    user.name = self.full_name
+    user.created_at = self.created_at
+    user.custom_data = {
+      role: 'client',
+      slug: self.slug,
+      company_name: self.company_name
+    }
+    user.save
   end
 
 end

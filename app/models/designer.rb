@@ -191,6 +191,22 @@ class Designer < User
     JobOffer.with_available_bonus_for_designer(self).sum { |offer| offer.order.referral_bonus }
   end
 
+  def update_intercom_attributes
+    user = Intercom::User.find(user_id: self.id) rescue Intercom::User.new
+    user.user_id = self.id.to_s
+    user.email = self.email
+    user.name = self.full_name
+    user.created_at = self.created_at
+    user.custom_data = {
+      role: 'designer',
+      status: self.status,
+      slug: self.slug,
+      profile: "http://www.folyo.me/designers/#{self.slug}",
+      profile_completeness: self.profile_completeness
+    }
+    user.save
+  end
+
   protected
 
   def tweet_out
@@ -269,23 +285,6 @@ class Designer < User
   def update_vero_attributes
     if status_changed? || email_changed? || full_name_changed?
       vero.users.edit_user!(id: self.id.to_s, changes: {email: self.email, status: self.status, full_name: self.full_name, slug: self.slug}) unless Rails.env.test?
-    end
-  end
-
-  def update_intercom_attributes(force = false, by_email = false)
-    if force || status_changed? || email_changed? || full_name_changed? || profile_completeness_changed?
-      user = by_email ? Intercom::User.find(email: self.email) : Intercom::User.find(user_id: self.id) rescue Intercom::User.new
-      user.user_id = self.id.to_s
-      user.email = self.email
-      user.name = self.full_name
-      user.created_at = self.created_at
-      user.custom_data = {
-        type: 'designer',
-        status: self.status,
-        slug: self.slug,
-        profile_completeness: self.profile_completeness
-      }
-      user.save
     end
   end
 
