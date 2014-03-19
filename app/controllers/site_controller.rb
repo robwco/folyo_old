@@ -1,7 +1,7 @@
 class SiteController < ApplicationController
 
   def home
-    @designers = Designer.featured_designers(3)
+    @featured_designers = Designer.featured_designers(3)
     render layout: 'home_layout'
   end
 
