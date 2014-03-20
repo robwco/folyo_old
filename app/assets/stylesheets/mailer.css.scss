@@ -714,11 +714,6 @@ table.google-plus:hover td {
   background: #CC0000 !important;
 }
 
-.template-label {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 11px;
-}
 
 .callout .panel {
   background: #ECF8FF;
@@ -763,6 +758,14 @@ table.columns .right-text-pad {
 
 /* custom classes */
 
+.template-label{
+  a, a:link, a:visited, a:hover{
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 11px;
+  }
+}
+
 .note{
   color: #a4acb0;
 }
@@ -783,4 +786,19 @@ table.columns .right-text-pad {
 
 .header a:hover{
   color: #333333 !important;
+}
+.image{
+  display: block;
+}
+.portfolio-sample{
+  &, img{
+    display: inline-block;
+  }
+  &.image2{
+    margin-bottom: 15px;
+  }
+}
+.panel{
+  border:none;
+  padding: 20px !important;
 }

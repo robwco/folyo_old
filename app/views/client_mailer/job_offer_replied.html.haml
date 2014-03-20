@@ -1,93 +1,92 @@
-= content_for :view_online, offer_reply_path(@designer_reply.job_offer, @designer_reply)
+= content_for :view_online, offer_reply_url(@designer_reply.job_offer, @designer_reply)
 
-%table.container
-
-  %tr
-    %td
-      - if @designer_reply.designer.has_showable_projects?
-        %table.row
+- if @designer_reply.designer.has_showable_projects?
+  %table.row
+    %tr
+      %td.wrapper
+        %table.eight.columns
           %tr
-            %td.wrapper
-              %table.eight.columns
-                %tr
-                  %td
-                    = image_tag @designer_reply.designer.projects[0].artwork.asset(:small)
-                  %td.expander
-            %td.wrapper.last
-              %table.four.columns
-                %tr
-                  %td
-                    - if @designer_reply.designer.projects[1].try(:can_show?)
-                      = image_tag @designer_reply.designer.projects[1].artwork.asset(:thumbnail)
-                    - if @designer_reply.designer.projects[2].try(:can_show?)
-                      = image_tag @designer_reply.designer.projects[2].artwork.asset(:thumbnail)
-                  %td.expander
-      %br/
+            %td
+              = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image1' do
+                = image_tag @designer_reply.designer.projects[0].artwork.asset(:small)
+            %td.expander
+      %td.wrapper.last
+        %table.four.columns
+          %tr
+            %td
+              - if @designer_reply.designer.projects[1].try(:can_show?)
+                = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image2' do
+                  = image_tag @designer_reply.designer.projects[1].artwork.asset(:thumbnail)
+              - if @designer_reply.designer.projects[2].try(:can_show?)
+                = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image3' do
+                  = image_tag @designer_reply.designer.projects[2].artwork.asset(:thumbnail)
+            %td.expander
+%br/
 
-      / Break Tag for row
-      %table.row
+/ Break Tag for row
+%table.row
+  %tr
+    %td.wrapper
+      %table.six.columns
         %tr
-          %td.wrapper
-            %table.six.columns
+          %td
+            %p= @designer_reply.message.html_safe
+            %p.note You can reply to this email directly.
+          %td.expander
+
+    %td.wrapper.last
+      %table.six.columns
+        %tr
+          %td.panel
+
+            %table.wrapper
+              %tr
+                %td.three.sub-columns
+                  - if @designer_reply.designer.profile_picture
+                    = image_tag @designer_reply.designer.profile_picture.asset(:thumbnail), class: 'portrait'
+                %td.nine.sub-columns.last
+                  %h6= @designer_reply.designer.full_name
+                  %p= @designer_reply.designer.location
+                %td.expander
+
+            %table.button
               %tr
                 %td
-                  %p= @designer_reply.message.html_safe
-                  %p.note You can reply to this email directly.
-                %td.expander
-
-          %td.wrapper.last
-            %table.six.columns
+                  %a{href: "#"} Shortlist
+            %table.button
               %tr
-                %td.panel
+                %td
+                  %a{href: "#"} Hide
 
-                  %table.wrapper
-                    %tr
-                      %td.three.sub-columns
-                        - if @designer_reply.designer.profile_picture
-                          = image_tag @designer_reply.designer.profile_picture.asset(:thumbnail), class: 'portrait'
-                      %td.nine.sub-columns.last
-                        %h6= @designer_reply.designer.full_name
-                        %p= @designer_reply.designer.location
-                      %td.expander
+            %p Links
+            %table
+              %tr
+                %td
+                  - if @designer_reply.designer.portfolio_url
+                    = link_to 'Portfolio »', @designer_reply.designer.portfolio_url
+            %hr/
+            %table
+              %tr
+                %td
+                  - if @designer_reply.designer.dribbble_url
+                    = link_to 'Dribbble »', @designer_reply.designer.dribbble_url
+            %hr/
+            %table
+              %tr
+                %td
+                  - if @designer_reply.designer.behance_url
+                    = link_to 'Behance »', @designer_reply.designer.behance_url
+            %hr/
+            %table
+              %tr
+                %td
+                  - if @designer_reply.designer.twitter_url
+                    = link_to 'Twitter »', @designer_reply.designer.twitter_url
+            / %hr/
 
-                  %table.button
-                    %tr
-                      %td
-                        %a{href: "#"} Shortlist
-                  %table.button
-                    %tr
-                      %td
-                        %a{href: "#"} Hide
+            / %p Skills
+            / %ul.skills-list
+            /   - @designer_reply.designer.skills.each do |skill|
+            /     %li{class: skill.to_s.dasherize}= symbol_humanize(skill)
 
-                  %p Links
-                  %table
-                    %tr
-                      %td
-                        - if @designer_reply.designer.portfolio_url
-                          = link_to 'Portfolio »', @designer_reply.designer.portfolio_url
-                  %hr/
-                  %table
-                    %tr
-                      %td
-                        - if @designer_reply.designer.dribbble_url
-                          = link_to 'Dribbble »', @designer_reply.designer.dribbble_url
-                  %hr/
-                  %table
-                    %tr
-                      %td
-                        - if @designer_reply.designer.behance_url
-                          = link_to 'Behance »', @designer_reply.designer.behance_url
-                  %hr/
-                  %table
-                    %tr
-                      %td
-                        - if @designer_reply.designer.twitter_url
-                          = link_to 'Twitter »', @designer_reply.designer.twitter_url
-                  %hr/
-
-                  %p Skills
-                  %ul.skills-list
-                    - @designer_reply.designer.skills.each do |skill|
-                      %li{class: skill.to_s.dasherize}= symbol_humanize(skill)
-
-                %td.expander
+          %td.expander

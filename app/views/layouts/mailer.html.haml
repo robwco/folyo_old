@@ -32,4 +32,22 @@
                               %td.expander
             %br/
 
-            = yield
+            %table.container
+              %tbody
+                %tr
+                  %td
+                    = yield
+
+                    %br/
+
+                    / Footer
+                    %table.row
+                      %tr
+                        %td.wrapper.last
+                          %table.twelve.columns
+                            %tr
+                              %td{align: "center"}
+                                %center
+                                  %p{style: "text-align:center;"}
+                                    %a{href: "http://folyo.me"} &copy; 2014 Folyo
+                              %td.expander
