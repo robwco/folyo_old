@@ -36,6 +36,8 @@ Folyo::Application.routes.draw do
     resources :designers do
       get 'messages',    on: :collection
       put 'to_markdown', on: :member
+      get 'accepted_email', on: :member
+      get 'rejected_email', on: :member
     end
     resources :clients do
       put 'to_markdown', on: :member
