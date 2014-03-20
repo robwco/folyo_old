@@ -9,31 +9,14 @@
   %p By filling in your <strong>starting acceptable budget</strong> for each project category, you can help weed out underfunded jobs, and push clients to allocate more resources to their projects.
   %p Note that this data will remain <strong>strictly confidential</strong>, and will only be used in aggregate to provide budget guidelines.
 
-.block
-  %h3 Branding & Identity Design
-  %p Logo
-  %p Full Identity
+- Designer.skills.each do |skill_group|
+  .block
 
-.block
-  %h3 Web Design
-  %p Homepage
-  %p Full site
-
-.block
-  %h3 User Interface Design
-  %p Web App
-  %p Mobile App
-
-.block
-  %h3 UX and Interaction Design
-  %p UX Research
-  %p Wireframing & Prototyping
-
-.block
-  %h3 Illustration
-  %p Illustration
-  %p Mobile App Icon
-  %p Icon Set
+    %h3
+      %input{type: 'checkbox'}
+      = skill_group[:label]
+    - skill_group[:skills].each do |skill|
+      %p= symbol_humanize(skill)
 
 .block
   %h3 Other

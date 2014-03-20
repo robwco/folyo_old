@@ -38,7 +38,13 @@ class Designer < User
   alias_method  :designer_projects, :projects
 
   def self.skills
-    [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
+    #[:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
+    [
+      { label: 'Branding & Identity design', skills: [:logo, :full_identity] },
+      { label: 'Web designer'                , skills: [:homepage, :full_site] },
+      { label: 'UX & Interaction Design'   , skills: [:web_app, :mobile_app] },
+      { label: 'Illustration',                 skills: [:illustration, :mobile_app_icon, :icon_set] }
+    ]
   end
 
   def self.statuses
