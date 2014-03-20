@@ -1,3 +1,7 @@
+@import "compass/css3";
+@import "includes/colors";
+@import "includes/variables";
+
 /**********************************************
 * Ink v1.0.5 - Copyright 2013 ZURB Inc        *
 **********************************************/
@@ -43,7 +47,7 @@ img {
   -ms-interpolation-mode: bicubic;
   width: auto;
   max-width: 100%;
-  float: left;
+  // float: left;
   clear: both;
   display: block;
 }
@@ -317,13 +321,13 @@ img.center {
 /* Typography */
 
 body, table.body, h1, h2, h3, h4, h5, h6, p, td {
-  color: #222222;
+  color: $text;
   font-family: "Helvetica", "Arial", sans-serif;
   font-weight: normal;
   padding:0;
   margin: 0;
   text-align: left;
-  line-height: 1.3;
+  line-height: 1.7;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -336,7 +340,7 @@ h3 {font-size: 32px;}
 h4 {font-size: 28px;}
 h5 {font-size: 24px;}
 h6 {font-size: 20px;}
-body, table.body, p, td {font-size: 14px;line-height:22px;}
+body, table.body, p, td {font-size: 14px;}
 
 p.lead, p.lede, p.leed {
   font-size: 18px;
@@ -429,11 +433,11 @@ table.medium-button td,
 table.large-button td {
   display: block;
   width: auto !important;
-  text-align: center;
-  background: #2ba6cb;
-  border: 1px solid #2284a1;
-  color: #ffffff;
-  padding: 8px 0;
+  // text-align: center;
+  // background: #2ba6cb;
+  // border: 1px solid #2284a1;
+  // color: #ffffff;
+  // padding: 8px 0;
 }
 
 table.tiny-button td {
@@ -758,6 +762,10 @@ table.columns .right-text-pad {
 
 /* custom classes */
 
+body, table.body{
+  line-height: 1.5;
+}
+
 .template-label{
   a, a:link, a:visited, a:hover{
     color: #ffffff !important;
@@ -792,7 +800,7 @@ table.columns .right-text-pad {
 }
 .portfolio-sample{
   &, img{
-    display: inline-block;
+    display: block;
   }
   &.image2{
     margin-bottom: 15px;
@@ -801,4 +809,74 @@ table.columns .right-text-pad {
 .panel{
   border:none;
   padding: 20px !important;
+}
+
+.button{ // base button style
+  font-weight:bold();
+  text-align:center;
+  @include border-radius(5px);
+  cursor:pointer;
+  background:$primaryButton;
+  tr td{
+    padding: 0;
+  }
+  a{
+    display: block;
+    text-align: center;
+    padding:10px 20px;
+    line-height:1;
+    font-size:16px;
+    color:white;
+  }
+  a:active{
+    position:relative;
+    top:1px;
+  }
+  &.hide{
+    background: $red1; 
+  }
+}
+
+table.links{
+
+}
+.designer-name{
+  line-height: 1.4;
+}
+.designer-location{
+  color:$lightertext;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
+hr{
+  margin: 0 0 10px 0;
+}
+.designer-message{
+  border: 3px solid $lightgrey7;
+  @include border-radius(5px);
+  padding: 20px;
+}
+.view-online{
+  display: block;
+  margin-top: 5px;
+}
+table.view-full-profile{
+  width: 100%;
+  td{
+    padding: 0;
+  }
+  a{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+.designer-portrait{
+  img{
+    max-width: 50px;
+  }
+}
+.portfolio-sample{
+  border: 3px solid $lightgrey7;
 }

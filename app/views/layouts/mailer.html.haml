@@ -28,7 +28,7 @@
                               %td.six.sub-columns.last{style: "text-align:right; vertical-align:middle;"}
                                 - if content_for?(:view_online)
                                   %span.template-label
-                                    = link_to 'View this online', yield(:view_online)
+                                    = link_to 'View this email in your browser', yield(:view_online)
                               %td.expander
             %br/
 
@@ -37,8 +37,6 @@
                 %tr
                   %td
                     = yield
-
-                    %br/
 
                     / Footer
                     %table.row
