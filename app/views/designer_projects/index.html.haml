@@ -1,4 +1,5 @@
-= content_for :title, 'My Portfolio'
+= render '/designers/designer_header', designer: @designer
+
 = content_for :sidebar do
   - if @designer.can_create_project?
     = link_to 'Add a project', new_designer_project_path(@designer), class: 'button big-button'

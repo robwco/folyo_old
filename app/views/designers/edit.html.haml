@@ -1,10 +1,8 @@
+= render 'designer_header', designer: @designer
+
 - if current_user.is_a? Admin
-  = content_for :title, "#{@designer.full_name} account"
-  = content_for :subtitle, @designer.email
   = content_for :parent_level do
     = link_to "Designers", admin_designers_path
-- else
-  = content_for :title, "My Account"
 
 = content_for :body_class, "with-subnav"
 = content_for :subnav do

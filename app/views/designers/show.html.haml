@@ -1,10 +1,4 @@
-= content_for :title, @designer.full_name
-= content_for :location, @designer.location
-
-= content_for :subtitle do
-  %span{itemprop: 'jobTitle'}= @designer.short_bio.truncate(70)
-
-= content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : 'default-avatar.png'
+= render 'designer_header', designer: @designer
 
 = content_for :body_class, "designer-profile"
 

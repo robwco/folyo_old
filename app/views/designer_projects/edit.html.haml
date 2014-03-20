@@ -1,8 +1,7 @@
-= content_for :title, "Add A New Project"
-= content_for :back_path, designer_projects_path(@designer)
-= content_for :back_name, 'Portfolio'
+= render '/designers/designer_header', designer: @designer
+
 = content_for :subnav do
-  = render :partial => '/designers/account_nav'
+  = render '/designers/account_nav'
 
 = content_for :sidebar do
   .artwork

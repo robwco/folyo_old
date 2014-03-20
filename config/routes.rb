@@ -67,8 +67,7 @@ Folyo::Application.routes.draw do
   resources :designers do
     get 'map',                    on: :collection
     get 'san_francisco_bay_area', on: :collection
-    get 'notifications',          on: :member
-    get 'budgets',          on: :member
+    get 'budgets',                on: :member
     get 'reapply',                on: :member
     resources :messages
     resources :designer_projects, path: 'projects', as: 'projects' do
