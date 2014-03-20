@@ -12,9 +12,9 @@ module DesignerRepliesHelper
 
   def active_class_for_filter(filter = nil)
     if filter.nil? && params[:status].blank?
-      'active'
+      'current'
     elsif params[:status] == filter
-      'active'
+      'current'
     else
       ''
     end
@@ -29,6 +29,22 @@ module DesignerRepliesHelper
       'Shortlist'
     elsif status == 'hidden'
       'Hidden replies'
+    end
+  end
+
+  def shortlist_title(reply)
+    if reply.shortlisted?
+      'Remove from shortlist'
+    else
+      'Shortlist this reply'
+    end
+  end
+
+  def hide_title(reply)
+    if reply.hidden?
+      'Un-hide this reply'
+    else
+      'Hide this reply'
     end
   end
 

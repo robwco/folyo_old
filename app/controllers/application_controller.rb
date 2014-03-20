@@ -118,13 +118,26 @@ class ApplicationController < ActionController::Base
     when 'update' then 'Edit'
     else action_name
     end.camelize
-
     "Views.#{self.class.name.gsub('::', '.').gsub(/Controller$/, '')}.#{action}View"
   end
 
   def set_referral_code
     if params[:ref]
       session[:referral_token] = params[:ref]
+    end
+  end
+
+  def account
+    if check_user_access
+      if current_user.is_a?(Designer)
+        redirect_to edit_designer_path(current_user)
+      elsif current_user.is_a?(Client)
+        redirect_to edit_client_path(current_user)
+      else
+        redirect_to edit_user_registration_path
+      end
+    else
+      session[:previous_url] = request.url
     end
   end
 

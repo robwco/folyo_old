@@ -3,7 +3,7 @@
   = render :partial => '/site/header'
   %body.no-js{class: yield(:body_class), 'data-class-name' => js_class_name}
     = render_site_nav
-    #page
+    #page{@microdata || {}}
       - if yield(:header).blank?
         %section.subheader#page-header
           .container
@@ -15,14 +15,14 @@
                 = yield(:mainaction)
             .main-header
               - unless yield(:avatar).blank?
-                = image_tag(yield(:avatar), class: 'avatar header-avatar')
+                = image_tag(yield(:avatar), class: 'avatar header-avatar', itemprop: 'image')
               .header-title
                 %h1.title
                   - unless yield(:back_name).blank? || yield(:back_path).blank?
                     = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
-                  %span= yield(:title)
+                  %span{@title_microdata || {}}= yield(:title)
                   - unless yield(:location).blank?
-                    %span.reply-location= yield(:location)
+                    %span.reply-location= yield(:location)                
                 - unless yield(:subtitle).blank?
                   %h2.subtitle
                     = yield(:subtitle)

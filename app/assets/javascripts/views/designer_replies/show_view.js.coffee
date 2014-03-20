@@ -9,6 +9,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     document.title = "Folyo - #{$reply.attr('data-title')}"
     $('#page-content .container').css('left', $reply.attr('data-left'))
     $('#page-content .container .main').height($reply.height())
+    Widgets.FancyBox.cleanup()
     Widgets.FancyBox.enable()
 
     # updating header with reply content
@@ -16,6 +17,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     $('.avatar', $header).attr('src', $reply.attr('data-avatar'))
     $('.title span', $header).html($reply.attr('data-title'))
     $('.subtitle', $header).html($reply.attr('data-subtitle'))
+    $('.reply-location', $header).html($reply.attr('data-location'))
 
     # updating actions
     $('#get-in-touch').attr('href', "/designers/#{$reply.attr('data-designer-id')}/messages/new")
@@ -64,7 +66,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
 
   popstateEventListener: (e) =>
     e.stopPropagation() && e.preventDefault()
-    @showReply(document.location.pathname)
+    @showReply("#{document.location.pathname}#{document.location.search}")
 
   enableActionButtons: ->
     $('.shortlist.button, .hide.button').click (e) ->
@@ -76,17 +78,20 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
         type: 'POST'
         dataType: 'json'
         data:
-          shortlist: true
           _method: 'PUT'
         success: (data) ->
           $btn.removeClass('spinning')
+          $btn.tipsy('hide')
           if data.status == 'hidden'
+            $btn.attr('title', 'Un-hide this reply')
             $reply.addClass('reply-hidden')
             $reply.removeClass('reply-shortlisted')
           else if data.status == 'shortlisted'
+            $btn.attr('title', 'Remove from shortlist')
             $reply.addClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
           else
+            $('.reply-actions a').each (i, r) -> $(r).attr('title', $(r).attr('default-title'))
             $reply.removeClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
 

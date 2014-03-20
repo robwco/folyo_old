@@ -1,4 +1,4 @@
-class DesignersController < ApplicationController
+class ::DesignersController < ApplicationController
 
   inherit_resources
   load_and_authorize_resource
@@ -6,13 +6,13 @@ class DesignersController < ApplicationController
   before_filter :set_section
 
   def index
-    track_event("Viewing Designers")
+    track_event("Viewing ::Designers")
     @skill = params[:skill].try(:to_sym)
     index!
   end
 
   def map
-    track_event("Viewing Designer Map")
+    track_event("Viewing ::Designer Map")
     @designers = ::Designer.accepted.public_only.where(:coordinates.ne => nil)
   end
 
@@ -58,10 +58,16 @@ class DesignersController < ApplicationController
     redirect_to new_user_session_path, notice: 'Your account has been deleted. Hope to see you back soon!'
   end
 
+  def show
+    @microdata = { itemscope: true, itemtype: "http://data-vocabulary.org/Person" }
+    @title_microdata = { itemprop: 'name' }
+    show!
+  end
+
   protected
 
   def collection
-    @designers = ::Designer.page(params[:page]).per(10)
+    @designers = ::Designer.page(params[:page]).per(10).order_by(created_at: :desc)
 
     if current_user && (current_user.is_a?(Admin) || current_user.is_a?(Client))
       @designers = @designers.accepted.public_private

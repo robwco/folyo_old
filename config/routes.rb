@@ -60,6 +60,7 @@ Folyo::Application.routes.draw do
     resources :newsletters do
       get 'webhook', on: :collection
       post 'webhook', on: :collection
+      delete 'offer', on: :member
     end
   end
 
@@ -106,6 +107,8 @@ Folyo::Application.routes.draw do
   end
 
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
+
+  get 'account', controller: 'application', action: 'account'
 
   root to: "site#home"
 

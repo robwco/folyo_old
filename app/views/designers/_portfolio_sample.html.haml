@@ -1,0 +1,15 @@
+.container
+  - designers.each do |designer|
+    - if project = designer.showable_projects.first rescue nil
+      .portfolio-sample
+        .portfolio-sample-project
+          = link_to designer_path(designer), :class => 'portfolio-sample-image' do
+            = image_tag project.artwork.asset(:small)
+          %h4.portfolio-sample-project-name
+            = link_to project.name, designer_path(designer)
+        .portfolio-sample-designer
+          - if designer.profile_picture
+            = link_to designer_path(designer), :class => 'avatar portfolio-sample-avatar' do
+              = image_tag designer.profile_picture.asset(:thumbnail)
+          %h4.portfolio-sample-name
+            = link_to designer.full_name, designer_path(designer) 

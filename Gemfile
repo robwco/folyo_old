@@ -38,6 +38,7 @@ gem 'zeroclipboard-rails'
 
 # Upload
 gem 'aws-sdk' # S3 API
+gem 'carrierwave'
 gem 'paperclip' # file attachment syntax and callbacks
 gem 'mongoid-paperclip', require: "mongoid_paperclip"
 gem 's3_direct_upload' # direct upload form helper and assets
@@ -59,9 +60,14 @@ gem 'geocoder'
 gem 'activemerchant' # paypal
 gem 'mailchimp-api'
 gem 'swish' # dribbble
+gem 'intercom'
+gem 'intercom-rails'
 
 # Email
 gem 'premailer-rails'
+
+# SEO
+gem 'sitemap_generator'
 
 group :assets do
   gem 'sass-rails'
@@ -91,4 +97,5 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'lorem'
+  gem 'poltergeist'
 end

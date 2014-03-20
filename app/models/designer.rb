@@ -191,6 +191,30 @@ class Designer < User
     JobOffer.with_available_bonus_for_designer(self).sum { |offer| offer.order.referral_bonus }
   end
 
+  def update_intercom_attributes
+    user = Intercom::User.find(user_id: self.id) rescue Intercom::User.new
+    user.user_id = self.id.to_s
+    user.email = self.email
+    user.name = self.full_name
+    user.created_at = self.created_at
+    user.custom_data = {
+      role: 'designer',
+      status: self.status,
+      slug: self.slug,
+      profile: "http://www.folyo.me/designers/#{self.slug}",
+      profile_completeness: self.profile_completeness
+    }
+    user.save
+  end
+
+  def self.featured_designers(count)
+    designers = Designer.public_only.accepted.with_portfolio.with_profile_picture # we pick only designers with profile picture & portfolio
+    designers = designers.order_by(randomization_key: :asc)           # sort them in pseudo-random order
+    designers = designers.offset(rand(designers.count - count + 1))   # start from a random position (with enough designers ahead)
+    designers = designers.limit(3 * count)                            # get more designers than needed
+    designers.to_a.sample(count)                                      # pick an exact size sample of designers
+  end
+
   protected
 
   def tweet_out

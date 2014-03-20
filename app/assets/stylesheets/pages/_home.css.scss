@@ -191,13 +191,17 @@
 			background-image: image-url('cross-medium.png');
 		}
 	}
+  .portfolio-samples{
+    padding-bottom: $spacing;
+    margin-bottom: $spacing;
+    border-bottom:2px solid #dde5e9;
+  }
 	.designers{
 		margin-bottom:40px;
 		@include cf;
-		border-top:2px solid #dde5e9;
 		border-bottom:2px solid #dde5e9;
 		@include span-columns(12 omega);
-		padding: 40px 0;
+		padding-bottom: $spacing;
 	}
 	.designer{
 		margin-bottom:20px;
