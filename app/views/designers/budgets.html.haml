@@ -4,20 +4,31 @@
 = content_for :subnav do
   = render '/designers/account_nav'
 
+- values =
+
 .block
   %p Would you design a logo for $10000? Probably. Would you do it for $14.99? Probably not.
   %p By filling in your <strong>starting acceptable budget</strong> for each project category, you can help weed out underfunded jobs, and push clients to allocate more resources to their projects.
   %p Note that this data will remain <strong>strictly confidential</strong>, and will only be used in aggregate to provide budget guidelines.
 
-- Designer.skills.each do |skill_group|
-  .block
+= form_for @designer do |f|
 
-    %h3
-      %input{type: 'checkbox'}
-      = skill_group[:label]
-    - skill_group[:skills].each do |skill|
-      %p= symbol_humanize(skill)
+  .block.skills
 
-.block
-  %h3 Other
-  %p Suggest other categories…
+    - Designer.skills.each do |skill_group|
+      .skill
+        %h3.skill-title
+          %input.skill-checkbox{type: :checkbox, id: skill_group[:label].parameterize}
+          %label.skill-name{for: skill_group[:label].parameterize}= skill_group[:label]
+
+        - skill_group[:skills].each do |skill|
+          .subskill
+            %h4.subskill-title= symbol_humanize(skill)
+            %select.subskill-budget
+              - Designer.budget_values.each do |value|
+                - if value == 0
+                  %option{value: value} No minimum
+                - elsif value == 40000
+                  %option{value: value} Above $30,000
+                - else
+                  %option{value: value}= "$#{number_with_delimiter(value, delimiter: ',')}"
