@@ -2,6 +2,14 @@
 @import "includes/colors";
 @import "includes/variables";
 
+@mixin small-email(){
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+
+
 /**********************************************
 * Ink v1.0.5 - Copyright 2013 ZURB Inc        *
 **********************************************/
@@ -589,8 +597,8 @@ body.outlook p {
 @media only screen and (max-width: 600px) {
 
   table[class="body"] img {
-    width: auto !important;
-    height: auto !important;
+    // width: auto !important;
+    // height: auto !important;
   }
 
   table[class="body"] center {
@@ -733,7 +741,7 @@ table.google-plus:hover td {
 }
 
 .footer .wrapper {
-  background: #ebebeb;
+  // background: #ebebeb;
 }
 
 .footer h5 {
@@ -764,31 +772,20 @@ table.columns .right-text-pad {
   }
 }
 
-/* custom classes */
+/* begin custom styles */
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
 
 body, table.body{
   line-height: 1.5;
 }
 
-.template-label{
-  a, a:link, a:visited, a:hover{
-    color: #ffffff !important;
-    font-weight: bold;
-    font-size: 11px;
-  }
-}
+// Header
 
-.note{
-  color: #a4acb0;
-}
-
-.portrait{
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-}
-
- .header img{
+.header img{
   max-height: 30px;
 }
 
@@ -799,26 +796,62 @@ body, table.body{
 .header a:hover{
   color: #333333 !important;
 }
-.image{
-  display: block;
-}
-.portfolio-sample{
-  &, img{
-    display: block;
-  }
-  &.image2{
-    margin-bottom: 15px;
+
+.template-label{
+  a, a:link, a:visited, a:hover{
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 11px;
   }
 }
-.panel{
-  border:none;
-  padding: 20px !important;
+
+// designer-message
+
+.designer-message{
+  border: 3px solid $lightgrey7;
+  @include border-radius(3px);
+  padding: 20px;
 }
+
+// designer-profile
+
+table[class="body"] .designer-profile, table[class="body"] .designer-actions{
+  @include small-email{
+   display: table !important;
+   width: 100%;
+  }
+}
+
+table[class="body"] table.columns td.designer-portrait{
+
+  img{
+    background: $lightgrey7;
+    @include border-radius(50%);
+    width: 50px;
+  }
+  padding-right: 10px;
+}
+
+.designer-data{
+  white-space: nowrap;
+}
+
+.designer-name{
+  line-height: 1.4;
+  margin-bottom: 0px;
+}
+.designer-location{
+  color:$lightertext;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
+// designer-actions
 
 .button{ // base button style
   font-weight:bold();
   text-align:center;
-  @include border-radius(5px);
+  @include border-radius(3px);
   cursor:pointer;
   background:$primaryButton;
   tr td{
@@ -841,46 +874,56 @@ body, table.body{
   }
 }
 
-table.links{
-
-}
-.designer-name{
-  line-height: 1.4;
-}
-.designer-location{
-  color:$lightertext;
-  margin-bottom: 0;
-  line-height: 1.4;
-}
-
-hr{
-  margin: 0 0 10px 0;
-}
-.designer-message{
-  border: 3px solid $lightgrey7;
-  @include border-radius(5px);
-  padding: 20px;
-}
-.view-online{
-  display: block;
-  margin-top: 5px;
-}
-table.view-full-profile{
-  width: 100%;
-  td{
-    padding: 0;
-  }
+.view-full-profile{
   a{
     display: block;
     text-align: center;
     font-size: 12px;
   }
 }
-.designer-portrait{
-  img{
-    max-width: 50px;
-  }
-}
+
+// designer-portfolio
+
 .portfolio-sample{
   border: 3px solid $lightgrey7;
+  @include border-radius(3px);
+  &, img{
+    width: 100% !important;
+    display: block;
+  }
+  &.image2{
+    margin-bottom: 15px;
+  }
+}
+.panel{
+  border:none;
+  padding: 20px !important;
+}
+
+// links
+
+table[class="body"] .links{
+  .link{
+    @include small-email{
+      display: table !important;
+    }
+    td{
+      padding: 0;
+    }
+    a{
+      display: block;
+      width: 100%;
+      background: $lightgrey7;
+      text-align: center;
+      @include border-radius(3px);
+      padding: 10px 0;
+      font-weight: bold;
+    }
+  }
+}
+
+// footer
+
+.footer{
+  margin-top: 10px;
 }

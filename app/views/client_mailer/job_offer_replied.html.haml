@@ -16,13 +16,13 @@
       %table.seven.columns
         %tr
           %td
-
-            %table.wrapper
+            %table.designer-profile
               %tr
-                %td.sub-columns.designer-portrait
+                %td.designer-portrait
                   - if @designer_reply.designer.profile_picture
-                    = image_tag @designer_reply.designer.profile_picture.asset(:thumbnail), class: 'portrait'
-                %td.sub-columns.last
+                    / %img{alt: "Folyo", src: "/assets/default-avatar.png"}
+                    = image_tag @designer_reply.designer.profile_picture.asset(:thumbnail)
+                %td.designer-data
                   %h6.designer-name= @designer_reply.designer.full_name
                   %p.designer-location= @designer_reply.designer.location
                 %td.expander
@@ -31,9 +31,7 @@
       %table.five.columns
         %tr
           %td
-
-            
-            %table.wrapper.last
+            %table.wrapper.last.designer-actions
               %tr
                 %td.six.sub-columns
                   %table.button.shortlist
@@ -46,10 +44,8 @@
                       %td
                         %a{href: "#"} Hide
                 %td.expander
-            %table.wrapper.last.view-full-profile
-              %tr
-                %td.twelve.sub-columns.last
-                  = link_to 'View Full Profile', offer_reply_url(@designer_reply.job_offer, @designer_reply)
+            .view-full-profile
+              = link_to 'View Full Profile', offer_reply_url(@designer_reply.job_offer, @designer_reply)
 
             / %hr/
 
@@ -61,7 +57,7 @@
           %td.expander
 
 - if @designer_reply.designer.has_showable_projects?
-  %table.row
+  %table.row.designer-portfolio
     %tr
       %td.wrapper
         %table.eight.columns
@@ -76,28 +72,36 @@
             %td
               - if @designer_reply.designer.projects[1].try(:can_show?)
                 = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image2' do
-                  = image_tag @designer_reply.designer.projects[1].artwork.asset(:thumbnail)
+                  = image_tag @designer_reply.designer.projects[1].artwork.asset(:small)
               - if @designer_reply.designer.projects[2].try(:can_show?)
                 = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image3' do
-                  = image_tag @designer_reply.designer.projects[2].artwork.asset(:thumbnail)
+                  = image_tag @designer_reply.designer.projects[2].artwork.asset(:small)
             %td.expander
 
-/ %table.row
-/   %tr
-/     %td.wrapper.last
-/       %table.twelve.columns
-/         %tr
-/           %td
-/             %table.wrapper.links
-/               %tr
-/                 %td.six.sub-columns
-/                   - if @designer_reply.designer.portfolio_url
-/                     = link_to 'Portfolio', @designer_reply.designer.portfolio_url
-/                   - if @designer_reply.designer.dribbble_url
-/                     = link_to 'Dribbble', @designer_reply.designer.dribbble_url
-/                 %td.six.sub-columns.last
-/                   - if @designer_reply.designer.behance_url
-/                     = link_to 'Behance', @designer_reply.designer.behance_url
-/                   - if @designer_reply.designer.twitter_url
-/                     = link_to 'Twitter', @designer_reply.designer.twitter_url
-/                 %td.expander
+.links
+  %table.row
+    %tr
+      %td.wrapper
+        %table.four.columns.link
+          %tr
+            %td
+              = link_to 'Portfolio', @designer_reply.designer.portfolio_url
+      %td.wrapper
+        %table.four.columns.link
+          %tr
+            %td
+              = link_to 'Dribbble', @designer_reply.designer.dribbble_url
+      %td.wrapper.last
+        %table.four.columns.link
+          %tr
+            %td
+              = link_to 'Behance', @designer_reply.designer.behance_url   
+      %td.expander
+  %table.row
+    %tr
+      %td.wrapper
+        %table.four.columns.link
+          %tr
+            %td
+              = link_to 'Twitter', @designer_reply.designer.twitter_url      
+      %td.expander

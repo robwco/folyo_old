@@ -42,6 +42,7 @@ BEM Cheatsheet:
 	}
 	&.disabled {
 		background: $lightgrey2;
+		color: $lightertext;
 		cursor: default;
 	}
 }

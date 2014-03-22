@@ -1,3 +1,4 @@
+!!!
 %html
   %head
     %meta{'http-equiv' => 'Content-Type',     content: 'text/html; charset=utf-8' }
@@ -23,7 +24,7 @@
                             %tr
                               %td.six.sub-columns
                                 = link_to root_path do
-                                  %img{alt: "Folyo", height: "30", src: "http://folyo.me/"+image_path('logo-white.png'), width: "67"}
+                                  %img{alt: "Folyo", height: "30", src: "http://assets0.folyo.me/emails/logo-white.png", width: "67"}
 
                               %td.six.sub-columns.last{style: "text-align:right; vertical-align:middle;"}
                                 - if content_for?(:view_online)
@@ -39,7 +40,7 @@
                     = yield
 
                     / Footer
-                    %table.row
+                    %table.row.footer
                       %tr
                         %td.wrapper.last
                           %table.twelve.columns
