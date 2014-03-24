@@ -64,7 +64,7 @@
           %tr
             %td
               = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image1' do
-                = image_tag @designer_reply.designer.projects[0].artwork.asset(:small)
+                = image_tag @designer_reply.designer.projects[0].artwork.asset(:medium)
             %td.expander
       %td.wrapper.last
         %table.four.columns
@@ -72,10 +72,10 @@
             %td
               - if @designer_reply.designer.projects[1].try(:can_show?)
                 = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image2' do
-                  = image_tag @designer_reply.designer.projects[1].artwork.asset(:small)
+                  = image_tag @designer_reply.designer.projects[1].artwork.asset(:medium)
               - if @designer_reply.designer.projects[2].try(:can_show?)
                 = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image3' do
-                  = image_tag @designer_reply.designer.projects[2].artwork.asset(:small)
+                  = image_tag @designer_reply.designer.projects[2].artwork.asset(:medium)
             %td.expander
 
 .links
