@@ -1,4 +1,5 @@
 = content_for :title, @designer.full_name
+= content_for :location, @designer.location
 
 = content_for :subtitle do
   %span{itemprop: 'jobTitle'}= @designer.short_bio.truncate(70)

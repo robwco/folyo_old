@@ -212,7 +212,7 @@ class Designer < User
   end
 
   def self.featured_designers(count)
-    designers = Designer.accepted.with_portfolio.with_profile_picture # we pick only designers with profile picture & portfolio
+    designers = Designer.public_only.accepted.with_portfolio.with_profile_picture # we pick only designers with profile picture & portfolio
     designers = designers.order_by(randomization_key: :asc)           # sort them in pseudo-random order
     designers = designers.offset(rand(designers.count - count + 1))   # start from a random position (with enough designers ahead)
     designers = designers.limit(3 * count)                            # get more designers than needed

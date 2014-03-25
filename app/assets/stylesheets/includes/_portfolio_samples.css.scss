@@ -30,6 +30,9 @@
   background: $lightgrey3;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  color: $darkText;
+  min-height: 44px;
   a{
     color: $text;
   }
@@ -52,4 +55,8 @@
 .portfolio-sample-name{
   line-height: 30px;
   vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $blue1;
 }
