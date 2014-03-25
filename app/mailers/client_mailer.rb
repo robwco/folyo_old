@@ -22,10 +22,4 @@ class ClientMailer < ActionMailer::Base
     message = mail subject: subject, from: "#{designer_reply.designer.full_name} <#{designer_reply.designer.email}>", to: designer_reply.job_offer.client_email
   end
 
-  def updated_reply(designer_reply)
-    subject = "Folyo: #{designer_reply.designer.full_name} has updated his reply"
-    @designer_reply = designer_reply
-    message = mail subject: subject, from: "#{designer_reply.designer.full_name} <#{designer_reply.designer.email}>", to: designer_reply.job_offer.client_email
-  end
-
 end

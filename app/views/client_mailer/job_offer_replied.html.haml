@@ -1,14 +1,17 @@
 = content_for :view_online, offer_reply_url(@designer_reply.job_offer, @designer_reply)
-%table.row
-  %tr
-    %td.wrapper.last
-      %table.twelve.columns
-        %tr
-          %td
-            .designer-message
-              = auto_link(@designer_reply.message.html_safe)
-              / = link_to "View this online", offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'view-online'
-          %td.expander
+
+- designer = @designer_reply.designer
+
+- if @designer_reply.message
+  %table.row
+    %tr
+      %td.wrapper.last
+        %table.twelve.columns
+          %tr
+            %td
+              .designer-message
+                = auto_link(@designer_reply.message.html_safe)
+            %td.expander
 
 %table.row
   %tr
@@ -19,12 +22,13 @@
             %table.designer-profile
               %tr
                 %td.designer-portrait
-                  - if @designer_reply.designer.profile_picture
-                    / %img{alt: "Folyo", src: "/assets/default-avatar.png"}
-                    = image_tag @designer_reply.designer.profile_picture.asset(:thumbnail)
+                  - if designer.profile_picture
+                    = image_tag designer.profile_picture.asset(:thumbnail)
+                  - else
+                    = image_tag "http://assets0.folyo.me/emails/default-avatar.png"
                 %td.designer-data
-                  %h6.designer-name= @designer_reply.designer.full_name
-                  %p.designer-location= @designer_reply.designer.location
+                  %h6.designer-name= designer.full_name
+                  %p.designer-location= designer.location
                 %td.expander
 
     %td.wrapper.last
@@ -37,26 +41,19 @@
                   %table.button.shortlist
                     %tr
                       %td
-                        %a{href: "#"} Shortlist
+                        = link_to 'Shortlist', '#'
                 %td.six.sub-columns.last
                   %table.button.hide
                     %tr
                       %td
-                        %a{href: "#"} Hide
+                        = link_to 'Hide', '#'
                 %td.expander
             .view-full-profile
               = link_to 'View Full Profile', offer_reply_url(@designer_reply.job_offer, @designer_reply)
 
-            / %hr/
-
-            / %p Skills
-            / %ul.skills-list
-            /   - @designer_reply.designer.skills.each do |skill|
-            /     %li{class: skill.to_s.dasherize}= symbol_humanize(skill)
-
           %td.expander
 
-- if @designer_reply.designer.has_showable_projects?
+- if designer.has_showable_projects?
   %table.row.designer-portfolio
     %tr
       %td.wrapper
@@ -64,18 +61,20 @@
           %tr
             %td
               = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image1' do
-                = image_tag @designer_reply.designer.projects[0].artwork.asset(:medium)
+                = image_tag designer.projects[0].artwork.asset(:medium)
             %td.expander
       %td.wrapper.last
         %table.four.columns
           %tr
             %td
-              - if @designer_reply.designer.projects[1].try(:can_show?)
+              - if designer.projects[1].try(:can_show?)
                 = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image2' do
-                  = image_tag @designer_reply.designer.projects[1].artwork.asset(:medium)
-              - if @designer_reply.designer.projects[2].try(:can_show?)
+                  = image_tag designer.projects[1].artwork.asset(:medium)
+
+              - if designer.projects[2].try(:can_show?)
                 = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image3' do
-                  = image_tag @designer_reply.designer.projects[2].artwork.asset(:medium)
+                  = image_tag designer.projects[2].artwork.asset(:medium)
+
             %td.expander
 
 .links
@@ -85,17 +84,17 @@
         %table.four.columns.link
           %tr
             %td
-              = link_to 'Portfolio', @designer_reply.designer.portfolio_url
+              = link_to 'Portfolio', designer.portfolio_url
       %td.wrapper
         %table.four.columns.link
           %tr
             %td
-              = link_to 'Dribbble', @designer_reply.designer.dribbble_url
+              = link_to 'Dribbble', designer.dribbble_url
       %td.wrapper.last
         %table.four.columns.link
           %tr
             %td
-              = link_to 'Behance', @designer_reply.designer.behance_url   
+              = link_to 'Behance', designer.behance_url
       %td.expander
   %table.row
     %tr
@@ -103,5 +102,5 @@
         %table.four.columns.link
           %tr
             %td
-              = link_to 'Twitter', @designer_reply.designer.twitter_url      
+              = link_to 'Twitter', designer.twitter_url
       %td.expander

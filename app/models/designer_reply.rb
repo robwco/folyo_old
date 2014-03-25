@@ -20,7 +20,7 @@ class DesignerReply
 
   ## callbacks ##
   after_create :send_creation_notification!, :track_creation_event
-  after_update :send_update_notification!,   :track_update_event, if: :message_changed?
+  after_update :track_update_event, if: :message_changed?
 
   ## scopes ##
   default_scope order_by(created_at: :desc)
@@ -40,12 +40,7 @@ class DesignerReply
   def send_creation_notification!
     ClientMailer.job_offer_replied(self).deliver
   end
-  #handle_asynchronously :send_creation_notification!
-
-  def send_update_notification!
-    ClientMailer.updated_reply(self).deliver
-  end
-  #handle_asynchronously :send_update_notification!
+  handle_asynchronously :send_creation_notification!
 
   def track_creation_event
     self.designer.track_user_event('Job Offer Reply',
