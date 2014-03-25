@@ -121,6 +121,10 @@ class Designer < User
     "https://twitter.com/#{twitter_username}" unless twitter_username.blank?
   end
 
+  def social_urls
+    { portfolio: portfolio_url, dribbble: dribbble_url, behance: behance_url, twitter: twitter_url }.delete_if { |k, v| v.nil? }
+  end
+
   def resources
     @resources ||= {}.tap do |resources|
       resources[:dribbble] = dribbble_url unless dribbble_username.blank?

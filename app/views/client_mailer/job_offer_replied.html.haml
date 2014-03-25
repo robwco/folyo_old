@@ -63,6 +63,7 @@
               = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image1' do
                 = image_tag designer.projects[0].artwork.asset(:medium)
             %td.expander
+
       %td.wrapper.last
         %table.four.columns
           %tr
@@ -78,29 +79,13 @@
             %td.expander
 
 .links
-  %table.row
-    %tr
-      %td.wrapper
-        %table.four.columns.link
-          %tr
-            %td
-              = link_to 'Portfolio', designer.portfolio_url
-      %td.wrapper
-        %table.four.columns.link
-          %tr
-            %td
-              = link_to 'Dribbble', designer.dribbble_url
-      %td.wrapper.last
-        %table.four.columns.link
-          %tr
-            %td
-              = link_to 'Behance', designer.behance_url
-      %td.expander
-  %table.row
-    %tr
-      %td.wrapper
-        %table.four.columns.link
-          %tr
-            %td
-              = link_to 'Twitter', designer.twitter_url
-      %td.expander
+  = designer.social_urls.each_slice(3) do |slice|
+    %table.row
+      %tr
+        - slice.each do |key, url|
+          %td.wrapper{ class: cycle('', '', 'last') }
+            %table.four.columns.link
+              %tr
+                %td= link_to key.to_s.capitalize, url
+        %td.expander
+
