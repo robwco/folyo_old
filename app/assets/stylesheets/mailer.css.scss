@@ -1,6 +1,6 @@
 @import "compass/css3";
 @import "includes/colors";
-@import "includes/variables";
+// @import "includes/variables";
 
 @mixin small-email(){
   @media screen and (max-width: 600px) {
@@ -772,7 +772,7 @@ table.columns .right-text-pad {
   }
 }
 
-/* begin custom styles */
+/* ------------------------------------------- begin custom styles -------------------------------------------  */
 
 html, body{
   margin: 0;
