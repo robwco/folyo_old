@@ -8,8 +8,6 @@
   }
 }
 
-
-
 /**********************************************
 * Ink v1.0.5 - Copyright 2013 ZURB Inc        *
 **********************************************/
@@ -816,10 +814,8 @@ body, table.body{
 // designer-profile
 
 table[class="body"] .designer-profile, table[class="body"] .designer-actions{
-  @include small-email{
-   display: table !important;
-   width: 100%;
-  }
+  display: table !important;
+  width: 100%;
 }
 
 table[class="body"] table.columns td.designer-portrait{
@@ -860,7 +856,7 @@ table[class="body"] table.columns td.designer-portrait{
   a{
     display: block;
     text-align: center;
-    padding:10px 20px;
+    padding:10px 15px;
     line-height:1;
     font-size:16px;
     color:white;
@@ -870,7 +866,7 @@ table[class="body"] table.columns td.designer-portrait{
     top:1px;
   }
   &.hide{
-    background: $red1; 
+    background: $red1;
   }
 }
 
