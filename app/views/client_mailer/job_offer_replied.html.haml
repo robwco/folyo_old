@@ -3,55 +3,27 @@
 - designer = @designer_reply.designer
 
 - if @designer_reply.message
-  %table.row
-    %tr
-      %td.wrapper.last
-        %table.twelve.columns
-          %tr
-            %td
-              .designer-message
-                = auto_link(@designer_reply.message.html_safe)
-            %td.expander
+  .designer-message
+    = auto_link(@designer_reply.message.html_safe)
 
-%table.row
-  %tr
-    %td.wrapper
-      %table.seven.columns
-        %tr
-          %td
-            %table.designer-profile
-              %tr
-                %td.designer-portrait
-                  - if designer.profile_picture
-                    = image_tag designer.profile_picture.asset(:thumbnail)
-                  - else
-                    = image_tag "http://assets0.folyo.me/emails/default-avatar.png"
-                %td.designer-data
-                  %h6.designer-name= designer.full_name
-                  %p.designer-location= designer.location
-                %td.expander
 
-    %td.wrapper.last
-      %table.five.columns
-        %tr
-          %td
-            %table.wrapper.last.designer-actions
-              %tr
-                %td.six.sub-columns
-                  %table.button.shortlist
-                    %tr
-                      %td
-                        = link_to 'Shortlist', '#'
-                %td.six.sub-columns.last
-                  %table.button.hide
-                    %tr
-                      %td
-                        = link_to 'Hide', '#'
-                %td.expander
-            .view-full-profile
-              = link_to 'View Full Profile', offer_reply_url(@designer_reply.job_offer, @designer_reply)
+.designer-profile
+  .designer-portrait
+    - if designer.profile_picture
+      = image_tag designer.profile_picture.asset(:thumbnail)
+    - else
+      = image_tag "http://assets0.folyo.me/emails/default-avatar.png"
+  .designer-data
+    %h6.designer-name= designer.full_name
+    %p.designer-location= designer.location
 
-          %td.expander
+.designer-actions
+  = link_to 'Shortlist', '#', class: 'button shortlist'
+  = link_to 'Hide', '#', class: 'button hide'
+
+.designer-full-profile
+  = link_to 'View Full Profile', offer_reply_url(@designer_reply.job_offer, @designer_reply)
+
 
 - if designer.has_showable_projects?
   %table.row.designer-portfolio

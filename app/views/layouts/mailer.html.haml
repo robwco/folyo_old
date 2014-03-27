@@ -6,47 +6,25 @@
     %meta{name: 'viewport',                   content: 'width=device-width' }
 
     %style{ :type => "text/css" }
-      = Rails.application.assets['mailer'].to_s.html_safe
+      =# Rails.application.assets['mailer'].to_s.html_safe
+      = Rails.application.assets['custom-mailer'].to_s.html_safe
 
   %body
-    %table.body
-      %tr
-        %td.center{align: "center", valign: "top"}
-          %center
-            %table.row.header
-              %tr
-                %td.center{align: "center"}
-                  %center
-                    %table.container
-                      %tr
-                        %td.wrapper.last
-                          %table.twelve.columns
-                            %tr
-                              %td.six.sub-columns
-                                = link_to root_path do
-                                  %img{alt: "Folyo", height: "30", src: "http://assets0.folyo.me/emails/logo-white.png", width: "67"}
+    .header
+      .container
+        %table
+          %tr
+            %td.logo
+              = link_to root_path do
+                %img{alt: "Folyo", height: "30", src: "http://assets0.folyo.me/emails/logo-white.png", width: "67"}
+            %td.view-online
+              - if content_for?(:view_online)
+                = link_to 'View this email in your browser', yield(:view_online)
+                
+    .content
+      .container
+        = yield
 
-                              %td.six.sub-columns.last{style: "text-align:right; vertical-align:middle;"}
-                                - if content_for?(:view_online)
-                                  %span.template-label
-                                    = link_to 'View this email in your browser', yield(:view_online)
-                              %td.expander
-            %br/
-
-            %table.container
-              %tbody
-                %tr
-                  %td
-                    = yield
-
-                    / Footer
-                    %table.row.footer
-                      %tr
-                        %td.wrapper.last
-                          %table.twelve.columns
-                            %tr
-                              %td{align: "center"}
-                                %center
-                                  %p{style: "text-align:center;"}
-                                    %a{href: "http://folyo.me"} &copy; 2014 Folyo
-                              %td.expander
+    .footer
+      .container
+        %a{href: "http://folyo.me"} &copy; 2014 Folyo
