@@ -12,19 +12,22 @@
   %body
     .header
       .container
-        %table
-          %tr
-            %td.logo
-              = link_to root_path do
-                %img{alt: "Folyo", height: "30", src: "http://assets0.folyo.me/emails/logo-white.png", width: "67"}
-            %td.view-online
-              - if content_for?(:view_online)
-                = link_to 'View this email in your browser', yield(:view_online)
+        .inner
+          %table
+            %tr
+              %td.logo
+                = link_to root_path do
+                  %img{alt: "Folyo", height: "30", src: "http://assets0.folyo.me/emails/logo-white.png", width: "67"}
+              %td.view-online
+                - if content_for?(:view_online)
+                  = link_to 'View this email in your browser', yield(:view_online)
                 
     .content
       .container
-        = yield
+        .inner
+          = yield
 
     .footer
       .container
-        %a{href: "http://folyo.me"} &copy; 2014 Folyo
+        .inner
+          %a{href: "http://folyo.me"} &copy; 2014 Folyo

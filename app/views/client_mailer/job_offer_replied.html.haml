@@ -2,31 +2,35 @@
 
 - designer = @designer_reply.designer
 
+
+
+
+%table.designer-profile.block
+  %tr
+    %td.designer-portrait
+      = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply) do
+        - if designer.profile_picture
+          = image_tag designer.profile_picture.asset(:thumbnail)
+        - else
+          = image_tag "http://assets0.folyo.me/emails/default-avatar.png"
+    %td.designer-data
+      %h6.designer-name
+        =link_to designer.full_name, offer_reply_url(@designer_reply.job_offer, @designer_reply)
+      %p.designer-location= designer.location
+
 - if @designer_reply.message
-  .designer-message
+  .designer-message.block
     = auto_link(@designer_reply.message.html_safe)
 
-
-.designer-profile
-  .designer-portrait
-    - if designer.profile_picture
-      = image_tag designer.profile_picture.asset(:thumbnail)
-    - else
-      = image_tag "http://assets0.folyo.me/emails/default-avatar.png"
-  .designer-data
-    %h6.designer-name= designer.full_name
-    %p.designer-location= designer.location
-
-.designer-actions
-  = link_to 'Shortlist', '#', class: 'button shortlist'
-  = link_to 'Hide', '#', class: 'button hide'
-
-.designer-full-profile
-  = link_to 'View Full Profile', offer_reply_url(@designer_reply.job_offer, @designer_reply)
-
+%table.designer-actions.block
+  %tr
+    %td.shortlist
+      = link_to 'Shortlist', '#', class: 'button'
+    %td.hide
+      = link_to 'Hide', '#', class: 'button'
 
 - if designer.has_showable_projects?
-  %table.row.designer-portfolio
+  %table.row.designer-portfolio.block
     %tr
       %td.wrapper
         %table.eight.columns
@@ -50,7 +54,7 @@
 
             %td.expander
 
-.links
+.links.block
   = designer.social_urls.each_slice(3) do |slice|
     %table.row
       %tr
