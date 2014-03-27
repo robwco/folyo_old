@@ -6,8 +6,7 @@
     %meta{name: 'viewport',                   content: 'width=device-width' }
 
     %style{ :type => "text/css" }
-      =# Rails.application.assets['mailer'].to_s.html_safe
-      = Rails.application.assets['custom-mailer'].to_s.html_safe
+      = Rails.application.assets['mailer'].to_s.html_safe
 
   %body
     .header
@@ -17,11 +16,11 @@
             %tr
               %td.logo
                 = link_to root_path do
-                  %img{alt: "Folyo", height: "30", src: "http://f.cl.ly/items/370u1B2F2W3H0B2F0C2Y/folyo-logo-grey.png", width: "67"}
+                  = image_tag mail_asset_url('logo-grey.png'), alt: 'Folyo', height: 30, width: 67
               %td.view-online
                 - if content_for?(:view_online)
                   = link_to 'View this email in your browser', yield(:view_online)
-                
+
     .content
       .container
         .inner
@@ -30,4 +29,5 @@
     .footer
       .container
         .inner
-          %a{href: "http://folyo.me"} &copy; 2014 Folyo
+          = link_to root_url do
+            &copy; 2014 Folyo
