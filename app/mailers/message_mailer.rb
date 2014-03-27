@@ -4,6 +4,8 @@ class MessageMailer < ActionMailer::Base
 
   layout 'mailer'
 
+  add_template_helper MailerHelper
+
   def send_message(message)
     @message = message
     subject = "Folyo: a message from #{message.from_user.full_name}"
