@@ -108,7 +108,9 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
 .designer-actions{
   width: 100%;
   td{
-    width: 50%;
+    width: 48%;
+    &.shortlist{
+    }
   }
 }
 
