@@ -155,11 +155,18 @@ a{
 
 // designer-actions
 .designer-actions{
-  table-layout: fixed;
-  width: 100%;
+  @include border-radius(5px);
+  // background: $lightgrey7;
+  background: #eff5f7;
+  padding: $spacing/2;
+  // border: 1px solid $lightgrey1;
+  >table{
+    table-layout: fixed;
+    width: 100%;
+  }
   td{
     &.shortlist{
-      padding-right: $spacing;
+      padding-right: $spacing/2;
     }
   }
 }
@@ -229,23 +236,24 @@ a{
 // links
 
 .links{
-  .link{
-    @include small-email{
-      display: table !important;
-    }
-    td{
-      padding: 0;
-    }
-    a{
-      display: block;
-      width: 100%;
-      background: $lightgrey7;
-      text-align: center;
-      @include border-radius(3px);
-      padding: 10px 0;
-      font-weight: bold;
-    }
-  }
+  font-size: 13px;
+  // .row{
+  //   width: 100%;
+  // }
+  // .wrapper, .four{
+  //   display: block;
+  //   width: 100%;
+  // }
+  // a{
+  //   display: block;
+  //   width: 100%;
+  //   background: $lightgrey7;
+  //   text-align: center;
+  //   @include border-radius(3px);
+  //   padding: 10px 0;
+  //   font-weight: bold;
+  // }
+
 }
 
 // footer
