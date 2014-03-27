@@ -2,10 +2,15 @@
 @import "includes/colors";
 // @import "includes/variables";
 
-$spacing: 30px;
+$spacing: 15px;
 
 @mixin small-email(){
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+@mixin medium-email(){
+  @media screen and (min-width: 500px) {
     @content;
   }
 }
@@ -28,8 +33,9 @@ html, body{
   padding: 0;
 }
 
-body, table.body{
+body{
   line-height: 1.5;
+  background: #eff5f7;
 }
 
 body, table.body, h1, h2, h3, h4, h5, h6, p, td {
@@ -40,22 +46,41 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
   margin: 0;
   text-align: left;
 }
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+a{
+  text-decoration:none;
+  // font-weight: bold;
+  &, &:link, &:active, &:visited{
+    color: $blue1;
+  }
+  &:hover{
+    color: $blue1;
+  }
 
+}
 // Header
 
 .header{
   margin-bottom: $spacing;
+  border-bottom: 1px solid $lightgrey1;
   .inner{
-    border-bottom: 1px solid $lightgrey7;
+    padding: $spacing/2 0;
   }
   table{
     width: 100%;
   }
   .logo{
     text-align: left;
+    a, img{
+      display: block;
+    }
   }
   .view-online{
     text-align: right;
+    font-size: 12px;
   }
 }
 .header img{
@@ -69,19 +94,42 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
 }
 
 
-
 // designer-message
 
+.designer-message-triangle{
+  img{
+    display: block;
+  }
+}
+
+.designer-reply{
+  background: white;
+  @include border-radius(5px);
+  padding: $spacing;
+  margin-bottom: $spacing;
+  @include box-shadow(0px 2px 3px 0px rgba(0,0,0,0.15));
+}
+
 .designer-message{
-  border: 3px solid $lightgrey7;
-  @include border-radius(3px);
-  padding: 20px;
+  // background: $lightgrey7;
+  // background: white;
+  // border: 5px solid $lightgrey7;
+  // @include border-radius(5px);
+  // padding: 15px;
+  line-height: 1.6;
+  font-size: 15px;
 }
 
 // designer-profile
 
+.designer-profile{
+  margin-bottom: 5px;  
+}
 
 .designer-portrait{
+  a, img{
+    display: block;
+  }
   img{
     background: $lightgrey7;
     @include border-radius(50%);
@@ -102,14 +150,16 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
   color:$lightertext;
   margin-bottom: 0;
   line-height: 1.4;
+  font-size: 14px;
 }
 
 // designer-actions
 .designer-actions{
+  table-layout: fixed;
   width: 100%;
   td{
-    width: 48%;
     &.shortlist{
+      padding-right: $spacing;
     }
   }
 }
@@ -143,18 +193,27 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
 
 // designer-portfolio
 .designer-portfolio{
-  .eight{
-    width: 333px;
+  td{
+    display: block;
+    width: 100%;
   }
-  .four{
-
+  @include medium-email{
+    td{
+      display: table-cell;
+      width: auto;
+    }
+    .first{
+      padding-right: $spacing;
+    }
+    .eight{
+    width: 296px;
+    }
   }
 }
 .portfolio-sample{
-  border: 3px solid $lightgrey7;
-  @include border-radius(3px);
+  margin-bottom: $spacing;
   &, img{
-    width: 100% !important;
+    width: 100%;
     display: block;
   }
   &.image2{
@@ -192,5 +251,7 @@ body, table.body, h1, h2, h3, h4, h5, h6, p, td {
 // footer
 
 .footer{
-  margin-top: 10px;
+  margin-bottom: $spacing;
+  text-align: center;
+  font-size: 13px;
 }
