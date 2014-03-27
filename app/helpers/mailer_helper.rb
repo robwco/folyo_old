@@ -1,7 +1,7 @@
 module MailerHelper
 
   # Bulletproof email button - http://buttons.cm/
-  def mail_button(url, label, color: '#5BB62B')
+  def mail_button(url, label, background_color: '#5BB62B', color: '#ffffff', border: 'none')
     haml =  <<-eos.strip_heredoc
       :plain
         <div><!--[if mso]>
@@ -10,7 +10,7 @@ module MailerHelper
             <center>
           <![endif]-->
               <a href="#{url}"
-        style="background-color:#{color};border-radius:5px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:100%;-webkit-text-size-adjust:none;">#{label}</a>
+        style="border:#{border};background-color: #{background_color}; border-radius:5px;color:#{color};display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:100%;-webkit-text-size-adjust:none;">#{label}</a>
           <!--[if mso]>
             </center>
           </v:roundrect>

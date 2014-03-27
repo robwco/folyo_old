@@ -27,13 +27,13 @@
     %table
       %tr
         %td.view-profile{:colspan => 2}
-          = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'View Full Profile', color: '#4e9ec4')
+          = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'View Full Profile', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
       %tr
         %td.shortlist
-          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist')
+          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist', background_color: '#DEF6D3', color: '#5BB62B', border: 'none')
 
         %td.hide
-          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Hide', color: '#c62910')
+          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Hide', background_color: '#F3DCD9', color: '#c62910', border: 'none' )
 
   - if designer.has_showable_projects?
     %table.row.designer-portfolio
