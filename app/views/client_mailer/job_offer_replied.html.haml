@@ -26,6 +26,9 @@
   .designer-actions.block
     %table
       %tr
+        %td.view-profile{:colspan => 2}
+          = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'View Full Profile', color: '#4e9ec4')
+      %tr
         %td.shortlist
           = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist')
 
@@ -64,3 +67,5 @@
         \-
       = link_to key.to_s.capitalize, url
 
+.note
+  You can reply to this email to get in touch with #{designer.full_name} directly.

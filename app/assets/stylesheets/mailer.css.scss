@@ -64,8 +64,8 @@ a{
 // Header
 
 .header{
-  margin-bottom: $spacing;
   border-bottom: 1px solid $lightgrey1;
+
   .inner{
     padding: $spacing/2 0;
   }
@@ -93,7 +93,10 @@ a{
 .header a:hover{
 }
 
-
+.content{
+  border-top: 1px solid #fbfbfb;
+  padding-top: $spacing;
+}
 // designer-message
 
 .designer-message-triangle{
@@ -155,10 +158,10 @@ a{
 
 // designer-actions
 .designer-actions{
-  @include border-radius(5px);
+  // @include border-radius(5px);
   // background: $lightgrey7;
-  background: #eff5f7;
-  padding: $spacing/2;
+  // background: #eff5f7;
+  // padding: $spacing/2;
   // border: 1px solid $lightgrey1;
   >table{
     table-layout: fixed;
@@ -170,7 +173,10 @@ a{
     }
   }
 }
-
+.view-profile{
+  width: 100%;
+  padding-bottom: $spacing/2;
+}
 .button{ // base button style
   font-weight:bold();
   text-align:center;
@@ -255,6 +261,12 @@ a{
   //   font-weight: bold;
   // }
 
+}
+
+.note{
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: $spacing;
 }
 
 // footer
