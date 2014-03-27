@@ -56,11 +56,21 @@ class DesignerRepliesController < ApplicationController
   end
 
   def shortlist
-    render json: { status: resource.toggle_shortlisted! }
+    status_param = params[:status].to_bool rescue nil
+    status = resource.toggle_shortlisted!(status_param)
+    respond_to do |format|
+      format.html { redirect_to offer_reply_url(parent, resource) }
+      format.json { render json: { status: status } }
+    end
   end
 
   def hide
-    render json: { status: resource.toggle_hidden! }
+    status_param = params[:status].to_bool rescue nil
+    status = resource.toggle_hidden!(status_param)
+    respond_to do |format|
+      format.html { redirect_to offer_reply_url(parent, resource) }
+      format.json { render json: { status: status } }
+    end
   end
 
   def mail

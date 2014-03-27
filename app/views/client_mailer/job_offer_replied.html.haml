@@ -27,10 +27,10 @@
     %table
       %tr
         %td.shortlist
-          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply), 'Shortlist')
+          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist')
 
         %td.hide
-          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply), 'Hide', color: '#c62910')
+          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Hide', color: '#c62910')
 
   - if designer.has_showable_projects?
     %table.row.designer-portfolio

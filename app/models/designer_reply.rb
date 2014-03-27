@@ -88,14 +88,14 @@ class DesignerReply
     self.status == :shortlisted
   end
 
-  def toggle_hidden!
-    new_status = self.status == :hidden ? :default : :hidden
+  def toggle_hidden!(new_status = nil)
+    new_status = new_status.nil? ? (self.status == :hidden ? :default : :hidden) : (new_status ? :hidden : :default)
     self.update_attribute(:status, new_status)
     new_status
   end
 
-  def toggle_shortlisted!
-    new_status = self.status == :shortlisted ? :default : :shortlisted
+  def toggle_shortlisted!(new_status = nil)
+    new_status = new_status.nil? ? (self.status == :shortlisted ? :default : :shortlisted) : (new_status ? :shortlisted : :default)
     self.update_attribute(:status, new_status)
     new_status
   end

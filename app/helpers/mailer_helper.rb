@@ -5,11 +5,11 @@ module MailerHelper
     haml =  <<-eos.strip_heredoc
       :plain
         <div><!--[if mso]>
-          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://" style="height:40px;v-text-anchor:middle;width:100%;" arcsize="13%" stroke="f" fillcolor="#{color}">
+          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#{url}" style="height:40px;v-text-anchor:middle;width:100%;" arcsize="13%" stroke="f" fillcolor="#{color}">
             <w:anchorlock/>
             <center>
           <![endif]-->
-              <a href="http://"
+              <a href="#{url}"
         style="background-color:#{color};border-radius:5px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:100%;-webkit-text-size-adjust:none;">#{label}</a>
           <!--[if mso]>
             </center>
@@ -20,8 +20,7 @@ module MailerHelper
   end
 
   def mail_asset_url(asset)
-    "http://folyo-production.s3.amazonaws.com/emails/#{asset}"
-    #"http://assets0.folyo.me/emails/#{asset}"
+    "http://assets0.folyo.me/emails/#{asset}"
   end
 
 end

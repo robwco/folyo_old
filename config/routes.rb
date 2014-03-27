@@ -101,7 +101,9 @@ Folyo::Application.routes.draw do
     end
     resources :designer_replies, path: 'replies', as: 'replies' do
       put 'shortlist', on: :member
+      get 'shortlist', on: :member
       put 'hide',      on: :member
+      get 'hide',      on: :member
       get 'mail',      on: :member
     end
     resource :evaluations

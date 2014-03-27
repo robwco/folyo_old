@@ -4,6 +4,8 @@ class ClientMailer < ActionMailer::Base
 
   layout 'mailer'
 
+  add_template_helper MailerHelper
+
   def new_job_offer(job_offer)
     subject = "[Folyo] [New offer] #{job_offer.title}"
     @job_offer = job_offer

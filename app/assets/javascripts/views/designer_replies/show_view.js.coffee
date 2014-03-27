@@ -79,6 +79,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
         dataType: 'json'
         data:
           _method: 'PUT'
+          status: !($reply.hasClass('reply-hidden') || $reply.hasClass('reply-shortlisted'))
         success: (data) ->
           $btn.removeClass('spinning')
           $btn.tipsy('hide')
