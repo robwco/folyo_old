@@ -3,6 +3,7 @@
   = render :partial => '/site/header'
   %body.no-js{class: yield(:body_class), 'data-class-name' => js_class_name}
     = render_site_nav
+
     #page{@microdata || {}}
       - if yield(:header).blank?
         %section.subheader#page-header
@@ -22,7 +23,7 @@
                     = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
                   %span{@title_microdata || {}}= yield(:title)
                   - unless yield(:location).blank?
-                    %span.reply-location= yield(:location)                
+                    %span.reply-location= yield(:location)
                 - unless yield(:subtitle).blank?
                   %h2.subtitle
                     = yield(:subtitle)
@@ -30,6 +31,7 @@
               = yield(:subnav)
       - else
         = yield(:header)
+
       #page-content
         .container{style: yield(:container_style)}
           - unless yield(:hero).blank?
@@ -37,11 +39,14 @@
               = content_for(:hero)
 
           .main
-            = render :partial => '/site/flash', :locals => {:flash => flash}
+            - unless content_for?(:skip_flash)
+              = render '/site/flash', flash: flash
+
             = content_for?(:content) ? yield(:content) : yield
 
           - unless yield(:sidebar).blank?
             .sidebar
               = content_for(:sidebar)
-      = render :partial => '/site/footer'
+      = render '/site/footer'
+
       #fancybox-holder

@@ -6,4 +6,7 @@
   %p.reply-message
     = auto_link(designer_reply.message)
 
+- if with_flash
+  = render '/site/flash', flash: flash
+
 = render '/designers/designer_profile', designer: designer_reply.designer
