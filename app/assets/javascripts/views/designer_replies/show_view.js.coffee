@@ -71,7 +71,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
   enableActionButtons: ->
     $('.shortlist.button, .hide.button').click (e) ->
       $btn = $(this)
-      $reply = $('.reply-carrousel-item:visible,.reply-actions')
+      $reply = $(".reply-carrousel-item[data-path='#{window.location.pathname}'],.reply-actions")
       $btn.addClass('spinning')
       $.ajax
         url: $btn.attr('href')
@@ -79,7 +79,6 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
         dataType: 'json'
         data:
           _method: 'PUT'
-          status: !($reply.hasClass('reply-hidden') || $reply.hasClass('reply-shortlisted'))
         success: (data) ->
           $btn.removeClass('spinning')
           $btn.tipsy('hide')
