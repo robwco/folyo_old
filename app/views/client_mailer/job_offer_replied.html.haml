@@ -26,8 +26,8 @@
   .designer-actions.block
     %table
       %tr
-        %td.view-profile{:colspan => 2}
-          = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'View Full Profile', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
+        %td.view-profile{colspan: 2}
+          = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply), 'View Full Profile', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
       %tr
         %td.shortlist
           = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist', background_color: '#DEF6D3', color: '#5BB62B', border: 'none')
