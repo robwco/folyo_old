@@ -16,7 +16,7 @@ class DesignerRepliesController < ApplicationController
     show! do |format|
       format.html do
         if request.xhr?
-          render partial: 'inner_reply', locals: { designer_reply: @designer_reply }
+          render partial: 'inner_reply', locals: { designer_reply: @designer_reply, with_flash: false }
         else
           fetch_designers
           @designer = @designer_reply.designer
