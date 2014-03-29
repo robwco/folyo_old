@@ -5,8 +5,7 @@
     %meta{'http-equiv' => 'Content-Language', content: 'en-us' }
     %meta{name: 'viewport',                   content: 'width=device-width' }
 
-    %style{ :type => "text/css" }
-      = Rails.application.assets['mailer'].to_s.html_safe
+    = stylesheet_link_tag 'mailer'
 
   %body
     .header
