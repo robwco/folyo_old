@@ -1,6 +1,5 @@
-@import "compass/css3";
+//@import "compass/css3";
 @import "includes/colors";
-// @import "includes/variables";
 
 $spacing: 15px;
 
@@ -107,21 +106,14 @@ a{
 
 .designer-reply{
   background: white;
-  @include border-radius(5px);
+  //@include border-radius(5px);
   padding: $spacing;
   margin-bottom: $spacing;
-  @include box-shadow(0px 2px 3px 0px rgba(0,0,0,0.15));
+  //@include box-shadow(0px 2px 3px 0px rgba(0,0,0,0.15));
 }
 
 .designer-message{
-  // background: $lightgrey7;
-  // background: white;
-  // border: 5px solid $lightgrey7;
-  // @include border-radius(5px);
-  // padding: $spacing;
   font-family: georgia, serif;
-  // background: $green;
-  // color: white;
   line-height: 1.6;
   font-size: 16px;
 }
@@ -138,7 +130,7 @@ a{
   }
   img{
     background: $lightgrey7;
-    @include border-radius(50%);
+    //@include border-radius(50%);
     width: 50px;
   }
   padding-right: 10px;
@@ -161,11 +153,6 @@ a{
 
 // designer-actions
 .designer-actions{
-  // @include border-radius(5px);
-  // background: $lightgrey7;
-  // background: #eff5f7;
-  // padding: $spacing/2;
-  // border: 1px solid $lightgrey1;
   >table{
     table-layout: fixed;
     width: 100%;
@@ -183,7 +170,7 @@ a{
 .button{ // base button style
   font-weight:bold();
   text-align:center;
-  @include border-radius(3px);
+  //@include border-radius(3px);
   cursor:pointer;
   background:$primaryButton;
   display: block;
@@ -247,23 +234,6 @@ a{
 .links{
   font-size: 13px;
   text-align: center;
-  // .row{
-  //   width: 100%;
-  // }
-  // .wrapper, .four{
-  //   display: block;
-  //   width: 100%;
-  // }
-  // a{
-  //   display: block;
-  //   width: 100%;
-  //   background: $lightgrey7;
-  //   text-align: center;
-  //   @include border-radius(3px);
-  //   padding: 10px 0;
-  //   font-weight: bold;
-  // }
-
 }
 
 .note{
