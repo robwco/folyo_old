@@ -1,5 +1,43 @@
 //@import "compass/css3";
-@import "includes/colors";
+//@import "includes/colors";
+
+
+$darkBlue: #657985;
+$darkerBlue: #4d616e;
+$darkestBlue: #30404A;
+// $green: #6DC339;
+$green: #5BB62B;
+$lightBlue: #94C5E5;
+$darkText: #485056;
+$darkerText: #30373C;
+
+$background: $darkerBlue;
+$primaryButton: $green;
+$secondaryButton: $darkBlue;
+
+$green1:#86d259; // main green color
+$green2:#c4efab; // lighter green, not used?
+$green3:$green2; // archived status color
+$darkgrey1:#485056;
+$darkgrey2:#7a8d99;
+$darkgrey3:#5e6b73;
+$lightgrey1:#dee5e9; // not actually used, it seems
+$lightgrey2:#eaf2f6; // testimonials bg, home tagline bg, various UI elements bg
+$lightgrey3:#f6f7f9; // not actually used either?
+$lightgrey4:#c6d2d8; // color for pending status
+$lightgrey5:#a4b5c0; // used in guides
+$lightgrey6:#f2f6f8; //lighter grey background
+$lightgrey7:#edf6fa; //sidebar background
+$blue1:#4e9ec4; // main blue (links, etc.)
+$blue2:#c9e5f2; // notices border
+$blue3:#2e6e8c; //
+$red1:#c62910;
+$yellow1:#efc10a;
+
+$text:$darkgrey1;
+$lighttext:$darkgrey3;
+$lightertext:$darkgrey2;
+$lightesttext: #a4acb0;
 
 $spacing: 15px;
 
