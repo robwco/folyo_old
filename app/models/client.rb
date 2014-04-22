@@ -9,7 +9,7 @@ class Client < User
 
   field :next_offer_discount, type: Integer
 
-  has_many :job_offers
+  has_many :job_offers, validate: false
 
   validates_inclusion_of :next_offer_discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
 

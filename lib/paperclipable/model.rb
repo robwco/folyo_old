@@ -103,7 +103,7 @@ module Paperclipable
         begin
           geo = ::Paperclip::Geometry.from_file(asset.queued_for_write[style])
           self.geometry[style] = {width: geo.width, height: geo.height}
-        rescue
+        rescue Exception => e
           self.status = :failed
           save
           raise e
