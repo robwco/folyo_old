@@ -223,6 +223,10 @@ class Designer < User
     designers.to_a.sample(count)                                      # pick an exact size sample of designers
   end
 
+  def pending_rank
+    Designer.pending.where(:created_at.lte => self.created_at).count
+  end
+
   protected
 
   def tweet_out
