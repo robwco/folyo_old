@@ -172,14 +172,6 @@ GEM
       activesupport (>= 3.2, < 5)
     headjs-rails (0.4.2)
       rails (>= 3.0.0)
-    heroku (3.1.0)
-      heroku-api (~> 0.3.7)
-      launchy (>= 0.3.2)
-      netrc (~> 0.7.7)
-      rest-client (~> 1.6.1)
-      rubyzip
-    heroku-api (0.3.15)
-      excon (~> 0.25.1)
     hike (1.2.3)
     htmlentities (4.3.1)
     http (0.5.0)
@@ -215,8 +207,6 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.1)
-    launchy (2.4.2)
-      addressable (~> 2.3)
     lorem (0.1.2)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -257,7 +247,6 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
-    netrc (0.7.7)
     newrelic_rpm (3.7.0.177)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -342,7 +331,6 @@ GEM
       rubinius-core-api
     rubinius-core-api (0.0.1)
     ruby-hmac (0.4.0)
-    rubyzip (1.1.0)
     s3_direct_upload (0.1.6)
       coffee-rails (>= 3.2.1)
       jquery-fileupload-rails (~> 0.4.1)
@@ -464,7 +452,6 @@ DEPENDENCIES
   geocoder
   haml-rails
   headjs-rails
-  heroku
   inherited_resources
   intercom
   intercom-rails
