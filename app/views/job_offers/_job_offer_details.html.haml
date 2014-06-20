@@ -11,7 +11,7 @@
       %p= job_offer.company_name
   %li.site
     %h3 Site
-    = link_to job_offer.company_url, job_offer.company_url, :title => "Site"
+    = link_to auto_link(job_offer.company_url), job_offer.company_url, :title => "Site"
   %li.location
     %h3 Company Location
     %p= job_offer.client.location
