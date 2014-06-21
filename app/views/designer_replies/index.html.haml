@@ -13,22 +13,25 @@
   %p.note Sorry, you haven't received any replies yet
 - else
 
-  .replies-filter.menu
-    %h5 Filter by:
-    = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
-      %span New
-      %span.count= @designer_replies.unscoped.default.count
-    = link_to offer_replies_path(@job_offer, status: 'shortlisted'), class: "filter-shortlisted #{active_class_for_filter('shortlisted')}" do
-      %span Shortlisted
-      %span.count= @designer_replies.unscoped.shortlisted.count
-    = link_to offer_replies_path(@job_offer, status: 'hidden'), class: "filter-hidden #{active_class_for_filter('hidden')}" do
-      %span Hidden
-      %span.count= @designer_replies.unscoped.hidden.count
-    = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
-      %span All
-      %span.count= @designer_replies.unscoped.count
-
-  %ul.replies
+  .replies-options
+    .replies-filter.menu
+      %h5 Filter by:
+      = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
+        %span New
+        %span.count= @designer_replies.unscoped.default.count
+      = link_to offer_replies_path(@job_offer, status: 'shortlisted'), class: "filter-shortlisted #{active_class_for_filter('shortlisted')}" do
+        %span Shortlisted
+        %span.count= @designer_replies.unscoped.shortlisted.count
+      = link_to offer_replies_path(@job_offer, status: 'hidden'), class: "filter-hidden #{active_class_for_filter('hidden')}" do
+        %span Hidden
+        %span.count= @designer_replies.unscoped.hidden.count
+      = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
+        %span All
+        %span.count= @designer_replies.unscoped.count
+    .replies-view
+      %a.replies-view-list{href: 'javascript:void(0)'} List
+      %a.replies-view-grid{href: 'javascript:void(0)'} Grid
+  %ul.replies.replies-grid
     - if @designer_replies.empty?
       %p.note Sorry, no #{params[:status] || 'new'} reply yet
     - else

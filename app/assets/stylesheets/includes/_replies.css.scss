@@ -151,7 +151,7 @@
 .replies{
 	border-top: 1px solid $lightgrey1;
 }
-.reply{
+.replies-list .reply{
 	border-bottom:1px solid $lightgrey1;
 	@include cf;
 	padding: 12px 0;
@@ -263,6 +263,59 @@
 
 }
 
+.replies-grid .reply{
+	position: relative;
+	min-height: 200px;
+	background: $lightgrey2;
+	@include medium{
+		@include span-columns(3);
+		@include nth-omega(4n, of-type);
+	}
+	.reply-designer{
+		position: absolute;
+		bottom: 0px;
+		padding: 10px;
+		z-index: 10;
+		width: 100%;
+		@include cf;
+	}
+	.reply-avatar{
+		float: left;
+		height: 40px;
+		width: 40px;
+	}
+	.reply-infos{
+		margin: 0 0 0 50px;
+		font-size: 14px;
+		a, span{
+			display: block;
+			line-height: 1.3;
+		}
+	}
+	.reply-message{
+		display: none;
+	}
+	.reply-work{
+		.project{
+			display: none;
+			&:first-child{
+				display: block;
+			}
+			a{
+				pointer-events: none;
+			}
+			.project-title, .project-description, .project-link{
+				display: none;
+			}
+			.project-image{
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+		}
+	}
+}
+
 .designer-reply{
 	margin-bottom: $spacing;
 	margin-top: -60px;
@@ -318,11 +371,15 @@ ul.messages{
 	}
 }
 
-.replies-filter{
+.replies-options{
 	background: $lightgrey7;
 	@include border-radius(3px);
 	padding: 5px 10px;
 	margin-bottom: $spacing;
+	@include cf;
+}
+.replies-filter{
+	float: left;
 	a { font-weight: normal; }
 	a, h5{
 		@include small{
@@ -350,4 +407,7 @@ ul.messages{
 		font-weight: bold;
 		.count { background: $green1; }
 	}
+}
+.replies-view{
+	float: right;
 }
