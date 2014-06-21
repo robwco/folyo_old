@@ -58,9 +58,6 @@
 	}
 	.secondary{
 		background:white;
-		@include medium {
-			margin-top: 1024px;
-		}
 		.block{
 			padding-bottom: 40px;
 			border-bottom: 2px solid #dde5e9;
@@ -356,5 +353,53 @@
 		p{
 			font-size: 16px;
 		}
+	}
+}
+.home-first{
+	@include medium {
+		margin-top: 1024px;
+	}	
+}
+.project-templates{
+	background: white;
+	.template{
+		@include medium{
+			@include span-columns(3);
+			@include nth-omega(4n, of-type);
+		}
+	}
+	.template-title{
+		font-size: 24px;
+		text-align: center;
+	}
+}
+.budget-title{
+	text-align: center;
+	font-size: 30px;
+	margin-bottom: $spacing;
+}
+.budget-services{
+
+	a{
+		background: $lightgrey2;
+		border-radius: 20px;
+		display: block;
+		text-align: center;
+		margin-bottom: $spacing;
+		padding: $spacing/2;
+		@include medium{
+			@include span-columns(3);
+			@include nth-omega(4n, of-type);
+		}
+	}
+	img{
+		height: 100px;
+		width: 100px;
+		display: block;
+		margin: 0 auto;
+	}
+	span{
+		display: block;
+		color: $text;
 	}
 }
