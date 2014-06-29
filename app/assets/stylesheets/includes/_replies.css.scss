@@ -451,6 +451,18 @@ ul.messages{
 		.count { background: $green1; }
 	}
 }
-.replies-view{
+.replies-view{	
+	line-height: 1;
 	float: right;
+	a{
+		display: inline-block;
+		margin-top: 2px;
+		margin-left: 2px;
+		path{
+			fill: $lightgrey4;
+		}
+		&.active path{
+			fill: $darkgrey2;
+		}
+	}
 }
