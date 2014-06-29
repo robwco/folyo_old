@@ -26,7 +26,7 @@
 	.project-description{
 		margin-bottom: 0;
 	}
-  .replies-list &, .reply-carrousel-item &{
+  .replies-list &, .reply-carrousel-item &, .designer-profile &{
     margin-bottom: $spacing;
     @include medium{
       @include span-columns(4);

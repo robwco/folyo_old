@@ -31,23 +31,27 @@
     .replies-view
       %a.replies-view-list{href: 'javascript:void(0)'} List
       %a.replies-view-grid{href: 'javascript:void(0)'} Grid
-  %ul.replies.replies-grid
+  .replies.replies-grid
     - if @designer_replies.empty?
       %p.note Sorry, no #{params[:status] || 'new'} reply yet
     - else
-      - @designer_replies.each do |r|
-        %li.reply
-          .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
-            - if r.designer.profile_picture.try(:processed?)
-              = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
-            - else
-              = image_tag('default-avatar.png', class: 'avatar reply-avatar')
-            %p.reply-infos
-              = link_to offer_reply_path(r.job_offer, r, status: params[:status]) do
-                = r.designer.full_name
+      - @designer_replies.each_with_index do |r, i|
+        %a.reply{:href => offer_reply_path(r.job_offer, r, status: params[:status])}
+          .reply-inner
+            .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
+              - if r.designer.profile_picture.try(:processed?)
+                = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
+              - else
+                = image_tag('default-avatar.png', class: 'avatar reply-avatar')
+              %p.reply-infos
+                %span.reply-name= r.designer.full_name
                 %span.placeholder
-              %span.reply-location= r.designer.location
-            %p.reply-message= Sanitize.clean(r.message)
-          - if r.designer.has_showable_projects?
-            .reply-work
-              = render '/designers/featured_work', designer: r.designer, with_description: true
+                %span.reply-location= r.designer.location
+              %p.reply-message= Sanitize.clean(r.message)
+            - if r.designer.has_showable_projects?
+              .reply-work
+                .featured-work-cover{:style => 'background-image: url('+r.designer.showable_projects[0].artwork.asset(:small)+')'}
+                .featured-work
+                  - r.designer.showable_projects.each do |project|
+                    .project
+                      = image_tag project.artwork.asset(:small)
