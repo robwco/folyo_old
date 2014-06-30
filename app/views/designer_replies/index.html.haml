@@ -91,4 +91,6 @@
                       = image_tag project.artwork.asset(:small)
     .schedule-hangout
       %p.schedule-title Need help choosing? Schedule a video chat with us using Google Hangouts.
-      %a.button.schedule-button{:href => 'https://folyo.youcanbook.me/', :target => '_blank'} Schedule Chat
+      - calendarURL = 'https://calendly.com/folyo/'
+      / - calendarURL = 'https://folyo.youcanbook.me/'
+      %a.button.schedule-button{:href => calendarURL, :target => '_blank'} Schedule Chat
