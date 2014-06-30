@@ -179,87 +179,61 @@
 					%span.action Find A Designer Now
 					%span.microcopy $#{JobOffer::PRICE} one-time fee
 
-%section.budget.home-content
-	.container
+- if false
+	%section.budget.home-content
+		.container
 
-		.budget-block
-			%h3.budget-title 1. Pick A Service
-			.budget-services
-				%a{:href => '#'}
-					= image_tag 'projects-logo.svg'
-					%span Logo Design
-				/ %a{:href => '#'}
-				/ 	= image_tag 'projects-identity.svg'
-				/ 	%span Identity Design
-				%a{:href => '#'}
-					= image_tag 'projects-landing.svg'
-					%span Landing Page Design
-				%a{:href => '#'}
-					= image_tag 'projects-website.svg'
-					%span Website design
-				%a{:href => '#'} 
-					= image_tag 'projects-webapp.svg'
-					%span Web App Design
-				%a{:href => '#'} 
-					= image_tag 'projects-mobileapp.svg'
-					%span Mobile App Design
-				%a{:href => '#'} 
-					= image_tag 'projects-illustration.svg'
-					%span Illustration
-				%a{:href => '#'} 
-					= image_tag 'projects-icon.svg'
-					%span Icon Design
-				%a{:href => '#'} 
-					= image_tag 'projects-custom.svg'
-					%span Custom Project
+			.budget-block
+				%h3.budget-title 1. Pick A Service
+				.budget-services
+					%a{:href => '#'}
+						= image_tag 'projects-logo.svg'
+						%span Logo Design
+					/ %a{:href => '#'}
+					/ 	= image_tag 'projects-identity.svg'
+					/ 	%span Identity Design
+					%a{:href => '#'}
+						= image_tag 'projects-landing.svg'
+						%span Landing Page Design
+					%a{:href => '#'}
+						= image_tag 'projects-website.svg'
+						%span Website design
+					%a{:href => '#'} 
+						= image_tag 'projects-webapp.svg'
+						%span Web App Design
+					%a{:href => '#'} 
+						= image_tag 'projects-mobileapp.svg'
+						%span Mobile App Design
+					%a{:href => '#'} 
+						= image_tag 'projects-illustration.svg'
+						%span Illustration
+					%a{:href => '#'} 
+						= image_tag 'projects-icon.svg'
+						%span Icon Design
+					%a{:href => '#'} 
+						= image_tag 'projects-custom.svg'
+						%span Custom Project
 
-		.budget-block
-			%h3.budget-title 2. Estimate Your Budget
-			%h4 Landing Page
-			%form
-				%ul
-					%li Landing page wireframe
-					%li Main template mockup: 3 revisions
-					%li 1 content template (blog, FAQ, etc.)
-					%li 1 extra template (features, services, etc.)
-					%li Deliverables: static source files (PSD/Illustrator/Sketch/etc.)
-			%h4 Options
-			%p Coding
-			%p Experience				
-			%h4 Total
-			%p Budget: $1000
-			%p Folyo fee: $99
-			%p Total: $1099
-		.budget-block
-			%h3.budget-title 3. Get Started
-			.cta
-				%a.button.button-big{:href => "/sign_up/client"}
-					%span.action Find A Designer
-					%span.microcopy $#{JobOffer::PRICE} one-time Folyo fee
-
-/ %section.project-templates.home-content
-/ 	.container
-/ 		.template
-/ 			%h3.template-title Logo Design
-/ 			.cta
-/ 				%a.button.button-big{:href => "/sign_up/client"}
-/ 					%span.action Get Started
-/ 					%span.microcopy Starting at $#{JobOffer::PRICE+300}
-/ 		.template
-/ 			%h3.template-title Web Design
-/ 			.cta
-/ 				%a.button.button-big{:href => "/sign_up/client"}
-/ 					%span.action Get Started
-/ 					%span.microcopy Starting at $#{JobOffer::PRICE+400}
-/ 		.template
-/ 			%h3.template-title App Design
-/ 			.cta
-/ 				%a.button.button-big{:href => "/sign_up/client"}
-/ 					%span.action Get Started
-/ 					%span.microcopy Starting at $#{JobOffer::PRICE+1000}
-/ 		.template
-/ 			%h3.template-title Illustration
-/ 			.cta
-/ 				%a.button.button-big{:href => "/sign_up/client"}
-/ 					%span.action Get Started
-/ 					%span.microcopy Starting at $#{JobOffer::PRICE+500}
+			.budget-block
+				%h3.budget-title 2. Estimate Your Budget
+				%h4 Landing Page
+				%form
+					%ul
+						%li Landing page wireframe
+						%li Main template mockup: 3 revisions
+						%li 1 content template (blog, FAQ, etc.)
+						%li 1 extra template (features, services, etc.)
+						%li Deliverables: static source files (PSD/Illustrator/Sketch/etc.)
+				%h4 Options
+				%p Coding
+				%p Experience				
+				%h4 Total
+				%p Budget: $1000
+				%p Folyo fee: $99
+				%p Total: $1099
+			.budget-block
+				%h3.budget-title 3. Get Started
+				.cta
+					%a.button.button-big{:href => "/sign_up/client"}
+						%span.action Find A Designer
+						%span.microcopy $#{JobOffer::PRICE} one-time Folyo fee
