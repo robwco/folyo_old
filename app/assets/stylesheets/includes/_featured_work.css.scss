@@ -1,17 +1,11 @@
 .project{
-
-	margin-bottom: $spacing;
-	@include medium{
-		@include span-columns(4);
-		@include nth-omega(3n, of-type);
-	}
-
 	.project-image, .project-placeholder {
 		display: block;
 		margin-bottom: 5px;
 		img{
       background-image: image-url('project-placeholder-empty.png');
-      background-size: 160px 120px;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       color: transparent;
 			width: 100%;
 			display: block;
@@ -32,5 +26,11 @@
 	.project-description{
 		margin-bottom: 0;
 	}
-
+  .replies-list &, .reply-carrousel-item &, .designer-profile &{
+    margin-bottom: $spacing;
+    @include medium{
+      @include span-columns(4);
+      @include nth-omega(3n, of-type);
+    }
+  }
 }
