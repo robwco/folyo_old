@@ -276,7 +276,9 @@
 	// background: #2F3337;
 	background: $darkgrey1;
 	border: none;
-	padding: 40px;
+	@include medium{
+		padding: 40px;
+	}
 	@include box-shadow(inset 0px 2px 20px black(0.65));
 	@include cf;
 	.reply{
@@ -463,6 +465,26 @@ ul.messages{
 		}
 		&.active path{
 			fill: $darkgrey2;
+		}
+	}
+}
+
+.schedule-hangout{
+	background: $lightgrey2;
+	border-radius: 5px;
+	@include cf;
+	margin-top: $spacing;
+	padding: $spacing/2;
+	.schedule-title{
+		margin: 0 $spacing/2 0 0;
+		font-size: 20px;
+		@include medium{
+			float: left;
+		}
+	}
+	.schedule-button{
+		@include medium{
+			float: right;
 		}
 	}
 }

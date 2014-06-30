@@ -64,10 +64,11 @@
             c25.878,0,46.857-20.979,46.857-46.857v-70.285C387.429,244.407,366.449,223.429,340.571,223.429L340.571,223.429z"/>
           </svg>
 
-  .replies.replies-list
-    - if @designer_replies.empty?
-      %p.note Sorry, no #{params[:status] || 'new'} reply yet
-    - else
+  
+  - if @designer_replies.empty?
+    %p.note Sorry, no #{params[:status] || 'new'} reply yet
+  - else
+    .replies.replies-list
       - @designer_replies.each_with_index do |r, i|
         %a.reply{:href => offer_reply_path(r.job_offer, r, status: params[:status])}
           .reply-inner
@@ -80,7 +81,7 @@
                 %span.reply-name= r.designer.full_name
                 %span.placeholder
                 %span.reply-location= r.designer.location
-              %p.reply-message= Sanitize.clean(r.message)
+              %p.reply-message= Sanitize.clean(r.message).gsub('&amp;','&')
             - if r.designer.has_showable_projects?
               .reply-work
                 .featured-work-cover{:style => 'background-image: url('+r.designer.showable_projects[0].artwork.asset(:small)+')'}
@@ -88,3 +89,6 @@
                   - r.designer.showable_projects.each do |project|
                     .project
                       = image_tag project.artwork.asset(:small)
+    .schedule-hangout
+      %p.schedule-title Need help choosing? Schedule a video chat with us using Google Hangouts.
+      %a.button.schedule-button{:href => 'https://folyo.youcanbook.me/', :target => '_blank'} Schedule Chat
