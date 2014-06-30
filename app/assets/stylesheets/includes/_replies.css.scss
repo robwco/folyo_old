@@ -5,8 +5,7 @@
 	}
 
 	#page-content > .container {
-		padding-top: 0;
-		padding-bottom: 0;
+		padding: 0;
 		position: relative;
 		@include transition-property(left);
    	@include transition-duration(400ms);
@@ -306,7 +305,7 @@
 	 	&.reply-status-hidden{
 	 		opacity: 0.3;
 	 	}
-	} 
+	}
 	.reply-inner{
 		padding-bottom: 90%;
 		background: $lightgrey2;
@@ -333,7 +332,7 @@
 		background: $lightgrey2;
 	}
 	.reply-infos{
-	  display: table-cell; 
+	  display: table-cell;
 	  vertical-align: middle;
 		padding-left: 65px;
 		font-size: 13px;
@@ -460,7 +459,7 @@ ul.messages{
 		.count { background: $green1; }
 	}
 }
-.replies-view{	
+.replies-view{
 	line-height: 1;
 	float: right;
 	a{
