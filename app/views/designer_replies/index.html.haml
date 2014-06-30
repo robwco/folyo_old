@@ -29,7 +29,7 @@
         %span All
         %span.count= @designer_replies.unscoped.count
     .replies-view
-      %a.replies-view-list.active{href: 'javascript:void(0)'}
+      %a.replies-view-list.active{href: 'javascript:void(0)', title: 'Switch to list view'}
         :plain
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              width="20px" height="20px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
@@ -48,7 +48,7 @@
             </g>
           </g>
           </svg>
-      %a.replies-view-grid{href: 'javascript:void(0)'}
+      %a.replies-view-grid{href: 'javascript:void(0)', title: 'Switch to grid view'}
         :plain
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              width="20px" height="20px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
@@ -64,7 +64,7 @@
             c25.878,0,46.857-20.979,46.857-46.857v-70.285C387.429,244.407,366.449,223.429,340.571,223.429L340.571,223.429z"/>
           </svg>
 
-  
+
   - if @designer_replies.empty?
     %p.note Sorry, no #{params[:status] || 'new'} reply yet
   - else
