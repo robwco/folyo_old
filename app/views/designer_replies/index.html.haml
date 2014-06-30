@@ -70,7 +70,8 @@
   - else
     .replies.replies-list
       - @designer_replies.each_with_index do |r, i|
-        %a.reply{:href => offer_reply_path(r.job_offer, r, status: params[:status])}
+        -puts r.inspect
+        %a.reply{:href => offer_reply_path(r.job_offer, r, status: params[:status]), :class => 'reply-status-' + r.status.to_s}
           .reply-inner
             .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
               - if r.designer.profile_picture.try(:processed?)
