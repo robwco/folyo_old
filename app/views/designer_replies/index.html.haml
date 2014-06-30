@@ -82,13 +82,13 @@
                 %span.placeholder
                 %span.reply-location= r.designer.location
               %p.reply-message= Sanitize.clean(r.message).gsub('&amp;','&')
-          - if r.designer.has_showable_projects?
-            .reply-work
-              .featured-work-cover{:style => 'background-image: url('+r.designer.showable_projects[0].artwork.asset(:small)+')'}
-              .featured-work
-                - r.designer.showable_projects.each do |project|
-                  .project
-                    = image_tag project.artwork.asset(:small)
+            - if r.designer.has_showable_projects?
+              .reply-work
+                .featured-work-cover{:style => 'background-image: url('+r.designer.showable_projects[0].artwork.asset(:small)+')'}
+                .featured-work
+                  - r.designer.showable_projects.each do |project|
+                    .project
+                      = image_tag project.artwork.asset(:small)
     .schedule-hangout
       %p.schedule-title Need help choosing? Schedule a video chat with us using Google Hangouts.
       - calendarURL = 'https://calendly.com/folyo/'
