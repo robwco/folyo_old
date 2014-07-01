@@ -35,7 +35,6 @@
   %p.page-intro
     Write your job offer, then submit it for review once you're ready.
 
-= simple_form_for @job_offer, as: 'job_offer', url: offer_path(@job_offer.id) do |f|
+= simple_form_for @job_offer, as: 'job_offer', url: offer_path(@job_offer.id), html: {id: 'edit_job_offer_form'} do |f|
 
   = render '/job_offers/form', f: f, job_offer: @job_offer, client: @client
-

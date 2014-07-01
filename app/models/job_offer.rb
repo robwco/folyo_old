@@ -181,11 +181,13 @@ class JobOffer
 
     event :accept do
       transition :waiting_for_review => :accepted
-      transition :rejected => :accepted
+      transition :rejected           => :accepted
+      transition :accepted           => same
     end
 
     event :reject do
       transition :waiting_for_review => :rejected
+      transition :rejected           => same
     end
 
     event :prepare_for_sending do
