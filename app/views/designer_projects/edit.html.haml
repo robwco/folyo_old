@@ -22,8 +22,8 @@
 
     .section
       %h3 Budget
-      = f.input :budget_range,   label: 'Budget range', as: :select,   collection: DesignerProject.budget_ranges, hint: yield(:budget_hint)
-      = f.input :budget_privacy, label: 'Budget privacy', as: :select, collection: DesignerProject.budget_privacies, label_method: sym_label_method, value_method: :to_sym
+      = f.input :budget_range,   label: 'Budget range',   as: :select, collection: DesignerProject.budget_ranges, include_blank: false, hint: yield(:budget_hint)
+      = f.input :budget_privacy, label: 'Budget privacy', as: :select, collection: DesignerProject.budget_privacies, include_blank: false, label_method: sym_label_method, value_method: :to_sym
 
     = f.submit 'Save Project', class: 'submit button big-button'
 
