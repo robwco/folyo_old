@@ -8,6 +8,10 @@
   .artwork
     = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @project), image: @artwork, image_name: 'artwork', singleton: false
 
+= content_for :budget_hint do
+  %span Explain the budgets & privacy blah
+  %span Blah, blah, blah, blah, blah, blah, blah...
+
 .designer-project
 
   = simple_form_for [@designer, @project], url: designer_project_path(@designer, @project), html: {id: 'main-form'} do |f|
@@ -15,6 +19,11 @@
     = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
     = f.input :url,         label: 'Project url'
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
+
+    .section
+      %h3 Budget
+      = f.input :budget_range,   label: 'Budget range', as: :select,   collection: DesignerProject.budget_ranges, hint: yield(:budget_hint)
+      = f.input :budget_privacy, label: 'Budget privacy', as: :select, collection: DesignerProject.budget_privacies, label_method: sym_label_method, value_method: :to_sym
 
     = f.submit 'Save Project', class: 'submit button big-button'
 
