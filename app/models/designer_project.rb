@@ -6,11 +6,14 @@ class DesignerProject
   include Mongoid::EmbeddedFindable
 
   def self.budget_ranges
-    ["Don't remember" ,'Under $1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-$5000', '$5000-$6000', '$6000-$7500', '$7500-$10000', '$10000-$15000', '$15000-$20000', '$20000+']
+    ["n/a" ,'Under $1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-$5000', '$5000-$6000', '$6000-$7500', '$7500-$10000', '$10000-$15000', '$15000-$20000', '$20000+']
   end
 
   def self.budget_privacies
-    %i(private designers_only public)
+    {
+      public: "Public (shown on profile page)", 
+      private: "Private (used for anonymous stats only)"
+    }
   end
 
   field :name
