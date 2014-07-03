@@ -111,7 +111,7 @@ Folyo::Application.routes.draw do
 
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
 
-  get 'account', controller: 'application', action: 'account'
+  get 'account/(:account_section)', controller: 'application', action: 'account'
 
   root to: "site#home"
 
