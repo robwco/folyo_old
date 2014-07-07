@@ -84,7 +84,7 @@ class JobOffer
     if discount.nil?
       PRICE
     else
-      PRICE * (1 - discount.to_f/100)
+      (PRICE * (1 - discount.to_f/100)).round
     end
   end
 
@@ -94,11 +94,7 @@ class JobOffer
 
   def display_price
     price = discounted_price
-    if price % 1 == 0
-      number_to_currency(discounted_price, precision: 0)
-    else
-      number_to_currency(discounted_price)
-    end
+    number_to_currency(discounted_price, precision: 0)
   end
 
   ## validations ##
