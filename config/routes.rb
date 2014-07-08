@@ -63,6 +63,7 @@ Folyo::Application.routes.draw do
       post 'webhook', on: :collection
       delete 'offer', on: :member
     end
+    resources :referral_programs
   end
 
   resources :designers do

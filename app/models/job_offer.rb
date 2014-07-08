@@ -112,6 +112,7 @@ class JobOffer
     o.validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
     o.validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
     o.validates_presence_of     :budget_range, :budget_type
+    o.validates_inclusion_of    :discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
   end
 
   ## callbacks ##
