@@ -84,7 +84,7 @@ class JobOffer
     if discount.nil?
       PRICE
     else
-      PRICE * (1 - discount.to_f/100)
+      (PRICE * (1 - discount.to_f/100)).round
     end
   end
 
@@ -94,11 +94,7 @@ class JobOffer
 
   def display_price
     price = discounted_price
-    if price % 1 == 0
-      number_to_currency(discounted_price, precision: 0)
-    else
-      number_to_currency(discounted_price)
-    end
+    number_to_currency(discounted_price, precision: 0)
   end
 
   ## validations ##
@@ -116,6 +112,7 @@ class JobOffer
     o.validates_inclusion_of    :budget_range,  in: JobOffer.budget_ranges,  allow_blank: true
     o.validates_inclusion_of    :budget_type,   in: JobOffer.budget_types,   allow_blank: true
     o.validates_presence_of     :budget_range, :budget_type
+    o.validates_inclusion_of    :discount, in: 1..100, allow_nil: true, message: 'must be between 1 and 100'
   end
 
   ## callbacks ##
@@ -178,7 +175,7 @@ class JobOffer
     event :pay do
       transition :waiting_for_payment => :waiting_for_review
     end
-
+    
     event :accept do
       transition :waiting_for_review => :accepted
       transition :rejected           => :accepted
@@ -227,6 +224,10 @@ class JobOffer
     end
 
     after_transition :status_changed
+
+    after_transition any => :waiting_for_payment do |offer, transition|
+      offer.pay if offer.discounted_price == 0
+    end
 
     states.each do |state|
       self.state(state.name, :value => state.name.to_sym)

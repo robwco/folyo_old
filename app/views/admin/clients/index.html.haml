@@ -1,4 +1,6 @@
-= content_for :title, '[Admin]Browse Clients'
+= content_for :title, '[Admin] Browse Clients'
+= content_for :subnav do
+	= render partial: '/admin/clients/clients_nav'
 
 .block
 	- @clients.each do |client|
