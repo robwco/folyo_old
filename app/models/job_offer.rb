@@ -175,7 +175,7 @@ class JobOffer
     event :pay do
       transition :waiting_for_payment => :waiting_for_review
     end
-
+    
     event :accept do
       transition :waiting_for_review => :accepted
       transition :rejected           => :accepted
@@ -224,6 +224,10 @@ class JobOffer
     end
 
     after_transition :status_changed
+
+    after_transition any => :waiting_for_payment do |offer, transition|
+      offer.pay if offer.discounted_price == 0
+    end
 
     states.each do |state|
       self.state(state.name, :value => state.name.to_sym)

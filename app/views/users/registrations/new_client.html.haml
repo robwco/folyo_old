@@ -6,7 +6,7 @@
 	= devise_error_messages!
 
 - if resource.referring_program
-	.note= resource.referring_program.message
+	.note!= markdown_renderer.render(resource.referring_program.message)
 
 =content_for :company_hint do
 	%span.title Things to mention:
