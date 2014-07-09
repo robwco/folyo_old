@@ -8,6 +8,12 @@
   .artwork
     = render 'paperclipable/upload', images_path: designer_project_artworks_path(@designer, @project), image: @artwork, image_name: 'artwork', singleton: false
 
+= content_for :budget_hint do
+  %span If your rates have changed, please pick the amount you would charge <strong>now</strong> for similar work. 
+
+= content_for :budget_privacy_hint do
+  %span You can choose to display the budget on your profile page, or keep it strictly private and anonymous. 
+
 .designer-project
 
   = simple_form_for [@designer, @project], url: designer_project_path(@designer, @project), html: {id: 'main-form'} do |f|
@@ -15,6 +21,12 @@
     = f.input :description, label: 'Project Description', as: :limited_text, wrapper_html: {class: 'markdown'}
     = f.input :url,         label: 'Project url'
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label: 'Skills Involved', label_method: sym_label_method, value_method: :to_sym
+
+    .section
+      %h3 Budget
+      .note By sharing this project's budget, you can help us compile anonymous statistics to help clients price their projects appropriately. 
+      = f.input :budget_range,   label: 'How much did you charge for this project?',   as: :select, collection: DesignerProject.budget_ranges, include_blank: false, hint: yield(:budget_hint)
+      = f.input :budget_privacy, label: 'Make this information:', as: :select, collection: DesignerProject.budget_privacies, include_blank: false, label_method: lambda { |i|  i[1] }, value_method: lambda { |i|  i[0] }, hint: yield(:budget_privacy_hint)
 
     = f.submit 'Save Project', class: 'submit button big-button'
 

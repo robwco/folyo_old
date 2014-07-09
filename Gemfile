@@ -4,7 +4,6 @@ ruby "2.0.0"
 gem 'rails', '3.2.16'
 
 # Core components
-gem 'heroku'
 gem 'unicorn'
 gem 'bson_ext'
 
@@ -60,6 +59,8 @@ gem 'geocoder'
 gem 'activemerchant' # paypal
 gem 'mailchimp-api'
 gem 'swish' # dribbble
+gem 'intercom'
+gem 'intercom-rails'
 
 # Email
 gem 'premailer-rails'
@@ -68,9 +69,9 @@ gem 'premailer-rails'
 gem 'sitemap_generator'
 
 group :assets do
-  gem 'sass-rails'
   gem 'coffee-rails'
   gem 'compass-rails'
+  gem 'sass-rails'
   gem 'susy'
   gem 'uglifier'
   gem 'sprockets-image_compressor'
@@ -81,7 +82,6 @@ end
 group :development do
   gem 'taps'
   gem 'foreman'
-  gem 'zeus'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'

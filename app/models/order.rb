@@ -34,7 +34,6 @@ class Order
   def purchase(job_offer)
     if process_purchase(job_offer).success?
       job_offer.pay
-      track_event
       true
     else
       false
@@ -97,10 +96,6 @@ class Order
     })
     self.update_attribute(:transaction_id, response.params['transaction_id'])
     response
-  end
-
-  def track_event
-    job_offer.client.track_user_event("Payment", job_offer_title: job_offer.title, job_offer_id: job_offer.id)
   end
 
 end

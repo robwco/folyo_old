@@ -6,7 +6,7 @@ class Views.JobOffers.EditView extends Views.ApplicationView
   lastFormState = undefined
 
   saveForm = ->
-    $form = $('form.edit_job_offer')
+    $form = $('#edit_job_offer_form')
     if $form.serialize() != lastFormState
       lastFormState = $form.serialize()
       $.ajax
@@ -37,4 +37,3 @@ class Views.JobOffers.EditView extends Views.ApplicationView
     super()
     clearInterval(interval)
     saveForm()
-

@@ -17,6 +17,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     $('.avatar', $header).attr('src', $reply.attr('data-avatar'))
     $('.title span', $header).html($reply.attr('data-title'))
     $('.subtitle', $header).html($reply.attr('data-subtitle'))
+    $('.reply-location', $header).html($reply.attr('data-location'))
 
     # updating actions
     $('#get-in-touch').attr('href', "/designers/#{$reply.attr('data-designer-id')}/messages/new")
@@ -70,7 +71,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
   enableActionButtons: ->
     $('.shortlist.button, .hide.button').click (e) ->
       $btn = $(this)
-      $reply = $('.reply-carrousel-item:visible,.reply-actions')
+      $reply = $(".reply-carrousel-item[data-path='#{window.location.pathname}'],.reply-actions")
       $btn.addClass('spinning')
       $.ajax
         url: $btn.attr('href')

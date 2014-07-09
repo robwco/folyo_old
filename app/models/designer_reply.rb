@@ -20,7 +20,7 @@ class DesignerReply
 
   ## callbacks ##
   after_create :send_creation_notification!, :track_creation_event
-  after_update :send_update_notification!,   :track_update_event, if: :message_changed?
+  after_update :track_update_event, if: :message_changed?
 
   ## scopes ##
   default_scope order_by(created_at: :desc)
@@ -41,11 +41,6 @@ class DesignerReply
     ClientMailer.job_offer_replied(self).deliver
   end
   handle_asynchronously :send_creation_notification!
-
-  def send_update_notification!
-    ClientMailer.updated_reply(self).deliver
-  end
-  handle_asynchronously :send_update_notification!
 
   def track_creation_event
     self.designer.track_user_event('Job Offer Reply',
@@ -93,14 +88,14 @@ class DesignerReply
     self.status == :shortlisted
   end
 
-  def toggle_hidden!
-    new_status = self.status == :hidden ? :default : :hidden
+  def toggle_hidden!(new_status = nil)
+    new_status = new_status.nil? ? (self.status == :hidden ? :default : :hidden) : (new_status ? :hidden : :default)
     self.update_attribute(:status, new_status)
     new_status
   end
 
-  def toggle_shortlisted!
-    new_status = self.status == :shortlisted ? :default : :shortlisted
+  def toggle_shortlisted!(new_status = nil)
+    new_status = new_status.nil? ? (self.status == :shortlisted ? :default : :shortlisted) : (new_status ? :shortlisted : :default)
     self.update_attribute(:status, new_status)
     new_status
   end

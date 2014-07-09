@@ -31,8 +31,8 @@ feature 'Reply management', devise: true, js: true do
     end
 
     scenario 'browse all replies' do
-      page.should have_selector('li.reply', count: n)
-      first('li.reply a').click
+      page.should have_selector('a.reply', count: n)
+      first('a.reply').click
 
       page.should have_content replies[2].message
       find(reply_navigation_button('next')).trigger('click')
@@ -48,16 +48,16 @@ feature 'Reply management', devise: true, js: true do
       page.should have_no_selector(reply_navigation_button('prev'))
 
       find('h1 a.back').click
-      page.should have_selector('li.reply', count: n)
+      page.should have_selector('a.reply', count: n)
     end
 
     scenario 'shortlist 2 replies and hide 1' do
-      page.should have_selector('li.reply', count: n)
+      page.should have_selector('a.reply', count: n)
       page.find(reply_counter('shortlisted')).should have_content(0)
       page.find(reply_counter('hidden')).should have_content(0)
       page.find(reply_counter('new')).should have_content(n)
       page.find(reply_counter('all')).should have_content(n)
-      first('li.reply a').click
+      first('a.reply').click
 
       find(reply_action_button('shortlist')).trigger('click')
       find(reply_navigation_button('next')).trigger('click')

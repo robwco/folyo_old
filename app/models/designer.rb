@@ -73,7 +73,7 @@ class Designer < User
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
   before_create      :set_referral_token
-  before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username, :set_paypal_email
+  before_validation  :process_skills, :fix_portfolio_url, :fix_twitter_username, :fix_behance_username, :fix_dribbble_username, :set_paypal_email
   before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
@@ -115,6 +115,14 @@ class Designer < User
 
   def behance_url
     "http://www.behance.net/#{behance_username}" unless behance_username.blank?
+  end
+
+  def twitter_url
+    "https://twitter.com/#{twitter_username}" unless twitter_username.blank?
+  end
+
+  def social_urls
+    { portfolio: portfolio_url, dribbble: dribbble_url, behance: behance_url, twitter: twitter_url }.delete_if { |k, v| v.nil? }
   end
 
   def resources
@@ -191,13 +199,32 @@ class Designer < User
     JobOffer.with_available_bonus_for_designer(self).sum { |offer| offer.order.referral_bonus }
   end
 
+  def update_intercom_attributes
+    user = Intercom::User.find(user_id: self.id) rescue Intercom::User.new
+    user.user_id = self.id.to_s
+    user.email = self.email
+    user.name = self.full_name
+    user.created_at = self.created_at
+    user.custom_data = {
+      role: 'designer',
+      status: self.status,
+      slug: self.slug,
+      profile: "http://www.folyo.me/designers/#{self.slug}",
+      profile_completeness: self.profile_completeness
+    }
+    user.save
+  end
 
   def self.featured_designers(count)
-    designers = Designer.accepted.with_portfolio.with_profile_picture # we pick only designers with profile picture & portfolio
+    designers = Designer.public_only.accepted.with_portfolio.with_profile_picture # we pick only designers with profile picture & portfolio
     designers = designers.order_by(randomization_key: :asc)           # sort them in pseudo-random order
     designers = designers.offset(rand(designers.count - count + 1))   # start from a random position (with enough designers ahead)
     designers = designers.limit(3 * count)                            # get more designers than needed
     designers.to_a.sample(count)                                      # pick an exact size sample of designers
+  end
+
+  def pending_rank
+    Designer.pending.where(:created_at.lte => self.created_at).count
   end
 
   protected
@@ -264,8 +291,22 @@ class Designer < User
   end
 
   def fix_dribbble_username
-    if self.dribbble_username =~ /http:\/\/dribbble.com\/(.*)/
-      self.dribbble_username = $1
+    if self.dribbble_username =~ /http(s)?:\/\/(www\.)?dribbble\.com\/(.*)/
+      self.dribbble_username = $3
+    end
+  end
+
+  def fix_behance_username
+    if self.behance_username =~ /http(s)?:\/\/(www\.)?behance\.net\/(.*)/
+      self.behance_username = $3
+    end
+  end
+
+  def fix_twitter_username
+    if self.twitter_username =~ /http(s)?:\/\/(www\.)?twitter\.com\/(.*)/
+      self.twitter_username = $3
+    elsif self.twitter_username =~ /@(.*)/
+      self.twitter_username = $1
     end
   end
 

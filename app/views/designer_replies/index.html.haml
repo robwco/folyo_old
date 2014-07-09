@@ -13,38 +13,84 @@
   %p.note Sorry, you haven't received any replies yet
 - else
 
-  .replies-filter.menu
-    %h5 Filter by:
-    = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
-      %span New
-      %span.count= @designer_replies.unscoped.default.count
-    = link_to offer_replies_path(@job_offer, status: 'shortlisted'), class: "filter-shortlisted #{active_class_for_filter('shortlisted')}" do
-      %span Shortlisted
-      %span.count= @designer_replies.unscoped.shortlisted.count
-    = link_to offer_replies_path(@job_offer, status: 'hidden'), class: "filter-hidden #{active_class_for_filter('hidden')}" do
-      %span Hidden
-      %span.count= @designer_replies.unscoped.hidden.count
-    = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
-      %span All
-      %span.count= @designer_replies.unscoped.count
+  .replies-options
+    .replies-filter.menu
+      %h5 Filter by:
+      = link_to offer_replies_path(@job_offer), class: "filter-new #{active_class_for_filter}"  do
+        %span New
+        %span.count= @designer_replies.unscoped.default.count
+      = link_to offer_replies_path(@job_offer, status: 'shortlisted'), class: "filter-shortlisted #{active_class_for_filter('shortlisted')}" do
+        %span Shortlisted
+        %span.count= @designer_replies.unscoped.shortlisted.count
+      = link_to offer_replies_path(@job_offer, status: 'hidden'), class: "filter-hidden #{active_class_for_filter('hidden')}" do
+        %span Hidden
+        %span.count= @designer_replies.unscoped.hidden.count
+      = link_to offer_replies_path(@job_offer, status: 'all'), class: "filter-all #{active_class_for_filter('all')}" do
+        %span All
+        %span.count= @designer_replies.unscoped.count
+    .replies-view
+      %a.replies-view-list.active{href: 'javascript:void(0)', title: 'Switch to list view'}
+        :plain
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="20px" height="20px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
+          <g>
+            <g>
+              <path d="M326,105.143H74c-19.882,0-36-16.118-36-36s16.118-36,36-36h252c19.883,0,36,16.118,36,36S345.883,105.143,326,105.143z"
+                />
+            </g>
+            <g>
+              <path d="M326,236H74c-19.882,0-36-16.118-36-36c0-19.882,16.118-36,36-36h252c19.883,0,36,16.118,36,36
+                C362,219.882,345.883,236,326,236z"/>
+            </g>
+            <g>
+              <path d="M326,366.856H74c-19.882,0-36-16.117-36-36c0-19.882,16.118-36,36-36h252c19.883,0,36,16.118,36,36
+                C362,350.739,345.883,366.856,326,366.856z"/>
+            </g>
+          </g>
+          </svg>
+      %a.replies-view-grid{href: 'javascript:void(0)', title: 'Switch to grid view'}
+        :plain
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="20px" height="20px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve">
+          <path d="M129.714,59.429v70.286H59.429V59.429H129.714 M129.714,12.571H59.429
+            c-25.878,0-46.857,20.979-46.857,46.857v70.286c0,25.878,20.979,46.857,46.857,46.857h70.286c25.878,0,46.857-20.979,46.857-46.857
+            V59.429C176.571,33.55,155.592,12.571,129.714,12.571L129.714,12.571z M340.571,59.429v70.286h-70.285V59.429H340.571
+             M340.571,12.571h-70.285c-25.879,0-46.857,20.979-46.857,46.857v70.286c0,25.878,20.979,46.857,46.857,46.857h70.285
+            c25.878,0,46.857-20.979,46.857-46.857V59.429C387.429,33.55,366.449,12.571,340.571,12.571L340.571,12.571z M129.714,270.286
+            v70.285H59.429v-70.285H129.714 M129.714,223.429H59.429c-25.878,0-46.857,20.979-46.857,46.857v70.285
+            c0,25.878,20.979,46.857,46.857,46.857h70.286c25.878,0,46.857-20.979,46.857-46.857v-70.285
+            C176.571,244.407,155.592,223.429,129.714,223.429L129.714,223.429z M340.571,270.286v70.285h-70.285v-70.285H340.571
+             M340.571,223.429h-70.285c-25.879,0-46.857,20.979-46.857,46.857v70.285c0,25.878,20.979,46.857,46.857,46.857h70.285
+            c25.878,0,46.857-20.979,46.857-46.857v-70.285C387.429,244.407,366.449,223.429,340.571,223.429L340.571,223.429z"/>
+          </svg>
 
-  %ul.replies
-    - if @designer_replies.empty?
-      %p.note Sorry, no #{params[:status] || 'new'} reply yet
-    - else
-      - @designer_replies.each do |r|
-        %li.reply
-          .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
-            - if r.designer.profile_picture.try(:processed?)
-              = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
-            - else
-              = image_tag('default-avatar.png', class: 'avatar reply-avatar')
-            %p.reply-infos
-              = link_to offer_reply_path(r.job_offer, r, status: params[:status]) do
-                = r.designer.full_name
+
+  - if @designer_replies.empty?
+    %p.note Sorry, no #{params[:status] || 'new'} reply yet
+  - else
+    .replies.replies-list
+      - @designer_replies.each_with_index do |r, i|
+        %a.reply{:href => offer_reply_path(r.job_offer, r, status: params[:status]), :class => 'reply-status-' + r.status.to_s}
+          .reply-inner
+            .reply-designer{class: r.designer.has_showable_projects? ? '' : 'full' }
+              - if r.designer.profile_picture.try(:processed?)
+                = image_tag(r.designer.profile_picture.asset(:small), class: 'avatar reply-avatar')
+              - else
+                = image_tag('default-avatar.png', class: 'avatar reply-avatar')
+              %p.reply-infos
+                %span.reply-name= r.designer.full_name
                 %span.placeholder
-              %span.reply-location= r.designer.location
-            %p.reply-message= Sanitize.clean(r.message)
-          - if r.designer.has_showable_projects?
-            .reply-work
-              = render '/designers/featured_work', designer: r.designer, with_description: true
+                %span.reply-location= r.designer.location
+              %p.reply-message= Sanitize.clean(r.message).gsub('&amp;','&')
+            - if r.designer.has_showable_projects?
+              .reply-work
+                .featured-work-cover{:style => 'background-image: url('+r.designer.showable_projects[0].artwork.asset(:small)+')'}
+                .featured-work
+                  - r.designer.showable_projects.each do |project|
+                    .project
+                      = image_tag project.artwork.asset(:small)
+    .schedule-hangout
+      %p.schedule-title Need help choosing? Schedule a video chat with us using Google Hangouts.
+      - calendarURL = 'https://calendly.com/folyo/'
+      / - calendarURL = 'https://folyo.youcanbook.me/'
+      %a.button.schedule-button{:href => calendarURL, :target => '_blank'} Schedule Chat

@@ -6,6 +6,90 @@ describe Designer  do
 
   subject { designer }
 
+  describe 'autocorrect dribbble username' do
+
+    let(:dribbble_username) { 'AndrewCoyleDesign' }
+
+    it 'corrects usernames starting with http://dribbble.com' do
+      designer.dribbble_username = "http://dribbble.com/#{dribbble_username}"
+      designer.save
+      designer.reload.dribbble_username.should == dribbble_username
+    end
+
+    it 'corrects usernames starting with https://dribbble.com' do
+      designer.dribbble_username = "https://dribbble.com/#{dribbble_username}"
+      designer.save
+      designer.reload.dribbble_username.should == dribbble_username
+    end
+
+    it 'leaves correct dribbble username unchanged' do
+      designer.dribbble_username = dribbble_username
+      designer.save
+      designer.reload.dribbble_username.should == dribbble_username
+    end
+
+  end
+
+  describe 'autocorrect twitter username' do
+
+    let(:twitter_username) { 'AndrewCoyleDesign' }
+
+    it 'corrects usernames starting with http://twitter.com/' do
+      designer.twitter_username = "http://twitter.com/#{twitter_username}"
+      designer.save
+      designer.reload.twitter_username.should == twitter_username
+    end
+
+    it 'corrects usernames starting with https://twitter.com/' do
+      designer.twitter_username = "https://twitter.com/#{twitter_username}"
+      designer.save
+      designer.reload.twitter_username.should == twitter_username
+    end
+
+    it 'corrects usernames starting with @' do
+      designer.twitter_username = "@#{twitter_username}"
+      designer.save
+      designer.reload.twitter_username.should == twitter_username
+    end
+
+    it 'leaves correct username unchanged' do
+      designer.twitter_username = twitter_username
+      designer.save
+      designer.reload.twitter_username.should == twitter_username
+    end
+
+  end
+
+  describe 'autocorrect behance username' do
+
+    let(:behance_username) { 'AndrewCoyleDesign' }
+
+    it 'corrects usernames starting with http://www.behance.net/' do
+      designer.behance_username = "http://www.behance.net/#{behance_username}"
+      designer.save
+      designer.reload.behance_username.should == behance_username
+    end
+
+    it 'corrects usernames starting with https://www.behance.net/' do
+      designer.behance_username = "https://www.behance.net/#{behance_username}"
+      designer.save
+      designer.reload.behance_username.should == behance_username
+    end
+
+    it 'corrects usernames starting with https://behance.net/' do
+      designer.behance_username = "https://behance.net/#{behance_username}"
+      designer.save
+      designer.reload.behance_username.should == behance_username
+    end
+
+    it 'leaves correct username unchanged' do
+      designer.behance_username = behance_username
+      designer.save
+      designer.reload.behance_username.should == behance_username
+    end
+    
+  end
+
   describe 'referral balance' do
 
     before do

@@ -1,0 +1,7 @@
+= content_for :body_class, " with-subnav"
+.subnav
+  %ul
+    %li
+      = current_link_to 'All Clients', admin_clients_path
+    %li
+      = current_link_to_unless (controller.controller_name == 'referral_programs'), 'Referral programs', admin_referral_programs_path

@@ -1,0 +1,14 @@
+= content_for :title, @referral_program.name || 'Untitled'
+= content_for :back_path, admin_referral_programs_path
+= content_for :back_name, 'All programs'
+= content_for :subnav do
+  = render partial: '/admin/clients/clients_nav'
+
+.referral-program
+  = simple_form_for @referral_program, url: admin_referral_program_path(@referral_program), html: {id: 'main-form'} do |f|
+    = f.input :name, label: 'Program name'
+    = f.input :token, hint: "Must be unique, will be used in the program url : #{root_url}?ref=#token#"
+    = f.input :message, as: :limited_text, wrapper_html: {class: 'markdown'}, hint: 'Welcome message printed to user during signup'
+    = f.input :discount, hint: 'Discount in %'
+    = f.submit 'Save program', class: 'submit button big-button'
+    = link_to 'Delete program', admin_referral_program_path(@referral_program), method: 'DELETE', confirm: 'Are you sure you want to delete this program?', class: 'delete-program'

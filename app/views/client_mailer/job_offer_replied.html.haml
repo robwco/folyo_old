@@ -1,5 +1,71 @@
-= content_for :intro, raw("<strong>#{@designer_reply.designer.full_name}</strong> has just replied to your job offer, \"#{@designer_reply.job_offer.title}\":")
+= content_for :view_online, offer_reply_url(@designer_reply.job_offer, @designer_reply)
 
-%p= @designer_reply.message
-= link_to "View #{@designer_reply.designer.full_name}\'s Profile", offer_reply_url(@designer_reply.job_offer, @designer_reply), :class=>"button"
-%span or just reply to this email to get in touch
+- designer = @designer_reply.designer
+
+%table.designer-profile.block
+  %tr
+    %td.designer-portrait
+      = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply) do
+        - if designer.profile_picture
+          = image_tag designer.profile_picture.asset(:thumbnail)
+        - else
+          = image_tag mail_asset_url('default-avatar.png')
+    %td.designer-data
+      %h3.designer-name
+        =link_to designer.full_name, offer_reply_url(@designer_reply.job_offer, @designer_reply)
+      %p.designer-location= designer.location
+
+.designer-message-triangle
+  = image_tag mail_asset_url('email-triangle.png'), height: 10, width: 50
+
+.designer-reply
+  - if @designer_reply.message
+    .designer-message.block
+      = auto_link(@designer_reply.message.html_safe)
+
+  .designer-actions.block
+    %table
+      %tr
+        %td.view-profile{colspan: 2}
+          = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply), 'View Full Profile', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
+      %tr
+        %td.shortlist
+          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist', background_color: '#DEF6D3', color: '#5BB62B', border: 'none')
+
+        %td.hide
+          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Hide', background_color: '#F3DCD9', color: '#c62910', border: 'none' )
+
+  - if designer.has_showable_projects?
+    %table.row.designer-portfolio
+      %tr
+        %td.wrapper.first
+          %table.eight.columns
+            %tr
+              %td
+                = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image1' do
+                  = image_tag designer.projects[0].artwork.asset(:medium)
+              %td.expander
+
+        %td.wrapper.last
+          %table.four.columns
+            %tr
+              %td
+                - if designer.projects[1].try(:can_show?)
+                  = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image2' do
+                    = image_tag designer.projects[1].artwork.asset(:medium)
+
+                - if designer.projects[2].try(:can_show?)
+                  = link_to offer_reply_url(@designer_reply.job_offer, @designer_reply), class: 'portfolio-sample image3' do
+                    = image_tag designer.projects[2].artwork.asset(:medium)
+
+              %td.expander
+
+  .links
+    %span Links:
+    - designer.social_urls.each_with_index do |(key, url), index|
+      - if index > 0
+        \-
+      = link_to key.to_s.capitalize, url
+
+.note
+  You can reply to this email to get in touch with #{designer.full_name} directly.
