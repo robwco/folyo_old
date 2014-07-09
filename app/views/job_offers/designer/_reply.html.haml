@@ -1,16 +1,19 @@
 .reply-offer
+
   - if @designer_reply.persisted?
     %h2 Edit your previous reply
-  - elsif !current_user.has_showable_projects?
+  - else
+    %h2 Reply to this offer
+
+  - if !current_user.has_showable_projects?
     .upload-projects-prompt
       %h2 Wait!
       %p It looks like <strong class="red">your portfolio is empty</strong>.
       %p Uploading a project only takes a couple minutes, and will drastically <strong>increase your chances</strong> of getting picked for this project.
       = link_to 'Upload a Project Now', designer_projects_path(current_user), class: 'button prompt-upload'
       = link_to 'No Thanks', '#', class: 'prompt-nothanks'
-    %h2 Reply to this offer
-  %form
 
-  = simple_form_for @designer_reply, url: @designer_reply.persisted? ? offer_reply_path(@job_offer, @designer_reply) : offer_replies_path(@job_offer) do |f|
-    = f.input :message, as: :limited_text, label: "Add a short message for the client:"
-    = f.submit value: 'Send your profile', class: 'button clearfix submit-reply'
+  %form
+    = simple_form_for @designer_reply, url: @designer_reply.persisted? ? offer_reply_path(@job_offer, @designer_reply) : offer_replies_path(@job_offer) do |f|
+      = f.input :message, as: :limited_text, label: "Add a short message for the client:"
+      = f.submit value: 'Send your profile', class: 'button clearfix submit-reply'
