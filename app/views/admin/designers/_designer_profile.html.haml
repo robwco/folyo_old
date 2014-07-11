@@ -1,0 +1,15 @@
+.current-designer-info
+  = image_tag designer.profile_picture ? designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar header-avatar'
+  .header-title
+    %h1.title= designer.full_name
+    %h2.subtitle= designer.location
+  .social-urls
+    = link_to 'Folyo', '#', class: 'folyo current'
+    - designer.social_urls.each do |profile, url|
+      - unless profile == :twitter
+        = link_to profile.capitalize, '#', class: 'disabled', data: {profile: profile}
+
+.current-designer-frame
+  %iframe.folyo{src: designer_path(designer, nav: false, profile_links: false)}
+  - designer.social_urls.each do |profile, url|
+    %iframe{src: url, class: profile, style: 'display: none;' }

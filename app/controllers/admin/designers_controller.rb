@@ -35,10 +35,15 @@ class Admin::DesignersController < Admin::BaseController
     render "/designer_mailer/rejected_mail", layout: "mailer"
   end
 
+  def show
+    @designer = Designer.find(params[:id])
+    render partial: 'designer_profile', locals: { designer: @designer, layout: false }
+  end
+
   protected
 
   def collection
-    @designers = Designer.page(params[:page]).per(10).ordered_by_status
+    @designers = Designer.page(params[:page]).per(30).ordered_by_status
     unless params[:skill].blank?
       @designers = @designers.any_in(skills: params[:skill].to_sym)
     end
