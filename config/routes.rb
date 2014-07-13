@@ -35,6 +35,7 @@ Folyo::Application.routes.draw do
   namespace :admin do
     resources :designers do
       get 'messages',    on: :collection
+      get 'pending',     on: :collection
       put 'to_markdown', on: :member
       get 'accepted_email', on: :member
       get 'rejected_email', on: :member

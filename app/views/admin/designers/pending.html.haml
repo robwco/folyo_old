@@ -1,0 +1,22 @@
+= content_for :title, '[Admin] Browse Designers'
+= content_for :body_class, "no-sidebar designer-moderation"
+= content_for :skip_footer, true
+= content_for :skip_flash, true
+= content_for :subnav do
+  = render partial: '/admin/designers/designers_nav'
+
+= fa_icon 'arrow-up', class: 'up', style: 'display: none;'
+
+.designers-queue
+  .queue-counter
+    .counter= @designers.count
+    .text designers to go
+  %ul.designers
+    - @designers.each_with_index do |d, index|
+      %li.designer{class: index == 0 ? 'current' : ''}
+        = link_to admin_designer_path(d) do
+          %h2{class: d.status.to_s.downcase}= d.full_name
+          %span.placeholder
+
+.current-designer-pane
+  = render 'designer_profile', designer: @designers.first

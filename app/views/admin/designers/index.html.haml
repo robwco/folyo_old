@@ -1,20 +1,43 @@
 = content_for :title, '[Admin] Browse Designers'
-= content_for :body_class, "no-sidebar designer-moderation"
-= content_for :skip_footer, true
-= content_for :skip_flash, true
 = content_for :subnav do
-	= render partial: '/admin/designers/designers_nav'
+	= render :partial => '/admin/designers/designers_nav'
 
-= fa_icon 'arrow-up', class: 'up', style: 'display: none;'
+%ul.designers
+	- @designers.each do |d|
+		%li.designer
 
-.designers-queue
-	.queue-filter
-	%ul.designers
-		- @designers.each do |d|
-			%li.designer
-				= link_to admin_designer_path(d) do
-					%h2{class: d.status.to_s.downcase}= d.full_name
-					%span.placeholder
+			- if d.pending?
+				%h2{class: d.status.to_s.downcase}
+					= link_to d.full_name, designer_path(d)
+				%ul.actions
+					%li= link_to 'Edit', edit_designer_url(d)
+					%li.site= link_to 'Site', d.portfolio_url, class: 'tooltip', title: d.portfolio_url
+					- unless d.dribbble_url.blank?
+						%li.dribbble= link_to "Dribbble", d.dribbble_url
+					= render 'admin/designers/status', d: d
 
-.current-designer-pane
-	= render 'designer_profile', designer: @designers.first
+			- else
+				.bio
+					%h2{class: d.status.to_s.downcase}
+						= link_to d.full_name, designer_path(d)
+					%h4
+						= d.short_bio
+					%p!= first_words(format_text(d, :long_bio, sanitize: true), 50)
+
+				.col2
+					= render '/designers/featured_work', designer: d, with_description: false
+					%ul.actions
+						%li= link_to 'Preview', designer_path(d)
+						%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url
+						- unless d.dribbble_url
+							%li.dribbble= link_to "Dribbble", d.dribbble_url
+						- unless d.behance_url
+							%li.behance= link_to "Behance", d.behance_url
+						%li.edit
+							= link_to 'Edit designer', edit_designer_path(d)
+						= render 'admin/designers/status', :d => d
+
+= paginate @designers
+
+= content_for :sidebar do
+	= render 'status_filters', current_status: params[:status].try(:to_sym)

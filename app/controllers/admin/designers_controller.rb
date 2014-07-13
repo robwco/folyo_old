@@ -40,6 +40,10 @@ class Admin::DesignersController < Admin::BaseController
     render partial: 'designer_profile', locals: { designer: @designer, layout: false }
   end
 
+  def pending
+    @designers = Designer.pending.order_by(created_at: :asc)
+  end
+
   protected
 
   def collection

@@ -4,12 +4,16 @@
     %h1.title= designer.full_name
     %h2.subtitle= designer.location
   .social-urls
-    = link_to 'Folyo', '#', class: 'folyo current'
+    = link_to '#', class: 'current', data: {profile: 'folyo'} do
+      = fa_icon 'spinner spin'
+      .label Folyo
     - designer.social_urls.each do |profile, url|
       - unless profile == :twitter
-        = link_to profile.capitalize, '#', class: 'disabled', data: {profile: profile}
+        = link_to '#', class: 'disabled', data: {profile: profile} do
+          = fa_icon 'spinner spin'
+          .label= profile.capitalize
 
 .current-designer-frame
   %iframe.folyo{src: designer_path(designer, nav: false, profile_links: false)}
   - designer.social_urls.each do |profile, url|
-    %iframe{src: url, class: profile, style: 'display: none;' }
+    %iframe{class: profile, style: 'display: none;', data: { src: url} }
