@@ -48,7 +48,7 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
     $('.social-urls').click (e) =>
       e.preventDefault()
       @lockView()
-      $target = $(e.target)
+      $target = $(e.target).parents('a')
       return if $target.hasClass('disabled')
       iframeKind = $target.attr('data-profile')
       $('.social-urls a').removeClass('current')

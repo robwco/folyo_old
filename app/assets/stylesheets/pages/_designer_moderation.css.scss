@@ -62,7 +62,7 @@ $topbar_height: 100px;
       overflow-y: scroll;
       width: 100%;
       height: 100%;
-      padding: 0 15px 0 0px;
+      padding: 0;
     }
 
     ul.designers > li {
@@ -101,46 +101,78 @@ $topbar_height: 100px;
     width: 100%;
     height: $topbar_height;
     background: $darkgrey1;
-    padding: 20px;
+    padding: 10px;
+    position: relative;
     @include clearfix;
     .header-title{
       float: left;
     }
     .title{
-      line-height:30px;
+      line-height:20px;
       margin:0;
       font-weight:bold;
-      font-size:24px;
-      color: white;
+      .name {
+        font-size:24px;
+        color: white;
+      }
+      .location {
+        font-size: 16px;
+        color: white(0.5);
+      }
+
       font-weight: light();
     }
     .subtitle{
       color:white(0.5);
-      font-size:18px;
+      font-size:16px;
       font-weight:normal;
-      margin-top: 3px;
+      margin-top: 0;
     }
     .header-avatar{
-      width: 60px;
-      height: 60px;
+      width: 55px;
+      height: 55px;
       float: left;
       margin-right: $halfspacing;
       background: white(0.1);
     }
-    .social-urls {
+    .moderation-actions {
       position: absolute;
       right: 25px;
-      width: 200px;
+      width: 150px;
       a {
-        width: 40%;
-        margin-bottom: 3%;
-        margin-right: 5%;
+        width: 100%;
+        display: inline-block;
+        border-radius: 2px;
+        color: white;
+        text-align: center;
+        margin-bottom: 5px;
+        &.reject-profile {
+          background: $red1;
+        }
+        &.accept-profile {
+          background: $green;
+        }
+        &:hover {
+          background: #333;
+        }
+      }
+    }
+    .social-urls {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      a {
+        width: 25%;
         padding: 1px 10px;
         background: $darkgrey3;
         color: white;
-        border-radius: 2px;
-        float: right;
+        float: left;
         text-align: center;
+        border-right: 1px solid $darkgrey2;
+        &:last-child {
+          border-right: 0;
+        }
         i {
           display: none;
         }

@@ -1,8 +1,10 @@
 .current-designer-info
   = image_tag designer.profile_picture ? designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar header-avatar'
   .header-title
-    %h1.title= designer.full_name
-    %h2.subtitle= designer.location
+    %h1.title
+      %span.name= designer.full_name
+      %span.location= designer.location
+    %h2.subtitle= designer.short_bio
   .social-urls
     = link_to '#', class: 'current', data: {profile: 'folyo'} do
       = fa_icon 'spinner spin'
@@ -12,6 +14,13 @@
         = link_to '#', class: 'disabled', data: {profile: profile} do
           = fa_icon 'spinner spin'
           .label= profile.capitalize
+  .moderation-actions
+    = link_to '#', class: 'accept-profile' do
+      = fa_icon 'check'
+      %span.label Accept
+    = link_to '#', class: 'reject-profile' do
+      = fa_icon 'ban'
+      %span.label Reject
 
 .current-designer-frame
   %iframe.folyo{src: designer_path(designer, nav: false, profile_links: false)}
