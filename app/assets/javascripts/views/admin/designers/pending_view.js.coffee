@@ -56,17 +56,39 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
       $('.current-designer-pane iframe').hide()
       $(".current-designer-pane iframe.#{iframeKind}").show()
 
+  enableModerationActions: ->
+    update_designer = (url, data, callback) ->
+      data['_method'] = 'PUT'
+      $.ajax({url: url, type: 'POST', dataType: 'json', data: data, success: callback})
+
+    callback = (data) =>
+      $('.queue-counter .counter').html(data.designer_count)
+      $('.designers-queue .designer.current').remove()
+      @selectDesigner(data.next_designer_path)
+
+    $('.moderation-actions .accept-profile').click (e) =>
+      update_designer $(e.target).parents('a').attr('href'), { status: 'accepted' }, callback
+      false
+
+    $('.moderation-actions .reject-profile').click (e) =>
+      update_designer $(e.target).parents('a').attr('href'), { status: 'rejected' }, callback
+      false
+
+  selectDesigner: (url) ->
+    $('.designers-queue .designer').removeClass('current')
+    $designer = $(".designers-queue .designer a[href='#{url}']").parents('.designer')
+    $designer.addClass('current')
+    $.get url, (html) =>
+      $('.current-designer-pane').html(html)
+      @watchFramesLoading()
+      @enableSocialUrlSelection()
+      @enableModerationActions()
+
   enableDesignerSelection: ->
     $('.designers-queue .designer a').click (e) =>
       e.preventDefault()
       @lockView()
-      if url = $(e.target).parent('a').attr('href')
-        $('.designers-queue .designer').removeClass('current')
-        $(e.target).parents('.designer').addClass('current')
-        $.get url, (html) =>
-          $('.current-designer-pane').html(html)
-          @watchFramesLoading()
-          @enableSocialUrlSelection()
+      @selectDesigner(url) if url = $(e.target).parent('a').attr('href')
 
   render: ->
     super()
@@ -74,6 +96,7 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
     @watchFramesLoading()
     @enableDesignerSelection()
     @enableSocialUrlSelection()
+    @enableModerationActions()
 
   cleanup: ->
     super()

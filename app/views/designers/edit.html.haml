@@ -36,6 +36,8 @@
   - else
     = f.input :status, as: :hidden
 
+  = f.input :applied_at, as: :hidden
+
   .section
     %h3 Settings
     = f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
@@ -62,5 +64,3 @@
 
   = f.submit @submit_label || "Update Profile", :class => "button big-button"
   = link_to 'Delete account', designer_path(resource), class: 'delete-account', method: 'DELETE', confirm: 'Are you sure you want to delete your account? No way back possible.'
-
-

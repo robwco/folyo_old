@@ -4,7 +4,7 @@
     %h1.title
       %span.name= designer.full_name
       %span.location= designer.location
-    %h2.subtitle= designer.short_bio
+    %h2.subtitle= designer.short_bio.truncate(70)
   .social-urls
     = link_to '#', class: 'current', data: {profile: 'folyo'} do
       = fa_icon 'spinner spin'
@@ -15,10 +15,10 @@
           = fa_icon 'spinner spin'
           .label= profile.capitalize
   .moderation-actions
-    = link_to '#', class: 'accept-profile' do
+    = link_to admin_designer_path(designer), class: 'accept-profile' do
       = fa_icon 'check'
       %span.label Accept
-    = link_to '#', class: 'reject-profile' do
+    = link_to admin_designer_path(designer), class: 'reject-profile' do
       = fa_icon 'ban'
       %span.label Reject
 
