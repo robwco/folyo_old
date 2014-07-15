@@ -14,7 +14,6 @@
   }
 }
 
-
 .survey-title{
   font-size: 40px;
   color: $green1;
@@ -29,8 +28,28 @@
   }
 }
 
+.survey-contents{
+  border-radius: 3px;
+  border: 1px solid $blue2;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 40px auto;
+  h3{
+    border-bottom: none;
+    font-size: 24px;
+  }
+  ol{
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 20px;
+  }
+}
+
 .survey-cta{
-  margin-bottom: 40px;
+  .button{
+    font-size: 24px;
+  }
 }
 .survey-faq{
   h3{
@@ -45,6 +64,16 @@
   font-size: 30px;
   font-weight: bold();
   border-bottom: none !important;
+  span{
+    font-weight: light();
+    color: $lightesttext;
+    font-size: 18px;
+    background: $lightgrey7;
+    border-radius: 3px;
+    padding: 4px 10px;
+    top: -3px;
+    position: relative;
+  }
 }
 
 .survey-form-block{
