@@ -1,0 +1,57 @@
+%h3.survey-page-title About You
+
+.survey-intro
+  :markdown
+    First, tell us a little more about you. 
+
+.survey-form
+  %form
+    .survey-form-block
+      %label.survey-form-label 1. How long have you been designing for?
+      .survey-form-control
+        %select
+          %option Less than 1 year
+          %option 1-2 years
+          %option 2-3 years
+          %option 3-4 years
+          %option 4-6 years
+          %option 6-8 years
+          %option 8-10 years
+          %option 10-15 years
+          %option 15-20 years
+          %option More than 20 years
+    .survey-form-block
+      %label.survey-form-label 2. How long have you been a <em>professional</em> designer for?
+      .survey-form-control
+        %select
+          %option Less than 1 year
+          %option 1-2 years
+          %option 2-3 years
+          %option 3-4 years
+          %option 4-6 years
+          %option 6-8 years
+          %option 8-10 years
+          %option 10-15 years
+          %option 15-20 years
+          %option More than 20 years
+    .survey-form-block
+      %label.survey-form-label 3. How do you usually bill clients?
+      .survey-form-control
+        %select
+          %option By the project
+          %option By the hour
+          %option By the day
+          %option By the week
+          %option By the month
+          %option Based on results
+          %option It depends
+    .survey-form-block
+      %label.survey-form-label 4. What's your hourly rate?
+      .survey-form-control
+        %input{type: 'text'}
+      %p.survey-form-note If you don't bill by the hour, use an approximate hourly rate or just leave blank.           
+.survey-pagination
+  %a.button.disabled.prev{href: '/budgets/intro'}
+    Introduction
+  %a.button.next{href: '/budgets/logo_design'}
+    Next: Logo Design
