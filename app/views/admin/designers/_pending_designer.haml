@@ -18,11 +18,11 @@
     = link_to admin_designer_path(designer), class: 'accept-profile' do
       = fa_icon 'check'
       %span.label Accept
-    = link_to admin_designer_path(designer), class: 'reject-profile' do
+    = link_to reject_admin_designer_path(designer), class: 'reject-profile fancybox' do
       = fa_icon 'ban'
       %span.label Reject
 
 .current-designer-frame
-  %iframe.folyo{src: designer_path(designer, nav: false, profile_links: false)}
+  %iframe.folyo{src: profile_admin_designer_path(designer)}
   - designer.social_urls.each do |profile, url|
     %iframe{class: profile, style: 'display: none;', data: { src: url} }

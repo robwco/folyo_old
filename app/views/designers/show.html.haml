@@ -1,13 +1,8 @@
 = content_for :title, @designer.full_name
 = content_for :location, @designer.location
-= content_for :skip_nav, params[:nav] == 'false'
-= content_for :skip_footer, params[:nav] == 'false'
-
 = content_for :subtitle do
   %span{itemprop: 'jobTitle'}= @designer.short_bio.truncate(70)
-
 = content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : 'default-avatar.png'
-
 = content_for :body_class, "designer-profile"
 
 - if current_user == @designer
@@ -16,4 +11,4 @@
 
 %meta{itemprop: 'role', content: 'designer'}
 
-= render '/designers/designer_profile', designer: @designer
+= render '/designers/profile/designer_profile', designer: @designer

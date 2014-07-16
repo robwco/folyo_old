@@ -1,0 +1,13 @@
+- if designer.has_projects?
+  .featured-work
+    - designer.showable_projects.each do |project|
+      .project
+        = link_to project.artwork.asset.url(:large), class: 'swipebox project-image', rel: "featured-work-#{designer.id}", title: "#{designer.full_name} -   #{project.name}" do
+          = image_tag project.artwork.asset(:small)
+        - if with_description
+          %h4.project-title= project.name || 'Untitled'
+          - if project.budget_is_public?
+            %h5.budget-range= project.budget_range
+          %p.project-description= project.description
+          - unless project.url.blank?
+            = link_to 'View more', project.url, class: 'project-link', target: '_blank'

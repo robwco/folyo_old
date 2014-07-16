@@ -1,0 +1,11 @@
+= render '/designers/profile/featured_work', designer: designer, with_description: true
+
+= render '/designers/profile/bio', designer: designer
+
+.sidebar
+  %ul.profile-meta
+    = render '/designers/profile/links', designer: designer
+
+    = render '/designers/profile/skills', designer: designer
+
+    = render '/designers/profile/location', designer: designer

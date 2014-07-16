@@ -70,25 +70,39 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
       update_designer $(e.target).parents('a').attr('href'), { status: 'accepted' }, callback
       false
 
-    $('.moderation-actions .reject-profile').click (e) =>
-      update_designer $(e.target).parents('a').attr('href'), { status: 'rejected' }, callback
-      false
+    $('.moderation-actions .reject-profile').fancybox(type: 'ajax', afterShow: =>
+      $rejectBox = $('.moderation-reject-designer')
+      console.log "afterLoad", $('form', $rejectBox).length
+      $('form', $rejectBox).on 'submit', (e) =>
+        e.preventDefault()
+        update_designer $rejectBox.attr('data-path'), { status: 'rejected', rejection_message: $('input[type=text]', $rejectBox).val()  }, (data) =>
+          $.fancybox.close()
+          callback(data)
+    )
 
-  selectDesigner: (url) ->
+  selectDesigner: (path) ->
+    @lockView()
+    history.pushState(null, null, path)
     $('.designers-queue .designer').removeClass('current')
-    $designer = $(".designers-queue .designer a[href='#{url}']").parents('.designer')
+    $designer = $(".designers-queue .designer a[href='#{path}']").parents('.designer')
     $designer.addClass('current')
-    $.get url, (html) =>
+    $.get path, (html) =>
       $('.current-designer-pane').html(html)
       @watchFramesLoading()
       @enableSocialUrlSelection()
       @enableModerationActions()
 
+  popstateEventListener: (e) =>
+    e.stopPropagation() && e.preventDefault()
+    @selectDesigner(document.location.pathname)
+
   enableDesignerSelection: ->
+    # overriding turbolinks history support for replies
+    window.addEventListener 'popstate', @popstateEventListener
     $('.designers-queue .designer a').click (e) =>
       e.preventDefault()
-      @lockView()
-      @selectDesigner(url) if url = $(e.target).parent('a').attr('href')
+      if path = $(e.target).parent('a').attr('href')
+        @selectDesigner(path)
 
   render: ->
     super()
@@ -101,3 +115,4 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
   cleanup: ->
     super()
     @unlockView()
+    window.removeEventListener 'popstate', @popstateEventListener

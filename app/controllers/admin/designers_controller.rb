@@ -37,12 +37,30 @@ class Admin::DesignersController < Admin::BaseController
   end
 
   def show
-    @designer = Designer.find(params[:id])
-    render partial: 'designer_profile', locals: { designer: @designer, layout: false }
+    show! do |format|
+      format.html do
+        if request.xhr?
+          render partial: 'pending_designer', locals: { designer: @designer, layout: false }
+        else
+          @designers = Designer.pending.order_by(applied_at: :asc)
+          render 'pending'
+        end
+      end
+    end
   end
 
   def pending
     @designers = Designer.pending.order_by(applied_at: :asc)
+    @designer = @designers.first
+  end
+
+  def profile
+    @designer = resource
+  end
+
+  def reject
+    @designer = resource
+    render layout: false
   end
 
   protected

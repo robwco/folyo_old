@@ -12,11 +12,11 @@
     .counter= @designers.count
     .text designers to go
   %ul.designers
-    - @designers.each_with_index do |d, index|
-      %li.designer{class: index == 0 ? 'current' : ''}
-        = link_to admin_designer_path(d) do
-          %h2{class: d.status.to_s.downcase}= d.full_name
+    - @designers.each do |designer|
+      %li.designer{class: designer.id == @designer.id ? 'current' : ''}
+        = link_to admin_designer_path(designer) do
+          %h2{class: designer.status.to_s.downcase}= designer.full_name
           %span.placeholder
 
 .current-designer-pane
-  = render 'designer_profile', designer: @designers.first
+  = render 'pending_designer', designer: @designer
