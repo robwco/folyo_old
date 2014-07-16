@@ -25,4 +25,5 @@
 .current-designer-frame
   %iframe.folyo{src: profile_admin_designer_path(designer)}
   - designer.social_urls.each do |profile, url|
-    %iframe{class: profile, style: 'display: none;', data: { src: url} }
+    - url = dribbble_profile_admin_designer_path(designer) if profile == :dribbble
+    %iframe{class: profile, style: 'display: none;', sandbox: 'allow-forms allow-popups allow-pointer-lock allow-same-origin allow-scripts', data: { src: url} }

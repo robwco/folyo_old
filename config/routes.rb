@@ -34,13 +34,14 @@ Folyo::Application.routes.draw do
 
   namespace :admin do
     resources :designers do
-      get 'messages',       on: :collection
-      get 'pending',        on: :collection
-      get 'profile',        on: :member
-      get 'reject',         on: :member
-      put 'to_markdown',    on: :member
-      get 'accepted_email', on: :member
-      get 'rejected_email', on: :member
+      get 'messages',         on: :collection
+      get 'pending',          on: :collection
+      get 'profile',          on: :member
+      get 'dribbble_profile', on: :member
+      get 'reject',           on: :member
+      put 'to_markdown',      on: :member
+      get 'accepted_email',   on: :member
+      get 'rejected_email',   on: :member
     end
     resources :clients do
       put 'to_markdown', on: :member
