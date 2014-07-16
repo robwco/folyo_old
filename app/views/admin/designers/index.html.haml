@@ -25,7 +25,7 @@
 					%p!= first_words(format_text(d, :long_bio, sanitize: true), 50)
 
 				.col2
-					= render '/designers/featured_work', designer: d, with_description: false
+					= render '/designers/profile/featured_work', designer: d, with_description: false
 					%ul.actions
 						%li= link_to 'Preview', designer_path(d)
 						%li.site= link_to 'Site', d.portfolio_url, :class => "tooltip", :title => d.portfolio_url

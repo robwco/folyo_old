@@ -1,0 +1,10 @@
+%li.profile-links
+  %h3 Links
+  %ul.social-media
+    %li.site= link_to 'Portfolio', designer.portfolio_url, title: designer.portfolio_url, class: 'tooltip', target: "_blank"
+    - unless designer.dribbble_url.blank?
+      %li.dribbble= link_to "Dribbble", designer.dribbble_url, title: 'Dribbble', class: 'tooltip', target: "_blank"
+    - unless designer.twitter_username.blank?
+      %li.twitter= link_to "Twitter", "http://www.twitter.com/#{designer.twitter_username}", title: 'Twitter', class: 'tooltip', target: "_blank"
+    - unless designer.behance_url.blank?
+      %li.behance= link_to "Behance", designer.behance_url, title: 'Behance', class: 'tooltip', target: "_blank"

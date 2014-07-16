@@ -11,7 +11,8 @@ class Admin::DesignersController < Admin::BaseController
        @designer.status = params[:status] if params[:status]
        @designer.rejection_message = params[:rejection_message] if params[:rejection_message]
        @designer.save
-       render :json => @designer
+       next_designer = ::Designer.pending.order_by(applied_at: :asc).where(:applied_at.gte => @designer.applied_at).first
+       render json: { designer_count: ::Designer.pending.count, next_designer_path: admin_designer_path(next_designer) }
      end
    end
   end
@@ -35,10 +36,37 @@ class Admin::DesignersController < Admin::BaseController
     render "/designer_mailer/rejected_mail", layout: "mailer"
   end
 
+  def show
+    show! do |format|
+      format.html do
+        if request.xhr?
+          render partial: 'pending_designer', locals: { designer: @designer, layout: false }
+        else
+          @designers = Designer.pending.order_by(applied_at: :asc)
+          render 'pending'
+        end
+      end
+    end
+  end
+
+  def pending
+    @designers = Designer.pending.order_by(applied_at: :asc)
+    @designer = @designers.first
+  end
+
+  def profile
+    @designer = resource
+  end
+
+  def reject
+    @designer = resource
+    render layout: false
+  end
+
   protected
 
   def collection
-    @designers = Designer.page(params[:page]).per(10).ordered_by_status
+    @designers = Designer.page(params[:page]).per(30).ordered_by_status
     unless params[:skill].blank?
       @designers = @designers.any_in(skills: params[:skill].to_sym)
     end

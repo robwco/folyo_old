@@ -1,0 +1,6 @@
+.moderation-reject-designer{data: { path: admin_designer_path(@designer) }}
+  %h2 Reject this designer?
+
+  = simple_form_for admin_designer_path(@designer) do |f|
+    = f.input :rejection_message
+    = f.submit 'Reject', class: 'button confirm-reject-profile'

@@ -1,7 +1,9 @@
 // try http://stackoverflow.com/questions/7761540/encoding-issues-in-javascript-files-using-rails-asset-pipeline ?
 // <%# encoding: utf-8 %>
 
-
+html {
+	background: white;
+}
 body{
 	margin:0;
 	padding:0;

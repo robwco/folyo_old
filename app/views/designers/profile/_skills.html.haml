@@ -1,0 +1,6 @@
+- unless designer.skills.empty?
+  %li.skills
+    %h3 Skills
+    %ul.skills-list
+      - designer.skills.each do |s|
+        %li{class: s.to_s.dasherize}= symbol_humanize(s)

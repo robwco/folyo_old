@@ -30,6 +30,10 @@ class Designer < User
 
   field :paypal_email,            type: String
 
+  field :applied_at,              type: DateTime
+  field :accepted_at,             type: DateTime
+  field :rejected_at,             type: DateTime
+
   validates_length_of :long_bio, maximum: 750, tokenizer: lambda { |str| str.scan(/./) }
 
   embeds_many :projects, class_name: 'DesignerProject', validate: false
@@ -82,8 +86,10 @@ class Designer < User
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
   before_create      :set_referral_token
+  before_create      :set_applied_at
   before_validation  :process_skills, :fix_portfolio_url, :fix_twitter_username, :fix_behance_username, :fix_dribbble_username, :set_paypal_email
   before_save        :generate_mongoid_random_key, :set_completeness
+  before_save        :set_moderation_dates, if: :status_changed?
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
   after_save         :geocode,              if: :location_changed?
@@ -245,6 +251,16 @@ class Designer < User
   end
   handle_asynchronously :tweet_out
 
+  def set_moderation_dates
+    if self.status_changed?
+      if self.accepted?
+        self.accepted_at = DateTime.now
+      elsif self.rejected?
+        self.rejected_at = DateTime.now
+      end
+    end
+  end
+
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
@@ -333,6 +349,10 @@ class Designer < User
 
   def set_referral_token
     self.referral_token ||= Mongoid::UidGenerator.get_uid_for(Designer, 8, 'referral_token')
+  end
+
+  def set_applied_at
+    self.applied_at ||= DateTime.now
   end
 
   def set_paypal_email

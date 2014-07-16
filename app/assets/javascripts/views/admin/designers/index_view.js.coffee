@@ -3,7 +3,7 @@
 window.Views.Admin ||= {}
 window.Views.Admin.Designers ||= {}
 
-class Views.Admin.Designers.IndexView extends Views.ApplicationView
+class Views.Admin.Designers.PendingView extends Views.ApplicationView
 
   show_checkmark: ($status_select) ->
     $status_select.parent().find(".checkmark").removeClass("hidden").fadeOut "slow"
@@ -19,6 +19,8 @@ class Views.Admin.Designers.IndexView extends Views.ApplicationView
 
   render: ->
     super()
+
+    #$('html, body').animate({ scrollTop: $("#page-content").offset().top}, 300)
 
     $(".status-selector select").change (e) =>
       $status_select = $(e.target)
@@ -39,4 +41,3 @@ class Views.Admin.Designers.IndexView extends Views.ApplicationView
       @update_designer designer_url, { status: 'rejected', rejection_message: rejection_message }, =>
         $btn.parent().hide()
         @show_checkmark($status_select)
-

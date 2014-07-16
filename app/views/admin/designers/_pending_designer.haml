@@ -1,0 +1,28 @@
+.current-designer-info
+  = image_tag designer.profile_picture ? designer.profile_picture.asset(:thumbnail) : 'default-avatar.png', class: 'avatar header-avatar'
+  .header-title
+    %h1.title
+      %span.name= designer.full_name
+      %span.location= designer.location
+    %h2.subtitle= designer.short_bio.truncate(70)
+  .social-urls
+    = link_to '#', class: 'current', data: {profile: 'folyo'} do
+      = fa_icon 'spinner spin'
+      .label Folyo
+    - designer.social_urls.each do |profile, url|
+      - unless profile == :twitter
+        = link_to '#', class: 'disabled', data: {profile: profile} do
+          = fa_icon 'spinner spin'
+          .label= profile.capitalize
+  .moderation-actions
+    = link_to admin_designer_path(designer), class: 'accept-profile' do
+      = fa_icon 'check'
+      %span.label Accept
+    = link_to reject_admin_designer_path(designer), class: 'reject-profile fancybox' do
+      = fa_icon 'ban'
+      %span.label Reject
+
+.current-designer-frame
+  %iframe.folyo{src: profile_admin_designer_path(designer)}
+  - designer.social_urls.each do |profile, url|
+    %iframe{class: profile, style: 'display: none;', data: { src: url} }

@@ -2,35 +2,37 @@
 %html.wf-loading
   = render :partial => '/site/header'
   %body.no-js{class: yield(:body_class), 'data-class-name' => js_class_name}
-    = render_site_nav
+    - unless content_for?(:skip_nav)
+      = render_site_nav
 
     #page{@microdata || {}}
-      - if yield(:header).blank?
-        %section.subheader#page-header
-          .container
-            - unless yield(:prev_next).blank?
-              .subheader-pagination
-                = yield(:prev_next)
-            - unless yield(:mainaction).blank?
-              .main-action
-                = yield(:mainaction)
-            .main-header
-              - unless yield(:avatar).blank?
-                = image_tag(yield(:avatar), class: 'avatar header-avatar', itemprop: 'image')
-              .header-title
-                %h1.title
-                  - unless yield(:back_name).blank? || yield(:back_path).blank?
-                    = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
-                  %span{@title_microdata || {}}= yield(:title)
-                  - unless yield(:location).blank?
-                    %span.reply-location= yield(:location)
-                - unless yield(:subtitle).blank?
-                  %h2.subtitle
-                    = yield(:subtitle)
-            - unless yield(:subnav).blank?
-              = yield(:subnav)
-      - else
-        = yield(:header)
+      - unless content_for?(:skip_nav)
+        - if yield(:header).blank?
+          %section.subheader#page-header
+            .container
+              - unless yield(:prev_next).blank?
+                .subheader-pagination
+                  = yield(:prev_next)
+              - unless yield(:mainaction).blank?
+                .main-action
+                  = yield(:mainaction)
+              .main-header
+                - unless yield(:avatar).blank?
+                  = image_tag(yield(:avatar), class: 'avatar header-avatar', itemprop: 'image')
+                .header-title
+                  %h1.title
+                    - unless yield(:back_name).blank? || yield(:back_path).blank?
+                      = link_to "#{yield(:back_name)} >", yield(:back_path), class: 'back'
+                    %span{@title_microdata || {}}= yield(:title)
+                    - unless yield(:location).blank?
+                      %span.reply-location= yield(:location)
+                  - unless yield(:subtitle).blank?
+                    %h2.subtitle
+                      = yield(:subtitle)
+              - unless yield(:subnav).blank?
+                = yield(:subnav)
+        - else
+          = yield(:header)
 
       #page-content
         .container{style: yield(:container_style)}
@@ -44,5 +46,11 @@
 
             = content_for?(:content) ? yield(:content) : yield
 
+          - unless yield(:sidebar).blank?
+            .sidebar
+              = content_for(:sidebar)
+
+      - unless content_for?(:skip_footer)
+        = render '/site/footer'
 
       #fancybox-holder

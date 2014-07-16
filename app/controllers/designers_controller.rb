@@ -46,6 +46,7 @@ class ::DesignersController < ApplicationController
       redirect_to edit_designer_path(@designer)
       return
     end
+    @designer.applied_at = DateTime.now
     @designer.status = :pending
     @reapplying = true
     @submit_label = 'Reapply'
