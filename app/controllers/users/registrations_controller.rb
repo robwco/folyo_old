@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
     when 'client'
       @user = Client.new
+      set_referral_fields(@user)
       @section = :post_job
       track_event("Viewing #{params[:initial_role]} Sign Up")
       respond_with_navigational(resource){ render "new_#{params[:initial_role]}" }
@@ -32,9 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       Designer.new(params[:user])
     when 'client'
       client = Client.new(params[:user])
-      if session[:referral_token]
-        client.referring_designer = Designer.where(referral_token: session[:referral_token]).first
-      end
+      set_referral_fields(client)
       client
     end
     if resource.save
@@ -92,5 +91,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
       new_offer_path(signup: true)
     end
   end
-end
 
+  def set_referral_fields(resource)
+    if token = session[:referral_token]
+      if program = ReferralProgram.where(token: token).first
+        resource.referring_program = program
+        resource.next_offer_discount = program.discount
+      elsif designer = Designer.where(referral_token: token).first
+        resource.referring_designer = designer
+      end
+    end
+  end
+end

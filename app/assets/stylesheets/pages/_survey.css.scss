@@ -1,0 +1,200 @@
+.survey{
+  background: white;
+  #page-content{
+    @include box-shadow(none);
+  }
+  .main{
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 80px; 
+  }
+}
+
+.survey-title{
+  font-size: 40px;
+  color: $green1;
+  font-weight: bold();
+  margin-bottom: 40px;
+}
+
+.survey-intro{
+  margin-bottom: 40px;
+  p{
+    font-size: 20px;
+  }
+}
+
+.survey-contents{
+  border-radius: 3px;
+  border: 1px solid $blue2;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 40px auto;
+  h3{
+    border-bottom: none;
+    font-size: 24px;
+  }
+  ol{
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 20px;
+  }
+}
+
+.survey-cta{
+  .button{
+    font-size: 24px;
+  }
+}
+.survey-faq{
+  h3{
+    border-bottom: none;
+  }
+  p{
+    margin-bottom: 15px;
+  }
+}
+
+.survey-page-title{
+  font-size: 30px;
+  font-weight: bold();
+  border-bottom: none !important;
+  span{
+    font-weight: light();
+    color: $lightesttext;
+    font-size: 18px;
+    background: $lightgrey7;
+    border-radius: 3px;
+    padding: 4px 10px;
+    top: -3px;
+    position: relative;
+  }
+}
+
+.survey-form-block{
+  text-align: left;
+  @include box-shadow(rgba(0,0,0,0.05) 0 1px 2px 0);
+  border: 1px solid $blue2;
+  border-radius: 3px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.survey-form-control{
+  select, input{
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+
+.survey-form-label{
+  font-size: 20px;
+  color: $text;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.survey-form-note{
+  color: $lightertext;
+  font-size: 15px;
+  margin: 10px 0 0 0;
+}
+
+.survey-pagination{
+  @include cf;
+  a{
+    line-height: 1.4;
+  }
+  .disabled{
+    cursor: pointer;
+  }
+  .prev{
+    float: left;
+    &:before{
+      content: "«"
+    }
+  }
+  .next{
+    float: right;
+    &:after{
+      content: "»";
+    }
+  }
+  @include small{
+    display: flex;
+    .prev{
+      margin-right: 4%;
+    }
+    .prev, .next{
+      display: table-cell;
+      vertical-align: middle;
+      flex: 1;
+      width: 48%;
+      font-size: 14px;
+      &:before, &:after{
+        content: none;
+      }
+    }
+  }
+  @include medium{
+    .prev, .next{
+      font-size: 18px;
+      width: 240px;
+    }
+  }
+}
+.survey-project-title{
+  font-size: 24px;
+  color: $text;
+  padding: 10px 20px;
+  background: $lightgrey2;
+  margin: 0;
+  .project-name{
+
+  }
+  .project-author{
+    font-size: 16px;
+    font-weight: light();
+    color: $lightesttext;
+    a{
+      font-weight: bold();
+    }
+  }
+}
+.survey-project{
+  border: 1px solid $blue2;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  
+  .survey-project-image{
+    display: block;
+  }
+  img{
+    display: block;
+    width: 100%;
+  }
+  .survey-project-info{
+    font-size: 18px;
+    @include cf;
+    padding: 20px;
+    .survey-project-description{
+      color: $lightertext;
+      float: left;
+      width: 70%;
+      margin-right: 5%;
+      p{
+        &:last-child{
+          margin-bottom: 0px;
+        }
+      }
+    }
+    .button{
+      float: right;
+      width: 25%;
+      line-height: 1.6;
+    }
+  }
+}

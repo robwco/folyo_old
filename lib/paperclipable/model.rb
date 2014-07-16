@@ -25,8 +25,8 @@ module Paperclipable
         elsif Rails.env.staging?
           "assets#{asset.size.to_i % 4}.staging.folyo.me"
         else
-          "assets#{asset.size.to_i % 4}.folyo.me"
-          # "folyo-development.s3.amazonaws.com"
+          #"assets#{asset.size.to_i % 4}.folyo.me"
+          "folyo-development.s3.amazonaws.com"
         end
       }
 
@@ -103,7 +103,7 @@ module Paperclipable
         begin
           geo = ::Paperclip::Geometry.from_file(asset.queued_for_write[style])
           self.geometry[style] = {width: geo.width, height: geo.height}
-        rescue
+        rescue Exception => e
           self.status = :failed
           save
           raise e

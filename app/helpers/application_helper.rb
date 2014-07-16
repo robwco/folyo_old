@@ -89,9 +89,9 @@ module ApplicationHelper
   def format_text(model, attribute, options = {})
     html = markdown_renderer.render(model.send(attribute)) rescue ''
     if options[:sanitize]
-      Sanitize.clean(html)
+      auto_link(Sanitize.clean(html))
     else
-      html
+      auto_link(html)
     end
   end
 

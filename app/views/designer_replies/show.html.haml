@@ -1,8 +1,9 @@
-= content_for :title, @designer.full_name
-= content_for :subtitle, @designer.short_bio.truncate(70)
-= content_for :location, @designer.location
-= content_for :avatar, @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : image_path('default-avatar.png')
-= content_for :body_class, "designer-profile"
+= content_for :title,       @designer.full_name
+= content_for :subtitle,    @designer.short_bio.truncate(70)
+= content_for :location,    @designer.location
+= content_for :avatar,      @designer.profile_picture ? @designer.profile_picture.asset(:thumbnail) : image_path('default-avatar.png')
+= content_for :body_class,  "designer-profile"
+= content_for :skip_flash,  true
 
 - if @designer_reply
   = content_for :back_path, offer_replies_path(@job_offer, status: params[:status])
@@ -45,9 +46,9 @@
 = content_for :container_style, "width: #{@reply_count * 100}%; max-width: #{@reply_count * 100}%; left: #{-(@previous_replies.count * 100)}%;"
 
 - @previous_replies.each_with_index do |reply, index|
-  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-index * 100}%", inner: (index == 0)
+  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-index * 100}%", inner: (index == 0), with_flash: false
 
-= render '/designer_replies/reply', designer: @designer, designer_reply: @designer_reply, width: "#{(100.0 / @reply_count)}%", left: "#{-@previous_replies.count * 100}%", inner: true
+= render '/designer_replies/reply', designer: @designer, designer_reply: @designer_reply, width: "#{(100.0 / @reply_count)}%", left: "#{-@previous_replies.count * 100}%", inner: true, with_flash: true
 
 - @next_replies.each_with_index do |reply, index|
-  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-(index + 1 + @previous_replies.count) * 100}%", inner: (index == 0)
+  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-(index + 1 + @previous_replies.count) * 100}%", inner: (index == 0), with_flash: false

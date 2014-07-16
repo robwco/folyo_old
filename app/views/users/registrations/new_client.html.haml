@@ -5,6 +5,9 @@
 = content_for :error_messages do
 	= devise_error_messages!
 
+- if resource.referring_program
+	.note!= markdown_renderer.render(resource.referring_program.message)
+
 =content_for :company_hint do
 	%span.title Things to mention:
 	%span <strong>About you</strong>: what's your story? where are you based?
@@ -27,10 +30,10 @@
 
 = content_for :sidebar do
 	.stats
-		%h3 A Few Statistics
+		%h3.stats-title A Few Statistics
 		%h4 #{Designer.accepted.count}
 		%p The number of designers on Folyo.
 		%h4 22
 		%p Average number of replies per project.
-		%h4 5 hours
-		%p Average time before the first reply.
+		%h4 3
+		%p Average number of refunds per month.

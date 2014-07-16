@@ -12,6 +12,7 @@ Folyo::Application.routes.draw do
   match 'guides' => 'site#guides'
   match 'partners' => 'site#partners'
   match 'apply' => 'site#apply'
+  match 'budgets' => 'site#budgets'
 
   resource :guides do
     get 'how_to_pick_a_designer' => redirect('/guides/how_to_pick_a_great_designer')
@@ -21,6 +22,14 @@ Folyo::Application.routes.draw do
     get 'quora_redesign'
     get 'quora_redesign_screenshot'
     get 'quora-redesign-screenshot' => redirect('/guides/quora_redesign_screenshot')
+  end
+
+  resource :budgets do
+    get 'intro'
+    get 'about_you'
+    get 'logo_design'
+    get 'ui_design'
+    get 'web_design'
   end
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -36,12 +45,13 @@ Folyo::Application.routes.draw do
     resources :designers do
       get 'messages',    on: :collection
       put 'to_markdown', on: :member
+      get 'accepted_email', on: :member
+      get 'rejected_email', on: :member
     end
     resources :clients do
       put 'to_markdown', on: :member
     end
     resources :job_offers, path: 'offers', as: 'offers' do
-      resources :replies
       resource :order do
         put 'refund'
       end
@@ -62,6 +72,7 @@ Folyo::Application.routes.draw do
       post 'webhook', on: :collection
       delete 'offer', on: :member
     end
+    resources :referral_programs
   end
 
   resources :designers do
@@ -100,14 +111,17 @@ Folyo::Application.routes.draw do
     end
     resources :designer_replies, path: 'replies', as: 'replies' do
       put 'shortlist', on: :member
+      get 'shortlist', on: :member
       put 'hide',      on: :member
+      get 'hide',      on: :member
+      get 'mail',      on: :member
     end
     resource :evaluations
   end
 
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
 
-  get 'account', controller: 'application', action: 'account'
+  get 'account/(:account_section)', controller: 'application', action: 'account'
 
   root to: "site#home"
 

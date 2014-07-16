@@ -1,0 +1,20 @@
+= content_for :title, '[Admin] Referral programs'
+= content_for :subnav do
+  = render partial: '/admin/clients/clients_nav'
+
+= content_for :sidebar do
+  = link_to 'Add a program', new_admin_referral_program_path, class: 'button big-button'
+
+
+%ul.referral-programs
+  - @referral_programs.each do |p|
+
+    %li.program
+
+      %h4
+        = link_to edit_admin_referral_program_path(p) do
+          %span= p.name || 'Untitled'
+          %span.placeholder
+
+      .description
+        = raw(format_text(p, 'message'))

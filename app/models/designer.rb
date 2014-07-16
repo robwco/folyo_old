@@ -82,7 +82,7 @@ class Designer < User
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
 
   before_create      :set_referral_token
-  before_validation  :process_skills, :fix_portfolio_url, :fix_dribbble_username, :set_paypal_email
+  before_validation  :process_skills, :fix_portfolio_url, :fix_twitter_username, :fix_behance_username, :fix_dribbble_username, :set_paypal_email
   before_save        :generate_mongoid_random_key, :set_completeness
   after_save         :accept_reject_mailer, if: :status_changed?
   after_save         :tweet_out,            if: :status_changed?
@@ -124,6 +124,14 @@ class Designer < User
 
   def behance_url
     "http://www.behance.net/#{behance_username}" unless behance_username.blank?
+  end
+
+  def twitter_url
+    "https://twitter.com/#{twitter_username}" unless twitter_username.blank?
+  end
+
+  def social_urls
+    { portfolio: portfolio_url, dribbble: dribbble_url, behance: behance_url, twitter: twitter_url }.delete_if { |k, v| v.nil? }
   end
 
   def resources
@@ -224,6 +232,10 @@ class Designer < User
     designers.to_a.sample(count)                                      # pick an exact size sample of designers
   end
 
+  def pending_rank
+    Designer.pending.where(:created_at.lte => self.created_at).count
+  end
+
   protected
 
   def tweet_out
@@ -288,8 +300,22 @@ class Designer < User
   end
 
   def fix_dribbble_username
-    if self.dribbble_username =~ /http:\/\/dribbble.com\/(.*)/
-      self.dribbble_username = $1
+    if self.dribbble_username =~ /http(s)?:\/\/(www\.)?dribbble\.com\/(.*)/
+      self.dribbble_username = $3
+    end
+  end
+
+  def fix_behance_username
+    if self.behance_username =~ /http(s)?:\/\/(www\.)?behance\.net\/(.*)/
+      self.behance_username = $3
+    end
+  end
+
+  def fix_twitter_username
+    if self.twitter_username =~ /http(s)?:\/\/(www\.)?twitter\.com\/(.*)/
+      self.twitter_username = $3
+    elsif self.twitter_username =~ /@(.*)/
+      self.twitter_username = $1
     end
   end
 

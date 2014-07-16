@@ -1,0 +1,251 @@
+@import "compass/css3";
+@import "includes/colors";
+
+$spacing: 15px;
+
+@mixin small-email(){
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+@mixin medium-email(){
+  @media screen and (min-width: 500px) {
+    @content;
+  }
+}
+
+.container{
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+.inner{
+  margin: 0 10px;
+}
+.block{
+  margin-bottom: $spacing;
+}
+/* ------------------------------------------- begin custom styles -------------------------------------------  */
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  line-height: 1.5;
+  background: #eff5f7;
+}
+
+body, table.body, h1, h2, h3, h4, h5, h6, p, td {
+  color: $text;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-weight: normal;
+  padding:0;
+  margin: 0;
+  text-align: left;
+}
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+a{
+  text-decoration:none;
+  // font-weight: bold;
+  &, &:link, &:active, &:visited{
+    color: $blue1;
+  }
+  &:hover{
+    color: $blue1;
+  }
+
+}
+// Header
+
+.header{
+  border-bottom: 1px solid $lightgrey1;
+
+  .inner{
+    padding: $spacing/2 0;
+  }
+  table{
+    width: 100%;
+  }
+  .logo{
+    text-align: left;
+    a, img{
+      display: block;
+    }
+  }
+  .view-online{
+    text-align: right;
+    font-size: 12px;
+  }
+}
+.header img{
+  max-height: 30px;
+}
+
+.header a, .header a:link, .header a:visited{
+}
+
+.header a:hover{
+}
+
+.content{
+  border-top: 1px solid #fbfbfb;
+  padding-top: $spacing;
+}
+// designer-message
+
+.designer-message-triangle{
+  img{
+    display: block;
+  }
+}
+
+.designer-reply{
+  background: white;
+  @include border-radius(5px);
+  padding: $spacing;
+  margin-bottom: $spacing;
+  @include box-shadow(0px 2px 3px 0px rgba(0,0,0,0.15));
+}
+
+.designer-message{
+  font-family: georgia, serif;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+// designer-profile
+
+.designer-profile{
+  margin-bottom: 5px;
+}
+
+.designer-portrait{
+  a, img{
+    display: block;
+  }
+  img{
+    background: $lightgrey7;
+    @include border-radius(50%);
+    width: 50px;
+  }
+  padding-right: 10px;
+}
+
+.designer-data{
+  white-space: nowrap;
+}
+
+.designer-name{
+  line-height: 1.4;
+  margin-bottom: 0px;
+}
+.designer-location{
+  color:$lightertext;
+  margin-bottom: 0;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+// designer-actions
+.designer-actions{
+  >table{
+    table-layout: fixed;
+    width: 100%;
+  }
+  td{
+    &.shortlist{
+      padding-right: $spacing/2;
+    }
+  }
+}
+.view-profile{
+  width: 100%;
+  padding-bottom: $spacing/2;
+}
+.button{ // base button style
+  font-weight:bold();
+  text-align:center;
+  @include border-radius(3px);
+  cursor:pointer;
+  background:$primaryButton;
+  display: block;
+  tr td{
+    padding: 0;
+  }
+  a{
+    display: block;
+    text-align: center;
+    padding:10px 15px;
+    line-height:1;
+    font-size:16px;
+    color:white;
+  }
+  a:active{
+    position:relative;
+    top:1px;
+  }
+  &.hide{
+    background: $red1;
+  }
+}
+
+// designer-portfolio
+.designer-portfolio{
+  td{
+    display: block;
+    width: 100%;
+  }
+  @include medium-email{
+    td{
+      display: table-cell;
+      width: auto;
+    }
+    .first{
+      padding-right: $spacing;
+    }
+    .eight{
+    width: 296px;
+    }
+  }
+}
+.portfolio-sample{
+  margin-bottom: $spacing;
+  &, img{
+    width: 100%;
+    display: block;
+  }
+  &.image2{
+    margin-bottom: 15px;
+  }
+
+}
+.panel{
+  border:none;
+  padding: 20px !important;
+}
+
+// links
+
+.links{
+  font-size: 13px;
+  text-align: center;
+}
+
+.note{
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: $spacing;
+}
+
+// footer
+
+.footer{
+  padding-bottom: $spacing;
+  text-align: center;
+  font-size: 13px;
+}

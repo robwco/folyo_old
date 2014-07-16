@@ -19,6 +19,7 @@ BEM Cheatsheet:
 	font-size:16px;
 	background:$primaryButton;
 	color:white;
+	border: none;
 	.action{
 		color:white;
 		display:block;
@@ -42,6 +43,7 @@ BEM Cheatsheet:
 	}
 	&.disabled {
 		background: $lightgrey2;
+		color: $lightertext;
 		cursor: default;
 	}
 }

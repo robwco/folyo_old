@@ -1,0 +1,79 @@
+%h3.survey-page-title
+  Logo Design
+  %span 2/7
+
+.survey-intro
+  :markdown
+    Here are two sample identity design projects. How much would you have charged for each of them?
+
+    Note: be sure to view the full **case study** for each project. 
+
+.survey-form
+  %form
+    .survey-form-block
+      .survey-project
+        %h4.survey-project-title
+          %span.project-name CoreFx Logo
+          %span.project-author
+            by
+            %a{href: '#'} Julien Renvoye
+        %a.survey-project-image{href: '#'}
+          = image_tag 'budgets/logo1.jpg'
+        .survey-project-info
+          .survey-project-description
+            :markdown
+              A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).
+          %a.button{href: "#", target: '_blank'} View Full Case Study
+      %label.survey-form-label How much would you charge for a similar project?
+      .survey-form-control
+        %select
+          %option Under $500
+          %option $500-$1000
+          %option $1000-$1500
+          %option $1500-$2000
+          %option $2000-$3000
+          %option $3000-$4000
+          %option $4000-5000
+          %option $5000-7500
+          %option $7500-$10000
+          %option $10000-15000
+          %option $15000-$20000
+          %option $20000-$30000
+          %option More than $30000
+
+    .survey-form-block
+      .survey-project
+        %h4.survey-project-title
+          %span.project-name Some Other Logo
+          %span.project-author
+            by
+            %a{href: '#'} Bruce Willis
+        %a.survey-project-image{href: '#'}
+          = image_tag 'budgets/logo2.jpg'
+        .survey-project-info
+          .survey-project-description
+            :markdown
+              A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).
+          %a.button{href: "#", target: '_blank'} View Full Case Study
+      %label.survey-form-label How much would you charge for a similar project?
+      .survey-form-control
+        %select
+          %option Under $500
+          %option $500-$1000
+          %option $1000-$1500
+          %option $1500-$2000
+          %option $2000-$3000
+          %option $3000-$4000
+          %option $4000-5000
+          %option $5000-7500
+          %option $7500-$10000
+          %option $10000-15000
+          %option $15000-$20000
+          %option $20000-$30000
+          %option More than $30000
+
+.survey-pagination
+  %a.button.disabled.prev{href: '/budgets/about_you'}
+    About You
+  %a.button.next{href: '/budgets/web_design'}
+    Next: Web Design

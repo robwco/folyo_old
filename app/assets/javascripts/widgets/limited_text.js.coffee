@@ -9,7 +9,8 @@ class Widgets.LimitedText
 
     $(".limited").on "blur",  -> $(this).siblings(".character-counter-main-wrapper").fadeOut("fast")
 
-    $('.limited').each  ->
+    $('.limited').not('.isLimited').each  ->
+      $(this).addClass('isLimited')
       limit_size_class = $(this).attr('class').split(' ').filter((i) -> i.match(/limited-\d+/)?)[0]
       if limit_size_class?
         limit_size = parseInt(limit_size_class.match(/limited-(\d+)/)[1], 10)

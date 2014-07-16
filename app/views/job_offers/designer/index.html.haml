@@ -15,6 +15,6 @@
 
 - elsif current_user.is_a?(Designer) && current_user.pending?
   .notices
-    .notice Your profile is currently being reviewed, you will get access to the job offers if you're accepted. Thanks for your patience!
+    .notice= raw("Your profile is currently being reviewed and <strong>you are number #{current_user.pending_rank} in row</strong>. You will get access to the job offers if you're accepted. Thanks for your patience!")
 - elsif current_user.is_a?(Designer) && current_user.rejected?
   = render 'job_offers/designer/rejected'

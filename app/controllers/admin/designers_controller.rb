@@ -25,6 +25,16 @@ class Admin::DesignersController < Admin::BaseController
     redirect_to designer_path(@designer), notice: 'Successfully converted to markdown'
   end
 
+  def accepted_email
+    @designer = resource
+    render "/designer_mailer/accepted_mail", layout: "mailer"
+  end
+
+  def rejected_email
+    @designer = resource
+    render "/designer_mailer/rejected_mail", layout: "mailer"
+  end
+
   protected
 
   def collection

@@ -16,7 +16,7 @@ class DesignerRepliesController < ApplicationController
     show! do |format|
       format.html do
         if request.xhr?
-          render partial: 'inner_reply', locals: { designer_reply: @designer_reply }
+          render partial: 'inner_reply', locals: { designer_reply: @designer_reply, with_flash: false }
         else
           fetch_designers
           @designer = @designer_reply.designer
@@ -56,11 +56,26 @@ class DesignerRepliesController < ApplicationController
   end
 
   def shortlist
-    render json: { status: resource.toggle_shortlisted! }
+    status_param = params[:status].to_bool rescue nil
+    status = resource.toggle_shortlisted!(status_param)
+    respond_to do |format|
+      format.html { redirect_to offer_reply_url(parent, resource) }
+      format.json { render json: { status: status } }
+    end
   end
 
   def hide
-    render json: { status: resource.toggle_hidden! }
+    status_param = params[:status].to_bool rescue nil
+    status = resource.toggle_hidden!(status_param)
+    respond_to do |format|
+      format.html { redirect_to offer_reply_url(parent, resource) }
+      format.json { render json: { status: status } }
+    end
+  end
+
+  def mail
+    resource
+    render 'client_mailer/job_offer_replied', layout: 'mailer'
   end
 
   protected

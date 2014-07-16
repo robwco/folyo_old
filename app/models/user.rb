@@ -38,7 +38,6 @@ class User
   scope :ordered,   order_by(created_at: :desc)
   scope :for_email, ->(email){ where(email: email) }
 
-  after_create :track_signup_event
   after_create :create_vero_user
 
   validates_presence_of :full_name
@@ -63,10 +62,6 @@ class User
     Intercom::UserEvent.create(event_name: event, user: user, metadata: properties )
   end
   handle_asynchronously :track_intercom_event
-
-  def track_signup_event
-    track_user_event('Signup')
-  end
 
   protected
 

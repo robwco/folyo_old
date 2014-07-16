@@ -4,6 +4,8 @@ class DesignerMailer < ActionMailer::Base
 
   layout 'mailer'
 
+  add_template_helper MailerHelper
+
   def accepted_mail(designer)
     @designer = designer
     subject = "Welcome to Folyo!"

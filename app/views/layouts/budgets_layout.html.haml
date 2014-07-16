@@ -1,0 +1,22 @@
+!!!
+%html.wf-loading
+  = render :partial => '/site/header'
+  %body.no-js.survey{class: yield(:body_class), 'data-class-name' => js_class_name}
+    = render_site_nav
+
+    #page
+
+      #page-content
+        .container{style: yield(:container_style)}
+          - unless yield(:hero).blank?
+            .hero
+              = content_for(:hero)
+
+          .main
+            - unless content_for?(:skip_flash)
+              = render '/site/flash', flash: flash
+
+            = content_for?(:content) ? yield(:content) : yield
+
+
+      #fancybox-holder

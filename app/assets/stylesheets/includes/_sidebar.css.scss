@@ -13,7 +13,11 @@
 	}
 	.stats{
 		text-align: center;
-		h3{
+		border: 3px solid $lightgrey2;
+		border-radius: 5px;
+		padding: $spacing/2;
+		.stats-title{
+			border: none;
 			font-size: 24px;
 			margin-bottom: 20px;
 		}
