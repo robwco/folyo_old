@@ -63,6 +63,14 @@ class Admin::DesignersController < Admin::BaseController
     render layout: false
   end
 
+  def dribbble_profile
+    show! do |format|
+      format.html do
+        @dribbble_shots = Dribbble::Player.find(@designer.dribbble_username).shots
+      end
+    end
+  end
+
   protected
 
   def collection

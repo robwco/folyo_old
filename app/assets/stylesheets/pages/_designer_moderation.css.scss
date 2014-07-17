@@ -237,3 +237,29 @@ body.designer-profile.moderation {
   }
 
 }
+
+.dribbble-profile {
+
+  $background-color: #EFEFEF;
+
+  background: $background-color;
+
+  #page, #page-content, .container {
+    background: $background-color;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .main {
+    margin: 0;
+    width: 100%;
+    padding-bottom: 100px;
+  }
+
+  img {
+    width: 290px;
+    height: 218px;
+    border: 10px solid white;
+    margin: 15px;
+  }
+}
