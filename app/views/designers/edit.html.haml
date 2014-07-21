@@ -48,8 +48,12 @@
     = f.input :coordinates, :as => :hidden
 
   .section
-    %h3 Social Media
+    %h3 Your Work
     = f.input :portfolio_url
+    = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, value_method: :to_sym
+
+  .section
+    %h3 Social Media
     = f.input :twitter_username,  required: false
     = f.input :skype_username,    required: false
     = f.input :dribbble_username, required: false

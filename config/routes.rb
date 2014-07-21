@@ -12,7 +12,6 @@ Folyo::Application.routes.draw do
   match 'guides' => 'site#guides'
   match 'partners' => 'site#partners'
   match 'apply' => 'site#apply'
-  match 'budgets' => 'site#budgets'
 
   resource :guides do
     get 'how_to_pick_a_designer' => redirect('/guides/how_to_pick_a_great_designer')
@@ -22,14 +21,6 @@ Folyo::Application.routes.draw do
     get 'quora_redesign'
     get 'quora_redesign_screenshot'
     get 'quora-redesign-screenshot' => redirect('/guides/quora_redesign_screenshot')
-  end
-
-  resource :budgets do
-    get 'intro'
-    get 'about_you'
-    get 'logo_design'
-    get 'ui_design'
-    get 'web_design'
   end
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -82,7 +73,6 @@ Folyo::Application.routes.draw do
   resources :designers do
     get 'map',                    on: :collection
     get 'san_francisco_bay_area', on: :collection
-    get 'budgets',                on: :member
     get 'reapply',                on: :member
     resources :messages
     resources :designer_projects, path: 'projects', as: 'projects' do
