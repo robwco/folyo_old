@@ -1,5 +1,6 @@
 !!!
 %html.wf-loading
+  - content_for :title, "#{@survey.name} survey".capitalize
   = render :partial => '/site/header'
   %body.no-js.survey{class: yield(:body_class), 'data-class-name' => js_class_name}
     = render_site_nav

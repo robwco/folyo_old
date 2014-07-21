@@ -123,6 +123,13 @@ Folyo::Application.routes.draw do
     resource :evaluations
   end
 
+  resources :surveys do
+
+    get '/:survey_name/(:page)', on: :collection, to: 'surveys#show'
+    put '/:survey_name/(:page)', on: :collection, to: 'surveys#update'
+
+  end
+
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
 
   get 'account/(:account_section)', controller: 'application', action: 'account'

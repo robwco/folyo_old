@@ -45,6 +45,12 @@ SimpleForm.setup do |config|
     b.use :error, :wrap_with => { :tag => :p, :class => 'inline-errors' }
   end
 
+  config.wrappers :survey, class: 'survey-form' do |b|
+    b.wrapper tag: 'div', class: 'survey-form-control' do |input|
+      input.use :input
+    end
+  end
+
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
 
