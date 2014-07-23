@@ -1,0 +1,47 @@
+%h3.survey-page-title
+  Web Design
+  %span 4/7
+
+= simple_form_for @survey, wrapper: 'survey' do |f|
+
+  .survey-form-block
+    .survey-project
+      %h4.survey-project-title
+        %span.project-name MACHINES
+        %span.project-author
+          by
+          %a{href: 'https://www.behance.net/KuoChengLiao'} KuoCheng Liao
+      .survey-project-image
+        = image_tag 'budgets/illustration.jpg'
+      .survey-project-info
+        .survey-project-description
+          :markdown
+            An illustration for a magazine cover.  
+        %a.button{href: "https://www.behance.net/gallery/18336973/MACHINES-Kult-Magazine-issue-15", target: '_blank'} View Full Case Study
+    %label.survey-form-label How much would you charge for a similar project?
+    = f.input :logo_2_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
+
+
+  .survey-form-block
+    .survey-project
+      %h4.survey-project-title
+        %span.project-name Touristic icon design
+        %span.project-author
+          by
+          %a{href: 'https://www.behance.net/YoonJ'} Yoon J Kim
+      .survey-project-image
+        = image_tag 'budgets/iconset.png'
+      .survey-project-info
+        .survey-project-description
+          :markdown
+            An icon set of 30 single-width line icons. 
+        %a.button{href: "https://www.behance.net/gallery/11228527/Touristic-icon-design", target: '_blank'} View Full Case Study
+    %label.survey-form-label How much would you charge for a similar project?
+    = f.input :logo_1_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
+
+
+  .survey-pagination
+    %button{type: 'submit', name: 'page', value: '02-logo-design', class: 'button disabled prev'}
+      Logo Design
+    %button{type: 'submit', name: 'page', value: '04-web-design', class: 'button next'}
+      Next: Web Design

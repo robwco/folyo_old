@@ -10,41 +10,43 @@
 
 = simple_form_for @survey, wrapper: 'survey' do |f|
   .survey-form-block
+    %h3.survey-question-title Logo Design
     .survey-project
       %h4.survey-project-title
         %span.project-name CoreFx Logo
         %span.project-author
           by
-          %a{href: '#'} Julien Renvoye
-      %a.survey-project-image{href: '#'}
+          %a{href: 'https://dribbble.com/JulienRenvoye'} Julien Renvoye
+      .survey-project-image
         = image_tag 'budgets/logo1.jpg'
       .survey-project-info
         .survey-project-description
           :markdown
             A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).
-        %a.button{href: "#", target: '_blank'} View Full Case Study
+        %a.button{href: "https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258", target: '_blank'} View Full Case Study
     %label.survey-form-label How much would you charge for a similar project?
     = f.input :logo_1_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
 
   .survey-form-block
+    %h3.survey-question-title Identity Design
     .survey-project
       %h4.survey-project-title
-        %span.project-name Some Other Logo
+        %span.project-name Gbox Studios
         %span.project-author
           by
-          %a{href: '#'} Bruce Willis
-      %a.survey-project-image{href: '#'}
-        = image_tag 'budgets/logo2.jpg'
+          %a{href: 'http://bratus.co/'} Bratus
+      .survey-project-image
+        = image_tag 'budgets/gbox.jpg'
       .survey-project-info
         .survey-project-description
           :markdown
-            A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).
-        %a.button{href: "#", target: '_blank'} View Full Case Study
+            A full identity for a video production company, including a logo, icons, and packaging. 
+        %a.button{href: "https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-", target: '_blank'} View Full Case Study
     %label.survey-form-label How much would you charge for a similar project?
     = f.input :logo_2_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
 
   .survey-pagination
-    %button{type: 'submit', name: 'page', value: 'about_you', class: 'button disabled prev'}
+    %button{type: 'submit', name: 'page', value: '02-about-you', class: 'button disabled prev'}
       About You
-    %button{type: 'submit', name: 'page', value: 'web_design', class: 'button next'}
-      Next: Web Design
+    %button{type: 'submit', name: 'page', value: '03-illustration', class: 'button next'}
+      Next: Illustration

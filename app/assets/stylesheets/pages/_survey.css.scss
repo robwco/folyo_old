@@ -83,7 +83,16 @@
   border-radius: 3px;
   padding: 20px;
   margin-bottom: 40px;
+  
+  .survey-question-title{
+    font-size: 24px;
+    border-bottom: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
 }
+
+
 .survey-form-control{
   select, input{
     font-size: 20px;
@@ -146,8 +155,9 @@
     }
   }
 }
+
 .survey-project-title{
-  font-size: 24px;
+  font-size: 18px;
   color: $text;
   padding: 10px 20px;
   background: $lightgrey2;
@@ -168,7 +178,7 @@
   border: 1px solid $blue2;
   border-radius: 3px;
   margin-bottom: 20px;
-  
+  @include box-shadow(0px 1px 4px rgba($darkBlue, 0.2));
   .survey-project-image{
     display: block;
   }
