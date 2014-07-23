@@ -1,0 +1,4 @@
+.survey-form-block
+  - if defined?(input_label)
+    = render '/surveys/partials/label', input_label: input_label
+  = yield

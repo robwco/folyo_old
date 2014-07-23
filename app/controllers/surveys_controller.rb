@@ -6,7 +6,7 @@ class SurveysController < ApplicationController
 
   def show
     if @survey_page.blank?
-      redirect_to "/surveys/#{@survey_name}/intro"
+      redirect_to "/surveys/#{@survey_name}/00-introduction"
     else
       render "/surveys/#{@survey_name}/#{@survey_page}"
     end

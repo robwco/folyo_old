@@ -9,44 +9,29 @@
     Note: be sure to view the full **case study** for each project.
 
 = simple_form_for @survey, wrapper: 'survey' do |f|
-  .survey-form-block
-    %h3.survey-question-title Logo Design
-    .survey-project
-      %h4.survey-project-title
-        %span.project-name CoreFx Logo
-        %span.project-author
-          by
-          %a{href: 'https://dribbble.com/JulienRenvoye'} Julien Renvoye
-      .survey-project-image
-        = image_tag 'budgets/logo1.jpg'
-      .survey-project-info
-        .survey-project-description
-          :markdown
-            A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).
-        %a.button{href: "https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258", target: '_blank'} View Full Case Study
-    %label.survey-form-label How much would you charge for a similar project?
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Logo Design',
+          project_name: 'CoreFx Logo',
+          author_name: 'Julien Renvoye',
+          author_url: 'https://dribbble.com/JulienRenvoye',
+          project_image: 'budgets/logo1.jpg',
+          project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).',
+          project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258' }
+    = render '/surveys/partials/label', input_label: 'How much would you charge for a similar project?'
     = f.input :logo_1_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
 
-  .survey-form-block
-    %h3.survey-question-title Identity Design
-    .survey-project
-      %h4.survey-project-title
-        %span.project-name Gbox Studios
-        %span.project-author
-          by
-          %a{href: 'http://bratus.co/'} Bratus
-      .survey-project-image
-        = image_tag 'budgets/gbox.jpg'
-      .survey-project-info
-        .survey-project-description
-          :markdown
-            A full identity for a video production company, including a logo, icons, and packaging. 
-        %a.button{href: "https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-", target: '_blank'} View Full Case Study
-    %label.survey-form-label How much would you charge for a similar project?
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Identity Design',
+          project_name: 'Gbox Studios',
+          author_name: 'Bratus',
+          author_url: 'http://bratus.co/',
+          project_image: 'budgets/gbox.jpg',
+          project_description: 'A full identity for a video production company, including a logo, icons, and packaging.',
+          project_url: 'https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-' }
+    = render '/surveys/partials/label', input_label: 'How much would you charge for a similar project?'
     = f.input :logo_2_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
 
-  .survey-pagination
-    %button{type: 'submit', name: 'page', value: '02-about-you', class: 'button disabled prev'}
-      About You
-    %button{type: 'submit', name: 'page', value: '03-illustration', class: 'button next'}
-      Next: Illustration
+  = render '/surveys/partials/pagination', { prev_page: '01-about-you', prev_page_name: 'About You', next_page: '03-illustration', next_page_name: 'Illustration'}

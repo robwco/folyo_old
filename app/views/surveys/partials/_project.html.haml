@@ -1,0 +1,14 @@
+%h3.survey-question-title= question_title
+.survey-project
+  %h4.survey-project-title
+    %span.project-name= project_name
+    %span.project-author
+      by
+      = link_to author_name, author_url
+  .survey-project-image
+    = image_tag project_image
+  .survey-project-info
+    .survey-project-description
+      :markdown
+        #{project_description}
+    = link_to 'View Full Case Study', project_url, class: 'button', target: '_blank'
