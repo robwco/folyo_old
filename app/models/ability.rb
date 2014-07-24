@@ -49,7 +49,6 @@ class Ability
         designer.public? && designer.accepted?
       end
       can [:map, :san_francisco_bay_area], Designer
-      can :webhook, Newsletter
     end
 
   end

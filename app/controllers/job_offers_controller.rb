@@ -84,6 +84,12 @@ class JobOffersController < ApplicationController
     redirect_to edit_offer_evaluations_path(@job_offer), notice: "Your job offer has been archived. Once you're done working with the designer, you can come back here to let us know how it went :)"
   end
 
+  def mail
+    resource
+    render 'job_offer_mailer/new_job_offer', layout: 'mailer'
+  end
+
+
   protected
 
   # in order to prevent 1 + N queries, we fetch all clients at once
@@ -95,7 +101,7 @@ class JobOffersController < ApplicationController
     @job_offers = if current_user.is_a? Client
       current_user.job_offers
     else
-      JobOffer.accepted_or_sent
+      JobOffer.accepted
     end
     @job_offers = @job_offers.page(params[:page]).per(10).ordered
   end

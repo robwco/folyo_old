@@ -138,30 +138,13 @@ describe JobOffer do
 
     end
 
-    describe 'mark_as_sent' do
+    describe 'archive' do
 
       let(:job_offer) { FactoryGirl.create(:job_offer, status: :accepted) }
 
-      subject { ->{ job_offer.mark_as_sent } }
-
-      it { should change{job_offer.reload.status}.from(:accepted).to(:sent)}
-
-      it { should change{job_offer.reload.sent_at}.from(nil) }
-
-      it 'should track user event' do
-        expect_to_track 'JO06_Sent'
-        subject.call
-      end
-
-    end
-
-    describe 'archive' do
-
-      let(:job_offer) { FactoryGirl.create(:job_offer, status: :sent) }
-
       subject { ->{ job_offer.archive } }
 
-      it { should change{job_offer.reload.status}.from(:sent).to(:archived)}
+      it { should change{job_offer.reload.status}.from(:accepted).to(:archived)}
 
       it { should change{job_offer.reload.archived_at}.from(nil) }
 
@@ -195,12 +178,12 @@ describe JobOffer do
 
       context 'when job offer is sent' do
 
-        let(:job_offer) { FactoryGirl.create(:job_offer, status: :sent, order: FactoryGirl.build(:order)) }
+        let(:job_offer) { FactoryGirl.create(:job_offer, status: :accepted, order: FactoryGirl.build(:order)) }
 
-        it { should change{job_offer.reload.status}.from(:sent).to(:refunded)}
+        it { should change{job_offer.reload.status}.from(:accepted).to(:refunded)}
 
         it 'should track user event' do
-          expect_to_track 'JOXX_Refunded', refund_origin: :sent
+          expect_to_track 'JOXX_Refunded', refund_origin: :accepted
           subject.call
         end
       end

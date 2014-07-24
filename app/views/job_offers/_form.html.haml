@@ -68,9 +68,7 @@
 
 .section
   %h3 Budget
-  - if job_offer.compensation
-    = f.input :compensation, :label => "Budget (in USD)", :hint => yield(:budget_hint)
-
+  
   = f.input :budget_type, as: :radio_buttons, collection: JobOffer.budget_types, :label => "Designer Type", label_method: sym_label_method, hint: yield(:budget_type_hint), hint_html: {class: 'with-title'}, required: true
 
   = f.input :budget_range, :as => :select, :collection => JobOffer.budget_ranges, :label => "Budget Range", required: true

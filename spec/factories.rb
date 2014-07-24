@@ -82,9 +82,6 @@ FactoryGirl.define do
     job_type = rand_from_list(JOB_PROJECT_TYPE)
     "#{prefix} for a new #{job_type}"
   end
-  sequence :compensation do |n|
-    rand_from_list(COMP_AMOUNT_LIST)
-  end
   sequence :created_at do |n|
     rand_from_list((5..25).to_a).days.ago.to_date
   end
@@ -107,7 +104,6 @@ FactoryGirl.define do
     title {FactoryGirl.generate(:job_offer_title)}
     project_summary {FactoryGirl.generate(:description)}
     project_details {FactoryGirl.generate(:description)}
-    compensation {FactoryGirl.generate(:compensation)}
     skills { [Designer.skills.sample, Designer.skills.sample] }
     budget_type { JobOffer.budget_types.sample }
     budget_range { JobOffer.budget_ranges.sample }
@@ -181,8 +177,5 @@ FactoryGirl.define do
     evaluation 'a random evaluation'
   end
 
-  factory :newsletter do
-    mailchimp_cid '8a25ff1d98'
-  end
 
 end

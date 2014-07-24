@@ -17,8 +17,10 @@
   %span <strong>Private:</strong> only registered clients can see your profile.
   %span <strong>Hidden:</strong> nobody can see your profile (unless you reply to them directly)
 
-= content_for :featured_shot_hint do
-  %span Enter the <a href="http://blog.folyo.me/post/11096321674">Dribbble ID</a> of the shot you want to feature on your profile. Leave blank to use your latest shot.
+= content_for :notifications_hint do
+  %span <strong>All offers:</strong> receive by email any job offer posted on Folyo.
+  %span <strong>Matching your skills:</strong> receive only job offers matching at least one skill of your profile.
+  %span <strong>None:</strong> don't be notified of any job offer.
 
 = simple_form_for @designer, as: 'designer', url: designer_path(@designer) do |f|
 
@@ -51,6 +53,10 @@
     %h3 Your Work
     = f.input :portfolio_url
     = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, value_method: :to_sym
+
+  .section
+    %h3 Notification settings
+    = f.input :subscription_mode, as: :radio_buttons, label: 'You will be notified by email for', collection: Designer.subscription_modes, label_method: sym_label_method, :hint => yield(:notifications_hint)
 
   .section
     %h3 Social Media

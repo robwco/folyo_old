@@ -55,11 +55,11 @@
               %li= link_to 'View', offer_path(job)
               %li= link_to 'Edit', edit_offer_path(job)
 
-  - unless @job_offers.accepted_or_sent.empty?
+  - unless @job_offers.accepted.empty?
     .accepted
       %h3.active Active
       %ul.offer-list
-        - @job_offers.accepted_or_sent.each do |job|
+        - @job_offers.accepted.each do |job|
           %li
             %h2.title
               = link_to job.title, offer_order_path(job)

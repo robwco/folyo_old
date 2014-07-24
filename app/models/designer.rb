@@ -2,10 +2,31 @@ require 'mailchimp_helper'
 
 class Designer < User
 
+  def self.skills
+    [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
+  end
+
+  def self.statuses
+    [:accepted, :pending, :rejected]
+  end
+
+  def self.profile_types
+    [:public, :private, :hidden]
+  end
+
+  def self.completeness_fields
+    [ :short_bio, :long_bio, :location, :portfolio_url, :twitter_username, :behance_username, :dribbble_username, :skype_username, :skills ]
+  end
+
+  def self.subscription_modes
+    [ :all_offers, :offers_matching_your_skills, :none ]
+  end
+
   field :status,                  type: Symbol, default: :pending
   field :rejection_message
   field :profile_type,            type: Symbol, default: :public
   field :profile_completeness,    type: Integer
+  field :subscription_mode,       type: Symbol, default: :all_offers
 
   field :short_bio,               type: String
   field :long_bio,                type: String
@@ -24,7 +45,6 @@ class Designer < User
   field :featured_shot_image_url, type: String
 
   field :skills,                  type: Array, default: []
-
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
   field :referral_token,          type: String
 
@@ -41,25 +61,10 @@ class Designer < User
 
   alias_method  :designer_projects, :projects
 
-  def self.skills
-    [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
-  end
-
-  def self.statuses
-    [:accepted, :pending, :rejected]
-  end
-
-  def self.profile_types
-    [:public, :private, :hidden]
-  end
-
-  def self.completeness_fields
-    [ :short_bio, :long_bio, :location, :portfolio_url, :twitter_username, :behance_username, :dribbble_username, :skype_username, :skills ]
-  end
-
   validates_presence_of     :portfolio_url
-  validates_inclusion_of    :status,       in: Designer.statuses,      allow_blank: false
-  validates_inclusion_of    :profile_type, in: Designer.profile_types, allow_blank: true
+  validates_inclusion_of    :status,            in: Designer.statuses,           allow_blank: false
+  validates_inclusion_of    :profile_type,      in: Designer.profile_types,      allow_blank: true
+  validates_inclusion_of    :subscription_mode, in: Designer.subscription_modes, allow_blank: true
   validates                 :paypal_email, presence: true, format: { with: /\A[^@]+@[^@]+\z/, message: 'is not a valid email adress' }
 
   scope :ordered_by_status,     order_by(:status => :asc, :created_at => :desc)
@@ -75,6 +80,7 @@ class Designer < User
   scope :palo_alto,             where(location: /Palo Alto/i)
   scope :with_portfolio,        where('projects.artworks.status' => :processed)
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
+  scope :subscribed_for,        ->(topics) { where(subscription_mode: :all).or(subscription_mode: :offers_matching_your_skills, :skills.in => topics) }
 
   before_create      :set_referral_token
   before_create      :set_applied_at
