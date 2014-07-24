@@ -174,7 +174,6 @@ class JobOffer
     event :accept do
       transition :waiting_for_review => :accepted
       transition :rejected           => :accepted
-      transition :accepted           => same
     end
 
     event :reject do
@@ -338,7 +337,7 @@ class JobOffer
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
-      Designer.subscribed_for(self.skills).each do |designer|
+      Designer.accepted.subscribed_for(self.skills).each do |designer|
         JobOfferMailer.delay.new_job_offer(self, designer)
       end
     when :reject

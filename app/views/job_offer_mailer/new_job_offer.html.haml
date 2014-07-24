@@ -28,8 +28,11 @@
     %li.skills
       %h3 Categories
       %ul.skills-list
-        - @job_offer.skills.each do |s|
-          %li{class:s.to_s.dasherize.downcase}= symbol_humanize(s)
+        - @job_offer.skills.each do |skill|
+          %li
+            = image_tag skill_image_path(skill)
+            %span.skill-label= symbol_humanize(skill)
+
 
     %li.budget
       %h3 Budget

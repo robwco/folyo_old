@@ -143,6 +143,7 @@ a{
 .designer-name, .job-offer-title {
   line-height: 1.4;
   margin-bottom: 0px;
+  font-size: 18px;
 }
 
 .job-offer-title {
@@ -264,6 +265,7 @@ a{
 
   li {
     margin-bottom: 10px;
+    margin-left: 0;
     h3 {
       border-bottom: 1px solid $darkgrey2;
       color: $darkgrey2;
@@ -280,7 +282,8 @@ a{
       color:#9a9a7a;
       display:inline-block;
       margin-right:5px;
-      padding:5px 5px 3px 30px;
+      margin-left: 0;
+      padding:5px 5px 3px 3px;
       @include border-radius(3px);
       @include box-shadow(
         inset white 0 1px 0 0
@@ -288,47 +291,20 @@ a{
       border: 1px solid #e0e0c4;
       font-size:13px;
       line-height:13px;
-      position:relative;
       background:#ffffe0;
 
-      &:after{
-        position:absolute;
-        top:1px;
-        left:0;
-        content:" ";
-        display:block;
-        border-right:1px solid #e0e0c4;
-        @include box-shadow(inset white -1px 0 0 0);
-        width:23px;
-        height:20px;
-        @include border-left-radius(3px);
-        background:rgba(0,0,0,0.05) image-url('logodesign.png') no-repeat 5px 3px;
+      img {
+        height: 11px;
+        max-height: 11px;
+        padding-right: 3px;
       }
-      &.icon-design:after{
-        background-image:image-url('icondesign.png');
-      }
-      &.logo-design:after{
-        background-image:image-url('logodesign.png');
-      }
-      &.web-design:after{
-        background-image:image-url('webdesign.png');
-      }
-      &.ui-design:after{
-        background-image:image-url('uidesign.png');
-      }
-      &.mobile-design:after{
-        background-image:image-url('mobiledesign.png');
-      }
-      &.ux-interaction-design:after, &.ux-design:after{
-        background-image:image-url('ux.png');
-      }
-      &.illustration:after, &.illustration-design:after{
-        background-image:image-url('illustration.png');
-      }
-      &.print-design:after{
-        background-image:image-url('printdesign.png');
-      }
+
     }
+
+  }
+
+  .budget p {
+    font-size: 14px;
   }
 
 }

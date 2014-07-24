@@ -23,4 +23,18 @@ module MailerHelper
     "http://assets0.folyo.me/emails/#{asset}"
   end
 
+  def skill_image_path(skill)
+    image_name = case(skill)
+      when :icon_design    then 'icondesign.png'
+      when :logo_design    then 'logodesign.png'
+      when :mobile_design  then 'mobileesign.png'
+      when :web_design     then 'webdesign.png'
+      when :UI_design      then 'uidesign.png'
+      when :UX_design      then 'ux.png'
+      when :print_design   then 'printdesign.png'
+      when :illustration   then 'illustration.png'
+    end
+    mail_asset_url "skills/#{image_name}"
+  end
+
 end

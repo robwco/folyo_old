@@ -80,7 +80,7 @@ class Designer < User
   scope :palo_alto,             where(location: /Palo Alto/i)
   scope :with_portfolio,        where('projects.artworks.status' => :processed)
   scope :with_profile_picture,  where(:profile_picture.ne => nil)
-  scope :subscribed_for,        ->(topics) { where(subscription_mode: :all).or(subscription_mode: :offers_matching_your_skills, :skills.in => topics) }
+  scope :subscribed_for,        ->(topics) { where('$or' => [ { subscription_mode: :all_offers }, { subscription_mode: :offers_matching_your_skills, :skills.in => topics }]) }
 
   before_create      :set_referral_token
   before_create      :set_applied_at
