@@ -16,7 +16,7 @@
 
 .job-offer-content
   .designer-message.block
-    = auto_link(@job_offer.project_summary)
+    != format_text(@job_offer, :project_summary)
 
   .job-offer-actions.block
     %table
@@ -25,14 +25,14 @@
           = mail_button(offer_url(@job_offer), 'Read more ...', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
 
   %ul.job-offer-details
+  
     %li.skills
-      %h3 Categories
+      %h3 Skills
       %ul.skills-list
         - @job_offer.skills.each do |skill|
           %li
             = image_tag skill_image_path(skill)
             %span.skill-label= symbol_humanize(skill)
-
 
     %li.budget
       %h3 Budget
@@ -41,6 +41,11 @@
           %span= @job_offer.budget_range
         - if @job_offer.budget_type
           %span.budget-type (<strong>#{@job_offer.budget_type.to_s.humanize}</strong>)
+
+    %li.timeframe
+      %h3 Timeframe
+      %p
+      %p!= format_text(@job_offer, :timeframe)
 
 .note
   You are receiving this email because of

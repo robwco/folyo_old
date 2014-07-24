@@ -337,9 +337,7 @@ class JobOffer
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
-      Designer.accepted.subscribed_for(self.skills).each do |designer|
-        JobOfferMailer.delay.new_job_offer(self, designer)
-      end
+      DelayedJobs::SendJobOfferJob.run_delayed(job_offer_id: self.id.to_s)
     when :reject
       track_event('JO05a_Rejected', job_offer_rejected_reason: self.review_comment)
       self.rejected_at = DateTime.now
