@@ -236,7 +236,7 @@ class Designer < User
   end
 
   def pending_rank
-    Designer.pending.where(:created_at.lte => self.created_at).count
+    Designer.pending.where(:applied_at.lte => self.applied_at).count
   end
 
   protected
