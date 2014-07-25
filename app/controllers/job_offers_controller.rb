@@ -32,13 +32,6 @@ class JobOffersController < ApplicationController
     end
   end
 
-  def archives
-    session[:job_offer_index_path] = request.fullpath
-    @job_offers = JobOffer.page(params[:page]).per(10).archived
-    fetch_clients_for(@job_offers)
-    render 'job_offers/designer/archives'
-  end
-
   def history
     session[:job_offer_index_path] = request.fullpath
     @job_offers = JobOffer.for_designer(current_user)

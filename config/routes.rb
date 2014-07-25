@@ -91,7 +91,6 @@ Folyo::Application.routes.draw do
 
   resources :job_offers, path: 'offers', as: 'offers' do
     get 'history',      on: :collection
-    get 'archives',     on: :collection
     get 'show_archive', on: :member
     post 'archive',     on: :member
     get 'mail',         on: :member

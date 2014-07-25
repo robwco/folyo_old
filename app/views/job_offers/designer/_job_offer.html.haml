@@ -2,9 +2,6 @@
 %h2
   = link_to job.title, offer_path(job), :class => 'title'
   %span.num-replies= "#{job.designer_replies.count} Replies"
-  - if job.reply_by(current_user)
-    %span.replied.tooltip{:title => "You have previously replied to this offer"}
-      You have previously replied to this offer
 %ul.skills-list
   - job.skills.each do |s|
     %li{class: s.to_s.dasherize.downcase}= symbol_humanize(s)

@@ -373,8 +373,11 @@ ul.offer-list{
 
 	>li{
 		padding-bottom:20px;
-		margin-bottom:20px;
+		padding-top:20px;
+		margin: 0;
 		border-bottom:1px $lightgrey4 solid;
+		position: relative;
+		display: block;
 		h2{
 			margin-bottom:5px;
 			a{
@@ -397,13 +400,7 @@ ul.offer-list{
 			}
 		}
 		.replied{
-			background:image-url('replied.png') no-repeat right bottom;
-			width:24px;
-			height:24px;
-			@include hide-text;
-			display:inline-block;
-			position:relative;
-			top:4px;
+
 		}
 		.status{
 			font-size:13px;
@@ -412,6 +409,29 @@ ul.offer-list{
 		}
 		.controls{
 			margin-top:10px;
+		}
+		&.replied:before {
+			position:absolute;
+			content: '';
+			background:image-url('replied.png') no-repeat right bottom;
+			width:24px;
+			height:24px;
+			@include hide-text;
+			display:inline-block;
+
+			top:60px;
+			right: 25px;
+			z-index: 11;
+		}
+		&.replied:not(:hover):after {
+			content: '';
+			z-index: 10;
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			background: rgba(255,255,255,0.8);
 		}
 	}
 }
