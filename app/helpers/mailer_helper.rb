@@ -27,7 +27,7 @@ module MailerHelper
     image_name = case(skill)
       when :icon_design    then 'icondesign.png'
       when :logo_design    then 'logodesign.png'
-      when :mobile_design  then 'mobileesign.png'
+      when :mobile_design  then 'mobiledesign.png'
       when :web_design     then 'webdesign.png'
       when :UI_design      then 'uidesign.png'
       when :UX_design      then 'ux.png'
