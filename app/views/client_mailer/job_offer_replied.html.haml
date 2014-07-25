@@ -30,10 +30,10 @@
           = mail_button(offer_reply_url(@designer_reply.job_offer, @designer_reply), 'View Full Profile', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
       %tr
         %td.shortlist
-          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Shortlist', background_color: '#DEF6D3', color: '#5BB62B', border: 'none')
+          = mail_button(shortlist_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Add to shortlist', background_color: '#DEF6D3', color: '#5BB62B', border: 'none')
 
         %td.hide
-          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Hide', background_color: '#F3DCD9', color: '#c62910', border: 'none' )
+          = mail_button(hide_offer_reply_url(@designer_reply.job_offer, @designer_reply, status: true), 'Hide this designer', background_color: '#F3DCD9', color: '#c62910', border: 'none' )
 
   - if designer.has_showable_projects?
     %table.row.designer-portfolio

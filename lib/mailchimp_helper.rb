@@ -4,57 +4,9 @@ class MailChimpHelper
 
   API_KEY = '1ba18f507cfd9c56d21743736aee9a40-us2'
   LIST_ID = 'd2a9f4aa7d'
-  TEMPLATE_ID = '261141'
 
   def initialize
     @mc = Mailchimp::API.new(API_KEY)
-  end
-
-  def campaign_create(subject, content, timewarp)
-    unless Rails.env.test?
-      campaign = @mc.campaigns.create('regular', {
-        template_id: TEMPLATE_ID,
-        from_email: 'hello@folyo.me',
-        from_name:  'Folyo',
-        timewarp: timewarp,
-        list_id: LIST_ID,
-        title: subject,
-        subject: subject },
-        { sections: { body: content } })
-      campaign
-    end
-  end
-
-  def campaign_update(cid, subject, content, timewarp)
-    unless Rails.env.test?
-      @mc.campaigns.update(cid, 'options', { title: subject, subject: subject, timewarp: timewarp })
-      @mc.campaigns.update(cid, 'content', { sections: { body: content } })
-    end
-  end
-
-  def campaign_delete(cid)
-    @mc.campaigns.delete(cid) unless Rails.env.test?
-  end
-
-  def campaign_send(cid)
-    if Rails.env.production?
-      @mc.campaigns.send(cid)
-    else
-      campaign_send_test(cid)
-    end
-  end
-
-  def campaign_schedule(cid, schedule_time)
-    if Rails.env.production?
-      @mc.campaigns.unschedule(cid) rescue nil
-      @mc.campaigns.schedule(cid, schedule_time.strftime("%Y-%m-%d %H:%M:%S"))
-    end
-  end
-
-  def campaign_send_test(cid, email = 'folyologs@gmail.com')
-    unless Rails.env.test?
-      @mc.campaigns.send_test(cid, [email])
-    end
   end
 
   def list_subscribe(email)

@@ -20,7 +20,6 @@ class JobOffer
   field :project_details,     type: String
   field :inspiration,         type: String
   field :timeframe,           type: String
-  field :compensation,        type: Integer
   field :work_type,           type: Symbol
   field :location_type,       type: Symbol
   field :comp_high,           type: Integer
@@ -47,7 +46,6 @@ class JobOffer
   field :paid_at,             type: DateTime
   field :approved_at,         type: DateTime
   field :rejected_at,         type: DateTime
-  field :sent_at,             type: DateTime
   field :archived_at,         type: DateTime
   field :rated_at,            type: DateTime
   field :refunded_at,         type: DateTime
@@ -104,7 +102,6 @@ class JobOffer
     o.validates_length_of       :project_summary, maximum: 200, tokenizer: lambda { |str| str.scan(/./) }
     o.validates_length_of       :project_details, maximum: 800, tokenizer: lambda { |str| str.scan(/./) }
     o.validates_presence_of     :review_comment,  if: 'self.status == :rejected'
-    o.validates_numericality_of :compensation,  allow_nil: true
     o.validates_inclusion_of    :coding,        in: JobOffer.coding_options, allow_blank: true
     o.validates_inclusion_of    :work_type,     in: JobOffer.work_types,     allow_blank: true
     o.validates_inclusion_of    :location_type, in: JobOffer.location_types, allow_blank: true
@@ -130,13 +127,11 @@ class JobOffer
   scope :waiting_for_review,     where(status: :waiting_for_review)
   scope :accepted,               where(status: :accepted)
   scope :rejected,               where(status: :rejected)
-  scope :sent,                   where(status: :sent)
   scope :archived,               where(status: :archived)
   scope :rated,                  where(status: :rated)
   scope :pending,                where(:status.in => [:waiting_for_submission, :waiting_for_payment, :waiting_for_review, :rejected])
   scope :archived_or_rated,      where(:status.in => [:archived, :rated])
-  scope :accepted_or_sent,       where(:status.in => [:accepted, :sending, :sent])
-  scope :were_displayed,         where(:status.in => [:accepted, :sending, :sent, :archived, :rated])
+  scope :were_displayed,         where(:status.in => [:accepted, :archived, :rated])
   scope :refunded,               where(status: :refunded)
   scope :for_designer, ->(designer) { elem_match(designer_replies: {designer_id: designer.id}) }
   scope :not_dead,               where(:dead.ne => true)
@@ -175,11 +170,10 @@ class JobOffer
     event :pay do
       transition :waiting_for_payment => :waiting_for_review
     end
-    
+
     event :accept do
       transition :waiting_for_review => :accepted
       transition :rejected           => :accepted
-      transition :accepted           => same
     end
 
     event :reject do
@@ -187,25 +181,8 @@ class JobOffer
       transition :rejected           => same
     end
 
-    event :prepare_for_sending do
-      transition :accepted => :sending
-      transition :sending  => same
-    end
-
-    event :cancel_sending do
-      transition :sending  => :accepted
-      transition :accepted => same
-    end
-
-    event :mark_as_sent do
-      transition :sending  => :sent
-      transition :accepted => :sent
-      transition :sent     => same
-    end
-
     event :archive do
       transition :accepted => :archived
-      transition :sent     => :archived
       transition :archived => same
       transition :rated    => same
     end
@@ -216,7 +193,6 @@ class JobOffer
     end
 
     event :refund do
-      transition :sent     => :refunded
       transition :accepted => :refunded
       transition :rejected => :refunded
       transition :archived => :refunded
@@ -240,11 +216,11 @@ class JobOffer
   end
 
   def live?
-    [:accepted, :archived, :sending, :sent, :rated, :refunded].include? self.status
+    [:accepted, :archived, :rated, :refunded].include? self.status
   end
 
   def published?
-    [:accepted, :archived, :sending, :sent, :rated].include? self.status
+    [:accepted, :archived, :rated].include? self.status
   end
 
   def reply_by(designer)
@@ -317,7 +293,7 @@ class JobOffer
   end
 
   def archive_if_needed!(delay)
-    if (self.sent? && (self.sent_at.nil? || self.sent_at <= delay.ago)) || (self.accepted? && (self.approved_at.nil? || self.approved_at <= delay.ago))
+    if self.accepted? && (self.approved_at.nil? || self.approved_at <= delay.ago)
       Rails.logger.debug("Archiving offer #{self.slug || self.id}")
       self.skip_validation = true
       self.fire_events(:archive)
@@ -349,7 +325,7 @@ class JobOffer
         track_event('JO03_Submit')
       else
         track_event('JO05c_Resubmit')
-        ClientMailer.delay.updated_job_offer(self)
+        JobOfferMailer.delay.updated_job_offer(self)
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
@@ -357,16 +333,14 @@ class JobOffer
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now
-      ClientMailer.delay.new_job_offer(self)
+      JobOfferMailer.delay.new_job_offer_to_moderate(self)
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
+      DelayedJobs::SendJobOfferJob.run_delayed(job_offer_id: self.id.to_s)
     when :reject
       track_event('JO05a_Rejected', job_offer_rejected_reason: self.review_comment)
       self.rejected_at = DateTime.now
-    when :mark_as_sent
-      track_event('JO06_Sent')
-      self.sent_at = DateTime.now
     when :archive
       track_event('JO07a_Archive')
       self.archived_at = DateTime.now

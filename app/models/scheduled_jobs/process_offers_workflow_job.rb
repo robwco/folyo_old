@@ -14,7 +14,7 @@ module ScheduledJobs
       end
 
       # kills offers waiting for submission or payment since more than 1 month
-      JobOffer.where(:status.in => [:accepted, :sent]).each do |offer|
+      JobOffer.accepted.each do |offer|
         offer.archive_if_needed!(1.month)
       end
 

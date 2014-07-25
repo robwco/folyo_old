@@ -1,0 +1,52 @@
+= content_for :view_online, offer_url(@job_offer)
+
+%table.job-offer.block
+  %tr
+    %td
+      %h3.job-offer-title
+        =link_to @job_offer.title, offer_url(@job_offer)
+      %p.company-name
+        - if @job_offer.company_url
+          = link_to @job_offer.company_name, @job_offer.company_url
+        - else
+          = @job_offer.company_name
+
+.job-offer-triangle
+  = image_tag mail_asset_url('email-triangle.png'), height: 10, width: 50
+
+.job-offer-content
+  .designer-message.block
+    != format_text(@job_offer, :project_summary)
+
+  .job-offer-actions.block
+    %table
+      %tr
+        %td.view-job-offer
+          = mail_button(offer_url(@job_offer), 'Read more ...', background_color: '#D1E5F1', color: '#4e9ec4', border: 'none')
+
+  %ul.job-offer-details
+  
+    %li.skills
+      %h3 Skills
+      %ul.skills-list
+        - @job_offer.skills.each do |skill|
+          %li
+            = image_tag skill_image_path(skill)
+            %span.skill-label= symbol_humanize(skill)
+
+    %li.budget
+      %h3 Budget
+      %p
+        - if @job_offer.budget_range
+          %span= @job_offer.budget_range
+        - if @job_offer.budget_type
+          %span.budget-type (<strong>#{@job_offer.budget_type.to_s.humanize}</strong>)
+
+    %li.timeframe
+      %h3 Timeframe
+      %p
+      %p!= format_text(@job_offer, :timeframe)
+
+.note
+  You are receiving this email because of
+  = link_to 'your notification preferences.', account_url

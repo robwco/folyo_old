@@ -62,11 +62,6 @@ Folyo::Application.routes.draw do
       put 'to_markdown',                on: :member
     end
     resource :dashboard, controller: 'Dashboard'
-    resources :newsletters do
-      get 'webhook', on: :collection
-      post 'webhook', on: :collection
-      delete 'offer', on: :member
-    end
     resources :referral_programs
   end
 
@@ -99,6 +94,7 @@ Folyo::Application.routes.draw do
     get 'archives',     on: :collection
     get 'show_archive', on: :member
     post 'archive',     on: :member
+    get 'mail',         on: :member
     resource :order do
       get 'checkout'
       get 'confirm'
@@ -122,7 +118,7 @@ Folyo::Application.routes.draw do
 
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
 
-  get 'account/(:account_section)', controller: 'application', action: 'account'
+  get 'account/(:account_section)', controller: 'application', action: 'account', as: 'account'
 
   root to: "site#home"
 

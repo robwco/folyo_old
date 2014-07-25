@@ -54,7 +54,7 @@ class Admin::JobOffersController < Admin::BaseController
   end
 
   def accepted
-    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted_or_sent
+    @job_offers = JobOffer.page(params[:page]).per(10).ordered.accepted
   end
 
   def archived

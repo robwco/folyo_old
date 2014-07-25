@@ -117,6 +117,7 @@
 			@include transform(scale(0));
 			@include animation-name(bounceIn);
 		}
+		color: transparent;
 	}
 	&.animate .avatar{
 		@include animation-fill-mode(both);
@@ -170,6 +171,7 @@
 		text-shadow: 0px 2px 3px black(0.45);
 		font-weight: bold();
 	}
+	color: transparent;
 }
 
 .main-header .back {
@@ -202,18 +204,6 @@
 			margin:0;
 		}
 	}
-	// @include small{
-	// 	width: auto;
-	// 	a {
-	// 		width: auto !important;
-	// 		&.previous {
-	// 			float: left;
-	// 		}
-	// 		&.next {
-	// 			float: right;
-	// 		}
-	// 	}
-	// }
 }
 
 // steps

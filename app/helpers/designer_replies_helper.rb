@@ -36,15 +36,15 @@ module DesignerRepliesHelper
     if reply.shortlisted?
       'Remove from shortlist'
     else
-      'Shortlist this reply'
+      'Add the designer to my shortlist'
     end
   end
 
   def hide_title(reply)
     if reply.hidden?
-      'Un-hide this reply'
+      'Un-hide this designer'
     else
-      'Hide this reply'
+      'Hide this designer'
     end
   end
 

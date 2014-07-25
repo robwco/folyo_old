@@ -19,7 +19,7 @@
     %h3 Categories
     %ul.skills-list
       - job_offer.skills.each do |s|
-        %li{class:s.to_s}= symbol_humanize(s)
+        %li{class:s.to_s.dasherize.downcase}= symbol_humanize(s)
   - if job_offer.coding
     %li.coding
       %h3 Coding
@@ -29,8 +29,6 @@
     %p
       - if job_offer.budget_range
         %span= job_offer.budget_range
-      - else
-        %span= job_offer.compensation
       - if job_offer.budget_type
         %br
         %span.budget-type <strong>#{job_offer.budget_type.to_s.humanize}</strong> (#{link_to "More info…", "#pricing", :class => "lightbox"})
