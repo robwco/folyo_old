@@ -76,5 +76,7 @@ module Folyo
     config.assets.precompile += Dir.glob(File.join(Rails.root, "*", "assets", "stylesheets", "epiceditor", "*.css*")).map { |f| "epiceditor/#{f[/([^\/]*)\.css/]}" }
     config.assets.precompile += Dir.glob(File.join(Rails.root, "*", "assets", "javascripts", "*.js*")).map { |f| f[/([^\/]*)\.js/] }
 
+    config.action_mailer.default 'X-MC-PreserveRecipients' => 'false'
+
   end
 end

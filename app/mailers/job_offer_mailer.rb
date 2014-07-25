@@ -27,7 +27,6 @@ class JobOfferMailer < ActionMailer::Base
     @job_offer = job_offer
     subject = "[Folyo] [New job offer] #{job_offer.title}"
     mail subject: subject, to: designer_emails
-    headers['X-MC-PreserveRecipients'] = false
   end
 
 end
