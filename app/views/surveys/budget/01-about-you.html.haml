@@ -8,16 +8,13 @@
 
 = simple_form_for @survey, wrapper: :survey do |f|
 
-  = render layout: '/surveys/partials/form_block', locals: {input_label: '1. How long have you been designing for?'} do
+  = render layout: '/surveys/partials/form_block', locals: {input_label: 'How long have you been a designer for?'} do
     = f.input :designing_since, collection: ['Less than 1 year', '1-2 years', '2-3 years', '3-4 years', '4-6 years', '6-8 years', '8-10 years', '10-15 years', '15-20 years', 'More than 20 years']
 
-  = render layout: '/surveys/partials/form_block', locals: {input_label: '2. How long have you been a <em>professional</em> designer for?'} do
-    = f.input :professional_since, collection: ['Less than 1 year', '1-2 years', '2-3 years', '3-4 years', '4-6 years', '6-8 years', '8-10 years', '10-15 years', '15-20 years', 'More than 20 years']
-
-  = render layout: '/surveys/partials/form_block', locals: {input_label: '3. How do you usually bill clients?'} do
+  = render layout: '/surveys/partials/form_block', locals: {input_label: 'How do you usually bill clients?'} do
     = f.input :billing_mode, collection: ['By the project', 'By the hour', 'By the day', 'By the week', 'By the month', 'Based on results', 'It depends']
 
-  = render layout: '/surveys/partials/form_block', locals: {input_label: "4. What's your hourly rate?"} do
+  = render layout: '/surveys/partials/form_block', locals: {input_label: "What's your hourly rate?"} do
     = f.input :hourly_rate, input_html: { value: @survey.hourly_rate }
     %p.survey-form-note If you don't bill by the hour, use an approximate hourly rate or just leave blank.
 

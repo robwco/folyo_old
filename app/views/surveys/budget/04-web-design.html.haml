@@ -2,46 +2,67 @@
   Web Design
   %span 4/7
 
+.survey-intro
+  :markdown
+    Note: consider that all projects include **responsive design**, even if not explicitely mentionned.
+
+    On the other hand, HTML/CSS coding is optional.
+
 = simple_form_for @survey, wrapper: 'survey' do |f|
 
-  .survey-form-block
-    .survey-project
-      %h4.survey-project-title
-        %span.project-name MACHINES
-        %span.project-author
-          by
-          %a{href: 'https://www.behance.net/KuoChengLiao'} KuoCheng Liao
-      .survey-project-image
-        = image_tag 'budgets/illustration.jpg'
-      .survey-project-info
-        .survey-project-description
-          :markdown
-            An illustration for a magazine cover.
-        %a.button{href: "https://www.behance.net/gallery/18336973/MACHINES-Kult-Magazine-issue-15", target: '_blank'} View Full Case Study
-    %label.survey-form-label How much would you charge for a similar project?
-    = f.input :logo_2_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Coming Soon Page',
+          project_name: 'Snow Hippos',
+          author_name: 'Martin Halik',
+          author_url: 'http://martinhalik.cz/',
+          project_image: 'budgets/snowhippos.jpg',
+          project_description: 'A simple “coming soon” page with a few elements.',
+          project_url: 'https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157' }
+    
+    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_label: 'How much would you add for HTML/CSS coding?', f: f
 
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Landing Page Design',
+          project_name: 'Landing Page',
+          author_name: 'Haraldur Thorleifsson',
+          author_url: 'http://haraldurthorleifsson.com/',
+          project_image: 'budgets/landingpage.jpg',
+          project_description: 'A landing page introducing a product with an illustration, features, and explanatory copy.',
+          project_url: 'https://dribbble.com/shots/934145-Landing-page-design/attachments/104293' }
+    
+    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_label: 'How much would you add for HTML/CSS coding?', f: f
 
-  .survey-form-block
-    .survey-project
-      %h4.survey-project-title
-        %span.project-name Touristic icon design
-        %span.project-author
-          by
-          %a{href: 'https://www.behance.net/YoonJ'} Yoon J Kim
-      .survey-project-image
-        = image_tag 'budgets/iconset.png'
-      .survey-project-info
-        .survey-project-description
-          :markdown
-            An icon set of 30 single-width line icons.
-        %a.button{href: "https://www.behance.net/gallery/11228527/Touristic-icon-design", target: '_blank'} View Full Case Study
-    %label.survey-form-label How much would you charge for a similar project?
-    = f.input :logo_1_budget, collection: ['Under $500', '$500-$1000', '$1000-$1500', '$1500-$2000', '$2000-$3000', '$3000-$4000', '$4000-5000', '$5000-7500', '$7500-$10000', '$10000-15000', '$15000-$20000', '$20000-$30000', 'More than $30000']
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Simple Website',
+          project_name: 'Seeadler',
+          author_name: 'Stella Petkova',
+          author_url: 'https://www.behance.net/Stelfy',
+          project_image: 'budgets/website.jpg',
+          project_description: 'A relatively simple site with a homepage and 3-4 different content templates.',
+          project_url: 'https://www.behance.net/gallery/10534437/Seeadler' }
+    
+    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_label: 'How much would you add for HTML/CSS coding?', f: f
 
-
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Complex Website',
+          project_name: 'Google+',
+          author_name: 'Haraldur Thorleifsson',
+          author_url: 'http://haraldurthorleifsson.com/',
+          project_image: 'budgets/googleplus.jpg',
+          project_description: 'A complex site with numerous different pages and templates, custom UI elements, etc.',
+          project_url: 'http://haraldurthorleifsson.com/googleplus/' }
+    
+    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_label: 'How much would you add for HTML/CSS coding?', f: f    
   .survey-pagination
     %button{type: 'submit', name: 'page', value: '03-illustration', class: 'button disabled prev'}
-      Logo Design
+      Illustration
     %button{type: 'submit', name: 'page', value: '05-ui-design', class: 'button next'}
-      Next: Web Design
+      Next: UI & App Design
