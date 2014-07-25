@@ -23,11 +23,11 @@ class JobOfferMailer < ActionMailer::Base
     end
   end
 
-  def new_job_offer(job_offer, designer)
+  def new_job_offer(job_offer, designer_emails)
     @job_offer = job_offer
-    @designer = designer
     subject = "[Folyo] [New job offer] #{job_offer.title}"
-    mail subject: subject, to: "#{designer.full_name} <#{designer.email}>"
+    mail subject: subject, to: designer_emails
+    headers['X-MC-PreserveRecipients'] = false
   end
 
 end
