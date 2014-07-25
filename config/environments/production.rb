@@ -77,7 +77,7 @@ Folyo::Application.configure do
   # SendGrid settings
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address        => "smtp.mandrillapp.net",
+    :address        => "smtp.mandrillapp.com",
     :port           => "587",
     :authentication => :plain,
     :user_name      => ENV['MANDRILL_USERNAME'],
