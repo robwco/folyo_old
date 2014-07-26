@@ -19,7 +19,7 @@
 
 = content_for :notifications_hint do
   %span <strong>All offers:</strong> receive by email any job offer posted on Folyo.
-  %span <strong>Matching your skills:</strong> receive only job offers matching at least one skill of your profile.
+  -#%span <strong>Matching your skills:</strong> receive only job offers matching at least one skill of your profile.
   %span <strong>None:</strong> don't be notified of any job offer.
 
 = simple_form_for @designer, as: 'designer', url: designer_path(@designer) do |f|

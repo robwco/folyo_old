@@ -19,7 +19,7 @@ class Designer < User
   end
 
   def self.subscription_modes
-    [ :all_offers, :offers_matching_your_skills, :none ]
+    [ :all_offers, :none ] # :offers_matching_your_skills
   end
 
   field :status,                  type: Symbol, default: :pending
