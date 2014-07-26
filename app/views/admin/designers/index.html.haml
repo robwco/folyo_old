@@ -2,7 +2,7 @@
 = content_for :subnav do
 	= render :partial => '/admin/designers/designers_nav'
 
-%ul.designers
+%ul.designers.designers-list
 	- @designers.each do |d|
 		%li.designer
 

@@ -8,7 +8,7 @@
 = content_for :subnav do
   = render :partial => 'designers_nav'
 
-%ul.designers
+%ul.designers.designers-list
   - @designers.each do |d|
     = render "designer_card", :d => d
 = paginate @designers
