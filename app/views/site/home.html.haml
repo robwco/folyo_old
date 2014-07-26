@@ -179,7 +179,7 @@
 					%span.action Find A Designer Now
 					%span.microcopy $#{JobOffer::PRICE} one-time fee
 
-- if false
+- if true
 	%section.budget.home-content
 		.container
 
@@ -231,6 +231,31 @@
 				%p Budget: $1000
 				%p Folyo fee: $99
 				%p Total: $1099
+
+			.budget-block
+
+				.budget-widget
+					%script{type:"text/javascript", src:"https://rawgit.com/pa7/heatmap.js/master/src/heatmap.js"}
+					.budget-amount
+						\$
+						%input{value: '1200'}
+					.budget-slider
+						.budget-slider-body#heatmapArea
+						.budget-slider-cursor
+						.budget-slider-percents
+							%ol
+								%li 0%
+								%li 25%
+								%li 50%
+								%li 100%
+						.budget-slider-amounts
+							%ol
+								- (0..10).each do |i|
+									%li $#{i*1000}
+					.budget-percent
+						You can reach
+						%input{value: '68'}
+						\% of designers
 			.budget-block
 				%h3.budget-title 3. Get Started
 				.cta

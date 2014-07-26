@@ -373,33 +373,3 @@
 		text-align: center;
 	}
 }
-.budget-title{
-	text-align: center;
-	font-size: 30px;
-	margin-bottom: $spacing;
-}
-.budget-services{
-
-	a{
-		background: $lightgrey2;
-		border-radius: 20px;
-		display: block;
-		text-align: center;
-		margin-bottom: $spacing;
-		padding: $spacing/2;
-		@include medium{
-			@include span-columns(3);
-			@include nth-omega(4n, of-type);
-		}
-	}
-	img{
-		height: 100px;
-		width: 100px;
-		display: block;
-		margin: 0 auto;
-	}
-	span{
-		display: block;
-		color: $text;
-	}
-}
