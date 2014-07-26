@@ -1,0 +1,53 @@
+%a.survey-intro-link{href: '/surveys/budget/intro'} The 2014 Folyo Budget Survey
+
+%h3.survey-page-title
+  UX Design & Information Architecture
+  %span 7/7
+
+.survey-intro
+  :markdown
+    Design is not just what it looks like and feels like. Design is… Oh, you know the rest. 
+
+= simple_form_for @survey, wrapper: 'survey' do |f|
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'UX Consulting',
+          project_name: 'FanOs S1',
+          author_name: 'ILENOLIUKGO',
+          author_url: 'http://ilenoliukgo.com/',
+          project_image: 'budgets/fanos.jpg',
+          project_description: 'A 1-minute animated trailer for a mobile app.',
+          project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
+    
+    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'UX Research',
+          project_name: 'FanOs S1',
+          author_name: 'ILENOLIUKGO',
+          author_url: 'http://ilenoliukgo.com/',
+          project_image: 'budgets/fanos.jpg',
+          project_description: 'A 1-minute animated trailer for a mobile app.',
+          project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
+    
+    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Information Architecture',
+          project_name: 'FanOs S1',
+          author_name: 'ILENOLIUKGO',
+          author_url: 'http://ilenoliukgo.com/',
+          project_image: 'budgets/fanos.jpg',
+          project_description: 'A 1-minute animated trailer for a mobile app.',
+          project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
+    
+    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  .survey-pagination
+    %button{type: 'submit', name: 'page', value: '04-web-design', class: 'button disabled prev'}
+      Web Design
+    %button{type: 'submit', name: 'page', value: '06-motion-design', class: 'button next'}
+      Next: Motion Design & Animation

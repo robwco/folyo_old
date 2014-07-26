@@ -1,3 +1,5 @@
+%a.survey-intro-link{href: '/surveys/budget/00-introduction'} The 2014 Folyo Budget Survey
+
 %h3.survey-page-title
   UI & App Design
   %span 5/7
@@ -18,7 +20,7 @@
           project_description: 'A simple mobile app with 4-5 screens, a navigation menu, and a few custom UI elements.',
           project_url: 'https://www.behance.net/gallery/18361431/Spleat-iPhone-App-20' }
     
-    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget', input_name: :simple_mobile_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -30,7 +32,7 @@
           project_description: 'A mobile app with many screens, complex interactions, animated transitions, and custom UI elements.',
           project_url: 'https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app' }
     
-    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget', input_name: :complex_mobile_budget, input_label: 'How much would you charge for a similar project?', f: f
  
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -42,8 +44,8 @@
           project_description: 'A simple web app with a main dashboard and a few additional screens.',
           project_url: 'https://www.behance.net/gallery/14628401/Skyparkcdn' }
     
-    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_label: 'How much would you add for HTML/CSS coding?', f: f
+    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_name: :simple_app_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
  
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -55,8 +57,8 @@
           project_description: 'A complex web app with multiple screens, log in and sign up pages, profile pages, custom UI elments, etc.',
           project_url: 'https://www.behance.net/gallery/14852505/Customer-Care-UI-User-Experience' }
     
-    = render '/surveys/partials/budget', input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_label: 'How much would you add for HTML/CSS coding?', f: f
+    = render '/surveys/partials/budget', input_name: :complex_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_name: :complex_app_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
  
 
   .survey-pagination
