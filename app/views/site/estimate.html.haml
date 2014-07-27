@@ -11,7 +11,7 @@
 
         .slider-body#heatmapArea
 
-        .slider-legend.slider-amounts
+        .slider-legend.slider-prices
           %ol
             - (0..10).each do |i|
               %li $#{i*1000}
@@ -25,10 +25,10 @@
             %li 100%
 
         .slider-cursor#cursor
-          .cursor-tooltip.cursor-amount
+          .cursor-tooltip.cursor-price
             .inner
               With a
-              %span.cursor-figure.cursor-amount-value $4000
+              %span.cursor-figure.cursor-price-value $4000
               budget…
           .cursor-body
             .cursor-left

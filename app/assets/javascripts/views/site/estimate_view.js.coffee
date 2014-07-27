@@ -1,11 +1,44 @@
 window.Views.Site ||= {}
 
+maxPrice = 10000 # get it from Rails, or fix it at 10000?
+totalWidth = $('#slider').width()
+
+pricesArray = [392, 748, 990, 1036, 1265, 1295, 1419, 1763, 1786, 1847, 1895, 2013, 2018, 2362, 2447, 3235, 3439, 3927, 4030, 4703, 4822]
+
+getPosition = (price) ->  
+  return Math.round(price * totalWidth / maxPrice)
+
+getPrice = (position) ->
+  return Math.round(maxPrice * position / totalWidth)
+
+getClosestPrice = (price) -> # not real
+  closestPrice = pricesArray[0]
+  pricesArray.forEach((value, index) ->
+    if (Math.abs(value - price) < Math.abs(closestPrice - price))
+      closestPrice = value;
+  )
+  return closestPrice
+
+getPercent = (price) -> # not real
+  position = pricesArray.indexOf(getClosestPrice(price))
+  return Math.round(position * 100 / pricesArray.length)
+
+pricesData = pricesArray.map((price) ->
+  return {
+    x:getPosition(price),
+    y:25,
+    count:1
+  }
+)
+# note: we probably want to generate the JSON object in Ruby, actually
+
 class Views.Site.EstimateView extends Views.ApplicationView
 
   render: ->
 
     @loadHeatMap()
-    @makeDraggable()
+    @makeDraggable()  
+
 
   makeDraggable: ->
     elem = document.querySelector('#cursor');
@@ -17,13 +50,11 @@ class Views.Site.EstimateView extends Views.ApplicationView
     )
 
     onDragMove = (instance, event, pointer) ->
-      maxPrice = 10000 # get it from Rails, or fix it at 10000?
-      xPos = instance.position.x
-      totalWidth = $('#slider').width()
-      amount = Math.round(maxPrice * xPos / totalWidth)
-      if amount > maxPrice - 20 # round off at the end
-        amount = maxPrice
-      $('.cursor-amount-value').text('$'+amount)
+      price = getPrice(instance.position.x)
+      if price > maxPrice - 20 # round off at the end
+        price = maxPrice
+      $('.cursor-price-value').text('$'+price)
+      $('.cursor-percent-value').text(getPercent(price)+"%")
 
     draggie.on( 'dragMove', onDragMove );
 
@@ -44,41 +75,12 @@ class Views.Site.EstimateView extends Views.ApplicationView
     
     # let's get some data
     data =
-      max: 20
-      data: [
-        {
-          x: 10
-          y: 25
-          count: 5
-        }
-        {
-          x: 50
-          y: 25
-          count: 20
-        }
-        {
-          x: 80
-          y: 25
-          count: 10
-        }
-        {
-          x: 100
-          y: 25
-          count: 10
-        }
-        {
-          x: 120
-          y: 25
-          count: 20
-        }
-        {
-          x: 200
-          y: 25
-          count: 5
-        }
-      ]
+      max: 1
+      data: pricesData
 
     
     # ...
     heatmap.store.setDataSet data
     return
+
+
