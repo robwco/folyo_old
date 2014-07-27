@@ -9,6 +9,7 @@ Folyo::Application.routes.draw do
   match 'markdown' => 'site#markdown'
   match 'how-it-works' => 'site#learn_more'
   match 'about' => 'site#about'
+  match 'estimate' => 'site#estimate'
   match 'guides' => 'site#guides'
   match 'partners' => 'site#partners'
   match 'apply' => 'site#apply'

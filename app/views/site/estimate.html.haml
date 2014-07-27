@@ -1,0 +1,40 @@
+= content_for :body_class, 'budgets-page'
+
+.budget-block
+
+  .budget-widget
+    %script{type:"text/javascript", src:"https://rawgit.com/pa7/heatmap.js/master/src/heatmap.js"}
+    %script{type:"text/javascript", src:"https://rawgit.com/desandro/draggabilly/master/dist/draggabilly.pkgd.min.js"}
+
+    .budget-selector
+      .budget-slider#slider
+
+        .slider-body#heatmapArea
+
+        .slider-legend.slider-amounts
+          %ol
+            - (0..10).each do |i|
+              %li $#{i*1000}
+
+        .slider-legend.slider-percents
+          %ol
+            %li 0%
+            %li 25%
+            %li 50%
+            %li 75%
+            %li 100%
+
+        .slider-cursor#cursor
+          .cursor-tooltip.cursor-amount
+            .inner
+              With a
+              %span.cursor-figure $4000
+              budget…
+          .cursor-body
+            .cursor-left
+            .cursor-right
+          .cursor-tooltip.cursor-percent
+            .inner
+              …you can reach
+              %span.cursor-figure 50%
+              of designers.

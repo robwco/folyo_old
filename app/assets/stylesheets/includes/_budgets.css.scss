@@ -1,3 +1,11 @@
+.budgets-page{
+  .main{
+    width: 100%;
+    margin-right: 0;
+    float: none;
+  }
+}
+
 .budget-title{
   text-align: center;
   font-size: 30px;
@@ -30,70 +38,81 @@
 }
 
 .budget-widget{
-  @include cf;
-  padding: 80px 0;
-  border-top: 1px solid $lightgrey2;
-  border-bottom: 1px solid $lightgrey2;
+  padding: 120px 0;
 
 }
-.budget-percent, .budget-amount{
-  float: left;
-  width: 10%;
-  margin-right: 5%;
-  input{
-    display: block;
-    width: 100%;
-  }
-}
-.budget-percent{
-  margin-right: 0%;
-}
-.budget-amount{
-}
-.budget-slider{
-  float: left;
-  position: relative;
-  width: 70%;
-  margin-right: 5%;
-}
-.budget-slider-body{
+.budget-selector{
   height: 50px;
   width: 100%;
   background: $lightgrey2;
+  border-radius: 200px;
+  padding: 0 30px;
 }
-.budget-slider-cursor{
-  z-index: 100000000;
-  position: absolute;
-  height: 70px;
-  width: 20px;
-  cursor: pointer;
-  background: white(0.6);
-  border:3px solid $green1;
-  border-radius: 3px;
-  top:50%;
-  transform: translateY(-50%);
-  left: 50%;
+.budget-slider{
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
-.budget-slider-percents, .budget-slider-amounts{
+.slider-body{
+  height: 100%;
+  width: 100%;
+}
+.slider-legend{
   @include cf;
+  position: absolute;
+  height: 100%;
+  // left: 10px;
+  // right: 10px;
+  left: 0px;
+  right: -0px;
+  ol{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
   li{
     display: block;
     margin: 0;
     position: absolute;
-    top: -30px;
     left: 0px;
-    margin-left: -15px;
-    width: 30px;
-    background: $lightgrey2;
-    border-radius: 3px;
+    margin-left: -20px;
+    width: 40px;
     text-align: center;
     font-size: 14px;
+    color: $lightesttext;
+    &:after{
+      content: " ";
+      display: block;
+      height: 10px;
+      background: $blue1;
+      width: 2px;
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+    }
+    &:last-child{
+      transform: translateX(-2px)
+    }
   }
 }
-.budget-slider-percents{
+
+.slider-amounts{
+  top: -30px;
+  li{
+    bottom: auto;
+    @for $i from 1 through 11 {
+      &:nth-child(#{$i}){
+        left: ($i - 1) * 10%;
+      }
+    }
+  }
+}
+
+.slider-percents{  
+  bottom: -60px;
   li{
     &:nth-child(1){
-      left: 0%;
+      left: 10%;
     }
     &:nth-child(2){
       left: 20%;
@@ -102,18 +121,84 @@
       left: 40%;
     }
     &:nth-child(4){
-      left: 100%;
+      left: 60%;
+    }
+    &:nth-child(5){
+      left: 80%;
+    }
+    &:after{
+      bottom: auto;
+      top: -15px;
     }
   }
 }
-.budget-slider-amounts{
-  li{
-    top: auto;
-    bottom: -30px;
-    @for $i from 1 through 11 {
-      &:nth-child(#{$i}){
-        left: ($i - 1) * 10%;
-      }
+
+
+.slider-cursor{
+  z-index: 100000000;
+  position: absolute;
+  // top:50%;
+  // transform: translateY(-50%);
+  top: 0px;
+  left: 40%;
+  width: 2px;
+  height: 100%;
+  background: black(0.4);
+}
+.cursor-body{
+  height: 70px;
+  width: 20px;
+  cursor: pointer;
+  background: white(0.6);
+  border:3px solid $green1;
+  border-radius: 3px;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+.cursor-tooltip{
+  position: absolute;
+  left: 50%;
+  .inner{
+    font-size: 14px;
+    left: -50%;
+    white-space: nowrap;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    background: $lightgrey2;
+    border-radius: 100px;
+    padding: 6px 18px;
+    &:after {
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(136, 183, 213, 0);
+      border-width: 10px;
+      margin-left: -10px;
     }
   }
+}
+.cursor-percent{
+  bottom: -70px;
+  .inner:after{
+    bottom: 100%;
+    border-bottom-color: $lightgrey2;
+  }
+}
+.cursor-amount{
+  top: -70px;
+  .inner:after{
+    top: 100%;
+    border-top-color: $lightgrey2;  
+  }
+}
+.cursor-figure{
+  font-size: 18px;
+  font-weight: bold();
+  color: $green1;
 }
