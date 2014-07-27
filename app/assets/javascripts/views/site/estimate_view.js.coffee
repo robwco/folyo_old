@@ -16,6 +16,17 @@ class Views.Site.EstimateView extends Views.ApplicationView
       # grid: [ 88, 0 ]
     )
 
+    onDragMove = (instance, event, pointer) ->
+      maxPrice = 10000 # get it from Rails, or fix it at 10000?
+      xPos = instance.position.x
+      totalWidth = $('#slider').width()
+      amount = Math.round(maxPrice * xPos / totalWidth)
+      if amount > maxPrice - 20 # round off at the end
+        amount = maxPrice
+      $('.cursor-amount-value').text('$'+amount)
+
+    draggie.on( 'dragMove', onDragMove );
+
   loadHeatMap: ->
     # heatmap configuration
     config =
