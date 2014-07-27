@@ -15,7 +15,7 @@ class Ability
         can [:create, :update], DesignerReply
       end
       can :manage, DesignerProject
-      can [:history, :archives], JobOffer
+      can :history, JobOffer
       can [:read, :map, :san_francisco_bay_area], Designer do |designer|
         designer.public?
       end
