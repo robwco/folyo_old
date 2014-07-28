@@ -38,20 +38,48 @@
 }
 
 .budget-widget{
-  padding: 120px 0;
 
 }
+
+.budget-section-title{
+  text-align: center;
+  font-size: 30px;
+  color: $green1;
+  font-weight: bold();
+  margin-bottom: 30px;
+}
+
+.budget-project{
+  @include cf;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+}
+.project-settings{
+  border-radius: 3px;
+  border: 1px dotted $blue1;
+  max-width: 33%;
+  padding: 20px;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+.project-select{
+
+}
+
 .budget-selector{
   height: 50px;
   width: 100%;
   background: $lightgrey2;
   border-radius: 200px;
   padding: 0 30px;
+  margin: 120px 0;
 }
 .budget-slider{
   height: 100%;
   width: 100%;
   position: relative;
+
 }
 .slider-body{
   height: 100%;
