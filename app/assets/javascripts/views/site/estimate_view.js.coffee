@@ -1,3 +1,12 @@
+# TODO
+# - include draggability js properly (use bower?)
+# - replace heatmap.js by a bunch of divs of various sizes
+# - generate "heatmap" from data contained in projects object
+# - regenerate "heatmap" on project type change
+# - add sample project (use something for JS templates, or else just hardcode the HTML)
+# - improve animation of "pick a project" section
+# - make whole thing responsive
+
 window.Views.Site ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
@@ -198,23 +207,54 @@ class Views.Site.EstimateView extends Views.ApplicationView
     @makeDraggable()  
 
   makeDraggable: ->
-    elem = document.querySelector('.slider-cursor');
-    # make cursor draggable
-    cursor = new Draggabilly( elem,
-      axis: 'x'
-      containment: true
-      handle: '.cursor-body'
-      # grid: [ 88, 0 ]
+    $('.slider-cursor').each( ->
+      elem = this
+      $selector = $(this).parents('.budget-selector')
+
+      # make cursor draggable
+      cursor = new Draggabilly( elem,
+        axis: 'x'
+        containment: true
+        handle: '.cursor-body'
+        # grid: [ 88, 0 ]
+      )
+
+      # on drag
+      cursor.on( 'dragMove', (instance, event, pointer) ->
+        price = getPrice(instance.position.x)
+        if price > maxPrice - 20 # round off at the end
+          price = maxPrice
+        $('.cursor-price-value').text('$'+price)
+        $('.cursor-percent-value').text(getPercent(price)+"%")
+
+        # constrain tooltip bodies
+        $('.cursor-tooltip .inner').each( ->
+
+          offset = 0
+
+          cursorLeftEdge = $(this).offset().left
+          cursorRightEdge = cursorLeftEdge + $(this).width()
+          selectorLeftEdge = $selector.offset().left
+          selectorRightEdge = selectorLeftEdge + $selector.width()
+
+          leftDelta = Math.round(cursorLeftEdge - selectorLeftEdge)
+          rightDelta = Math.round(selectorRightEdge - cursorRightEdge)
+
+          # console.log('distance from left edge: '+leftDelta)
+          # console.log('distance from right edge: '+rightDelta)
+
+          if(leftDelta < 0)
+            offset = -leftDelta
+
+          if(rightDelta < 0)
+            offset = rightDelta
+
+          $(this).find('.inner2').css('left', offset + 'px')
+        )
+      )
     )
 
-    # on drag
-    cursor.on( 'dragMove', (instance, event, pointer) ->
-      price = getPrice(instance.position.x)
-      if price > maxPrice - 20 # round off at the end
-        price = maxPrice
-      $('.cursor-price-value').text('$'+price)
-      $('.cursor-percent-value').text(getPercent(price)+"%")
-    )
+
 
   loadHeatMap: ->
     # heatmap configuration

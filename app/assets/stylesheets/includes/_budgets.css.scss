@@ -201,13 +201,17 @@
   .inner{
     font-size: 14px;
     left: -50%;
-    white-space: nowrap;
     position: relative;
-    text-align: center;
-    display: inline-block;
-    background: $lightgrey2;
-    border-radius: 100px;
-    padding: 6px 18px;
+    white-space: nowrap;
+    .inner2{
+      white-space: nowrap;
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      background: $lightgrey2;
+      border-radius: 100px;
+      padding: 6px 18px;
+    }
     &:after {
       left: 50%;
       border: solid transparent;

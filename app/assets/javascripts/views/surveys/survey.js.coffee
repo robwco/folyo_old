@@ -14,6 +14,7 @@ class Views.Surveys.ShowView extends Views.ApplicationView
   makeDraggable: ->
     $('.slider-cursor').each( ->
       elem = this
+      $selector = $(this).parents('.budget-selector')
       $answer = $(elem).parents('.survey-answer')
       # make cursor draggable
       cursor = new Draggabilly( elem,
