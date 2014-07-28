@@ -1,0 +1,20 @@
+.budget-selector.budget-selector-designer
+
+  .budget-slider
+
+    .slider-body
+
+      .slider-legend.slider-prices
+        %ol
+          %li $0
+          - (1..10).each do |i|
+            %li $#{i}k
+
+      .slider-cursor#cursor{style: 'left: 0%;'}
+        .cursor-tooltip.cursor-price.cursor-tooltip-down
+          .inner
+            %span.cursor-figure.cursor-price-value $0
+        .cursor-body
+          .cursor-left
+          .cursor-center
+          .cursor-right

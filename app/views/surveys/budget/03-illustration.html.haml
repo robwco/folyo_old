@@ -34,8 +34,4 @@
           project_url: 'https://www.behance.net/gallery/11228527/Touristic-icon-design' }
     = render '/surveys/partials/budget', input_name: :illustration_2_budget, input_label: 'How much would you charge for a similar project?', f:f
 
-  .survey-pagination
-    %button{type: 'submit', name: 'page', value: '02-logo-design', class: 'button disabled prev'}
-      Logo Design
-    %button{type: 'submit', name: 'page', value: '04-web-design', class: 'button next'}
-      Next: Web Design
+  = render '/surveys/partials/pagination', { prev_page: '02-logo-design', prev_page_name: 'Logo Design', next_page: '04-web-design', next_page_name: 'Web Design'}

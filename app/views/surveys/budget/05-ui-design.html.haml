@@ -59,10 +59,5 @@
     
     = render '/surveys/partials/budget', input_name: :complex_app_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :complex_app_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
- 
 
-  .survey-pagination
-    %button{type: 'submit', name: 'page', value: '04-web-design', class: 'button disabled prev'}
-      Web Design
-    %button{type: 'submit', name: 'page', value: '06-motion-design', class: 'button next'}
-      Next: Motion Design
+  = render '/surveys/partials/pagination', { prev_page: '04-web-design', prev_page_name: 'Web Design', next_page: '06-motion-design', next_page_name: 'Motion Design'}

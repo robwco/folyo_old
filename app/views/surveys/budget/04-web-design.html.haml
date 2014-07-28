@@ -64,8 +64,5 @@
     = render '/surveys/partials/budget', input_name: :web_design_4_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :web_coding_4_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
-  .survey-pagination
-    %button{type: 'submit', name: 'page', value: '03-illustration', class: 'button disabled prev'}
-      Illustration
-    %button{type: 'submit', name: 'page', value: '05-ui-design', class: 'button next'}
-      Next: UI & App Design
+  = render '/surveys/partials/pagination', { prev_page: '03-illustration', prev_page_name: 'Illustration', next_page: '05-ui-design', next_page_name: 'UI & App Design'}
+

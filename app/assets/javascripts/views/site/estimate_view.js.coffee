@@ -86,18 +86,17 @@ populateList = (selectElement, myArray) ->
     selectElement.append($('<label><input type="radio" name="'+selectElement.attr('class')+'" value="'+optionValue+'"/><span>'+optionValue+'</span></label>'))
   )
 
-maxPrice = 10000 # get it from Rails, or fix it at 10000?
-totalWidth = $('#slider').width()
+@maxPrice = 10000 # get it from Rails, or fix it at 10000?
 
 pricesArray = [392, 748, 748, 1036, 1265, 1265, 1419, 1763, 1786, 1847, 1895, 1895, 1895, 2362, 2447, 3235, 3235, 3927, 4030, 4703, 4822]
 
 # given a price, get its position on the slider
-getPosition = (price) ->  
-  return Math.round(price * totalWidth / maxPrice)
+@getPosition = (price) ->  
+  return Math.round(price * $('.budget-slider').width() / maxPrice)
 
 # given a position on the slider, get the corresponding price
-getPrice = (position) ->
-  return Math.round(maxPrice * position / totalWidth)
+@getPrice = (position) ->
+  return Math.round(maxPrice * position / $('.budget-slider').width())
 
 # given a number, get the closest price that exists in the price array
 getClosestPrice = (price) ->
@@ -109,12 +108,12 @@ getClosestPrice = (price) ->
   return closestPrice
 
 # mock function to simulate getting the percentile for a given price
-getPercent = (price) ->
+@getPercent = (price) ->
   position = pricesArray.indexOf(getClosestPrice(price))
   return Math.round(position * 100 / pricesArray.length)
 
 # transform array of numbers into JSON object accepted by heatmap.js
-# note: we probably want to generate the JSON object in Ruby instead
+# note: we probably want to generate the JSON object in Ruby instead and include it in "projects"
 pricesData = pricesArray.map((price, index, myArray) ->
   return {
     x:getPosition(price),
@@ -132,11 +131,11 @@ class Views.Site.EstimateView extends Views.ApplicationView
     @makeDraggable()  
 
   makeDraggable: ->
-    elem = document.querySelector('#cursor');
+    elem = document.querySelector('.slider-cursor');
     # make cursor draggable
     cursor = new Draggabilly( elem,
       axis: 'x'
-      containment: '#slider'
+      containment: true
       handle: '.cursor-body'
       # grid: [ 88, 0 ]
     )
