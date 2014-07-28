@@ -56,12 +56,17 @@
   justify-content: center;
 }
 .project-settings{
-  border-radius: 3px;
-  border: 1px dotted $blue1;
   max-width: 33%;
-  padding: 20px;
-  flex-grow: 1;
+  flex: 1;
   margin-right: 20px;
+  &.not-visible{
+    display: none;
+  }
+  .inner{
+    padding: 20px;  
+    border: 1px dotted $blue1;
+    border-radius: 3px;
+  }
 }
 .project-select{
 

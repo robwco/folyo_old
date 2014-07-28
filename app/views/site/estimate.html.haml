@@ -13,16 +13,24 @@
         .budget-project
 
           .project-settings.project-category
-            %h3.project-settings-title Category
-            .project-select-category
+            .inner
+              %h3.project-settings-title Category
+              .project-select-category
+                %label
+                  %input{name: "project-select-category", type: "radio", value: "Logo & Identity Design"}/
+                  %span Logo & Identity Design
+                %label
+                  %input{name: "project-select-category", type: "radio", value: "Web Design"}/
+                  %span Web Design
+          .project-settings.project-type.not-visible
+            .inner
+              %h3.project-settings-title Project
+              .project-select-type
 
-          .project-settings.project-type.hidden
-            %h3.project-settings-title Project
-            .project-select-type
-
-          .project-settings.project-options.hidden
-            %h3.project-settings-title Options
-            .project-select-options
+          .project-settings.project-options.not-visible
+            .inner
+              %h3.project-settings-title Options
+              .project-select-options
 
       .budget-section
 

@@ -15,6 +15,28 @@ window.Views.Site ||= {}
           project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).',
           project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258'
         }
+        pricing_data: [
+          {
+            price: 300
+            percentile: 3
+            count: 2
+          },
+          {
+            price: 400
+            percentile: 5
+            count: 4
+          },
+          {
+            price: 500
+            percentile: 10
+            count: 3
+          },
+          {
+            price: 700
+            percentile: 11
+            count: 2
+          }
+        ]
       },
       {
         name: 'Full Identity Design'
@@ -43,6 +65,50 @@ window.Views.Site ||= {}
           project_description: 'A simple “coming soon” page with a few elements.',
           project_url: 'https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157'
         }
+        pricing_data: [
+          {
+            price: 700
+            percentile: 3
+            count: 2
+          },
+          {
+            price: 800
+            percentile: 5
+            count: 4
+          },
+          {
+            price: 1000
+            percentile: 10
+            count: 3
+          },
+          {
+            price: 1200
+            percentile: 11
+            count: 2
+          }
+        ]
+        pricing_data_with_coding: [
+          {
+            price: 1000
+            percentile: 3
+            count: 2
+          },
+          {
+            price: 1100
+            percentile: 5
+            count: 4
+          },
+          {
+            price: 1300
+            percentile: 10
+            count: 3
+          },
+          {
+            price: 1500
+            percentile: 11
+            count: 2
+          }
+        ]
       },
       {
         name: 'Landing Page'
@@ -88,6 +154,7 @@ populateList = (selectElement, myArray) ->
 
 @maxPrice = 10000 # get it from Rails, or fix it at 10000?
 
+# temporary array just to populate the heatmap while developing
 pricesArray = [392, 748, 748, 1036, 1265, 1265, 1419, 1763, 1786, 1847, 1895, 1895, 1895, 2362, 2447, 3235, 3235, 3927, 4030, 4703, 4822]
 
 # given a price, get its position on the slider
@@ -182,9 +249,6 @@ class Views.Site.EstimateView extends Views.ApplicationView
     categorySelect = $('.project-select-category')
     typeSelect = $('.project-select-type')
     optionsSelect = $('.project-select-options')
-
-    # populate design categories list
-    populateList(categorySelect, projects)
 
     # when design category changes
     # seems like the change event works on divs too?
