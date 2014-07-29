@@ -291,12 +291,6 @@ class Views.Site.EstimateView extends Views.ApplicationView
     # set up dynamic grid
     containerWidth = $('.budget-project').width()
     blockWidth = categoryBlock.width()
-    # oneOfOne = (blockWidth+20)
-    # oneOfTwo = ((containerWidth - (2 * blockWidth) - 20)/2)
-    # twoOfTwo = oneOfTwo + blockWidth + 20
-    # oneOfThree = 0
-    # twoOfThree = blockWidth + 20
-    # threeOfThree = 2*blockWidth + 40
     # use relative offsets using three-columns position as 0 origin
     oneOfOne = blockWidth+20
     oneOfTwo = ((containerWidth - (2 * blockWidth) - 20)/2)
