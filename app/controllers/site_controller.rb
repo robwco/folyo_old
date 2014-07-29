@@ -16,4 +16,8 @@ class SiteController < ApplicationController
     render layout: false
   end
 
+  def estimate
+    # render layout: 'estimate_layout'
+  end
+
 end

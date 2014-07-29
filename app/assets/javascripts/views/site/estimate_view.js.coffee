@@ -198,11 +198,14 @@ pricesData = pricesArray.map((price, index, myArray) ->
   }
 )
 
+updateHeatmap = (category, type, option) ->
+  console.log(category, type, option)
+
 class Views.Site.EstimateView extends Views.ApplicationView
 
   render: ->
 
-    @loadProjects()
+    @settingsSetup()
     @loadHeatMap()
     @makeDraggable()  
 
@@ -278,12 +281,29 @@ class Views.Site.EstimateView extends Views.ApplicationView
     heatmap.store.setDataSet data
     return
 
-  loadProjects: ->
+  settingsSetup: ->
 
     # 3 main settings blocks
     categoryBlock = $('.project-category')
     typeBlock = $('.project-type')
     optionsBlock = $('.project-options')
+
+    # set up dynamic grid
+    containerWidth = $('.budget-project').width()
+    blockWidth = categoryBlock.width()
+    # oneOfOne = (blockWidth+20)
+    # oneOfTwo = ((containerWidth - (2 * blockWidth) - 20)/2)
+    # twoOfTwo = oneOfTwo + blockWidth + 20
+    # oneOfThree = 0
+    # twoOfThree = blockWidth + 20
+    # threeOfThree = 2*blockWidth + 40
+    # use relative offsets using three-columns position as 0 origin
+    oneOfOne = blockWidth+20
+    oneOfTwo = ((containerWidth - (2 * blockWidth) - 20)/2)
+    twoOfTwo = oneOfTwo
+    categoryBlock.css('left', oneOfOne+'px')
+    typeBlock.css('left', twoOfTwo+'px')
+    optionsBlock.css('left', '0px')
 
     # parent div of radio buttons
     categorySelect = $('.project-select-category')
@@ -298,16 +318,32 @@ class Views.Site.EstimateView extends Views.ApplicationView
       # populate the project types list
       populateList(typeSelect, selectedProjectTypes)
       # show the project type block
-      typeBlock.fadeIn('fast')
+      categoryBlock.css('left', oneOfTwo+'px')
+      typeBlock.css('left', twoOfTwo+'px')
+      typeBlock.css('opacity', 1)
       # since we haven't picked a project type yet, hide the options blocks for now
-      optionsBlock.fadeOut('fast')
+      optionsBlock.css('opacity', 0)
     )
 
     # when project type changes
     typeSelect.change( ->
-      selectedOptions = getProjectOptions(categorySelect.find(':checked').val(), typeSelect.find(':checked').val())
+      currentCategory = categorySelect.find(':checked').val()
+      currentType = typeSelect.find(':checked').val()
+      selectedOptions = getProjectOptions(currentCategory, currentType)
       # only populate show the options block if there actually are options
       if !!selectedOptions.length
         populateList(optionsSelect, selectedOptions)
-        optionsBlock.fadeIn('fast')        
+        categoryBlock.css('left', '0px')
+        typeBlock.css('left', '0px')
+        optionsBlock.css('opacity', 1)
+      else
+        # if there are no options, update heatmap right away
+        updateHeatmap(currentCategory,currentType)    
+    )
+
+    optionsSelect.change( ->
+      currentCategory = categorySelect.find(':checked').val()
+      currentType = typeSelect.find(':checked').val()
+      currentOptions = optionsSelect.find(':checked').val()
+      updateHeatmap(currentCategory, currentType, currentOptions)
     )
