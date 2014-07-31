@@ -1,10 +1,11 @@
 = content_for :body_class, 'budgets-page'
 = content_for :title, "Budget Estimator"
 
+= javascript_include_tag "snap.svg-min.js"
+= javascript_include_tag "draggabilly.pkgd.min.js"
+= javascript_include_tag "underscore-min.js"
 
 %form.budget-form
-  %script{type:"text/javascript", src:"https://rawgit.com/pa7/heatmap.js/master/src/heatmap.js"}
-  %script{type:"text/javascript", src:"https://rawgit.com/desandro/draggabilly/master/dist/draggabilly.pkgd.min.js"}
 
   .budget-section
     %h2.budget-section-title 1. Pick a Project
@@ -42,6 +43,8 @@
       .budget-slider
 
         .slider-body#heatmapArea
+
+          %svg.slider-heatmap
 
           .slider-legend.slider-prices
             %ol

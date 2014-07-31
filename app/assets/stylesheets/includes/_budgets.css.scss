@@ -257,3 +257,18 @@
 }
 
 
+.slider-heatmap{
+  height: 100%;
+  position: relative;
+  width: 100%;
+  circle{
+    color: $green1;
+  }
+  div{
+    background: $lightgrey5;
+    border-radius: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+  }
+}

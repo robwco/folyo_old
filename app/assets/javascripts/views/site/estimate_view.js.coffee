@@ -4,9 +4,9 @@
 # - generate "heatmap" from data contained in projects object
 # - regenerate "heatmap" on project type change
 # - add sample project (use something for JS templates, or else just hardcode the HTML)
-# - improve animation of "pick a project" section
 # - make whole thing responsive
-
+# - enable clicking anywhere on the heatmap
+ 
 window.Views.Site ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
@@ -94,6 +94,11 @@ window.Views.Site ||= {}
             price: 1200
             percentile: 11
             count: 2
+          },
+          {
+            price: 2600
+            percentile: 56
+            count: 3
           }
         ]
         pricing_data_with_coding: [
@@ -135,21 +140,11 @@ window.Views.Site ||= {}
   }
 ]
 
-# get the list of project types for a project category
-getProjectTypes = (categoryName) ->
-  category = $.grep(projects, (category) -> 
-    return category.name == categoryName
-  )
-  return category[0].project_types
+getCategory = (categoryName) ->
+  return _.findWhere(projects, {name: categoryName})
 
-# get the list of options given a category and a project
-getProjectOptions = (categoryName, projectName) ->
-  projectsTypes = getProjectTypes(categoryName)
-  project = $.grep(projectsTypes, (project) -> 
-    return project.name == projectName
-  )
-  # if there are no options, return an empty array
-  return (if project[0].options then project[0].options else[])
+getProject = (categoryName, projectName) ->
+  return project = _.findWhere(getCategory(categoryName).project_types, {name: projectName})
 
 # given an array, populate list with HTML elements (radio buttons)
 populateList = (selectElement, myArray) ->
@@ -200,6 +195,17 @@ pricesData = pricesArray.map((price, index, myArray) ->
 
 updateHeatmap = (category, type, option) ->
   console.log(category, type, option)
+  project = getProject(category, type)
+  data = project.pricing_data || []
+  totalPoints = 100
+  [1..(totalPoints-1)].forEach( (i) ->
+    point = _.findWhere(data, {price: i * totalPoints})
+    if(!!point)
+      diameter = point.count * 3
+    else
+      diameter = 0
+    dot = window.heatmap.select("circle:nth-of-type("+i+")").animate({r: diameter}, 300)
+  )
 
 class Views.Site.EstimateView extends Views.ApplicationView
 
@@ -257,29 +263,16 @@ class Views.Site.EstimateView extends Views.ApplicationView
       )
     )
 
-
-
   loadHeatMap: ->
-    # heatmap configuration
-    config =
-      element: document.getElementById("heatmapArea")
-      radius: 10
-      opacity: 50
-      gradient:
-        0: "rgb(234,242,246)"
-        0.5: "rgb(78,158,196)"
-        1: "rgb(255, 255, 255)"
-
-    
-    #creates and initializes the heatmap
-    heatmap = h337.create(config)
-    
-    data =
-      max: 1
-      data: pricesData
-
-    heatmap.store.setDataSet data
-    return
+    window.heatmap = Snap(".slider-heatmap")
+    totalPoints = 100
+    [1..(totalPoints-1)].forEach( (i) ->
+      xCoord = i * $('.slider-heatmap').width() / totalPoints
+      dot = window.heatmap.circle(xCoord, 25, 0)
+      dot.attr({
+        fill: "#86d259",
+      })
+    )
 
   settingsSetup: ->
 
@@ -308,7 +301,7 @@ class Views.Site.EstimateView extends Views.ApplicationView
     # seems like the change event works on divs too?
     categorySelect.change( ->
       # get the project types corresponding to the current category
-      selectedProjectTypes = getProjectTypes(categorySelect.find(':checked').val())
+      selectedProjectTypes = getCategory(categorySelect.find(':checked').val()).project_types
       # populate the project types list
       populateList(typeSelect, selectedProjectTypes)
       # show the project type block
@@ -323,7 +316,7 @@ class Views.Site.EstimateView extends Views.ApplicationView
     typeSelect.change( ->
       currentCategory = categorySelect.find(':checked').val()
       currentType = typeSelect.find(':checked').val()
-      selectedOptions = getProjectOptions(currentCategory, currentType)
+      selectedOptions = getProject(currentCategory, currentType).options || []
       # only populate show the options block if there actually are options
       if !!selectedOptions.length
         populateList(optionsSelect, selectedOptions)
