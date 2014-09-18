@@ -1,6 +1,6 @@
 class JobOfferMailer < ActionMailer::Base
 
-  default from: 'Folyo <hello@folyo.com>'
+  default from: 'Folyo <hello@folyo.me>'
 
   layout 'mailer'
 

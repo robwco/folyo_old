@@ -10,7 +10,7 @@ module DelayedJobs
         Rails.logger.debug "Sending #{job_offer.title} to #{designers.count} designers"
 
         designers.each_slice(200) do |designers|
-          designer_emails = designers.map { |designer| "#{designer.full_name} <#{designer.email}>" }
+          designer_emails = designers.map(&:email)
           Rails.logger.debug "Sending to #{designer_emails}"
           JobOfferMailer.new_job_offer(job_offer, designer_emails).deliver
         end

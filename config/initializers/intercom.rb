@@ -45,6 +45,7 @@ IntercomRails.config do |config|
     status:               ->(u) { u.is_a?(Designer) ? u.status : nil },
     profile:              ->(u) { u.is_a?(Designer) ? "http://www.folyo.me/designers/#{u.slug}" : nil },
     profile_completeness: ->(u) { u.is_a?(Designer) ? u.profile_completeness : nil },
+    subscription_mode:    ->(u) { u.is_a?(Designer) ? u.subscription_mode : nil },
     company_name:         ->(u) { u.is_a?(Client)   ? u.company_name : nil }
   }
 
