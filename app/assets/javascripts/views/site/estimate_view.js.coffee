@@ -4,6 +4,7 @@
 # - generate "heatmap" from data contained in projects object
 # - regenerate "heatmap" on project type change
 # - add sample project (use something for JS templates, or else just hardcode the HTML)
+# - improve animation of "pick a project" section
 # - make whole thing responsive
 # - enable clicking anywhere on the heatmap
  
@@ -16,14 +17,13 @@ window.Views.Site ||= {}
     project_types: [
       {
         name: 'Logo Design'
-        sample_project: {
-          project_name: 'CoreFx Logo',
-          author_name: 'Julien Renvoye',
-          author_url: 'https://dribbble.com/JulienRenvoye',
-          project_image: 'budgets/logo1.jpg',
-          project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).',
+        sample_project:
+          project_name: 'CoreFx Logo'
+          author_name: 'Julien Renvoye'
+          author_url: 'https://dribbble.com/JulienRenvoye'
+          project_image: 'budgets/logo1.jpg'
+          project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).'
           project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258'
-        }
         pricing_data: [
           {
             price: 300
@@ -213,7 +213,7 @@ class Views.Site.EstimateView extends Views.ApplicationView
 
     @settingsSetup()
     @loadHeatMap()
-    @makeDraggable()  
+    @makeDraggable()
 
   makeDraggable: ->
     $('.slider-cursor').each( ->
@@ -325,7 +325,7 @@ class Views.Site.EstimateView extends Views.ApplicationView
         optionsBlock.css('opacity', 1)
       else
         # if there are no options, update heatmap right away
-        updateHeatmap(currentCategory,currentType)    
+        updateHeatmap(currentCategory,currentType)
     )
 
     optionsSelect.change( ->

@@ -347,6 +347,7 @@ class JobOffer
     when :rate
       track_event('JO08_Rate')
       self.rated_at = DateTime.now
+      client.update_attribute(:next_offer_discount, DEFAULT_DISCOUNT)
     when :refund
       self.refund_origin = transition.from_name
       track_event('JOXX_Refunded', refund_origin: refund_origin)
