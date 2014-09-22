@@ -25,7 +25,9 @@ class SurveysController < ApplicationController
   end
 
   def set_survey
-    @survey ||= Survey.find_or_create_by(name: @survey_name, user: current_user)
+    class_name = "#{@survey_name}_survey".camelize
+    klass = Object.const_get(class_name) rescue Survey
+    @survey ||= klass.send(:find_or_create_by, { name: @survey_name, user: current_user })
   end
 
 end

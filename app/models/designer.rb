@@ -2,29 +2,8 @@ require 'mailchimp_helper'
 
 class Designer < User
 
-  # def self.skills
-  #   [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
-  # end
-
   def self.skills
-    {
-      logo_identity_design: [ logo_design:  [], full_identity: [] ],
-      illustration:         [ illustration: [], icon_design:   [] ],
-      web_design: [
-        coming_soon:     [ :coding, :no_coding ],
-        landing_page:    [ :coding, :no_coding ],
-        simple_website:  [ :coding, :no_coding ],
-        complex_website: [ :coding, :no_coding ]
-      ],
-      ui_app_design: [
-        simple_mobile_app:  [],
-        complex_mobile_app: [],
-        simple_web_app:     [ :coding, :no_coding ],
-        complex_web_app:    [ :coding, :no_coding ],
-      ],
-      motion_design: [ animated_trailer: [] ],
-      ux_design:     [ ux_consulting:  [], ux_research: [], information_architecture: [] ]
-    }
+    %i(logo_identity_design illustration web_design UI_app_design motion_design UX_design)
   end
 
   def self.statuses
@@ -65,7 +44,7 @@ class Designer < User
   field :featured_shot_url,       type: String
   field :featured_shot_image_url, type: String
 
-  field :skills,                  type: Array, default: []
+  field :skills,                  type: Hash, default: []
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
   field :referral_token,          type: String
 

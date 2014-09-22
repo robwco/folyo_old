@@ -10,7 +10,7 @@
 
     So if you know you'd charge *at least* $3000 for a project, just pick “$3000-$4000”.
 
-= simple_form_for @survey, wrapper: 'survey' do |f|
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -21,7 +21,7 @@
           project_image: 'budgets/illustration.jpg',
           project_description: 'An illustration for a magazine cover.',
           project_url: 'https://www.behance.net/gallery/18336973/MACHINES-Kult-Magazine-issue-15' }
-    = render '/surveys/partials/budget', input_name: :illustration_1_budget, input_label: 'How much would you charge for a similar project?', f:f
+    = render '/surveys/partials/budget', input_name: :illustration_budget, input_label: 'How much would you charge for a similar project?', f:f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -32,6 +32,6 @@
           project_image: 'budgets/iconset.png',
           project_description: 'An icon set of 30 single-width line icons.',
           project_url: 'https://www.behance.net/gallery/11228527/Touristic-icon-design' }
-    = render '/surveys/partials/budget', input_name: :illustration_2_budget, input_label: 'How much would you charge for a similar project?', f:f
+    = render '/surveys/partials/budget', input_name: :icon_design_budget, input_label: 'How much would you charge for a similar project?', f:f
 
   = render '/surveys/partials/pagination', { prev_page: '02-logo-design', prev_page_name: 'Logo Design', next_page: '04-web-design', next_page_name: 'Web Design'}

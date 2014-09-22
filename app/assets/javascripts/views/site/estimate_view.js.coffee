@@ -4,10 +4,9 @@
 # - generate "heatmap" from data contained in projects object
 # - regenerate "heatmap" on project type change
 # - add sample project (use something for JS templates, or else just hardcode the HTML)
-# - improve animation of "pick a project" section
 # - make whole thing responsive
 # - enable clicking anywhere on the heatmap
- 
+
 window.Views.Site ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
@@ -162,7 +161,7 @@ populateList = (selectElement, myArray) ->
 pricesArray = [392, 748, 748, 1036, 1265, 1265, 1419, 1763, 1786, 1847, 1895, 1895, 1895, 2362, 2447, 3235, 3235, 3927, 4030, 4703, 4822]
 
 # given a price, get its position on the slider
-@getPosition = (price) ->  
+@getPosition = (price) ->
   return Math.round(price * $('.budget-slider').width() / maxPrice)
 
 # given a position on the slider, get the corresponding price

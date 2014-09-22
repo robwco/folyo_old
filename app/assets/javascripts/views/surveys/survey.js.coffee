@@ -6,10 +6,11 @@ class Views.Surveys.ShowView extends Views.ApplicationView
     $('.slider-cursor').each ->
       $selector = $(this).parents('.budget-selector')
       $answer = $(this).parents('.survey-answer')
+      $sliderBody = $answer.find('.slider-body')
 
       # set initial value
       price = $answer.find('.slider-value').val()
-      setPriceCursor(price, $answer.find('.slider-body'))
+      setPriceCursor(price, $sliderBody)
       setPriceValue(price, $answer)
 
       # make cursor draggable
@@ -24,6 +25,10 @@ class Views.Surveys.ShowView extends Views.ApplicationView
       cursor.on 'dragMove', (instance, event, pointer) ->
         price = getPrice(instance.position.x)
         setPriceValue(price, $answer)
+
+      cursor.on 'dragEnd', (instance, event, pointer) ->
+        price = getPrice(instance.position.x)
+        setPriceCursor(price, $sliderBody)
 
     $('.slider-body').mousedown (e) ->
       $target = $(e.target)

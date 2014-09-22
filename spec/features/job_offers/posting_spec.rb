@@ -143,7 +143,7 @@ feature 'Posting a job offer', devise: true do
       fill_in 'Title',               with: title
       fill_in 'Project summary',     with: project_summary
       fill_in 'Project details',     with: project_details
-      check   'Icon design'
+      check   'Illustration'
       select  '$1500-$2000', from: 'Budget Range'
     end
   end

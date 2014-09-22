@@ -11,7 +11,7 @@
     By the way, feel free to **skip any sections** that don't apply to you.
 
 
-= simple_form_for @survey, wrapper: :survey do |f|
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
   = render layout: '/surveys/partials/form_block', locals: {input_label: 'How long have you been a designer for?'} do
     = f.input :designing_since, collection: ['Less than 1 year', '1-2 years', '2-3 years', '3-4 years', '4-6 years', '6-8 years', '8-10 years', '10-15 years', '15-20 years', 'More than 20 years']
