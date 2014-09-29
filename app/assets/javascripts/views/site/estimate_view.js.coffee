@@ -6,6 +6,7 @@
 # - add sample project (use something for JS templates, or else just hardcode the HTML)
 # - make whole thing responsive
 # - enable clicking anywhere on the heatmap
+# - make price and percent parts draggable as well
  
 window.Views.Site ||= {}
 
@@ -194,7 +195,6 @@ pricesData = pricesArray.map((price, index, myArray) ->
 )
 
 updateHeatmap = (category, type, option) ->
-  console.log(category, type, option)
   project = getProject(category, type)
   data = project.pricing_data || []
   totalPoints = 100

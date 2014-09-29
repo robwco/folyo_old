@@ -19,7 +19,7 @@
   = render layout: '/surveys/partials/form_block', locals: {input_label: 'How do you usually bill clients?'} do
     = f.input :billing_mode, collection: ['By the project', 'By the hour', 'By the day', 'By the week', 'By the month', 'Based on results', 'It depends']
 
-  = render layout: '/surveys/partials/form_block', locals: {input_label: "What's your hourly rate?"} do
+  = render layout: '/surveys/partials/form_block', locals: {input_label: "What's your hourly rate (in U.S. dollars)?"} do
     = f.input :hourly_rate, input_html: { value: @survey.hourly_rate }
     %p.survey-form-note If you don't bill by the hour, use an approximate hourly rate or just leave blank.
 
