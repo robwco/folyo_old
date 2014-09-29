@@ -126,10 +126,7 @@ ul.skills-list li{
 		@include border-left-radius(3px);
 		background:rgba(0,0,0,0.05) image-url('logodesign.png') no-repeat 5px 3px;
 	}
-	&.icon-design:after{
-		background-image:image-url('icondesign.png');
-	}
-	&.logo-design:after{
+	&.logo-identity-design:after{
 		background-image:image-url('logodesign.png');
 	}
 	&.web-design:after{
@@ -138,17 +135,11 @@ ul.skills-list li{
 	&.ui-design:after{
 		background-image:image-url('uidesign.png');
 	}
-	&.mobile-design:after{
-		background-image:image-url('mobiledesign.png');
-	}
-	&.ux-interaction-design:after, &.ux-design:after{
+	&.ux-design:after{
 		background-image:image-url('ux.png');
 	}
-	&.illustration:after, &.illustration-design:after{
+	&.illustration:after {
 		background-image:image-url('illustration.png');
-	}
-	&.print-design:after{
-		background-image:image-url('printdesign.png');
 	}
 }
 

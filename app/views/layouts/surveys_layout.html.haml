@@ -5,7 +5,7 @@
   %body.no-js.survey{class: yield(:body_class), 'data-class-name' => js_class_name}
     = render_site_nav
 
-    %script{type:"text/javascript", src:"https://rawgit.com/desandro/draggabilly/master/dist/draggabilly.pkgd.min.js"}
+    = javascript_include_tag "draggabilly.pkgd.min.js"
 
     #page
 
