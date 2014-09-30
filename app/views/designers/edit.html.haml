@@ -54,8 +54,6 @@
     = f.input :portfolio_url
     = render '/designers/profile/skills', designer: @designer
 
-    = link_to 'Want to edit your skills? Take the survey', survey_path('budget'), target: '_blank'
-
   .section
     %h3 Notification settings
     = f.input :subscription_mode, as: :radio_buttons, label: 'You will be notified by email for', collection: Designer.subscription_modes, label_method: sym_label_method, :hint => yield(:notifications_hint)

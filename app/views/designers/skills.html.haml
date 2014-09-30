@@ -1,0 +1,21 @@
+= render 'designer_header', designer: @designer
+
+- if current_user.is_a? Admin
+  = content_for :parent_level do
+    = link_to "Designers", admin_designers_path
+
+= content_for :body_class, "with-subnav"
+= content_for :subnav do
+  = render '/designers/account_nav'
+
+.skills
+
+  :markdown
+
+    Make it easier for clients to find your profile by filling in our 10-minutes **skills and budgets survey**. 
+
+    For each service you provide, you'll see a sample project and get a chance to fill in your minimum starting budget. 
+
+    Note that this information will be kept **strictly confidential** and used only in aggregate to help clients estimate their budget needs. 
+
+  = link_to 'Take the Survey', survey_path('budget'), html_options = {:class => 'button'}

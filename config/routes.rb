@@ -73,9 +73,9 @@ Folyo::Application.routes.draw do
     resources :messages
     resources :designer_projects, path: 'projects', as: 'projects' do
       resources :designer_project_artworks, path: 'artworks', as: 'artworks' do
-        get 'crop',          on: :member
-        put 'update_crop',   on: :member
-        get 'status',        on: :member
+        get 'crop',               on: :member
+        put 'update_crop',        on: :member
+        get 'status',             on: :member
       end
     end
     resource :profile_picture do
@@ -84,8 +84,9 @@ Folyo::Application.routes.draw do
       get 'status'
     end
     resources :referrals do
-      put 'transfer', on: :collection
+      put 'transfer',             on: :collection
     end
+    get 'skills',                 on: :member
   end
 
   resources :clients
