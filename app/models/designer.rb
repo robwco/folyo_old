@@ -3,7 +3,7 @@ require 'mailchimp_helper'
 class Designer < User
 
   def self.skills
-    %i(logo_and_identity_design illustration web_design UI_design motion_design)
+    %i(logo_and_identity_design illustration motion_design web_design UI_design UX_design)
   end
 
   def self.statuses
