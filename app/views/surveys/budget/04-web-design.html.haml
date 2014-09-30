@@ -6,9 +6,13 @@
 
 .survey-intro
   :markdown
-    Note: consider that all projects include **responsive design**, even if not explicitely mentionned.
+    If you don't do something, just drag the slider back to 0 to mark it as "not applicable".
 
-    On the other hand, HTML/CSS coding is optional.
+/ .survey-intro
+/   :markdown
+/     Note: consider that all projects include **responsive design**, even if not explicitely mentionned.
+
+/     On the other hand, HTML/CSS coding is optional.
 
 = simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
