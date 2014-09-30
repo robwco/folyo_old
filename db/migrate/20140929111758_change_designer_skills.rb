@@ -37,7 +37,7 @@ class ChangeDesignerSkills < Mongoid::Migration
         end
       end
       if d.skills.include?(:logo_design)
-        d.skills_budgets[:logo_identity_design] = { logo: max_budget, full_identity: max_budget}
+        d.skills_budgets[:logo_and_identity_design] = { logo: max_budget, full_identity: max_budget}
       end
       if d.skills.include?(:UX_design)
         d.skills_budgets[:UX_design] = {UX_consulting: max_budget, UX_research: max_budget, information_architecture: max_budget }

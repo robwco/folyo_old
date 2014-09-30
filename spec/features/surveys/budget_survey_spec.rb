@@ -173,7 +173,7 @@ feature 'Fill in a budget survey', devise: true do
     find('#survey_information_architecture_budget').value.should == information_architecture_budget
 
     # Check attributes are copied to designer
-    designer.reload.skills_budgets['logo_identity_design']['logo'].should == logo_budget.to_f
+    designer.reload.skills_budgets['logo_and_identity_design']['logo'].should == logo_budget.to_f
     designer.skills_budgets['UI_design']['simple_mobile_app'].should == simple_mobile_app_budget.to_f
     designer.skills_budgets['UX_design']['UX_consulting'].should == ux_consulting_budget.to_f
   end
