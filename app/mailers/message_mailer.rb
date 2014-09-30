@@ -1,6 +1,6 @@
 class MessageMailer < ActionMailer::Base
 
-  default from: 'hello@folyo.com'
+  default from: 'hello@folyo.me'
 
   layout 'mailer'
 

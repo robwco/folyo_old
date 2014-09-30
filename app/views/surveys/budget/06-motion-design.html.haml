@@ -6,9 +6,9 @@
 
 .survey-intro
   :markdown
-    Walt Disney would be proud of you. 
+    Walt Disney would be proud of you.
 
-= simple_form_for @survey, wrapper: 'survey' do |f|
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -19,7 +19,7 @@
           project_image: 'budgets/fanos.jpg',
           project_description: 'A 1-minute animated trailer for a mobile app.',
           project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
-    
-    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+    = render '/surveys/partials/budget', input_name: :animated_trailer_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render '/surveys/partials/pagination', { prev_page: '05-ui-design', prev_page_name: 'UI Design', next_page: '07-ux-design', next_page_name: 'UX Design'}

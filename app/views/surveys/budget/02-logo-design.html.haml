@@ -10,7 +10,7 @@
 
     Note: be sure to view the full **case study** for each project.
 
-= simple_form_for @survey, wrapper: 'survey' do |f|
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -21,7 +21,7 @@
           project_image: 'budgets/logo1.jpg',
           project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).',
           project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258' }
-    = render '/surveys/partials/budget', input_name: :logo_1_budget, input_label: 'For a similar project, I would charge at least…', f:f
+    = render '/surveys/partials/budget', input_name: :logo_budget, input_label: 'For a similar project, I would charge at least…', f:f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -32,6 +32,6 @@
           project_image: 'budgets/gbox.jpg',
           project_description: 'A full identity for a video production company, including a logo, icons, and packaging.',
           project_url: 'https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-' }
-    = render '/surveys/partials/budget', input_name: :logo_2_budget, input_label: 'For a similar project, I would charge at least…', f:f
+    = render '/surveys/partials/budget', input_name: :full_identity_budget, input_label: 'For a similar project, I would charge at least…', f:f
 
   = render '/surveys/partials/pagination', { prev_page: '01-about-you', prev_page_name: 'About You', next_page: '03-illustration', next_page_name: 'Illustration'}

@@ -3,7 +3,7 @@ require 'mailchimp_helper'
 class Designer < User
 
   def self.skills
-    [:icon_design, :illustration, :logo_design, :mobile_design, :print_design, :UI_design, :UX_design, :web_design]
+    %i(logo_identity_design illustration web_design UI_app_design motion_design UX_design)
   end
 
   def self.statuses
@@ -19,7 +19,7 @@ class Designer < User
   end
 
   def self.subscription_modes
-    [ :all_offers, :offers_matching_your_skills, :none ]
+    [ :all_offers, :none ] # :offers_matching_your_skills
   end
 
   field :status,                  type: Symbol, default: :pending
@@ -44,7 +44,7 @@ class Designer < User
   field :featured_shot_url,       type: String
   field :featured_shot_image_url, type: String
 
-  field :skills,                  type: Array, default: []
+  field :skills,                  type: Hash, default: []
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
   field :referral_token,          type: String
 

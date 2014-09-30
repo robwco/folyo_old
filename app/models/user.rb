@@ -42,8 +42,8 @@ class User
 
   validates_presence_of :full_name
 
-  before_destroy do#
-   Intercom::User.delete(user_id: self.id.to_s)
+  before_destroy do
+    Intercom::User.delete(user_id: self.id.to_s)
   end
 
   alias :name :full_name

@@ -10,7 +10,7 @@
 
     On the other hand, HTML/CSS coding is optional.
 
-= simple_form_for @survey, wrapper: 'survey' do |f|
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -22,8 +22,8 @@
           project_description: 'A simple “coming soon” page with a few elements.',
           project_url: 'https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157' }
 
-    = render '/surveys/partials/budget', input_name: :web_design_1_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :web_coding_1_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
+    = render '/surveys/partials/budget', input_name: :coming_soon_budget, input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_name: :coming_soon_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -35,8 +35,8 @@
           project_description: 'A landing page introducing a product with an illustration, features, and explanatory copy.',
           project_url: 'https://dribbble.com/shots/934145-Landing-page-design/attachments/104293' }
 
-    = render '/surveys/partials/budget', input_name: :web_design_2_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :web_coding_2_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
+    = render '/surveys/partials/budget', input_name: :landing_page_budget, input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_name: :landing_page_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -48,8 +48,8 @@
           project_description: 'A relatively simple site with a homepage and 3-4 different content templates.',
           project_url: 'https://www.behance.net/gallery/10534437/Seeadler' }
 
-    = render '/surveys/partials/budget', input_name: :web_design_3_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :web_coding_3_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
+    = render '/surveys/partials/budget', input_name: :simple_website_budget, input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_name: :simple_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -61,8 +61,8 @@
           project_description: 'A complex site with numerous different pages and templates, custom UI elements, etc.',
           project_url: 'http://haraldurthorleifsson.com/googleplus/' }
 
-    = render '/surveys/partials/budget', input_name: :web_design_4_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :web_coding_4_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
+    = render '/surveys/partials/budget', input_name: :complex_website_budget, input_label: 'How much would you charge for a similar project?', f: f
+    = render '/surveys/partials/budget_coding', input_name: :complex_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render '/surveys/partials/pagination', { prev_page: '03-illustration', prev_page_name: 'Illustration', next_page: '05-ui-design', next_page_name: 'UI & App Design'}
 

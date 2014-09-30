@@ -6,9 +6,9 @@
 
 .survey-intro
   :markdown
-    Design is not just what it looks like and feels like. Design is… Oh, you know the rest. 
+    Design is not just what it looks like and feels like. Design is… Oh, you know the rest.
 
-= simple_form_for @survey, wrapper: 'survey' do |f|
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -19,8 +19,8 @@
           project_image: 'budgets/fanos.jpg',
           project_description: 'A 1-minute animated trailer for a mobile app.',
           project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
-    
-    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+    = render '/surveys/partials/budget', input_name: :ux_consulting_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -31,8 +31,8 @@
           project_image: 'budgets/fanos.jpg',
           project_description: 'A 1-minute animated trailer for a mobile app.',
           project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
-    
-    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+    = render '/surveys/partials/budget', input_name: :ux_research_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -43,13 +43,7 @@
           project_image: 'budgets/fanos.jpg',
           project_description: 'A 1-minute animated trailer for a mobile app.',
           project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
-    
-    = render '/surveys/partials/budget', input_name: :simple_app_budget, input_label: 'How much would you charge for a similar project?', f: f
 
-  .survey-pagination
-    %button{type: 'submit', name: 'page', value: '04-web-design', class: 'button disabled prev'}
-      Web Design
-    %button{type: 'submit', name: 'page', value: '06-motion-design', class: 'button next'}
-      Next: Motion Design & Animation
+    = render '/surveys/partials/budget', input_name: :information_architecture_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render '/surveys/partials/pagination', { prev_page: '06-motion-design', prev_page_name: 'Motion Design', next_page: '10-thanks', next_page_name: 'Finish'}

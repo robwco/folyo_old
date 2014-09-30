@@ -7,7 +7,7 @@
 # - make whole thing responsive
 # - enable clicking anywhere on the heatmap
 # - make price and percent parts draggable as well
- 
+
 window.Views.Site ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
@@ -17,14 +17,13 @@ window.Views.Site ||= {}
     project_types: [
       {
         name: 'Logo Design'
-        sample_project: {
-          project_name: 'CoreFx Logo',
-          author_name: 'Julien Renvoye',
-          author_url: 'https://dribbble.com/JulienRenvoye',
-          project_image: 'budgets/logo1.jpg',
-          project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).',
+        sample_project:
+          project_name: 'CoreFx Logo'
+          author_name: 'Julien Renvoye'
+          author_url: 'https://dribbble.com/JulienRenvoye'
+          project_image: 'budgets/logo1.jpg'
+          project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).'
           project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258'
-        }
         pricing_data: [
           {
             price: 300
@@ -163,7 +162,7 @@ populateList = (selectElement, myArray) ->
 pricesArray = [392, 748, 748, 1036, 1265, 1265, 1419, 1763, 1786, 1847, 1895, 1895, 1895, 2362, 2447, 3235, 3235, 3927, 4030, 4703, 4822]
 
 # given a price, get its position on the slider
-@getPosition = (price) ->  
+@getPosition = (price) ->
   return Math.round(price * $('.budget-slider').width() / maxPrice)
 
 # given a position on the slider, get the corresponding price
@@ -213,7 +212,7 @@ class Views.Site.EstimateView extends Views.ApplicationView
 
     @settingsSetup()
     @loadHeatMap()
-    @makeDraggable()  
+    @makeDraggable()
 
   makeDraggable: ->
     $('.slider-cursor').each( ->
@@ -325,7 +324,7 @@ class Views.Site.EstimateView extends Views.ApplicationView
         optionsBlock.css('opacity', 1)
       else
         # if there are no options, update heatmap right away
-        updateHeatmap(currentCategory,currentType)    
+        updateHeatmap(currentCategory,currentType)
     )
 
     optionsSelect.change( ->
