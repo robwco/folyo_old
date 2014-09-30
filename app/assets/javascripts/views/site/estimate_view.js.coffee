@@ -6,6 +6,7 @@
 # - add sample project (use something for JS templates, or else just hardcode the HTML)
 # - make whole thing responsive
 # - enable clicking anywhere on the heatmap
+# - make price and percent parts draggable as well
 
 window.Views.Site ||= {}
 
@@ -155,7 +156,7 @@ populateList = (selectElement, myArray) ->
     selectElement.append($('<label><input type="radio" name="'+selectElement.attr('class')+'" value="'+optionValue+'"/><span>'+optionValue+'</span></label>'))
   )
 
-@maxPrice = 10000 # get it from Rails, or fix it at 10000?
+@maxPrice = 20000 # get it from Rails, or fix it at 10000?
 
 # temporary array just to populate the heatmap while developing
 pricesArray = [392, 748, 748, 1036, 1265, 1265, 1419, 1763, 1786, 1847, 1895, 1895, 1895, 2362, 2447, 3235, 3235, 3927, 4030, 4703, 4822]
@@ -193,7 +194,6 @@ pricesData = pricesArray.map((price, index, myArray) ->
 )
 
 updateHeatmap = (category, type, option) ->
-  console.log(category, type, option)
   project = getProject(category, type)
   data = project.pricing_data || []
   totalPoints = 100

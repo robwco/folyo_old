@@ -14,11 +14,11 @@ class Views.Surveys.ShowView extends Views.ApplicationView
       setPriceValue(price, $answer)
 
       # make cursor draggable
+      # xStep = Math.round($answer.find('.budget-slider').width()/100)
       cursor = new Draggabilly( this,
         axis: 'x'
         containment: true
-        handle: '.cursor-body'
-        grid: [ $answer.find('.budget-slider').width()/100, 0 ]
+        # grid: [ xStep, 0 ] * using a grid messes up the values
       )
 
       # on drag
@@ -40,7 +40,17 @@ class Views.Surveys.ShowView extends Views.ApplicationView
 
   setPriceValue = (price, $parent) ->
     price = roundPrice(price)
-    $parent.find('.cursor-price-value').text('$'+price)
+    $cursorPrice = $parent.find('.cursor-price-value')
+    if price == 0
+      if $cursorPrice.data('hasBeenDragged') == true
+        text = "n/a"
+      else
+        text = "Drag Me!"
+        $cursorPrice.data('hasBeenDragged', true)
+    else
+      text = '$'+price
+
+    $cursorPrice.text(text)
     $parent.find('.slider-value').val(price)
 
   setPriceCursor = (price, $parent) ->

@@ -8,13 +8,13 @@
         %ol
           %li $0
           - (1..10).each do |i|
-            %li $#{i}k
+            %li $#{2*i}k
 
       .slider-cursor#cursor{style: 'left: 0%;'}
         .cursor-tooltip.cursor-price.cursor-tooltip-down
           .inner
             .inner2
-              %span.cursor-figure.cursor-price-value $0
+              %span.cursor-figure.cursor-price-value Drag Me!
         .cursor-body
           .cursor-left
           .cursor-center
