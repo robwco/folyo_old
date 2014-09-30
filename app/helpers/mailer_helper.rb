@@ -24,15 +24,13 @@ module MailerHelper
   end
 
   def skill_image_path(skill)
-    image_name = case(skill)
-      when :icon_design    then 'icondesign.png'
-      when :logo_design    then 'logodesign.png'
-      when :mobile_design  then 'mobiledesign.png'
-      when :web_design     then 'webdesign.png'
-      when :UI_design      then 'uidesign.png'
-      when :UX_design      then 'ux.png'
-      when :print_design   then 'printdesign.png'
-      when :illustration   then 'illustration.png'
+    image_name = case(skill.to_sym)
+      when :logo_identity_design    then 'logodesign.png'
+      when :web_design              then 'webdesign.png'
+      when :UI_design               then 'uidesign.png'
+      when :UX_design               then 'ux.png'
+      when :illustration            then 'illustration.png'
+      when :motion_design           then 'illustration.png'
     end
     mail_asset_url "skills/#{image_name}"
   end

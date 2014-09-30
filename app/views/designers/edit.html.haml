@@ -52,7 +52,9 @@
   .section
     %h3 Your Work
     = f.input :portfolio_url
-    = f.input :skills, as: :check_boxes, collection: Designer.skills, label_method: sym_label_method, value_method: :to_sym
+    = render '/designers/profile/skills', designer: @designer
+
+    = link_to 'Want to edit your skills? Take the survey', survey_path('budget'), target: '_blank'
 
   .section
     %h3 Notification settings

@@ -77,7 +77,7 @@ class ::DesignersController < ApplicationController
     end
 
     unless params[:skill].blank?
-      @designers = @designers.any_in(skills: params[:skill].to_sym)
+      @designers = @designers.for_skill(params[:skill])
     end
   end
 

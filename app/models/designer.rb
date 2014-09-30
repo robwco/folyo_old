@@ -3,7 +3,7 @@ require 'mailchimp_helper'
 class Designer < User
 
   def self.skills
-    %i(logo_identity_design illustration web_design UI_app_design motion_design UX_design)
+    %i(logo_identity_design illustration web_design UI_design motion_design UX_design)
   end
 
   def self.statuses
@@ -44,7 +44,8 @@ class Designer < User
   field :featured_shot_url,       type: String
   field :featured_shot_image_url, type: String
 
-  field :skills,                  type: Hash, default: []
+  field :skills,                  type: Array, default: []
+  field :skills_budgets,          type: Hash,  default: {}
   field :randomization_key,       type: Float # used to get a pseudo-random order of designers
   field :referral_token,          type: String
 
@@ -74,6 +75,7 @@ class Designer < User
   scope :rejected,              where(:status => :rejected)
   scope :accepted,              where(:status => :accepted)
   scope :for_status,            ->(status) { where(status: status) }
+  scope :for_skill,             ->(skill) { where(:"skills_budgets.#{skill}".ne => nil) }
   scope :public_only,           where(:profile_type => :public)
   scope :public_private,        where(:profile_type.in => [:public, :private])
   scope :san_francisco,         where(location: /San Francisco/i)
@@ -84,7 +86,7 @@ class Designer < User
 
   before_create      :set_referral_token
   before_create      :set_applied_at
-  before_validation  :process_skills, :fix_portfolio_url, :fix_twitter_username, :fix_behance_username, :fix_dribbble_username, :set_paypal_email
+  before_validation  :fix_portfolio_url, :fix_twitter_username, :fix_behance_username, :fix_dribbble_username, :set_paypal_email
   before_save        :generate_mongoid_random_key, :set_completeness
   before_save        :set_moderation_dates, if: :status_changed?
   after_save         :accept_reject_mailer, if: :status_changed?
@@ -239,6 +241,10 @@ class Designer < User
     Designer.pending.where(:applied_at.lte => self.applied_at).count
   end
 
+  def skills
+    self.skills_budgets.keys.map(&:to_sym)
+  end
+
   protected
 
   def tweet_out
@@ -290,11 +296,6 @@ class Designer < User
     end
   end
   handle_asynchronously :geocode
-
-  def process_skills
-    self.skills.reject!(&:blank?) if self.skills_changed?
-    self.skills.map!(&:to_sym)
-  end
 
   def generate_mongoid_random_key
     self.randomization_key = rand

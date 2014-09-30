@@ -96,4 +96,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'lorem'
   gem 'poltergeist'
+  gem 'launchy'
 end

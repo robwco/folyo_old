@@ -3,10 +3,25 @@ class Survey
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field      :name
+  field      :name,        type: String
+  field      :submited_at, type: DateTime
   belongs_to :user
 
   index({ name: 1, user_id: 1 })
+
+  after_create do
+    user.track_user_event('Survey Started', name: self.name)
+  end
+
+  def submit
+    user.track_user_event('Survey Submited', name: self.name)
+    self.submited_at = DateTime.now
+    save!
+    on_submit
+  end
+
+  def on_submit
+  end
 
   def to_param
     self.name

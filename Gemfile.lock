@@ -207,6 +207,8 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     lorem (0.1.2)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -456,6 +458,7 @@ DEPENDENCIES
   jobbr (= 1.1.5)
   jquery-rails (= 2.1.4)
   kaminari
+  launchy
   lorem
   mailchimp-api
   meta_request

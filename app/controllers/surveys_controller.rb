@@ -6,8 +6,11 @@ class SurveysController < ApplicationController
 
   def show
     if @survey_page.blank?
-      redirect_to "/surveys/#{@survey_name}/00-introduction"
+      redirect_to "/surveys/#{@survey_name}/#{default_first_page}"
     else
+      if @survey_page == default_last_page
+        @survey.submit
+      end
       render "/surveys/#{@survey_name}/#{@survey_page}"
     end
   end
@@ -18,6 +21,15 @@ class SurveysController < ApplicationController
   end
 
   protected
+
+  def default_first_page
+    '00-introduction'
+  end
+
+  def default_last_page
+    '10-thanks'
+  end
+
 
   def set_survey_params
     @survey_name ||= params[:survey_name]
