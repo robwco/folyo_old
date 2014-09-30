@@ -4,7 +4,7 @@ class Survey
   include Mongoid::Timestamps
 
   field      :name,        type: String
-  field      :submited_at, type: DateTime
+  field      :submitted_at, type: DateTime
   belongs_to :user
 
   index({ name: 1, user_id: 1 })
@@ -14,8 +14,8 @@ class Survey
   end
 
   def submit
-    user.track_user_event('Survey Submited', name: self.name)
-    self.submited_at = DateTime.now
+    user.track_user_event('Survey Submitted', name: self.name)
+    self.submitted_at = DateTime.now
     save!
     on_submit
   end
