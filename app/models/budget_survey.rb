@@ -5,9 +5,9 @@ class BudgetSurvey < Survey
       user.skills_budgets = {}
 
       if self.logo_budget || self.full_identity_budget
-        user.skills_budgets[:logo_identity_design] = {}
-        user.skills_budgets[:logo_identity_design][:logo] = self.logo_budget.to_f if self.logo_budget
-        user.skills_budgets[:logo_identity_design][:full_identity] = self.full_identity_budget.to_f if self.full_identity_budget
+        user.skills_budgets[:logo_and_identity_design] = {}
+        user.skills_budgets[:logo_and_identity_design][:logo] = self.logo_budget.to_f if self.logo_budget
+        user.skills_budgets[:logo_and_identity_design][:full_identity] = self.full_identity_budget.to_f if self.full_identity_budget
       end
 
       if self.illustration_budget || self.icon_design_budget

@@ -25,7 +25,7 @@ module MailerHelper
 
   def skill_image_path(skill)
     image_name = case(skill.to_sym)
-      when :logo_identity_design    then 'logodesign.png'
+      when :logo_and_identity_design    then 'logodesign.png'
       when :web_design              then 'webdesign.png'
       when :UI_design               then 'uidesign.png'
       when :UX_design               then 'ux.png'
