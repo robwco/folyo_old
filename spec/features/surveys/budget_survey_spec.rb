@@ -153,29 +153,28 @@ feature 'Fill in a budget survey', devise: true do
     click_button 'Next'
     survey.reload.animated_trailer_budget.should == animated_trailer_budget
 
-    click_button 'Motion Design'
+    click_link 'Motion Design'
     find('#survey_animated_trailer_budget').value.should == animated_trailer_budget
 
-    # 07 - UX Design
-    click_button 'Next'
-    find('#survey_ux_consulting_budget').set(ux_consulting_budget)
-    find('#survey_ux_research_budget').set(ux_research_budget)
-    find('#survey_information_architecture_budget').set(information_architecture_budget)
+    # # 07 - UX Design
+    # click_button 'Next'
+    # find('#survey_ux_consulting_budget').set(ux_consulting_budget)
+    # find('#survey_ux_research_budget').set(ux_research_budget)
+    # find('#survey_information_architecture_budget').set(information_architecture_budget)
 
-    click_button 'Next'
-    survey.reload.ux_consulting_budget.should == ux_consulting_budget
-    survey.reload.ux_research_budget.should == ux_research_budget
-    survey.reload.information_architecture_budget.should == information_architecture_budget
+    # click_button 'Next'
+    # survey.reload.ux_consulting_budget.should == ux_consulting_budget
+    # survey.reload.ux_research_budget.should == ux_research_budget
+    # survey.reload.information_architecture_budget.should == information_architecture_budget
 
-    click_link 'UX Design'
-    find('#survey_ux_consulting_budget').value.should == ux_consulting_budget
-    find('#survey_ux_research_budget').value.should == ux_research_budget
-    find('#survey_information_architecture_budget').value.should == information_architecture_budget
+    # click_link 'UX Design'
+    # find('#survey_ux_consulting_budget').value.should == ux_consulting_budget
+    # find('#survey_ux_research_budget').value.should == ux_research_budget
+    # find('#survey_information_architecture_budget').value.should == information_architecture_budget
 
     # Check attributes are copied to designer
     designer.reload.skills_budgets['logo_and_identity_design']['logo'].should == logo_budget.to_f
     designer.skills_budgets['UI_design']['simple_mobile_app'].should == simple_mobile_app_budget.to_f
-    designer.skills_budgets['UX_design']['UX_consulting'].should == ux_consulting_budget.to_f
   end
 
 end
