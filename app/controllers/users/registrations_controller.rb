@@ -47,6 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
     else
+      resource.errors.messages.delete(:paypal_email) if params[:user][:initial_role] == 'designer'
       clean_up_passwords(resource)
       respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
     end

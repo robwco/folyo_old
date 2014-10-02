@@ -11,8 +11,8 @@
 		%h3 Your Account
 		= f.input :initial_role, :as => :hidden, :input_html => {:value => "designer"}
 		= f.input :full_name
-		= f.input :email
-		= f.input :password
+		= f.input :email, required: true
+		= f.input :password, required: true
 		= f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
 		= f.input :referrer_designer, :as => :hidden
 	.section
