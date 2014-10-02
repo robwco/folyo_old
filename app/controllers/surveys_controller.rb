@@ -2,6 +2,8 @@ class SurveysController < ApplicationController
 
   before_filter :set_survey_params, :set_survey
 
+  load_and_authorize_resource
+
   layout 'surveys_layout'
 
   def show

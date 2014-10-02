@@ -10,6 +10,7 @@ class Ability
       can :manage, :all
 
     elsif user.is_a? Designer
+      can :manage, Survey
       if user.accepted?
         can :read, Client
         can [:create, :update], DesignerReply
@@ -25,6 +26,7 @@ class Ability
       can :read, JobOffer
 
     elsif user.is_a? Client
+      can :manage, Survey
       can [:read, :pick], DesignerReply
       can :update_pick, DesignerReply do |reply|
         reply.job_offer.client_id == user.id
