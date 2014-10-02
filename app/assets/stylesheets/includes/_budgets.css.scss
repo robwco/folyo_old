@@ -123,6 +123,9 @@
     font-size: 14px;
     color: $lightesttext;    
     transform: translateX(-1px);
+    @include small{
+      visibility: hidden;
+    }
     &:after{
       content: " ";
       display: block;
@@ -132,6 +135,7 @@
       position: absolute;
       bottom: -15px;
       left: 50%;
+      visibility: visible;
     }
     &:last-child{
       transform: translateX(-2px);
