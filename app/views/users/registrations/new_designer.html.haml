@@ -16,15 +16,15 @@
 		= f.input :referrer, :label => "How did you hear about Folyo?", :hint => "Tell us if you've been referred by one of Folyo's designers, or heard about it on a specific website."
 		= f.input :referrer_designer, :as => :hidden
 	.section
+		%h3 Your Work
+		= f.input :portfolio_url		
+	.section
 		%h3 About You
 		= f.input :profile_type, as: :radio_buttons, collection: Designer.profile_types, label_method: sym_label_method, :hint => yield(:profile_type_hint)
 		=# f.input :profile_type, :as => :radio_buttons, :label => 'Profile Type', :hint => yield(:profile_type_hint)
 		= f.input :short_bio, :label => 'Short Bio (Tagline)', :hint => "Short descriptive phrase (i.e. \"I design functional and beautiful user interfaces\")"
 		= f.input :long_bio, :as => :limited_text, :label => 'Biography', :hint => "A short bio: what you do, who you've worked with, what's your design philosophy, etc.", :wrapper_html => {:class => 'markdown'}
 		= f.input :location, :label => 'City', :hint => "If ambiguous, add state or country"
-	.section
-		%h3 Your Work
-		= f.input :portfolio_url
 	.section
 		%h3 Social Media
 		= f.input :dribbble_username, :required => false, :label => "Dribbble Username", :hint => "Having a Dribbble profile to showcase your work raises your chances of being accepted"
