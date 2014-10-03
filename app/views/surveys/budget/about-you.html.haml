@@ -1,17 +1,15 @@
-%a.survey-intro-link{href: '/surveys/budget/00-introduction'} The 2014 Folyo Budget Survey
-
-%h3.survey-page-title
-  About You
-  %span 1/7
-
-.survey-intro
-  :markdown
-    First, tell us a little more about you.
-
-    By the way, feel free to **skip any sections** that don't apply to you.
-
-
 = simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
+
+  %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
+
+  = render '/surveys/partials/pagination', { current_page: 1, position: 'top'}
+
+  .survey-intro
+    :markdown
+      First, tell us a little more about you.
+
+      By the way, feel free to **skip any sections** that don't apply to you.
+
 
   = render layout: '/surveys/partials/form_block', locals: {input_label: 'How long have you been a designer for?'} do
     = f.input :designing_since, collection: ['Less than 1 year', '1-2 years', '2-3 years', '3-4 years', '4-6 years', '6-8 years', '8-10 years', '10-15 years', '15-20 years', 'More than 20 years']
@@ -23,4 +21,4 @@
     = f.input :hourly_rate, input_html: { value: @survey.hourly_rate }
     %p.survey-form-note If you don't bill by the hour, use an approximate hourly rate or just leave blank.
 
-  = render '/surveys/partials/pagination', { prev_page: '00-introduction', prev_page_name: 'Introduction', next_page: '02-logo-design', next_page_name: 'Logo Design'}
+  = render '/surveys/partials/pagination', { current_page: 1, position: 'bottom'}

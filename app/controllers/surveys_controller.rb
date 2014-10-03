@@ -25,11 +25,11 @@ class SurveysController < ApplicationController
   protected
 
   def default_first_page
-    '00-introduction'
+    'introduction'
   end
 
   def default_last_page
-    '10-thanks'
+    'finish-survey'
   end
 
 

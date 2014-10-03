@@ -1,20 +1,20 @@
-%a.survey-intro-link{href: '/surveys/budget/00-introduction'} The 2014 Folyo Budget Survey
-
-%h3.survey-page-title
-  Web Design
-  %span 4/7
-
-.survey-intro
-  :markdown
-    If you don't do something, just drag the slider back to 0 to mark it as "not applicable".
-
-/ .survey-intro
-/   :markdown
-/     Note: consider that all projects include **responsive design**, even if not explicitely mentionned.
-
-/     On the other hand, HTML/CSS coding is optional.
-
 = simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
+
+  %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
+
+  = render '/surveys/partials/pagination', {current_page: 4, position: 'top'}
+
+  .survey-intro
+    :markdown
+      Don't do web design? 
+
+      You can **drag the slider back to 0** to mark it as "not applicable". Or just skip the section!
+
+  / .survey-intro
+  /   :markdown
+  /     Note: consider that all projects include **responsive design**, even if not explicitely mentionned.
+
+  /     On the other hand, HTML/CSS coding is optional.
 
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -68,5 +68,6 @@
     = render '/surveys/partials/budget', input_name: :complex_website_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :complex_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
-  = render '/surveys/partials/pagination', { prev_page: '03-illustration', prev_page_name: 'Illustration', next_page: '05-ui-design', next_page_name: 'UI & App Design'}
+  = render '/surveys/partials/pagination', {current_page: 4, position: 'bottom'}
+
 

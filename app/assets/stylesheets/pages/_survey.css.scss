@@ -179,6 +179,25 @@
       width: 300px;
     }
   }
+  &.top-pagination{
+    border-bottom: 1px solid $blue2;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    .prev, .next{
+      width: 10%;
+    }
+    .survey-page-title{
+      width: 80%;
+      text-align: center;
+      float: left;
+      padding: 0;
+      margin: 0;
+      line-height: 1.3;
+    }
+    button span{
+      display: none;
+    }
+  }
 }
 
 .survey-project-title{

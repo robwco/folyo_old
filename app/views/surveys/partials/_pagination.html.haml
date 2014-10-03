@@ -1,8 +1,33 @@
-.survey-pagination
-  - if defined?(prev_page)
-    %button{type: 'submit', name: 'page', value: prev_page, class: 'button disabled prev'}
-      = prev_page_name
+- budget_survey_contents = ['Introduction','About You','Logo & Identity Design','Illustration','Web Design','UI & App Design','Motion Design', 'Finish Survey']
 
-  - if defined?(next_page)
-    %button{type: 'submit', name: 'page', value: next_page, class: 'button next'}
-      Next: #{next_page_name}
+- pagination_class = ''
+- next_button_class = ''
+- if position == 'top'
+  - pagination_class = 'top-pagination'
+  - next_button_class = 'disabled'
+
+:ruby
+  def toUrl s
+    return s.gsub('&', '').gsub('  ', ' ').gsub(' ', '-').downcase
+  end
+
+- current_page_name = budget_survey_contents[current_page]
+
+.survey-pagination{:class => pagination_class}
+
+  - if current_page > 0
+    - prev_page_name = budget_survey_contents[current_page - 1]
+    %button{type: 'submit', name: 'page', value: toUrl(prev_page_name), class: 'button disabled prev'}
+      %span
+        = prev_page_name
+
+  - if position == 'top'
+    %h3.survey-page-title
+      = current_page_name
+      %span #{current_page}/#{budget_survey_contents.length-2}
+
+  - if current_page < budget_survey_contents.length
+    - next_page_name = budget_survey_contents[current_page + 1]
+    %button{type: 'submit', name: 'page', value: toUrl(next_page_name), class: 'button next '+next_button_class}
+      %span
+        = next_page_name
