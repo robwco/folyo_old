@@ -57,6 +57,7 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
       $(".current-designer-pane iframe.#{iframeKind}").show()
 
   enableModerationActions: ->
+    console.log "enable moderation actions"
     update_designer = (url, data, callback) ->
       data['_method'] = 'PUT'
       $.ajax({url: url, type: 'POST', dataType: 'json', data: data, success: callback})
@@ -88,9 +89,9 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
     $designer.addClass('current')
     $.get path, (html) =>
       $('.current-designer-pane').html(html)
+      @enableModerationActions()
       @watchFramesLoading()
       @enableSocialUrlSelection()
-      @enableModerationActions()
 
   popstateEventListener: (e) =>
     e.stopPropagation() && e.preventDefault()
