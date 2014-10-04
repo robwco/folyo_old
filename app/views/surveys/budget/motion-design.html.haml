@@ -2,11 +2,11 @@
 
   %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
 
-  = render '/surveys/partials/pagination', {current_page: 6, position: 'top'}
+  = render '/surveys/partials/pagination', {current_page: 4, position: 'top'}
 
   .survey-intro
     :markdown
-      Almost done!
+      Don't do motion design? No worries, feel free to skip any section!
       
   = render layout: '/surveys/partials/form_block' do
     = render '/surveys/partials/project',
@@ -20,4 +20,4 @@
 
     = render '/surveys/partials/budget', input_name: :animated_trailer_budget, input_label: 'How much would you charge for a similar project?', f: f
 
-  = render '/surveys/partials/pagination', {current_page: 6, position: 'bottom'}
+  = render '/surveys/partials/pagination', {current_page: 4, position: 'bottom'}
