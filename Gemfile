@@ -17,7 +17,8 @@ gem 'reverse_markdown'
 gem 'dalli'
 
 # DJ
-gem 'jobbr', github: 'cblavier/jobbr'
+gem 'jobbr', path: '/Users/cblavier/code/jobbr'#github: 'cblavier/jobbr'
+gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq'
 
 # UI
@@ -67,19 +68,15 @@ gem 'premailer-rails'
 # SEO
 gem 'sitemap_generator'
 
-group :assets do
-  gem 'coffee-rails'
-  gem 'compass-rails'
-  gem 'sass-rails'
-  gem 'susy'
-  gem 'uglifier'
-  gem 'sprockets-image_compressor'
-  gem 'asset_sync'
-  gem 'turbo-sprockets-rails3'
-end
+gem 'coffee-rails'
+gem 'compass-rails'
+gem 'sass-rails'
+gem 'susy'
+gem 'uglifier'
+gem 'sprockets-image_compressor'
+gem 'asset_sync'
 
 group :development do
-  gem 'taps'
   gem 'foreman'
   gem 'pry-rails'
   gem 'better_errors'

@@ -1,0 +1,7 @@
+---
+:concurrency: 5
+:logfile: log/sidekiq.log
+:queues:
+  - high_priority
+  - default
+  - low_priority

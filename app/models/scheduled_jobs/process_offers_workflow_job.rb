@@ -1,12 +1,14 @@
 module ScheduledJobs
 
-  class ProcessOffersWorkflowJob < Jobbr::ScheduledJob
+  class ProcessOffersWorkflowJob < Jobbr::Job
+
+    include Jobbr::Scheduled
 
     description 'Automatically make job offers progress through workflow'
 
     heroku_run :daily, priority: 0
 
-    def perform
+    def perform(run)
 
       # kills offers waiting for submission or payment since more than 1 month
       JobOffer.where(:status.in => [:waiting_for_submission, :waiting_for_payment]).each do |offer|

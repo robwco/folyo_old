@@ -235,7 +235,7 @@ class JobOffer
       else
         reply.picked = false
         if send_email
-          DesignerMailer.delay.rejected_reply(reply.designer, self)
+          DesignerMailer.delay.rejected_reply(reply.designer_id, self.id)
         end
       end
     end
@@ -325,7 +325,7 @@ class JobOffer
         track_event('JO03_Submit')
       else
         track_event('JO05c_Resubmit')
-        JobOfferMailer.delay.updated_job_offer(self)
+        JobOfferMailer.delay.updated_job_offer(self.id)
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
@@ -333,11 +333,11 @@ class JobOffer
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now
-      JobOfferMailer.delay.new_job_offer_to_moderate(self)
+      JobOfferMailer.delay.new_job_offer_to_moderate(self.id)
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now
-      DelayedJobs::SendJobOfferJob.run_delayed(job_offer_id: self.id.to_s)
+      DelayedJobs::SendJobOfferJob.run(job_offer_id: self.id.to_s)
     when :reject
       track_event('JO05a_Rejected', job_offer_rejected_reason: self.review_comment)
       self.rejected_at = DateTime.now

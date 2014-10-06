@@ -123,6 +123,10 @@ Folyo::Application.routes.draw do
 
   root to: "site#home"
 
-  mount Jobbr::Engine => "/jobbr"
+  authenticate :user, lambda { |u| u.is_a?(Admin) } do
+    require 'sidekiq/web'
+    mount Jobbr::Engine => '/jobbr'
+    mount Sidekiq::Web  => '/sidekiq'
+  end
 
 end

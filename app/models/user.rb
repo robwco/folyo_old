@@ -53,15 +53,16 @@ class User
   end
 
   def track_user_event(event, properties = {})
-    vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties) unless Rails.env.test?
-    track_intercom_event(event, properties) if Rails.env.production?
+    self.delay(retry: false).async_track_user_event(event, properties) unless Rails.env.test?
   end
 
-  def track_intercom_event(event, properties = {})
-    user = Intercom::User.new(user_id: self.id.to_s)
-    Intercom::UserEvent.create(event_name: event, user: user, metadata: properties )
+  def async_track_user_event(event, properties = {})
+    vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties) unless Rails.env.test?
+    if Rails.env.production?
+      user = Intercom::User.new(user_id: self.id.to_s)
+      Intercom::UserEvent.create(event_name: event, user: user, metadata: properties )
+    end
   end
-  #TODO_RAILS4: handle_asynchronously :track_intercom_event
 
   protected
 

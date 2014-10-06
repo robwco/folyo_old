@@ -26,7 +26,7 @@ RSpec.configure do |config|
   config.before(:each) do |group|
     DatabaseCleaner.clean
     FactoryGirl.create :admin
-    ActionMailer::Base.deliveries = []
+    Sidekiq::Extensions::DelayedMailer.clear
   end
 
   config.before(:all, devise: true) do

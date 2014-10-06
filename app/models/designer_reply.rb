@@ -40,8 +40,6 @@ class DesignerReply
   def send_creation_notification!
     ClientMailer.job_offer_replied(self).deliver
   end
-  # TODO
-  # handle_asynchronously :send_creation_notification!
 
   def track_creation_event
     self.designer.track_user_event('Job Offer Reply',

@@ -61,9 +61,12 @@ module Paperclipable
       self.status == :processed
     end
 
-    protected
 
     def transfer_and_cleanup
+      self.delay.async_transfer_and_cleanup
+    end
+
+    def async_transfer_and_cleanup
       self.status = :processing
       self.asset = URI.parse(URI.escape(direct_upload_url))
       save
@@ -78,15 +81,14 @@ module Paperclipable
       save
       raise e
     end
-    # TODO handle_asynchronously :transfer_and_cleanup
 
     def reprocess_asset!
       self.status = :processing
       save
-      delayed_reprocess!
+      self.delay.async_reprocess_asset!
     end
 
-    def delayed_reprocess!
+    def async_reprocess_asset!
       asset.reprocess!
       self.status = :processed
       save
@@ -95,7 +97,8 @@ module Paperclipable
       save
       raise e
     end
-    # todo handle_asynchronously :delayed_reprocess!
+
+    protected
 
     def save_image_dimensions
       self.geometry ||= {}

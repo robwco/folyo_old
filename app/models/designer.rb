@@ -90,8 +90,8 @@ class Designer < User
   before_save        :generate_mongoid_random_key, :set_completeness
   before_save        :set_moderation_dates, if: :status_changed?
   after_save         :accept_reject_mailer, if: :status_changed?
-  after_save         :tweet_out,            if: :status_changed?
-  after_save         :geocode,              if: :location_changed?
+  after_save         :tweet_out,      if: :status_changed?
+  after_save         :geocode,        if: :location_changed?
   after_save         :update_vero_attributes
   before_destroy     :remove_replies, :unsubscribe_to_newsletter
 
@@ -244,15 +244,40 @@ class Designer < User
     self.skills_budgets.keys.map(&:to_sym)
   end
 
-  protected
-
   def tweet_out
-    if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
-      FolyoTwitter.new.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
-    end
+    self.delay(retry: false).async_tweet_out if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
   end
-  # TODO
-  # handle_asynchronously :tweet_out
+
+  def async_tweet_out
+    FolyoTwitter.new.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}") if Rails.env.production?
+  end
+
+  def subscribe_to_newsletter
+    self.delay(retry: false).async_subscribe_to_newsletter if Rails.env.production?
+  end
+
+  def async_subscribe_to_newsletter
+    MailChimpHelper.new.list_subscribe(self.email) if Rails.env.production?
+  end
+
+  def unsubscribe_to_newsletter
+    self.delay(retry: false).async_unsubscribe_to_newsletter if Rails.env.production?
+  end
+
+  def async_unsubscribe_to_newsletter
+    MailChimpHelper.new.list_unsubscribe(self.email) if Rails.env.production?
+  end
+
+  def geocode
+    self.delay(retry: false).async_geocode unless Rails.env.test?
+  end
+
+  def async_geocode
+    self.coordinates = Geocoder.coordinates(self.location)
+    save!
+  end
+
+  protected
 
   def set_moderation_dates
     if self.status_changed?
@@ -267,38 +292,13 @@ class Designer < User
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
-        DesignerMailer.delay.accepted_mail(self)
+        DesignerMailer.delay(retry: false).accepted_mail(self.id)
         subscribe_to_newsletter
       elsif self.rejected?
-        DesignerMailer.delay.rejected_mail(self)
+        DesignerMailer.delay(retry: false).rejected_mail(self.id)
       end
     end
   end
-
-  def subscribe_to_newsletter
-    if Rails.env.production?
-      MailChimpHelper.new.list_subscribe(self.email)
-    end
-  end
-  # TODO
-  # handle_asynchronously :subscribe_to_newsletter
-
-  def unsubscribe_to_newsletter
-    if Rails.env.production?
-      MailChimpHelper.new.list_unsubscribe(self.email)
-    end
-  end
-  # TODO
-  # handle_asynchronously :unsubscribe_to_newsletter
-
-  def geocode
-    unless Rails.env.test?
-      self.coordinates = Geocoder.coordinates(self.location)
-      save!
-    end
-  end
-  # TODO
-  # handle_asynchronously :geocode
 
   def generate_mongoid_random_key
     self.randomization_key = rand
