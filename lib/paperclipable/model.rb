@@ -9,6 +9,7 @@ module Paperclipable
     included do
 
       include Mongoid::Paperclip
+      include Sidekiq::Delay
 
       field :direct_upload_url, type: String
       field :status,            type: Symbol,  default: :initialized

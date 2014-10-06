@@ -2,6 +2,8 @@ require 'mailchimp_helper'
 
 class Designer < User
 
+  include Sidekiq::Delay
+
   def self.skills
     %i(logo_and_identity_design illustration motion_design web_design UI_design UX_design)
   end
@@ -245,7 +247,7 @@ class Designer < User
   end
 
   def tweet_out
-    self.delay(retry: false).async_tweet_out if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
+    self.delay.async_tweet_out if Rails.env.production? && self.public? && self.accepted? && !self.twitter_username.blank?
   end
 
   def async_tweet_out
@@ -253,7 +255,7 @@ class Designer < User
   end
 
   def subscribe_to_newsletter
-    self.delay(retry: false).async_subscribe_to_newsletter if Rails.env.production?
+    self.delay.async_subscribe_to_newsletter if Rails.env.production?
   end
 
   def async_subscribe_to_newsletter
@@ -261,7 +263,7 @@ class Designer < User
   end
 
   def unsubscribe_to_newsletter
-    self.delay(retry: false).async_unsubscribe_to_newsletter if Rails.env.production?
+    self.delay.async_unsubscribe_to_newsletter if Rails.env.production?
   end
 
   def async_unsubscribe_to_newsletter
@@ -269,7 +271,7 @@ class Designer < User
   end
 
   def geocode
-    self.delay(retry: false).async_geocode unless Rails.env.test?
+    self.delay.async_geocode unless Rails.env.test?
   end
 
   def async_geocode
@@ -292,10 +294,10 @@ class Designer < User
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
-        DesignerMailer.delay(retry: false).accepted_mail(self.id)
+        DesignerMailer.sidekiq_delay.accepted_mail(self.id)
         subscribe_to_newsletter
       elsif self.rejected?
-        DesignerMailer.delay(retry: false).rejected_mail(self.id)
+        DesignerMailer.sidekiq_delay.rejected_mail(self.id)
       end
     end
   end

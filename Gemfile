@@ -20,6 +20,7 @@ gem 'dalli'
 gem 'jobbr', path: '/Users/cblavier/code/jobbr'#github: 'cblavier/jobbr'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sidekiq'
+gem 'sidekiq-delay'
 
 # UI
 gem 'haml-rails'

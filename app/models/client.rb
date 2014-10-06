@@ -1,5 +1,7 @@
 class Client < User
 
+  include Sidekiq::Delay
+
   field :twitter_username,    type: String
 
   field :location,            type: String

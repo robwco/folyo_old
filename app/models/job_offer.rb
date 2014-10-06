@@ -10,6 +10,7 @@ class JobOffer
   include Mongoid::Timestamps
   include Mongoid::Slug
   include ActionView::Helpers::NumberHelper
+  include Sidekiq::Delay
 
   # using routes for Event tracking
   include Rails.application.routes.url_helpers
@@ -235,7 +236,7 @@ class JobOffer
       else
         reply.picked = false
         if send_email
-          DesignerMailer.delay.rejected_reply(reply.designer_id, self.id)
+          DesignerMailer.sidekiq_delay.rejected_reply(reply.designer_id, self.id)
         end
       end
     end
@@ -325,7 +326,7 @@ class JobOffer
         track_event('JO03_Submit')
       else
         track_event('JO05c_Resubmit')
-        JobOfferMailer.delay.updated_job_offer(self.id)
+        JobOfferMailer.sidekiq_delay.updated_job_offer(self.id)
       end
       self.submited_at = DateTime.now
       self.published_at ||= DateTime.now
@@ -333,7 +334,7 @@ class JobOffer
     when :pay
       track_event('JO04_Pay')
       self.paid_at = DateTime.now
-      JobOfferMailer.delay.new_job_offer_to_moderate(self.id)
+      JobOfferMailer.sidekiq_delay.new_job_offer_to_moderate(self.id)
     when :accept
       track_event('JO05b_Accepted')
       self.approved_at = DateTime.now

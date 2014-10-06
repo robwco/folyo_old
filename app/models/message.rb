@@ -2,6 +2,7 @@ class Message
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Sidekiq::Delay
 
   field :comment, type: String
 
@@ -20,7 +21,7 @@ class Message
   protected
 
   def send_notification!
-    MessageMailer.delay.send_message(self.id)
+    MessageMailer.sidekiq_delay.send_message(self.id)
   end
 
   def track_event

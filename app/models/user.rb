@@ -53,7 +53,7 @@ class User
   end
 
   def track_user_event(event, properties = {})
-    self.delay(retry: false).async_track_user_event(event, properties) unless Rails.env.test?
+    self.delay.async_track_user_event(event, properties) unless Rails.env.test?
   end
 
   def async_track_user_event(event, properties = {})
