@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = @job_offer.build_order(params[:order])
+    @order = @job_offer.build_order(order_params)
     @order.ip_address = request.remote_ip
     if @order.save
       if @order.purchase(@job_offer)
@@ -40,6 +40,10 @@ class OrdersController < ApplicationController
   end
 
   protected
+
+  def order_params
+    params[:order].permit!
+  end
 
   def set_job_offer
     @job_offer ||= JobOffer.find(params[:offer_id])

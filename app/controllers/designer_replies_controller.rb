@@ -40,7 +40,7 @@ class DesignerRepliesController < ApplicationController
   end
 
   def create
-    @designer_reply = parent.designer_replies.build(params[:designer_reply])
+    @designer_reply = parent.designer_replies.build(designer_reply_params)
     @designer_reply.designer = current_user
     create! do |success, failure|
       success.html { redirect_to offer_path(@job_offer), notice: 'Your reply has been successfully posted, the client has been noticed by email.' }
@@ -79,6 +79,14 @@ class DesignerRepliesController < ApplicationController
   end
 
   protected
+
+  def designer_reply_params
+    params[:designer_reply].permit!
+  end
+
+  def permitted_params
+    params.permit!
+  end
 
   # in order to prevent 1 + N queries, we fetch all designers at once
   def fetch_designers

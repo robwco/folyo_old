@@ -28,11 +28,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   # note: create method copied from the normal Devise one
   def create
-    @user = case params[:user][:initial_role]
+    initial_role = user_params[:initial_role]
+    user_params.delete(:initial_role)
+    @user = case initial_role
     when 'designer'
-      Designer.new(params[:user])
+      Designer.new(user_params)
     when 'client'
-      client = Client.new(params[:user])
+      client = Client.new(user_params)
       set_referral_fields(client)
       client
     end
@@ -47,16 +49,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
         respond_with resource, location: after_inactive_sign_up_path_for(resource)
       end
     else
-      resource.errors.messages.delete(:paypal_email) if params[:user][:initial_role] == 'designer'
+      resource.errors.messages.delete(:paypal_email) if initial_role == 'designer'
       clean_up_passwords(resource)
-      respond_with_navigational(resource) { render "new_#{resource.initial_role}" }
+      respond_with_navigational(resource) { render "new_#{initial_role}" }
     end
   end
 
   def update
-    if params[:user][:password].blank?
-      params[:user].delete("password")
-      params[:user].delete("password_confirmation")
+    if user_params[:password].blank?
+      user_params.delete("password")
+      user_params.delete("password_confirmation")
     end
 
     # Override Devise to use update_attributes instead of update_with_password.
@@ -76,6 +78,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  def user_params
+    params[:user].permit!
+  end
 
   def after_update_path_for(resource)
     if params[:offer_id].blank?

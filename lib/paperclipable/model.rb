@@ -35,7 +35,7 @@ module Paperclipable
       after_create        :transfer_and_cleanup
       after_post_process  :save_image_dimensions
 
-      scope :processed, where(status: :processed)
+      scope :processed, -> { where(status: :processed) }
 
     end
 
@@ -78,7 +78,7 @@ module Paperclipable
       save
       raise e
     end
-    handle_asynchronously :transfer_and_cleanup
+    # TODO handle_asynchronously :transfer_and_cleanup
 
     def reprocess_asset!
       self.status = :processing
@@ -95,7 +95,7 @@ module Paperclipable
       save
       raise e
     end
-    handle_asynchronously :delayed_reprocess!
+    # todo handle_asynchronously :delayed_reprocess!
 
     def save_image_dimensions
       self.geometry ||= {}

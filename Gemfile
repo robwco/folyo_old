@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby "2.0.0"
 
-gem 'rails', '3.2.16'
+gem 'rails', '4.0.10'
 
 # Core components
 gem 'unicorn'
@@ -12,15 +12,13 @@ gem 'mongoid'
 gem 'rails_autolink'
 gem 'mongoid_slug'
 gem 'mongoid_rails_migrations'
-gem 'state_machine'
+gem 'state_machine', github: 'aganov/state_machine'
 gem 'reverse_markdown'
 gem 'dalli'
 
 # DJ
-gem 'delayed_job'
-gem 'delayed_job_mongoid', github: 'collectiveidea/delayed_job_mongoid'
-gem 'delayed-plugins-airbrake'
-gem 'jobbr', '1.1.5'
+gem 'jobbr', github: 'cblavier/jobbr'
+gem 'sidekiq'
 
 # UI
 gem 'haml-rails'
@@ -49,7 +47,8 @@ gem 'newrelic_rpm'
 
 # Security
 gem 'devise'
-gem 'cancan'
+gem 'devise-async'
+gem 'cancancan'
 gem 'sanitize'
 
 # External APIs
@@ -97,4 +96,5 @@ group :test do
   gem 'lorem'
   gem 'poltergeist'
   gem 'launchy'
+  gem 'spring-commands-rspec'
 end

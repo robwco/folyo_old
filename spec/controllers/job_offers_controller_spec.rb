@@ -28,7 +28,7 @@ describe Client::JobOffersController do
       sign_in(client)
       expect {
         post :archive, id: job_offer.id, designer_users: designers.first.id
-      }.to change { ActionMailer::Base.deliveries.size }.by(4)
+      }.to change { Sidekiq::Extensions::DelayedMailer.jobs.size }.by(4)
     end
 
     it "is forbidden to anonymous users" do

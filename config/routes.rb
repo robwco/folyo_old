@@ -1,18 +1,18 @@
 Folyo::Application.routes.draw do
 
   constraints(host: /^folyo.me$/) do
-    match "/*path" => redirect {|params, req| "http://www.folyo.me/#{params[:path]}"}
+    get "/*path" => redirect {|params, req| "http://www.folyo.me/#{params[:path]}"}
   end
 
-  match 'press' => 'site#press'
-  match 'learn-more' => 'site#learn_more'
-  match 'markdown' => 'site#markdown'
-  match 'how-it-works' => 'site#learn_more'
-  match 'about' => 'site#about'
-  match 'estimate' => 'site#estimate'
-  match 'guides' => 'site#guides'
-  match 'partners' => 'site#partners'
-  match 'apply' => 'site#apply'
+  get 'press' => 'site#press'
+  get 'learn-more' => 'site#learn_more'
+  get 'markdown' => 'site#markdown'
+  get 'how-it-works' => 'site#learn_more'
+  get 'about' => 'site#about'
+  get 'estimate' => 'site#estimate'
+  get 'guides' => 'site#guides'
+  get 'partners' => 'site#partners'
+  get 'apply' => 'site#apply'
 
   resource :guides do
     get 'how_to_pick_a_designer' => redirect('/guides/how_to_pick_a_great_designer')
@@ -29,8 +29,8 @@ Folyo::Application.routes.draw do
   devise_scope :user do
     get "sign_in", to: 'devise/sessions#new'
     get "sign_up", to: 'users/registrations#new'
-    match "/sign_up/:initial_role/job" => 'users/registrations#new', as: 'new_user_with_role', job: true
-    match "/sign_up/:initial_role" => 'users/registrations#new',     as: 'new_user_with_role'
+    get "/sign_up/:initial_role/job" => 'users/registrations#new', job: true
+    get "/sign_up/:initial_role" => 'users/registrations#new',     as: 'new_user_with_role'
   end
 
   namespace :admin do
@@ -62,7 +62,7 @@ Folyo::Application.routes.draw do
       put 'reject',                     on: :member
       put 'to_markdown',                on: :member
     end
-    resource :dashboard, controller: 'Dashboard'
+    resource :dashboard, controller: 'dashboard'
     resources :referral_programs
   end
 
@@ -112,8 +112,8 @@ Folyo::Application.routes.draw do
 
   resources :surveys do
 
-    get '/:survey_name/(:page)', on: :collection, to: 'surveys#show'
-    put '/:survey_name/(:page)', on: :collection, to: 'surveys#update'
+    get   '/:survey_name/(:page)', on: :collection, to: 'surveys#show'
+    patch '/:survey_name/(:page)', on: :collection, to: 'surveys#update'
 
   end
 

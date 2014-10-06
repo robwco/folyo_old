@@ -6,7 +6,7 @@
     if Rails.env.test?
       config.async = :none
     else
-      config.async = :delayed_job
+      config.async = :none # :delayed_job
     end
 
     if Rails.env.development? || Rails.env.test? || Rails.env.staging?

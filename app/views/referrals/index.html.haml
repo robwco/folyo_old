@@ -31,7 +31,7 @@
       %p= raw("Yeah, you have a <strong>$#{@balance.round(2)}</strong> bonus available for transfer!")
       = simple_form_for @designer, url: transfer_designer_referrals_path(@designer) do |f|
         = f.input :paypal_email, label: 'Your PayPal email:', hint: "Make sure this is the email matching with your PayPal account. No way back!"
-        = f.submit "Transfer on my PayPal account", class: 'button big-button', confirm: 'Make sure your PayPal email is correct. There is no way back!'
+        = f.submit "Transfer on my PayPal account", class: 'button big-button', data: { confirm: 'Make sure your PayPal email is correct. There is no way back!' }
     - else
       %p No bonus yet!
 

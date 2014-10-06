@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
   end
 
   def update
-    @survey.update_attributes(params[:survey])
+    @survey.update_attributes(survey_params)
     redirect_to "/surveys/#{@survey_name}/#{@survey_page}"
   end
 
@@ -32,10 +32,13 @@ class SurveysController < ApplicationController
     'finish-survey'
   end
 
-
   def set_survey_params
     @survey_name ||= params[:survey_name]
     @survey_page ||= params[:page]
+  end
+
+  def survey_params
+    params[:survey].permit!
   end
 
   def set_survey

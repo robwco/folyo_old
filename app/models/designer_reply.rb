@@ -23,7 +23,7 @@ class DesignerReply
   after_update :track_update_event, if: :message_changed?
 
   ## scopes ##
-  default_scope order_by(created_at: :desc)
+  default_scope -> { order_by(created_at: :desc) }
   scope :shortlisted, -> { where(status: :shortlisted) }
   scope :hidden,      -> { where(status: :hidden) }
   scope :default,     -> { where(status: :default) }
@@ -40,7 +40,8 @@ class DesignerReply
   def send_creation_notification!
     ClientMailer.job_offer_replied(self).deliver
   end
-  handle_asynchronously :send_creation_notification!
+  # TODO
+  # handle_asynchronously :send_creation_notification!
 
   def track_creation_event
     self.designer.track_user_event('Job Offer Reply',

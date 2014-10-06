@@ -4,4 +4,5 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Folyo::Application.config.secret_token = 'c23705927b4a491520c8e13ab033948e8f4ecb20e8f887c4f69eea0b15d30d2d9dda4ccddfa5b7161e113497315bbe47b549fa914f54c1198c199cd6f1cf5a74'
+
+Folyo::Application.config.secret_key_base = 'c7960f6b4b9e349446a0a01df1731c2cb47b818cede3f04c0bfb54aae99ebb5cd2d19ffb955471e83af5d4e19f9cc117e38827675c7475f6af98f33850256122'

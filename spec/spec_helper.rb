@@ -6,6 +6,7 @@ require Rails.root.join('db','seeds')
 require 'capybara/rspec'
 require 'database_cleaner'
 require 'capybara/poltergeist'
+require 'sidekiq/testing'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -21,10 +22,6 @@ RSpec.configure do |config|
   config.include RSpec::Rails::RequestExampleGroup, type: :feature
 
   DatabaseCleaner[:mongoid].strategy = :truncation
-
-  config.before(:each) do
-    Mongoid::IdentityMap.clear
-  end
 
   config.before(:each) do |group|
     DatabaseCleaner.clean

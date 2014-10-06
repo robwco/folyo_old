@@ -68,20 +68,20 @@ class Designer < User
   validates_inclusion_of    :subscription_mode, in: Designer.subscription_modes, allow_blank: true
   validates                 :paypal_email, presence: true, format: { with: /\A[^@]+@[^@]+\z/, message: 'is not a valid email adress' }
 
-  scope :ordered_by_status,     order_by(:status => :asc, :created_at => :desc)
-  scope :ordered_by_name,       order_by(full_name: :asc)
+  scope :ordered_by_status,     -> { order_by(:status => :asc, :created_at => :desc) }
+  scope :ordered_by_name,       -> { order_by(full_name: :asc) }
   scope :random_order,          ->(order = :act){ order_by(:randomization_key => order) }
-  scope :pending,               where(:status => :pending)
-  scope :rejected,              where(:status => :rejected)
-  scope :accepted,              where(:status => :accepted)
+  scope :pending,               -> { where(:status => :pending) }
+  scope :rejected,              -> { where(:status => :rejected) }
+  scope :accepted,              -> { where(:status => :accepted) }
   scope :for_status,            ->(status) { where(status: status) }
   scope :for_skill,             ->(skill) { where(:"skills_budgets.#{skill}".ne => nil) }
-  scope :public_only,           where(:profile_type => :public)
-  scope :public_private,        where(:profile_type.in => [:public, :private])
-  scope :san_francisco,         where(location: /San Francisco/i)
-  scope :palo_alto,             where(location: /Palo Alto/i)
-  scope :with_portfolio,        where('projects.artworks.status' => :processed)
-  scope :with_profile_picture,  where(:profile_picture.ne => nil)
+  scope :public_only,           -> { where(:profile_type => :public) }
+  scope :public_private,        -> { where(:profile_type.in => [:public, :private]) }
+  scope :san_francisco,         -> { where(location: /San Francisco/i) }
+  scope :palo_alto,             -> { where(location: /Palo Alto/i) }
+  scope :with_portfolio,        -> { where('projects.artworks.status' => :processed) }
+  scope :with_profile_picture,  -> { where(:profile_picture.ne => nil) }
   scope :subscribed_for,        ->(topics) { where('$or' => [ { subscription_mode: :all_offers }, { subscription_mode: :offers_matching_your_skills, :skills.in => topics }]) }
 
   before_create      :set_referral_token
@@ -169,7 +169,6 @@ class Designer < User
     completeness += projects.sum { |p| p.has_artworks? && !p.name.blank? && !p.description.blank? ? 10 : 0 }
     completeness = completeness.round(0)
     if self.profile_completeness != completeness
-      self.update_attribute(:profile_completeness, completeness)
       track_user_event('Completed designer profile', completeness: completeness)
     end
   end
@@ -252,7 +251,8 @@ class Designer < User
       FolyoTwitter.new.update("Welcome to @#{self.twitter_username}! Check out their profile here: #{profile_url}")
     end
   end
-  handle_asynchronously :tweet_out
+  # TODO
+  # handle_asynchronously :tweet_out
 
   def set_moderation_dates
     if self.status_changed?
@@ -280,14 +280,16 @@ class Designer < User
       MailChimpHelper.new.list_subscribe(self.email)
     end
   end
-  handle_asynchronously :subscribe_to_newsletter
+  # TODO
+  # handle_asynchronously :subscribe_to_newsletter
 
   def unsubscribe_to_newsletter
     if Rails.env.production?
       MailChimpHelper.new.list_unsubscribe(self.email)
     end
   end
-  handle_asynchronously :unsubscribe_to_newsletter
+  # TODO
+  # handle_asynchronously :unsubscribe_to_newsletter
 
   def geocode
     unless Rails.env.test?
@@ -295,7 +297,8 @@ class Designer < User
       save!
     end
   end
-  handle_asynchronously :geocode
+  # TODO
+  # handle_asynchronously :geocode
 
   def generate_mongoid_random_key
     self.randomization_key = rand

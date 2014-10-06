@@ -44,7 +44,7 @@ class JobOffersController < ApplicationController
   end
 
   def update
-    @job_offer.assign_attributes(params[:job_offer])
+    @job_offer.assign_attributes(job_offer_params)
 
     # all job offer fields must be validated if offer is directly submitted
     if params[:workflow_save]
@@ -82,8 +82,11 @@ class JobOffersController < ApplicationController
     render 'job_offer_mailer/new_job_offer', layout: 'mailer'
   end
 
-
   protected
+
+  def job_offer_params
+    params[:job_offer].permit!
+  end
 
   # in order to prevent 1 + N queries, we fetch all clients at once
   def fetch_clients_for(job_offers)

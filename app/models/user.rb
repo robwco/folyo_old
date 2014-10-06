@@ -35,7 +35,7 @@ class User
   belongs_to  :referrer_designer, class_name: 'Designer'
 
   ## Scopes ##
-  scope :ordered,   order_by(created_at: :desc)
+  scope :ordered,   -> { order_by(created_at: :desc) }
   scope :for_email, ->(email){ where(email: email) }
 
   after_create :create_vero_user
@@ -61,7 +61,7 @@ class User
     user = Intercom::User.new(user_id: self.id.to_s)
     Intercom::UserEvent.create(event_name: event, user: user, metadata: properties )
   end
-  handle_asynchronously :track_intercom_event
+  #TODO_RAILS4: handle_asynchronously :track_intercom_event
 
   protected
 

@@ -15,7 +15,7 @@ class Message
   after_create :send_notification!, :track_event
 
   ## scopes ##
-  scope :ordered, order_by(:created_at => :desc)
+  scope :ordered, -> { order_by(created_at: :desc) }
 
   protected
 
