@@ -27,7 +27,7 @@ describe DesignerReply do
     it "does not break offer validation" do
       reply = FactoryGirl.build :designer_reply, message: nil, job_offer: offer
       offer.should be_valid
-      offer.save.should be_true
+      offer.save.should be_truthy
     end
 
     it "is possible to pick an invalid reply" do

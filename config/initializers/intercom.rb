@@ -1,5 +1,5 @@
 Intercom.app_id = ENV["INTERCOM_APP_ID"] || "ovy2klec"
-Intercom.api_key = "7820a5fae85f050da2d877aa0961363bd89b27f1"
+Intercom.app_api_key = "7820a5fae85f050da2d877aa0961363bd89b27f1"
 
 IntercomRails.config do |config|
   # == Intercom app_id
@@ -16,7 +16,7 @@ IntercomRails.config do |config|
   # This is required for some Intercom rake tasks like importing your users;
   # you can generate one at https://www.intercom.io/apps/api_keys.
   #
-  config.api_key = Intercom.api_key
+  config.api_key = Intercom.app_api_key
 
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for

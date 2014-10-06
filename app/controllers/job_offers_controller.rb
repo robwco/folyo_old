@@ -85,7 +85,7 @@ class JobOffersController < ApplicationController
   protected
 
   def job_offer_params
-    params[:job_offer].permit!
+    params[:job_offer].try(:permit!)
   end
 
   # in order to prevent 1 + N queries, we fetch all clients at once

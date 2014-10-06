@@ -1,7 +1,7 @@
 source "https://rubygems.org"
-ruby "2.0.0"
+ruby "2.1.3"
 
-gem 'rails', '4.0.10'
+gem 'rails', '4.1.6'
 
 # Core components
 gem 'unicorn'
@@ -87,6 +87,8 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'rspec-collection_matchers'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

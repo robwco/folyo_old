@@ -16,9 +16,18 @@ RSpec.configure do |config|
 
   Capybara.javascript_driver = :poltergeist
 
-  config.mock_with :rspec
+  config.infer_spec_type_from_file_location!
+
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+
+  config.mock_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
 
   config.include Warden::Test::Helpers, devise: true
+  config.include Devise::TestHelpers, type: :controller
   config.include RSpec::Rails::RequestExampleGroup, type: :feature
 
   DatabaseCleaner[:mongoid].strategy = :truncation
