@@ -77,7 +77,7 @@ class Designer < User
   scope :rejected,              -> { where(:status => :rejected) }
   scope :accepted,              -> { where(:status => :accepted) }
   scope :for_status,            ->(status) { where(status: status) }
-  scope :for_skill,             ->(skill) { where(:"skills_budgets.#{skill}".ne => nil) }
+  scope :for_skill,             ->(skill) { where('$or' => [{:"skills_budgets.#{skill}".ne => nil}, {skills: skill}]) }
   scope :public_only,           -> { where(:profile_type => :public) }
   scope :public_private,        -> { where(:profile_type.in => [:public, :private]) }
   scope :san_francisco,         -> { where(location: /San Francisco/i) }

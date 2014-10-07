@@ -87,7 +87,7 @@ describe Designer  do
       designer.save
       designer.reload.behance_username.should == behance_username
     end
-    
+
   end
 
   describe 'referral balance' do
@@ -151,6 +151,25 @@ describe Designer  do
 
       its("referrals.first") { should include(status: :ko) }
 
+    end
+
+  end
+
+  describe 'for_skill scope' do
+
+    let!(:illustration_designer) { FactoryGirl.create :designer, skills_budgets: { illustration: { icon_design: 2000, illustration: 3000 }}}
+    let!(:webdesign_designer)    { FactoryGirl.create :designer, skills_budgets: { web_design: {} } }
+    let!(:webdesign_designer2)   { FactoryGirl.create :designer, skills: [ :web_design ] }
+
+    it 'returns illustration designer' do
+      Designer.for_skill(:illustration).should have(1).item
+      Designer.for_skill(:illustration).first.should == illustration_designer
+    end
+
+    it 'returns webdesign designer' do
+      Designer.for_skill(:web_design).should have(2).items
+      Designer.for_skill(:web_design).first.should == webdesign_designer
+      Designer.for_skill(:web_design).last.should == webdesign_designer2
     end
 
   end

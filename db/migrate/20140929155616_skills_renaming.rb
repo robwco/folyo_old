@@ -2,18 +2,18 @@ class SkillsRenaming < Mongoid::Migration
 
   def self.up
     puts "Designer skills"
-    Designer.all.pull(:skills, :print_design)
-    Designer.where(skills: :logo_design).push(:skills, :logo_and_identity_design)
-    Designer.all.pull(:skills, :logo_design)
-    Designer.where(skills: :mobile_design).and(:skills.ne => :UI_design).push(:skills, :UI_design)
-    Designer.all.pull(:skills, :mobile_design)
+    Designer.all.pull(skills: :print_design)
+    Designer.where(skills: :logo_design).push(skills: :logo_and_identity_design)
+    Designer.all.pull(skills: :logo_design)
+    Designer.where(skills: :mobile_design).and(:skills.ne => :UI_design).push(skills: :UI_design)
+    Designer.all.pull(skills: :mobile_design)
 
     puts "Job Offers skills"
-    JobOffer.all.pull(:skills, :print_design)
-    JobOffer.where(skills: :logo_design).push(:skills, :logo_and_identity_design)
-    JobOffer.all.pull(:skills, :logo_design)
-    JobOffer.where(skills: :mobile_design).and(:skills.ne => :UI_design).push(:skills, :UI_design)
-    JobOffer.all.pull(:skills, :mobile_design)
+    JobOffer.all.pull(skills: :print_design)
+    JobOffer.where(skills: :logo_design).push(skills: :logo_and_identity_design)
+    JobOffer.all.pull(skills: :logo_design)
+    JobOffer.where(skills: :mobile_design).and(:skills.ne => :UI_design).push(skills: :UI_design)
+    JobOffer.all.pull(skills: :mobile_design)
 
     puts "Designer projects skills"
     Designer.where('projects.0' => {'$exists' => true}).each do |designer|
