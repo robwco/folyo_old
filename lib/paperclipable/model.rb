@@ -31,6 +31,8 @@ module Paperclipable
         end
       }
 
+      validates_attachment_content_type :asset, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
       validates :direct_upload_url, format: { with: DIRECT_UPLOAD_URL_FORMAT }, allow_blank: true
 
       after_create        :transfer_and_cleanup

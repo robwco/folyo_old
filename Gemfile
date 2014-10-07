@@ -17,8 +17,8 @@ gem 'reverse_markdown'
 gem 'dalli'
 
 # DJ
-gem 'jobbr', path: '/Users/cblavier/code/jobbr'#github: 'cblavier/jobbr'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'jobbr', github: 'cblavier/jobbr' #path: '/Users/cblavier/code/jobbr'
+gem 'sinatra', '>= 1.3.0', require: nil
 gem 'sidekiq'
 gem 'sidekiq-delay'
 

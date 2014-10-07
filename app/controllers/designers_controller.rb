@@ -67,6 +67,10 @@ class ::DesignersController < ApplicationController
 
   protected
 
+  def permitted_params
+    params.permit(designer: %i(full_name email password referrer profile_type short_bio long_bio location portfolio_url subscription_mode twitter_username behance_username skype_username dribbble_username))
+  end
+
   def collection
     @designers = ::Designer.page(params[:page]).per(10).order_by(created_at: :desc)
 

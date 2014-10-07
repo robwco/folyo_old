@@ -74,17 +74,17 @@ Folyo::Application.routes.draw do
     resources :designer_projects, path: 'projects', as: 'projects' do
       resources :designer_project_artworks, path: 'artworks', as: 'artworks' do
         get 'crop',               on: :member
-        put 'update_crop',        on: :member
+        patch 'update_crop',        on: :member
         get 'status',             on: :member
       end
     end
     resource :profile_picture do
       get 'crop'
-      put 'update_crop'
+      patch 'update_crop'
       get 'status'
     end
     resources :referrals do
-      put 'transfer',             on: :collection
+      patch 'transfer', on: :collection
     end
     get 'skills',                 on: :member
   end

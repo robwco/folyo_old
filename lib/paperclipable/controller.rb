@@ -16,7 +16,7 @@ module Paperclipable
       end
 
       def create
-        params[resource_class.to_s.underscore] = params[:image]
+        permitted_params[resource_class.to_s.underscore] = params[:image]
         create! do |format|
           format.json { render json: { polling_path: status_resource_path(format: :json) } }
         end
@@ -48,6 +48,12 @@ module Paperclipable
           )
           format.html { redirect_to edit_parent_path, notice: "#{resource_name.capitalize} is being cropped, please wait a few seconds." }
         end
+      end
+
+      protected
+
+      def permitted_params
+        params.permit!
       end
 
     end

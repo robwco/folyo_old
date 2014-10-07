@@ -14,4 +14,8 @@ class ClientsController < ApplicationController
      update!{ edit_client_path(resource) }
   end
 
+  def permitted_params
+    params.permit(client: [:company_name, :company_url, :company_description, :location])
+  end
+
 end

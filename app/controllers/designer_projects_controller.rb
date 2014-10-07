@@ -41,6 +41,10 @@ class DesignerProjectsController < ApplicationController
 
   protected
 
+  def permitted_params
+    params.permit!
+  end
+
   def set_section
     if @designer && current_user && @designer.id == current_user.id
       @section = :account

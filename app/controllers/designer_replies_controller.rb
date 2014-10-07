@@ -12,6 +12,8 @@ class DesignerRepliesController < ApplicationController
 
   respond_to :html, :json
 
+  section :job_offers
+
   def show
     show! do |format|
       format.html do
