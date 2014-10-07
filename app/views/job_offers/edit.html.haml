@@ -21,7 +21,7 @@
 
 = content_for :sidebar do
   - if current_user.is_a?(Admin) && @job_offer.can_refund?
-    = link_to 'Refund the offer', refund_admin_offer_order_path(@job_offer), method: :put, class: 'button big-button', confirm: 'Are you sure you want to refund? It cannot be canceled.'
+    = link_to 'Refund the offer', refund_admin_offer_order_path(@job_offer), method: :patch, class: 'button big-button', confirm: 'Are you sure you want to refund? It cannot be canceled.'
   - else
     .testimonial
       %blockquote

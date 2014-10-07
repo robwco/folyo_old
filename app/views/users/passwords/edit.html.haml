@@ -4,7 +4,7 @@
 = content_for :error_messages do
   = devise_error_messages!
 
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), method: :put) do |f|
+= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), method: :patch) do |f|
   = f.input :reset_password_token,  as: :hidden
   = f.input :password,              as: :password
   = f.input :password_confirmation, as: :password
