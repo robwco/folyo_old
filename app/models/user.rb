@@ -60,7 +60,7 @@ class User
     vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties) unless Rails.env.test?
     if Rails.env.production?
       user = Intercom::User.new(user_id: self.id.to_s)
-      Intercom::UserEvent.create(event_name: event, user: user, metadata: properties )
+      Intercom::Event.create(event_name: event, user: user, metadata: properties )
     end
   end
 
