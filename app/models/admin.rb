@@ -1,5 +1,7 @@
 class Admin < User
 
+  include Sidekiq::Delay
+
   def role_name
     'admin'
   end
