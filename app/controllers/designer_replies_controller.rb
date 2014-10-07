@@ -18,7 +18,6 @@ class DesignerRepliesController < ApplicationController
         if request.xhr?
           render partial: 'inner_reply', locals: { designer_reply: @designer_reply, with_flash: false }
         else
-          fetch_designers
           @designer = @designer_reply.designer
 
           @previous_replies = @designer_reply.previous(params[:status])
@@ -30,12 +29,6 @@ class DesignerRepliesController < ApplicationController
           @reply_count = @previous_replies.length + @next_replies.length + 1
         end
       end
-    end
-  end
-
-  def index
-    index! do
-      fetch_designers
     end
   end
 
@@ -88,13 +81,8 @@ class DesignerRepliesController < ApplicationController
     params.permit!
   end
 
-  # in order to prevent 1 + N queries, we fetch all designers at once
-  def fetch_designers
-    Designer.where(:_id.in => collection.map(&:designer_id)).to_a
-  end
-
   def collection
-    @designer_replies ||= end_of_association_chain.with_status(params[:status])
+    @designer_replies ||= end_of_association_chain.includes(:designer).with_status(params[:status])
   end
 
 end

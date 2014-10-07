@@ -23,8 +23,7 @@ class JobOffersController < ApplicationController
 
   def index
     session[:job_offer_index_path] = request.fullpath
-    @job_offers = collection
-    fetch_clients_for(@job_offers)
+    @job_offers = collection.includes(:client)
     if current_user && current_user.is_a?(Client)
       render 'job_offers/client/index'
     else
@@ -34,8 +33,7 @@ class JobOffersController < ApplicationController
 
   def history
     session[:job_offer_index_path] = request.fullpath
-    @job_offers = JobOffer.for_designer(current_user)
-    fetch_clients_for(@job_offers)
+    @job_offers = JobOffer.for_designer(current_user).includes(:client)
     render 'job_offers/designer/history'
   end
 
@@ -86,11 +84,6 @@ class JobOffersController < ApplicationController
 
   def job_offer_params
     params[:job_offer].try(:permit!)
-  end
-
-  # in order to prevent 1 + N queries, we fetch all clients at once
-  def fetch_clients_for(job_offers)
-    Client.where(:_id.in => job_offers.map(&:client_id)).to_a
   end
 
   def collection
