@@ -40,12 +40,8 @@ Folyo::Application.routes.draw do
       get 'profile',          on: :member
       get 'dribbble_profile', on: :member
       get 'reject',           on: :member
-      put 'to_markdown',      on: :member
       get 'accepted_email',   on: :member
       get 'rejected_email',   on: :member
-    end
-    resources :clients do
-      put 'to_markdown', on: :member
     end
     resources :job_offers, path: 'offers', as: 'offers' do
       resource :order do
@@ -60,7 +56,6 @@ Folyo::Application.routes.draw do
       get 'refunded',                   on: :collection
       put 'accept',                     on: :member
       put 'reject',                     on: :member
-      put 'to_markdown',                on: :member
     end
     resource :dashboard, controller: 'dashboard'
     resources :referral_programs

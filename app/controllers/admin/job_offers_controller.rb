@@ -25,14 +25,6 @@ class Admin::JobOffersController < Admin::BaseController
     destroy!{ admin_offers_path }
   end
 
-  def to_markdown
-    if @job_offer.to_markdown!
-      redirect_to offer_path(@job_offer), notice: 'Successfully converted to markdown'
-    else
-      render '/job_offers/edit'
-    end
-  end
-
   def full_list
     @job_offers ||= JobOffer.page(params[:page]).per(10).ordered.paid
   end
