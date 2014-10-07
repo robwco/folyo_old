@@ -4,11 +4,19 @@ class Survey
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
 
-  field      :name,        type: String
-  field      :submitted_at, type: DateTime
+  field      :name,           type: String
+  field      :user_location,  type: String
+  field      :user_full_name, type: String
+  field      :submitted_at,   type: DateTime
+
   belongs_to :user
 
   index({ name: 1, user_id: 1 })
+
+  before_create do
+    self.user_location = user.location rescue nil
+    self.user_full_name = user.full_name rescue nil
+  end
 
   after_create do
     user.track_user_event('Survey Started', name: self.name)
