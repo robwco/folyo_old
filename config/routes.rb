@@ -119,7 +119,7 @@ Folyo::Application.routes.draw do
 
   root to: "site#home"
 
-  authenticate :user, lambda { |u| u.is_a?(Admin) } do
+  authenticate :user, lambda { |u| !Rails.env.production? || u.is_a?(Admin) } do
     require 'sidekiq/web'
     mount Jobbr::Engine => '/jobbr'
     mount Sidekiq::Web  => '/sidekiq'
