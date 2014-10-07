@@ -59,7 +59,7 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
   enableModerationActions: ->
     console.log "enable moderation actions"
     update_designer = (url, data, callback) ->
-      data['_method'] = 'PUT'
+      data['_method'] = 'PATCH'
       $.ajax({url: url, type: 'POST', dataType: 'json', data: data, success: callback})
 
     callback = (data) =>

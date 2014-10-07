@@ -45,17 +45,17 @@ Folyo::Application.routes.draw do
     end
     resources :job_offers, path: 'offers', as: 'offers' do
       resource :order do
-        put 'refund'
+        patch 'refund'
       end
-      get 'waiting_for_submission',     on: :collection
-      get 'waiting_for_payment',        on: :collection
-      get 'waiting_for_review',         on: :collection
-      get 'rejected',                   on: :collection
-      get 'accepted',                   on: :collection
-      get 'archived',                   on: :collection
-      get 'refunded',                   on: :collection
-      put 'accept',                     on: :member
-      put 'reject',                     on: :member
+      get   'waiting_for_submission',     on: :collection
+      get   'waiting_for_payment',        on: :collection
+      get   'waiting_for_review',         on: :collection
+      get   'rejected',                   on: :collection
+      get   'accepted',                   on: :collection
+      get   'archived',                   on: :collection
+      get   'refunded',                   on: :collection
+      patch 'accept',                     on: :member
+      patch 'reject',                     on: :member
     end
     resource :dashboard, controller: 'dashboard'
     resources :referral_programs
@@ -96,11 +96,11 @@ Folyo::Application.routes.draw do
       get 'confirm'
     end
     resources :designer_replies, path: 'replies', as: 'replies' do
-      put 'shortlist', on: :member
-      get 'shortlist', on: :member
-      put 'hide',      on: :member
-      get 'hide',      on: :member
-      get 'mail',      on: :member
+      patch 'shortlist', on: :member
+      get   'shortlist', on: :member
+      patch 'hide',      on: :member
+      get   'hide',      on: :member
+      get   'mail',      on: :member
     end
     resource :evaluations
   end

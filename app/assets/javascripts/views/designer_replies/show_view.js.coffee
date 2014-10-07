@@ -71,27 +71,30 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
   enableActionButtons: ->
     $('.shortlist.button, .hide.button').click (e) ->
       $btn = $(this)
-      $reply = $(".reply-carrousel-item[data-path='#{window.location.pathname}'],.reply-actions")
+      $reply = $(".reply-carrousel-item[data-path='#{window.location.pathname}#{document.location.search}'],.reply-actions")
       $btn.addClass('spinning')
       $.ajax
         url: $btn.attr('href')
         type: 'POST'
         dataType: 'json'
         data:
-          _method: 'PUT'
+          _method: 'PATCH'
         success: (data) ->
           $btn.removeClass('spinning')
           $btn.tipsy('hide')
           if data.status == 'hidden'
             $btn.attr('title', 'Un-hide this reply')
+            $reply.attr('data-status', 'hidden')
             $reply.addClass('reply-hidden')
             $reply.removeClass('reply-shortlisted')
           else if data.status == 'shortlisted'
             $btn.attr('title', 'Remove from shortlist')
+            $reply.attr('data-status', 'shortlisted')
             $reply.addClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
           else
             $('.reply-actions a').each (i, r) -> $(r).attr('title', $(r).attr('default-title'))
+            $reply.attr('data-status', 'default')
             $reply.removeClass('reply-shortlisted')
             $reply.removeClass('reply-hidden')
 

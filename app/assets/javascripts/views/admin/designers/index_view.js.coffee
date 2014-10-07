@@ -9,7 +9,7 @@ class Views.Admin.Designers.PendingView extends Views.ApplicationView
     $status_select.parent().find(".checkmark").removeClass("hidden").fadeOut "slow"
 
   update_designer: (url, data, callback) ->
-    data['_method'] = 'PUT'
+    data['_method'] = 'PATCH'
     $.ajax
       url:  url
       type: 'POST'
