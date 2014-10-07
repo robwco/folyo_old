@@ -4,8 +4,9 @@ GIT
   specs:
     state_machine (1.2.0)
 
-PATH
-  remote: /Users/cblavier/code/jobbr
+GIT
+  remote: git://github.com/cblavier/jobbr.git
+  revision: d488948675067820def407a4341c492f428791c8
   specs:
     jobbr (2.0.0)
       bootstrap-sass
