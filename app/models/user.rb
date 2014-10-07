@@ -43,7 +43,7 @@ class User
   validates_presence_of :full_name
 
   before_destroy do
-    Intercom::User.delete(user_id: self.id.to_s)
+    Intercom::User.find(user_id: self.id.to_s).delete
   end
 
   alias :name :full_name
@@ -57,8 +57,8 @@ class User
   end
 
   def async_track_user_event(event, properties = {})
-    vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties) unless Rails.env.test?
-    if Rails.env.production?
+    unless Rails.env.test?
+      vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties)
       Intercom::Event.create(event_name: event, email: self.email, created_at: DateTime.now, metadata: properties )
     end
   end
