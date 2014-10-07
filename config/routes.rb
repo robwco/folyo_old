@@ -43,6 +43,7 @@ Folyo::Application.routes.draw do
       get 'accepted_email',   on: :member
       get 'rejected_email',   on: :member
     end
+    resources :clients
     resources :job_offers, path: 'offers', as: 'offers' do
       resource :order do
         patch 'refund'

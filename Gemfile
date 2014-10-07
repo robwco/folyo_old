@@ -17,7 +17,7 @@ gem 'reverse_markdown'
 gem 'dalli'
 
 # DJ
-gem 'jobbr', github: 'cblavier/jobbr' #path: '/Users/cblavier/code/jobbr'
+gem 'jobbr', github: 'cblavier/jobbr'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'sidekiq'
 gem 'sidekiq-delay'
@@ -34,6 +34,7 @@ gem 'redcarpet'
 gem 'chronic_duration'
 gem 'font-awesome-rails'
 gem 'zeroclipboard-rails'
+gem 'bootstrap-sass'
 
 # Upload
 gem 'aws-sdk' # S3 API
