@@ -3,20 +3,30 @@ class Message
   include Mongoid::Document
   include Mongoid::Timestamps
   include Sidekiq::Delay
+  include Mongoid::EmbeddedFindable
 
-  field :comment, type: String
+  field :text, type: String
 
-  belongs_to :from_user, class_name: 'User'
-  belongs_to :to_user,   class_name: 'User'
+  embedded_in :conversation
+  belongs_to  :author, class_name: 'User'
 
-  ## validations ##
-  validates_presence_of :from_user_id, :to_user_id, :comment
+  validates_presence_of :author_id, :text
 
-  ## callbacks ##
   after_create :send_notification!, :track_event
 
-  ## scopes ##
-  scope :ordered, -> { order_by(created_at: :desc) }
+  def self.find(id)
+    find_through(Conversation, :messages, id)
+  end
+
+  def recipient
+    if self.author == conversation.client
+      conversation.designer
+    elsif self.author == conversation.designer
+      conversation.client
+    else
+      nil
+    end
+  end
 
   protected
 
@@ -25,7 +35,7 @@ class Message
   end
 
   def track_event
-    from_user.track_user_event("New message", {:from_user => from_user.id, :from_user_name => from_user.full_name, :to_user_id => to_user.id, :to_user_name => to_user.full_name, comment: comment})
+    from_user.track_user_event('New message', {author: author.id, author_name: author.full_name, recipient: recipient.id, recipient_name: recipient.full_name, text: text})
   end
 
 end
