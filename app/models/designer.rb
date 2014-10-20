@@ -294,9 +294,11 @@ class Designer < User
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
+        track_user_event('accepted')
         DesignerMailer.sidekiq_delay.accepted_mail(self.id)
         subscribe_to_newsletter
       elsif self.rejected?
+        track_user_event('rejected')
         DesignerMailer.sidekiq_delay.rejected_mail(self.id)
       end
     end
