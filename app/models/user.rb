@@ -31,7 +31,6 @@ class User
   field :last_sign_in_ip,    :type => String
 
   ## Relations ##
-  has_many    :messages, inverse_of: :from_user
   belongs_to  :referrer_designer, class_name: 'Designer'
 
   ## Scopes ##

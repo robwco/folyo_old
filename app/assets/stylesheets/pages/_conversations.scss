@@ -1,0 +1,38 @@
+.conversation {
+
+  .message {
+    width: 80%;
+    margin: 0 0 20px;
+
+    .text {
+      display: block;
+      padding: 10px;
+      background: white;
+      border: 2px solid $green1;
+    }
+
+    .metadata {
+      width: 100%;
+    }
+
+    .author, .date {
+      color: $darkgrey2;
+      font-size: 12px;
+    }
+
+    &.designer-message {
+      margin-right: 20%;
+      .metadata {
+        text-align: right;
+      }
+    }
+    &.client-message {
+      margin-left: 20%;
+      .metadata {
+        text-align: right;
+      }
+    }
+
+  }
+
+}

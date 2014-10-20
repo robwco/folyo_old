@@ -13,6 +13,7 @@ class DesignerReply
   ## associations ##
   embedded_in :job_offer
   belongs_to  :designer
+  has_one     :conversation
 
   ## validations ##
   validates_presence_of :job_offer, :designer

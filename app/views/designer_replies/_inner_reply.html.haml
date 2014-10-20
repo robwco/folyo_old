@@ -9,4 +9,9 @@
 - if with_flash
   = render '/site/flash', flash: flash
 
+- if designer_reply.conversation
+  = render '/conversations/show', designer_reply: designer_reply, conversation: designer_reply.conversation
+- else
+  = render '/conversations/new', designer_reply: designer_reply
+
 = render '/designers/profile/designer_profile', designer: designer_reply.designer

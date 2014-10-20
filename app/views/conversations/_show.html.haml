@@ -1,0 +1,11 @@
+.conversation
+
+  - conversation.messages.each do |message|
+    .message{class: "#{message.author_kind}-message"}
+      %span.text= message.text
+      .metadata
+        %span.author= message.author.full_name
+        %span.date= "- #{time_ago_in_words(message.created_at)} ago"
+
+= simple_form_for conversation, path: conversation_messages_path(conversation) do |f|
+  = render '/conversations/form', f: f, designer_reply: designer_reply

@@ -10,6 +10,8 @@ class Message
   embedded_in :conversation
   belongs_to  :author, class_name: 'User'
 
+  default_scope -> { order_by(created_at: :asc) }
+
   validates_presence_of :author_id, :text
 
   after_create :send_notification!, :track_event
@@ -28,6 +30,14 @@ class Message
     end
   end
 
+  def author_kind
+    if self.author == conversation.client
+      :client
+    elsif self.author == conversation.designer
+      :designer
+    end
+  end
+
   protected
 
   def send_notification!
@@ -35,7 +45,7 @@ class Message
   end
 
   def track_event
-    from_user.track_user_event('New message', {author: author.id, author_name: author.full_name, recipient: recipient.id, recipient_name: recipient.full_name, text: text})
+    author.track_user_event('New message', {author: author.id, author_name: author.full_name, recipient: recipient.id, recipient_name: recipient.full_name, text: text})
   end
 
 end

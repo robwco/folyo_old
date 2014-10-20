@@ -1,0 +1,4 @@
+= f.input :designer_reply_id, as: :hidden, input_html: { value: designer_reply.id }
+= simple_fields_for :message do |m|
+  = m.input :text
+= f.submit 'Reply'
