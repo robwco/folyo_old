@@ -148,13 +148,17 @@ feature 'Fill in a budget survey', devise: true do
     survey.reload.complex_web_app_budget.should == complex_web_app_budget
     survey.reload.complex_web_app_coding_budget.should == complex_web_app_coding_budget
 
-    click_link 'Back'
+    click_button 'bottom-prev'
     find('#survey_simple_mobile_app_budget').value.should == simple_mobile_app_budget
     find('#survey_complex_mobile_app_budget').value.should == complex_mobile_app_budget
     find('#survey_simple_web_app_budget').value.should == simple_web_app_budget
     find('#survey_simple_web_app_coding_budget').value.should == simple_web_app_coding_budget
     find('#survey_complex_web_app_budget').value.should == complex_web_app_budget
     find('#survey_complex_web_app_coding_budget').value.should == complex_web_app_coding_budget
+
+    click_button 'bottom-next'
+    click_button 'bottom-next'
+    click_button 'bottom-next'
 
     # Check attributes are copied to designer
     designer.reload.skills_budgets['logo_and_identity_design']['logo'].should == logo_budget.to_f
