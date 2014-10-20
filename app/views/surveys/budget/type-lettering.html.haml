@@ -1,0 +1,47 @@
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
+
+  %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
+
+  = render '/surveys/partials/pagination', {current_page: 7, position: 'top'}
+
+  .survey-intro
+    :markdown
+      Now this is my type of project!
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Typeface Design',
+          project_name: 'Anders Free Font',
+          author_name: 'Tom Anders Watkins',
+          author_url: 'https://www.behance.net/tomanders',
+          project_image: 'budgets/anders.jpg',
+          project_description: 'Custom typeface design.',
+          project_url: 'https://www.behance.net/gallery/18068463/Anders-(Free-Font)' }
+
+    = render '/surveys/partials/budget', input_name: :simple_lettering_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Simple Lettering',
+          project_name: 'Lettering',
+          author_name: 'Vivien Bertin',
+          author_url: 'https://www.behance.net/vivienbertin',
+          project_image: 'budgets/theory.jpg',
+          project_description: 'Simple, single-color vectorized lettering for a few words or short sentence.',
+          project_url: 'https://www.behance.net/gallery/19571269/Lettering' }
+
+    = render '/surveys/partials/budget', input_name: :simple_lettering_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Complex Lettering',
+          project_name: 'Lettering Projects',
+          author_name: 'Andreas Ejerfors',
+          author_url: 'https://www.behance.net/andreasejerfors',
+          project_image: 'budgets/irishale.jpg',
+          project_description: 'Illustrative, multi-word lettering project with multiple colors and/or effects.',
+          project_url: 'https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app' }
+
+    = render '/surveys/partials/budget', input_name: :complex_lettering_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render '/surveys/partials/pagination', {current_page: 7, position: 'bottom'}
