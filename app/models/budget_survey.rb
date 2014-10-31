@@ -42,8 +42,8 @@ class BudgetSurvey < Survey
 
       if is_checked(self.simple_mobile_app_budget) || is_checked(self.complex_mobile_app_budget) || is_checked(self.simple_web_app_budget) || is_checked(self.complex_web_app_budget)
         user.skills_budgets[:UI_design] = {}
-        user.skills_budgets[:UI_design][:simple_mobile_app] =  self.simple_mobile_app_budget.to_f  if self.simple_mobile_app_budget
-        user.skills_budgets[:UI_design][:complex_mobile_app] = self.complex_mobile_app_budget.to_f if self.complex_mobile_app_budget
+        user.skills_budgets[:UI_design][:simple_mobile_app] =  self.simple_mobile_app_budget.to_f  if is_checked(self.simple_mobile_app_budget)
+        user.skills_budgets[:UI_design][:complex_mobile_app] = self.complex_mobile_app_budget.to_f if is_checked(self.complex_mobile_app_budget)
         if is_checked(self.simple_web_app_budget)
           user.skills_budgets[:UI_design][:simple_web_app] = {}
           user.skills_budgets[:UI_design][:simple_web_app][:no_coding] = self.simple_web_app_budget.to_f
@@ -54,6 +54,20 @@ class BudgetSurvey < Survey
           user.skills_budgets[:UI_design][:complex_web_app][:no_coding] = self.complex_web_app_budget.to_f
           user.skills_budgets[:UI_design][:complex_web_app][:coding] = self.complex_web_app_coding_budget.to_f if is_checked(self.complex_web_app_coding_budget)
         end
+      end
+
+      if is_checked(self.annual_report_budget) || is_checked(self.magazine_budget) || is_checked(self.book_budget)
+        user.skills_budgets[:print_design] = {}
+        user.skills_budgets[:print_design][:annual_report_budget] =  self.annual_report_budget.to_f  if is_checked(self.annual_report_budget)
+        user.skills_budgets[:print_design][:magazine_budget] = self.magazine_budget.to_f if is_checked(self.magazine_budget)
+        user.skills_budgets[:print_design][:book_budget] = self.book_budget.to_f if is_checked(self.book_budget)
+      end
+
+      if is_checked(self.typeface_design_budget) || is_checked(self.simple_lettering_budget) || is_checked(self.complex_lettering_budget)
+        user.skills_budgets[:type_lettering] = {}
+        user.skills_budgets[:type_lettering][:typeface_design_budget] =  self.typeface_design_budget.to_f  if is_checked(self.typeface_design_budget)
+        user.skills_budgets[:type_lettering][:simple_lettering_budget] = self.simple_lettering_budget.to_f if is_checked(self.simple_lettering_budget)
+        user.skills_budgets[:type_lettering][:complex_lettering_budget] = self.complex_lettering_budget.to_f if is_checked(self.complex_lettering_budget)
       end
 
       if is_checked(self.animated_trailer_budget)
