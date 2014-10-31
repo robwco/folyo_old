@@ -5,7 +5,7 @@ class Designer < User
   include Sidekiq::Delay
 
   def self.skills
-    %i(logo_and_identity_design illustration motion_design web_design UI_design UX_design)
+    %i(logo_and_identity_design illustration motion_design web_design UI_design UX_design print_design type_lettering)
   end
 
   def self.statuses
@@ -294,9 +294,11 @@ class Designer < User
   def accept_reject_mailer
     if self.status_changed?
       if self.accepted?
+        track_user_event('accepted')
         DesignerMailer.sidekiq_delay.accepted_mail(self.id)
         subscribe_to_newsletter
       elsif self.rejected?
+        track_user_event('rejected')
         DesignerMailer.sidekiq_delay.rejected_mail(self.id)
       end
     end

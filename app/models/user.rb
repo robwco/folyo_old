@@ -58,7 +58,7 @@ class User
   def async_track_user_event(event, properties = {})
     unless Rails.env.test?
       vero.events.track!(identity: {id: self.id.to_s}, event_name: event, data: properties)
-      Intercom::Event.create(event_name: event, email: self.email, created_at: DateTime.now, metadata: properties )
+      Intercom::Event.create(event_name: event, user_id: self.id.to_s, created_at: DateTime.now, metadata: properties )
     end
   end
 

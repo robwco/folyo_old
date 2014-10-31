@@ -1,0 +1,47 @@
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
+
+  %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
+
+  = render '/surveys/partials/pagination', {current_page: 8, position: 'top'}
+
+  .survey-intro
+    :markdown
+      Who says print is dead?
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Annual Report',
+          project_name: 'Prometey Annual Report',
+          author_name: 'Backbone Studio',
+          author_url: 'https://www.behance.net/backbonestudio',
+          project_image: 'budgets/prometey.jpg',
+          project_description: 'Annual report including cover, layout, data visualisations, and supporting materials.',
+          project_url: 'https://www.behance.net/gallery/18918453/Prometey-Bank-Annual-Report-2012' }
+
+    = render '/surveys/partials/budget', input_name: :annual_report_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Magazine/Newspaper',
+          project_name: 'Companion No2',
+          author_name: 'Chloe Galea',
+          author_url: 'https://www.behance.net/ChloeGalea',
+          project_image: 'budgets/companion.jpg',
+          project_description: 'Editorial design for a magazine or newspaper.',
+          project_url: 'https://www.behance.net/gallery/20305115/Companion-No2-25Hours-Hotel-Magazine' }
+
+    = render '/surveys/partials/budget', input_name: :magazine_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project',
+        { question_title: 'Book',
+          project_name: 'Tastebook',
+          author_name: 'Natalia Lachiewicz',
+          author_url: 'https://www.behance.net/lachiewicz',
+          project_image: 'budgets/tastebook.jpg',
+          project_description: 'Book design including cover, layout, typesetting, etc.',
+          project_url: 'https://www.behance.net/gallery/15523031/TASTEBOOK' }
+
+    = render '/surveys/partials/budget', input_name: :book_budget, input_label: 'How much would you charge for a similar project?', f: f
+
+  = render '/surveys/partials/pagination', {current_page: 8, position: 'bottom'}

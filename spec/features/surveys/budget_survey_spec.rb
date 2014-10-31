@@ -8,34 +8,6 @@ feature 'Fill in a budget survey', devise: true do
   given(:billing_mode) { 'By the week' }
   given(:hourly_rate) { '100' }
 
-  given(:logo_budget) { '3000' }
-  given(:full_identity_budget) { '5000' }
-
-  given(:illustration_budget) { '2100' }
-  given(:icon_design_budget) { '6000' }
-
-  given(:coming_soon_budget) { '2000' }
-  given(:coming_soon_coding_budget) { '3000' }
-  given(:landing_page_budget) { '1000' }
-  given(:landing_page_coding_budget) { '1500' }
-  given(:simple_website_budget) { '2000' }
-  given(:simple_website_coding_budget) { '2700' }
-  given(:complex_website_budget) { '4000' }
-  given(:complex_website_coding_budget) { '6000' }
-
-  given(:simple_mobile_app_budget) { '2200' }
-  given(:complex_mobile_app_budget) { '3500' }
-  given(:simple_web_app_budget) { '2600' }
-  given(:simple_web_app_coding_budget) { '3000' }
-  given(:complex_web_app_budget) { '4000' }
-  given(:complex_web_app_coding_budget) { '6100' }
-
-  given(:animated_trailer_budget) { '7500' }
-
-  given(:ux_consulting_budget) { '3600' }
-  given(:ux_research_budget) { '6700' }
-  given(:information_architecture_budget) { '9000' }
-
   background do
     login_as designer
   end
@@ -64,101 +36,34 @@ feature 'Fill in a budget survey', devise: true do
     find('#survey_billing_mode').value.should == billing_mode
     find('#survey_hourly_rate').value.should == hourly_rate
 
-    # 02 - Logo Design
+    fill_survey_section(%w(logo full_identity))
+    fill_survey_section(%w(illustration icon_design))
+    fill_survey_section(%w(animated_trailer))
+    fill_survey_section(%w(coming_soon coming_soon_coding landing_page landing_page_coding simple_website simple_website_coding complex_website complex_website_coding))
+    fill_survey_section(%w(simple_mobile_app complex_mobile_app simple_web_app simple_web_app_coding complex_web_app complex_web_app_coding))
+    fill_survey_section(%w(typeface_design simple_lettering complex_lettering))
+    fill_survey_section(%w(annual_report magazine book)) { click_link 'Back' }
+  end
+
+  def fill_survey_section(fields, back_button = 'bottom-prev')
+    fields.map! { |field| "#{field}_budget" }
     click_button 'top-next'
-    find('#survey_logo_budget').set(logo_budget)
-    find('#survey_full_identity_budget').set(full_identity_budget)
 
-    click_button 'bottom-next'
-    survey.reload.logo_budget.should == logo_budget
-    survey.reload.full_identity_budget.should == full_identity_budget
-
-    click_button 'bottom-prev'
-    find('#survey_logo_budget').value.should == logo_budget
-    find('#survey_full_identity_budget').value.should == full_identity_budget
-
-    # 03 - Illustration
-    click_button 'top-next'
-    find('#survey_illustration_budget').set(illustration_budget)
-    find('#survey_icon_design_budget').set(icon_design_budget)
-
-    click_button 'top-next'
-    survey.reload.illustration_budget.should == illustration_budget
-    survey.reload.icon_design_budget.should == icon_design_budget
-
-    click_button 'bottom-prev'
-    find('#survey_illustration_budget').value.should == illustration_budget
-    find('#survey_icon_design_budget').value.should == icon_design_budget
-
-    # 06 - Motion Design
-    click_button 'top-next'
-    find('#survey_animated_trailer_budget').set(animated_trailer_budget)
+    field_values = fields.inject({}) { |h, field| h[field] = (rand(99) * 100).to_s; h }
+    fields.each do |field|
+      find("#survey_#{field}").set(field_values[field])
+    end
 
     click_button 'top-next'
-    survey.reload.animated_trailer_budget.should == animated_trailer_budget
+    survey = Survey.last.reload
+    fields.each do |field|
+      survey.send(field).should == field_values[field]
+    end
 
-    click_button 'bottom-prev'
-    find('#survey_animated_trailer_budget').value.should == animated_trailer_budget
-
-    # 04 - Web Design
-    click_button 'bottom-next'
-    find('#survey_coming_soon_budget').set(coming_soon_budget)
-    find('#survey_coming_soon_coding_budget').set(coming_soon_coding_budget)
-    find('#survey_landing_page_budget').set(landing_page_budget)
-    find('#survey_landing_page_coding_budget').set(landing_page_coding_budget)
-    find('#survey_simple_website_budget').set(simple_website_budget)
-    find('#survey_simple_website_coding_budget').set(simple_website_coding_budget)
-    find('#survey_complex_website_budget').set(complex_website_budget)
-    find('#survey_complex_website_coding_budget').set(complex_website_coding_budget)
-
-    click_button 'bottom-next'
-    survey.reload.coming_soon_budget.should == coming_soon_budget
-    survey.reload.coming_soon_coding_budget.should == coming_soon_coding_budget
-    survey.reload.landing_page_budget.should == landing_page_budget
-    survey.reload.landing_page_coding_budget.should == landing_page_coding_budget
-    survey.reload.simple_website_budget.should == simple_website_budget
-    survey.reload.simple_website_coding_budget.should == simple_website_coding_budget
-    survey.reload.complex_website_budget.should == complex_website_budget
-    survey.reload.complex_website_coding_budget.should == complex_website_coding_budget
-
-    click_button 'bottom-prev'
-    find('#survey_coming_soon_budget').value.should == coming_soon_budget
-    find('#survey_coming_soon_coding_budget').value.should == coming_soon_coding_budget
-    find('#survey_landing_page_budget').value.should == landing_page_budget
-    find('#survey_landing_page_coding_budget').value.should == landing_page_coding_budget
-    find('#survey_simple_website_budget').value.should == simple_website_budget
-    find('#survey_simple_website_coding_budget').value.should == simple_website_coding_budget
-    find('#survey_complex_website_budget').value.should == complex_website_budget
-    find('#survey_complex_website_coding_budget').value.should == complex_website_coding_budget
-
-    # 05 - UI design
-    click_button 'bottom-next'
-    find('#survey_simple_mobile_app_budget').set(simple_mobile_app_budget)
-    find('#survey_complex_mobile_app_budget').set(complex_mobile_app_budget)
-    find('#survey_simple_web_app_budget').set(simple_web_app_budget)
-    find('#survey_simple_web_app_coding_budget').set(simple_web_app_coding_budget)
-    find('#survey_complex_web_app_budget').set(complex_web_app_budget)
-    find('#survey_complex_web_app_coding_budget').set(complex_web_app_coding_budget)
-
-    click_button 'top-next'
-    survey.reload.simple_mobile_app_budget.should == simple_mobile_app_budget
-    survey.reload.complex_mobile_app_budget.should == complex_mobile_app_budget
-    survey.reload.simple_web_app_budget.should == simple_web_app_budget
-    survey.reload.simple_web_app_coding_budget.should == simple_web_app_coding_budget
-    survey.reload.complex_web_app_budget.should == complex_web_app_budget
-    survey.reload.complex_web_app_coding_budget.should == complex_web_app_coding_budget
-
-    click_link 'Back'
-    find('#survey_simple_mobile_app_budget').value.should == simple_mobile_app_budget
-    find('#survey_complex_mobile_app_budget').value.should == complex_mobile_app_budget
-    find('#survey_simple_web_app_budget').value.should == simple_web_app_budget
-    find('#survey_simple_web_app_coding_budget').value.should == simple_web_app_coding_budget
-    find('#survey_complex_web_app_budget').value.should == complex_web_app_budget
-    find('#survey_complex_web_app_coding_budget').value.should == complex_web_app_coding_budget
-
-    # Check attributes are copied to designer
-    designer.reload.skills_budgets['logo_and_identity_design']['logo'].should == logo_budget.to_f
-    designer.skills_budgets['UI_design']['simple_mobile_app'].should == simple_mobile_app_budget.to_f
+    block_given? ? yield : click_button('bottom-prev')
+    fields.each do |field|
+      find("#survey_#{field}").value.should == field_values[field]
+    end
   end
 
 end

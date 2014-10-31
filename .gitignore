@@ -18,4 +18,8 @@
 *.sublime-workspace
 *.sublime-project
 
+public/assets
+
+.foreman
+
 /dump

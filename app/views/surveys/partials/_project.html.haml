@@ -6,7 +6,8 @@
       by
       = link_to author_name, author_url
   .survey-project-image
-    = image_tag project_image
+    %a{href: project_url, target: '_blank'}
+      = image_tag project_image
   .survey-project-info
     .survey-project-description
       :markdown

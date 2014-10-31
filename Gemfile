@@ -85,6 +85,9 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'quiet_assets'
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'coffee-rails-source-maps'
 end
 
 group :test do

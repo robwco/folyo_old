@@ -1,0 +1,6 @@
+- brew install direnv
+- brew install pow ( follow instructions! )
+- echo 6000 > ~/.pow/folyo
+- echo 'port: 6000' > .foreman
+- foreman start
+- http://folyo.dev is reachable!
