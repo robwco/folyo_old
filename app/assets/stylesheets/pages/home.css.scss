@@ -1,0 +1,381 @@
+@import "compass/css3/border-radius";
+
+@import "mixins/grid";
+@import "mixins/colors";
+@import "mixins/mixins";
+
+.home{
+	section{
+		padding:60px 0;
+		z-index: 5;
+		position: relative;
+		background: white;
+		-webkit-transform: translate3d(0,0,0);
+	}
+	header{
+		z-index:10;
+	}
+	hr{
+		height: 0;
+		border-bottom: 2px solid #dde5e9;
+		margin: $mbottom 0;
+	}
+	.primary{
+		background: $green;
+		background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANUlEQVQYV2NkIBIw/v//35iRkfEsunqYOIxmJNJABgyF6CaRbyIuk2BOI96NhEyi3ERc4QkAki48CxxSFJ4AAAAASUVORK5CYII=);
+		width: 100%;
+		padding:0;
+		@include medium {
+			min-height: 1024px;//100vh;
+			position: fixed;
+			z-index: 1;
+			top:0;
+		}
+	}
+	.top{
+		background: none;
+	}
+	.hero{
+		@include medium{
+			display: table;
+			position: absolute;
+			width: 100%;
+			top: 35%;
+			left: 0;
+			.container{
+				margin: 0 auto;
+				text-align: center;
+			}
+		}
+		@include small{
+			padding-bottom:40px;
+		}
+		.button{
+			margin-top: 20px;
+			@include small{
+				display:none;
+			}
+			display: inline-block;
+			background: black(0.2);
+			&:hover{
+				background: black(0.5);
+			}
+		}
+	}
+	.secondary{
+		background:white;
+		.block{
+			padding-bottom: 40px;
+			border-bottom: 2px solid #dde5e9;
+			&:last-child{
+				border: none;
+				padding-bottom: 0;
+			}
+		}
+	}
+	.meet-designers{
+		background:$lightgrey7;
+	}
+	%dark-background{
+		// http://bit.ly/177c3x0
+		// background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAANklEQVQYV2NkIBIwAtVJAvFzLOph4mAapJAogE0hikkwG8kyEatJMHeRZCJek6hiInpwgW0EAKvbDwvkiHTzAAAAAElFTkSuQmCC);
+		// background-attachment:fixed;
+	}
+	.how-it-works{
+		background-color:$darkerBlue;
+		overflow-x:hidden;
+		.step{
+			text-align: center;
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-weight: normal();
+		}
+	}
+	.try{
+		background:white;
+	}
+	.footer{
+		padding-top:20px;
+		background-color:$darkerBlue;
+	}
+
+
+	.illustration{
+		max-width: 460px;
+		@include small{
+			width:100%;
+		}
+		@include medium{
+			width:80%;
+		}
+		display:block;
+		margin:40px auto 40px auto;
+	}
+
+	h2{
+		color:$green;
+		text-align:center;
+		line-height:1.3;
+		margin:0 0 40px 0;
+		font-size:28px;
+		font-weight:bold();
+	}
+	.first-heading{
+		font-size: 48px;
+	}
+	p{
+		font-size:18px;
+		text-align: center;
+	}
+	p.intro{
+		text-align:center;
+	}
+	.block{
+		margin-bottom:40px;
+		@include medium{
+			@include span-columns(8 omega);
+			@include squish(2,2);
+		}
+		&:last-child, *:last-child{
+			margin-bottom:0;
+		}
+	}
+	.subtitle{
+		text-align:center;
+		color:$green;
+		text-shadow:0px 1px 2px black(0.25);
+		font-style:italic;
+		margin-bottom:20px;
+		font-size:20px;
+	}
+	.items{
+		list-style-type:none;
+		list-style-image: none;
+		margin:20px 0 0 0;
+		padding:0;
+		@include small{
+			text-align: center;
+		}
+		@include medium{
+			text-align:justify;
+		}
+		@include cf;
+		&:after{
+			//  http://www.barrelny.com/blog/text-align-justify-and-rwd/
+			content: '';
+			display: inline-block;
+			width: 100%;
+			height: 0px;
+			margin: 0;
+		}
+		li{
+			display:inline-block;
+			@include small{
+				margin-right: 20px;
+			}
+			@include medium{
+				width: 22%;
+				white-space:nowrap;
+			}
+			// margin-right: 4%;
+			padding:0px 0px 0px 20px;
+			font-weight: bold();
+			background:image-url('check-medium.png') 0% 40% no-repeat;
+			background-size: 16px 16px;
+			font-size:16px;
+			&:last-child{
+				margin-right:0;
+			}
+			&:before{
+				display: none;
+			}
+		}
+		&.cross li{
+			background-image: image-url('cross-medium.png');
+		}
+	}
+  .portfolio-samples{
+    padding-bottom: $spacing;
+    margin-bottom: $spacing;
+    border-bottom:2px solid #dde5e9;
+  }
+	.designers{
+		margin-bottom:40px;
+		@include cf;
+		border-bottom:2px solid #dde5e9;
+		@include span-columns(12 omega);
+		padding-bottom: $spacing;
+	}
+	.designer{
+		margin-bottom:20px;
+		text-align:center;
+		@include medium{
+			@include span-columns(3);
+			@include nth-omega(4n, of-type);
+		}
+		.work{
+			img{
+				width:100%
+			}
+		}
+		.avatar{
+			margin:0 auto 10px auto;
+			width:70%;
+			height:70%;
+			max-width: 250px
+		}
+		.name{
+			display:block;
+		}
+		.location{
+			color:$lighttext;
+			font-style:italic;
+			margin-bottom:10px;
+		}
+		.bio{
+			font-size: 15px;
+		}
+	}
+	.skills{
+		@include medium{
+			@include span-columns(12 omega);
+			ul{
+				width:columns(9, 12);
+				margin: 40px auto 0 auto;
+				@extend .cf;
+				li{
+					@include span-columns(3, 9);
+					@include nth-omega(3n, of-type);
+					font-size: 18px;
+					font-weight: bold();
+				}
+			}
+		}
+	}
+	.tagline{
+		h2{
+			@include medium{
+				font-size:52px;
+			}
+			text-align: center;
+			margin-bottom:10px;
+			color:white;
+		}
+		h3{
+			max-width: 600px;
+			margin: 0 auto;
+			text-align: center;
+			color: white(0.9);
+			font-weight: regular();
+			font-size: 18px;
+		}
+	}
+	.cta{
+		text-align:center;
+		.button{
+			padding:20px;
+			width: 100%;
+			max-width: 300px;
+		}
+	}
+
+	.testimonials{
+		background:$lightgrey7;
+	}
+
+	.past-clients{
+		background:$lightgrey7;
+	}
+	.clients{
+		@include medium{
+			@include span-columns(12);
+		}
+		.client{
+			@include small{
+				margin-bottom: 40px
+			}
+			@include medium{
+				float:left;
+				width:25%;
+			}
+
+			a{
+				display: block;
+				margin:0 auto;
+				position: relative;
+				max-width: 150px;
+				width: 80%;
+			}
+			img{
+				display: block;
+				width: 100%;
+			}
+		}
+	}
+	.inverted{
+		color:white(0.5);
+		h2{
+			// color:white;
+			// text-shadow:0px 3px 7px black(0.35);
+		}
+		h3{
+			color:white;
+			text-shadow:0px 3px 7px black(0.35);
+		}
+		a{
+			&, &:link, &:active, &:visited{
+				color:white;
+			}
+			&:hover{
+				color:$green;
+			}
+		}
+	}
+	.guides{
+		@include medium{
+			@include span-columns(10 omega);
+			@include squish(1,1);
+		}
+		text-align: center;
+		.more{
+				@include medium{
+					@include span-columns(10 omega, 10);
+				}
+		}
+	}
+	.guide{
+		@include medium{
+			@include span-columns(5, 10);
+			@include nth-omega(2n, of-type);
+		}
+		background: $lightgrey7;
+		padding: 40px;
+		@include border-radius(5px);
+		margin-bottom: $mbottom;
+		h3{
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+		p{
+			font-size: 16px;
+		}
+	}
+}
+.home-first{
+	@include medium {
+		margin-top: 1024px;
+	}
+}
+.project-templates{
+	background: white;
+	.template{
+		@include medium{
+			@include span-columns(3);
+			@include nth-omega(4n, of-type);
+		}
+	}
+	.template-title{
+		font-size: 24px;
+		text-align: center;
+	}
+}

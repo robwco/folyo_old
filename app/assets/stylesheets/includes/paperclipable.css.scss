@@ -1,0 +1,84 @@
+@import "mixins/colors";
+
+.paperclipable {
+
+  width: 300px;
+
+  img {
+    width: 300px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    &:hover {
+      border-color: $green;
+    }
+  }
+
+  .actions {
+    text-align: right;
+    .crop {
+      &:before {
+        content: ' - ';
+        color: $darkgrey1;
+      }
+    }
+  }
+
+  .upload-placeholder {
+    height: 300px;
+    width: 300px;
+    background-image: image-url('project-placeholder-upload.png');
+    background-size: contain;
+    background-position: center;
+    border: 2px solid transparent;
+    &:hover {
+      border-color: $green;
+    }
+    form, input[type=file] {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    input[type=file] {
+      opacity: 0;
+    }
+    .upload {
+      font-size: 0;
+      padding-top: 0;
+      border-top: none;
+      width: 295px;
+    }
+    margin-bottom: 50px;
+  }
+
+  .upload-spinner-placeholder {
+    height: 300px;
+    width: 300px;
+    background-image: image-url('project-placeholder-empty.png');
+    background-position: center;
+    background-size: contain;
+    position: relative;
+
+    .spinner {
+      position: absolute;
+      left: 142px;
+      top: 142px;
+      display: block;
+      height: 16px;
+      width: 16px;
+      margin: 0 auto;
+      background:image-url('ajax-loader.gif') no-repeat center center;
+      background-size: 16px 16px;
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+#paperclipable-cropbox-content {
+  .submit {
+    display: block !important;
+    width: 100px;
+    margin: 10px auto 0;
+  }
+}

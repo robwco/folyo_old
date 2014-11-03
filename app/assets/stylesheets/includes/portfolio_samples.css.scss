@@ -1,0 +1,66 @@
+@import "mixins/grid";
+@import "mixins/colors";
+@import "mixins/mixins";
+
+.portfolio-sample{
+  @include small{
+    margin-bottom: $spacing;
+  }
+  @include medium{
+    @include span-columns(4);
+    @include nth-omega(3, of-type);
+  }
+}
+
+.portfolio-sample-project{
+  margin-bottom: $quarterspacing;
+  border: 1px solid $lightgrey2;
+  .home-content &{
+    border: none;
+  }
+}
+
+.portfolio-sample-image{
+  background: white;
+  &, img{
+    display: block;
+    width: 100%;
+  }
+}
+
+.portfolio-sample-project-name{
+  padding: 10px 15px;
+  margin-bottom: 0;
+  background: $lightgrey3;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: $darkText;
+  min-height: 44px;
+  a{
+    color: $text;
+  }
+  .home-content &{
+    background: white;
+  }
+}
+
+.portfolio-sample-designer{
+    @include cf;
+}
+
+.portfolio-sample-avatar{
+  float: left;
+  margin-right: 10px;
+  width: 30px;
+  height: auto;
+}
+
+.portfolio-sample-name{
+  line-height: 30px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $blue1;
+}

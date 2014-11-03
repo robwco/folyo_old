@@ -1,0 +1,34 @@
+@import "mixins/colors";
+@import "mixins/grid";
+@import "mixins/mixins";
+
+h3.skill-title{
+  margin-bottom: 0;
+  padding: $quarterspacing;
+  background: $lightgrey7;
+}
+
+.skill-name{
+  display: inline;
+  cursor: pointer;
+}
+
+.subskill{
+  @include cf;
+  //margin-bottom: $quarterspacing;
+  border-bottom: 1px solid $lightgrey4;
+  background: $lightgrey3;
+  padding: $quarterspacing;
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+
+.subskill-title{
+  float: left;
+  color: $text;
+}
+
+.subskill-budget{
+  float: right;
+}

@@ -1,18 +1,14 @@
 @charset "utf-8";
 
 // compass
-
 @import "compass/reset";
 @import "compass/css3";
-@import "susy";
 
 // meta stuff
-
-@import "includes/colors";
-@import "includes/variables";
 @import "includes/fonts";
-@import "includes/grid";
-@import "includes/mixins";
+@import "mixins/colors";
+@import "mixins/grid";
+@import "mixins/mixins";
 
 @font-face {
     font-family: 'FunktionRegular';
@@ -71,7 +67,7 @@ h2{
 	background:image-url('header-bg.png') no-repeat;
 	height:55px;
 	line-height:55px;
-	
+
 	.logo{
 		float:left;
 		h1{
@@ -95,7 +91,7 @@ h2{
 	}
 	.social{
 		float:right;
-		padding-right:10px;		
+		padding-right:10px;
 	}
 }
 .social{
@@ -132,7 +128,7 @@ h2{
 	position:relative;
 	p{
 		position:relative;
-	
+
 		.callout{
 			position:absolute;
 			top:0px;
@@ -156,7 +152,7 @@ h2{
 			}
 			a{
 				display:block;
-				text-align:right;	
+				text-align:right;
 			}
 		}
 	}
@@ -204,11 +200,11 @@ h2{
 	.links{
 		list-style-type:none;
 		padding:0px;
-		
+
 		li{
 			padding:2px 0 5px 35px;
 			background:image-url('green-link.png') no-repeat  left 5px;
-			
+
 			margin-bottom:15px;
 			a{
 				display:block;
@@ -279,7 +275,7 @@ h2{
 			@include span-columns(8 omega);
 			@include squish(2, 2);
 		}
-	}	
+	}
 	.content{
 		@include medium{
 			@include span-columns(8 omega);
@@ -376,5 +372,5 @@ h2{
 			top:4px;
 		}
 	}
-	
+
 }

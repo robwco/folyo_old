@@ -1,0 +1,7 @@
+@import "mixins/grid";
+
+.hero{
+	@include medium{
+		@include span-columns(12 omega);
+	}
+}

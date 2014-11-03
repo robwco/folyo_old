@@ -1,0 +1,29 @@
+@import "susy";
+
+$spacing: 40px;
+$quarterspacing: $spacing/4;
+$halfspacing: $spacing/2;
+$doublepsacing: $spacing*2;
+
+@include border-box-sizing;
+
+// at 40em (16*40=640px) switch to a 12-column layout
+$small-break: 40em;
+
+@mixin small(){
+  @media screen and (max-width: $small-break) {
+    @content;
+  }
+}
+@mixin medium(){
+  @media screen and (min-width: $small-break) {
+    @content;
+  }
+}
+
+$total-columns  : 12;
+$column-width   : 45px;
+$gutter-width   : $spacing;
+$grid-padding   : 0px;
+
+$mbottom: $spacing;

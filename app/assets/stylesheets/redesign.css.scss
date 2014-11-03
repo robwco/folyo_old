@@ -1,11 +1,12 @@
-@import "includes/colors";
-@import "includes/mixins";
+@import "mixins/colors";
+@import "mixins/mixins";
+
 $blueprint_grid_columns: 12;
 $blueprint_grid_width: 22px;
 $blueprint_grid_margin: 60px;
 @import "blueprint";
 @import "compass/css3";
-@import "includes/buttons";
+@import "mixins/buttons";
 
 #container{
 /*	@include container;*/
