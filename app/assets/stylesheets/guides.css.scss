@@ -5,7 +5,6 @@
 @import "compass/css3";
 
 // meta stuff
-@import "includes/main";
 @import "includes/fonts";
 @import "mixins/colors";
 @import "mixins/grid";
@@ -22,7 +21,6 @@
     font-style: normal;
 }
 
-
 h2, h3, .to-do, .presents, .intro p, .note h4{
 	font-family:"FunktionRegular";
 }
@@ -36,6 +34,16 @@ body{
 	font-size:19px;
 	line-height:1.5;
 }
+.container{
+	@include container;
+	@include small{
+		padding:0 10px;
+	}
+	@include medium{
+		padding:0 20px;
+	}
+}
+
 p{
 	line-height:1.7;
 	margin:0 0 25px 0;
