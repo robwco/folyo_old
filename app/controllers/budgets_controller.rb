@@ -1,5 +1,7 @@
 class BudgetsController < ApplicationController
 
-  layout 'budgets_layout'
+  def estimate
+    @skills_with_statistics = BudgetSurveyData.skills_with_statistics
+  end
 
 end

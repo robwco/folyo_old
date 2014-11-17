@@ -78,6 +78,8 @@ gem 'uglifier'
 gem 'sprockets-image_compressor'
 gem 'asset_sync'
 
+gem 'descriptive_statistics'
+
 group :development do
   gem 'foreman'
   gem 'pry-rails'

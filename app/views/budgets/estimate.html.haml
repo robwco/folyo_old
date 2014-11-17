@@ -5,7 +5,7 @@
 = javascript_include_tag "draggabilly.pkgd.min.js"
 = javascript_include_tag "underscore-min.js"
 
-%form.budget-form
+%form.budget-form{data: { statistics: @skills_with_statistics}}
 
   .budget-section
     %h2.budget-section-title 1. Pick a Project

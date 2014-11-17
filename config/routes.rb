@@ -113,6 +113,10 @@ Folyo::Application.routes.draw do
 
   end
 
+  resources :budgets do
+    get 'estimate',   on: :collection
+  end
+
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
 
   get 'account/(:account_section)', controller: 'application', action: 'account', as: 'account'
