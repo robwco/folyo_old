@@ -169,7 +169,7 @@ class Designer < User
   def set_completeness
     completeness = ::Designer.completeness_fields.sum { |f| self.send(f).blank? ? 0.0 : 1.0 } / ::Designer.completeness_fields.length * 65
     completeness += 5 if self.profile_picture
-    completeness += projects.sum { |p| p.has_artworks? && !p.name.blank? && !p.description.blank? ? 10 : 0 }
+    completeness += self.projects.sum { |p| p.has_artworks? && !p.name.blank? && !p.description.blank? ? 10 : 0 } unless self.projects.blank?
     completeness = completeness.round(0)
     if self.profile_completeness != completeness
       track_user_event('Completed designer profile', completeness: completeness)
