@@ -9,7 +9,6 @@ Folyo::Application.routes.draw do
   get 'markdown' => 'site#markdown'
   get 'how-it-works' => 'site#learn_more'
   get 'about' => 'site#about'
-  get 'estimate' => 'site#estimate'
   get 'guides' => 'site#guides'
   get 'partners' => 'site#partners'
   get 'apply' => 'site#apply'

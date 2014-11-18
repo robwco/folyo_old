@@ -8,7 +8,7 @@
 # - enable clicking anywhere on the heatmap
 # - make price and percent parts draggable as well
 
-window.Views.Site ||= {}
+window.Views.Budgets ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
 @projects = [
@@ -206,7 +206,7 @@ updateHeatmap = (category, type, option) ->
     dot = window.heatmap.select("circle:nth-of-type("+i+")").animate({r: diameter}, 300)
   )
 
-class Views.Site.EstimateView extends Views.ApplicationView
+class Views.Budgets.EstimateView extends Views.ApplicationView
 
   render: ->
 
