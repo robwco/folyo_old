@@ -11,134 +11,7 @@
 window.Views.Budgets ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
-@projects = [
-  {
-    name: 'Logo & Identity Design'
-    project_types: [
-      {
-        name: 'Logo Design'
-        sample_project:
-          project_name: 'CoreFx Logo'
-          author_name: 'Julien Renvoye'
-          author_url: 'https://dribbble.com/JulienRenvoye'
-          project_image: 'budgets/logo1.jpg'
-          project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).'
-          project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258'
-        pricing_data: [
-          {
-            price: 300
-            percentile: 3
-            count: 2
-          },
-          {
-            price: 400
-            percentile: 5
-            count: 4
-          },
-          {
-            price: 500
-            percentile: 10
-            count: 3
-          },
-          {
-            price: 700
-            percentile: 11
-            count: 2
-          }
-        ]
-      },
-      {
-        name: 'Full Identity Design'
-        sample_project: {
-          project_name: 'Gbox Studios',
-          author_name: 'Bratus',
-          author_url: 'http://bratus.co/',
-          project_image: 'budgets/gbox.jpg',
-          project_description: 'A full identity for a video production company, including a logo, icons, and packaging.',
-          project_url: 'https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-'
-        }
-      }
-    ]
-  },
-  {
-    name: 'Web Design'
-    project_types: [
-      {
-        name: 'Coming Soon Page'
-        options: ['No Coding', 'HTML/CSS Coding']
-        sample_project: {
-          project_name: 'Snow Hippos',
-          author_name: 'Martin Halik',
-          author_url: 'http://martinhalik.cz/',
-          project_image: 'budgets/snowhippos.jpg',
-          project_description: 'A simple “coming soon” page with a few elements.',
-          project_url: 'https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157'
-        }
-        pricing_data: [
-          {
-            price: 700
-            percentile: 3
-            count: 2
-          },
-          {
-            price: 800
-            percentile: 5
-            count: 4
-          },
-          {
-            price: 1000
-            percentile: 10
-            count: 3
-          },
-          {
-            price: 1200
-            percentile: 11
-            count: 2
-          },
-          {
-            price: 2600
-            percentile: 56
-            count: 3
-          }
-        ]
-        pricing_data_with_coding: [
-          {
-            price: 1000
-            percentile: 3
-            count: 2
-          },
-          {
-            price: 1100
-            percentile: 5
-            count: 4
-          },
-          {
-            price: 1300
-            percentile: 10
-            count: 3
-          },
-          {
-            price: 1500
-            percentile: 11
-            count: 2
-          }
-        ]
-      },
-      {
-        name: 'Landing Page'
-        options: ['No Coding', 'HTML/CSS Coding']
-        sample_project: {
-          project_name: 'Landing Page',
-          author_name: 'Haraldur Thorleifsson',
-          author_url: 'http://haraldurthorleifsson.com/',
-          project_image: 'budgets/landingpage.jpg',
-          project_description: 'A landing page introducing a product with an illustration, features, and explanatory copy.',
-          project_url: 'https://dribbble.com/shots/934145-Landing-page-design/attachments/104293'
-        }
-      }
-    ]
-  }
-]
+@projects = JSON.parse($('.budget-form').attr('data-statistics'))
 
 getCategory = (categoryName) ->
   return _.findWhere(projects, {name: categoryName})
@@ -195,7 +68,7 @@ pricesData = pricesArray.map((price, index, myArray) ->
 
 updateHeatmap = (category, type, option) ->
   project = getProject(category, type)
-  data = project.pricing_data || []
+  data = project.pricing || []
   totalPoints = 100
   [1..(totalPoints-1)].forEach( (i) ->
     point = _.findWhere(data, {price: i * totalPoints})

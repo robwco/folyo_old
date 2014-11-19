@@ -5,7 +5,7 @@
 = javascript_include_tag "draggabilly.pkgd.min.js"
 = javascript_include_tag "underscore-min.js"
 
-%form.budget-form{data: { statistics: @skills_with_statistics}}
+%form.budget-form{data: { statistics: @skills_with_statistics.to_json}}
 
   .budget-section
     %h2.budget-section-title 1. Pick a Project
@@ -16,12 +16,11 @@
         .inner
           %h3.project-settings-title Category
           .project-select-category
-            %label
-              %input{name: "project-select-category", type: "radio", value: "Logo & Identity Design"}/
-              %span Logo & Identity Design
-            %label
-              %input{name: "project-select-category", type: "radio", value: "Web Design"}/
-              %span Web Design
+            - @skills_with_statistics.each do |skill, skill_content|
+              %label
+                %input{name: "project-select-category", type: "radio", value: skill_content[:name]}/
+                %span= skill_content[:name]
+
       .project-settings.project-type.not-visible
         .inner
           %h3.project-settings-title Project
