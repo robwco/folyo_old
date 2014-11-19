@@ -3,64 +3,7 @@ class BudgetSurveyData
   class << self
 
     def skills
-      {
-        logo_and_identity_design: {
-          name: 'Logo & Identity Design',
-          project_types: {
-            logo: {
-              name: 'Logo Design',
-              sample_project: {
-                project_name: 'CoreFx Logo',
-                author_name: 'Julien Renvoye',
-                author_url: 'https://dribbble.com/JulienRenvoye',
-                project_image: 'budgets/logo1.jpg',
-                project_description: 'A clean, modern logo for a tech company. Included a short research phase, a few sketches, and a couple practical applications (business cards).',
-                project_url: 'https://dribbble.com/shots/1569977-CoreFx-logo-design-process/attachments/241258'
-              }
-            },
-            full_identity: {
-              name: 'Full Identity Design',
-              sample_project: {
-                project_name: 'Gbox Studios',
-                author_name: 'Bratus',
-                author_url: 'http://bratus.co/',
-                project_image: 'budgets/gbox.jpg',
-                project_description: 'A full identity for a video production company, including a logo, icons, and packaging.',
-                project_url: 'https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-'
-              }
-            }
-          }
-        },
-        web_design: {
-          name: 'Web Design',
-          project_types: {
-            coming_soon: {
-              name: 'Coming Soon Page',
-              options: ['No Coding', 'HTML/CSS Coding'],
-              sample_project: {
-                project_name: 'Snow Hippos',
-                author_name: 'Martin Halik',
-                author_url: 'http://martinhalik.cz/',
-                project_image: 'budgets/snowhippos.jpg',
-                project_description: 'A simple “coming soon” page with a few elements.',
-                project_url: 'https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157'
-              }
-            },
-            landing_page: {
-              name: 'Landing Page',
-              options: ['No Coding', 'HTML/CSS Coding'],
-              sample_project: {
-                project_name: 'Landing Page',
-                author_name: 'Haraldur Thorleifsson',
-                author_url: 'http://haraldurthorleifsson.com/',
-                project_image: 'budgets/landingpage.jpg',
-                project_description: 'A landing page introducing a product with an illustration, features, and explanatory copy.',
-                project_url: 'https://dribbble.com/shots/934145-Landing-page-design/attachments/104293'
-              }
-            }
-          }
-        }
-      }
+      @skills ||= YAML.load_file(File.join(Rails.root, 'config', 'surveys', 'budget.yml'))
     end
 
     def skills_with_statistics
