@@ -10,21 +10,19 @@
     %li
       %a{href: 'about-you'} About You
     %li
-      %a{href: 'logo-identity-design'} Logo & Identity Design
+      %a{href: 'logo-identity-design'}= BudgetSurveyData.skills[:logo_and_identity_design][:name]
     %li
-      %a{href: 'illustration'} Illustration & Icon Design
+      %a{href: 'illustration'}= BudgetSurveyData.skills[:illustration][:name]
     %li
-      %a{href: 'motion-design'} Motion Design
+      %a{href: 'motion-design'}= BudgetSurveyData.skills[:motion_design][:name]
     %li
-      %a{href: 'web-design'} Web Design
+      %a{href: 'web-design'}= BudgetSurveyData.skills[:web_design][:name]
     %li
-      %a{href: 'ui-app-design'} UI & App Design  
-    / %li
-    /   %a{href: '07-ux-design'} UX Design
+      %a{href: 'ui-app-design'}= BudgetSurveyData.skills[:UI_design][:name]
     %li
-      %a{href: 'type-lettering'} Type & Lettering  
+      %a{href: 'type-lettering'}= BudgetSurveyData.skills[:type_lettering][:name]
     %li
-      %a{href: 'print-design'} Print Design    
+      %a{href: 'print-design'}= BudgetSurveyData.skills[:print_design][:name]
 
   .survey-cta
     = link_to 'Get Started', 'about-you', class: 'button'

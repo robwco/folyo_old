@@ -11,7 +11,10 @@
 window.Views.Budgets ||= {}
 
 # note: maybe find a way to share the projects JSON object between skills, survey, and here? Otherwise just hard-code it.
-@projects = JSON.parse($('.budget-form').attr('data-statistics'))
+@projects = if $('.budget-form').length > 0
+  JSON.parse($('.budget-form').attr('data-statistics'))
+else
+  {}
 
 getCategory = (categoryName) ->
   return _.findWhere(projects, {name: categoryName})

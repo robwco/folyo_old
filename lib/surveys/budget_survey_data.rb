@@ -24,10 +24,11 @@ class BudgetSurveyData
         .pluck(:skills_budgets)
         .map{|budget| budget[skill][project_type] }
 
-      if budgets.first.kind_of?(Float)
+      first_budget = budgets.first
+      if first_budget.nil? || first_budget.kind_of?(Float)
         aggregate_budgets(budgets)
       else
-        option_keys = budgets.first.keys
+        option_keys = first_budget.keys
         option_keys.map do |key|
           budgets_for_option = budgets.map{|budgets| budgets[key] }.compact
           { key.to_sym => aggregate_budgets(budgets_for_option) }

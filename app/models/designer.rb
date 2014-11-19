@@ -5,8 +5,7 @@ class Designer < User
   include Sidekiq::Delay
 
   def self.skills
-    #BudgetSurveyData.skills.keys
-    %i(logo_and_identity_design illustration motion_design web_design UI_design UX_design print_design type_lettering)
+    BudgetSurveyData.skills.keys
   end
 
   def self.statuses

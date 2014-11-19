@@ -1,15 +1,15 @@
-%h3.survey-question-title= question_title
+%h3.survey-question-title= project[:name]
 .survey-project
   %h4.survey-project-title
-    %span.project-name= project_name
+    %span.project-name= project[:sample_project][:project_name]
     %span.project-author
       by
-      = link_to author_name, author_url
+      = link_to project[:sample_project][:author_name], project[:sample_project][:author_url]
   .survey-project-image
-    %a{href: project_url, target: '_blank'}
-      = image_tag project_image
+    %a{href: project[:sample_project][:project_url], target: '_blank'}
+      = image_tag project[:sample_project][:project_image]
   .survey-project-info
     .survey-project-description
       :markdown
-        #{project_description}
-    = link_to 'View Full Case Study', project_url, class: 'button', target: '_blank'
+        #{project[:sample_project][:project_description]}
+    = link_to 'View Full Case Study', project[:sample_project][:project_url], class: 'button', target: '_blank'

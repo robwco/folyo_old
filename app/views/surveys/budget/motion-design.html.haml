@@ -4,20 +4,14 @@
 
   = render '/surveys/partials/pagination', {current_page: 4, position: 'top'}
 
+  - skill = BudgetSurveyData.skills[:motion_design]
+
   .survey-intro
     :markdown
       Don't do motion design? No worries, feel free to **just skip any question**!
-      
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Animated Trailer',
-          project_name: 'FanOs S1',
-          author_name: 'ILENOLIUKGO',
-          author_url: 'http://ilenoliukgo.com/',
-          project_image: 'budgets/fanos.jpg',
-          project_description: 'A 1-minute animated trailer for a mobile app.',
-          project_url: 'https://www.behance.net/gallery/17789921/FanOs-S1' }
 
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project', project: skill[:project_types][:animated_trailer]
     = render '/surveys/partials/budget', input_name: :animated_trailer_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render '/surveys/partials/pagination', {current_page: 4, position: 'bottom'}

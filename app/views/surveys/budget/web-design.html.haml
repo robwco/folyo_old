@@ -4,11 +4,7 @@
 
   = render '/surveys/partials/pagination', {current_page: 5, position: 'top'}
 
-  / .survey-intro
-  /   :markdown
-  /     Don't do web design? 
-
-  /     You can **drag the slider back to 0** to mark it as "not applicable". Or just skip the section!
+  - skill = BudgetSurveyData.skills[:web_design]
 
   .survey-intro
     :markdown
@@ -17,53 +13,25 @@
       On the other hand, HTML/CSS coding is optional.
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Coming Soon Page',
-          project_name: 'Snow Hippos',
-          author_name: 'Martin Halik',
-          author_url: 'http://martinhalik.cz/',
-          project_image: 'budgets/snowhippos.jpg',
-          project_description: 'A simple “coming soon” page with a few elements.',
-          project_url: 'https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157' }
+    = render '/surveys/partials/project', project: skill[:project_types][:coming_soon]
 
     = render '/surveys/partials/budget', input_name: :coming_soon_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :coming_soon_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Landing Page Design',
-          project_name: 'Landing Page',
-          author_name: 'Haraldur Thorleifsson',
-          author_url: 'http://haraldurthorleifsson.com/',
-          project_image: 'budgets/landingpage.jpg',
-          project_description: 'A landing page introducing a product with an illustration, features, and explanatory copy.',
-          project_url: 'https://dribbble.com/shots/934145-Landing-page-design/attachments/104293' }
+    = render '/surveys/partials/project', project: skill[:project_types][:landing_page]
 
     = render '/surveys/partials/budget', input_name: :landing_page_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :landing_page_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Simple Website',
-          project_name: 'Seeadler',
-          author_name: 'Stella Petkova',
-          author_url: 'https://www.behance.net/Stelfy',
-          project_image: 'budgets/website.jpg',
-          project_description: 'A relatively simple site with a homepage and 3-4 different content templates.',
-          project_url: 'https://www.behance.net/gallery/10534437/Seeadler' }
+    = render '/surveys/partials/project', project: skill[:project_types][:simple_website]
 
     = render '/surveys/partials/budget', input_name: :simple_website_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :simple_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Complex Website',
-          project_name: 'Google+',
-          author_name: 'Haraldur Thorleifsson',
-          author_url: 'http://haraldurthorleifsson.com/',
-          project_image: 'budgets/googleplus.jpg',
-          project_description: 'A complex site with numerous different pages and templates, custom UI elements, etc.',
-          project_url: 'http://haraldurthorleifsson.com/googleplus/' }
+    = render '/surveys/partials/project', project: skill[:project_types][:complex_website]
 
     = render '/surveys/partials/budget', input_name: :complex_website_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :complex_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f

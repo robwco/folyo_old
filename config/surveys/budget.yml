@@ -23,6 +23,42 @@
         :project_description: A full identity for a video production company, including
           a logo, icons, and packaging.
         :project_url: https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-
+
+:illustration:
+  :name: Illustration & Icon Design
+  :project_types:
+    :illustration:
+      :name: Illustration
+      :sample_project:
+        :project_name: MACHINES
+        :author_name: KuoCheng Liao
+        :author_url: https://www.behance.net/KuoChengLiao
+        :project_image: budgets/illustration.jpg
+        :project_description: An illustration for a magazine cover.
+        :project_url: https://www.behance.net/gallery/18336973/MACHINES-Kult-Magazine-issue-15
+    :icon_design:
+      :name: Icon Set Design
+      :sample_project:
+        :project_name: Touristic icon design
+        :author_name: Yoon J Kim
+        :author_url: https://www.behance.net/YoonJ
+        :project_image: budgets/iconset.jpg
+        :project_description: An icon set of 30 single-width line icons.
+        :project_url: https://www.behance.net/gallery/11228527/Touristic-icon-design
+
+:motion_design:
+  :name: Motion Design
+  :project_types:
+    :animated_trailer:
+      :name: Animated Trailer
+      :sample_project:
+        :project_name: FanOs S1
+        :author_name: ILENOLIUKGO
+        :author_url: http://ilenoliukgo.com/
+        :project_image: budgets/fanos.jpg
+        :project_description: A 1-minute animated trailer for a mobile app.
+        :project_url: https://www.behance.net/gallery/17789921/FanOs-S1
+
 :web_design:
   :name: Web Design
   :project_types:
@@ -51,3 +87,137 @@
         :project_description: A landing page introducing a product with an illustration,
           features, and explanatory copy.
         :project_url: https://dribbble.com/shots/934145-Landing-page-design/attachments/104293
+    :simple_website:
+      :name: Simple Website
+      :options:
+      - No Coding
+      - HTML/CSS Coding
+      :sample_project:
+        :project_name: Seeadler
+        :author_name: Stella Petkova
+        :author_url: https://www.behance.net/Stelfy
+        :project_image: budgets/website.jpg
+        :project_description: A relatively simple site with a homepage and 3-4 different content templates.
+        :project_url: https://www.behance.net/gallery/10534437/Seeadler
+    :complex_website:
+      :name: Complex Website
+      :options:
+      - No Coding
+      - HTML/CSS Coding
+      :sample_project:
+        :project_name: Google+
+        :author_name: Haraldur Thorleifsson
+        :author_url: http://haraldurthorleifsson.com/
+        :project_image: budgets/googleplus.jpg
+        :project_description: A complex site with numerous different pages and templates, custom UI elements, etc.
+        :project_url: http://haraldurthorleifsson.com/googleplus/
+
+:UI_design:
+  :name: UI & App Design
+  :project_types:
+    :simple_mobile_app:
+      :name: Simple Mobile App
+      :sample_project:
+        :project_name: Spleat iPhone App 2.0
+        :author_name: Dima Shvedun
+        :author_url: https://www.behance.net/dimashvedun
+        :project_image: budgets/spleat.jpg
+        :project_description: A simple mobile app with 4-5 screens, a navigation menu, and a few custom UI elements.
+        :project_url: https://www.behance.net/gallery/18361431/Spleat-iPhone-App-20
+    :complex_mobile_app:
+      :name: Complex Mobile App
+      :sample_project:
+        :project_name: PlayWellness
+        :author_name: Cuberto
+        :author_url: http://www.cuberto.com/
+        :project_image: budgets/playwellness.jpg
+        :project_description: A mobile app with many screens, complex interactions, animated transitions, and custom UI elements.
+        :project_url: https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app
+    :simple_web_app:
+      :name: Simple Web App
+      :options:
+      - No Coding
+      - HTML/CSS Coding
+      :sample_project:
+        :project_name: SkyparkCDN
+        :author_name: Bogdan Nikitin
+        :author_url: https://www.behance.net/artnikitin
+        :project_image: budgets/skypark.jpg
+        :project_description: A simple web app with a main dashboard and a few additional screens.
+        :project_url: https://www.behance.net/gallery/14628401/Skyparkcdn
+    :complex_web_app:
+      :name: Complex Web App
+      :options:
+      - No Coding
+      - HTML/CSS Coding
+      :sample_project:
+        :project_name: Customer Care UI
+        :author_name: Jan Losert
+        :author_url: http://janlosert.com/
+        :project_image: budgets/customercare.jpg
+        :project_description: A complex web app with multiple screens, log in and sign up pages, profile pages, custom UI elments, etc.
+        :project_url: https://www.behance.net/gallery/14852505/Customer-Care-UI-User-Experience
+
+:type_lettering:
+  :name: Type & Lettering
+  :project_types:
+    :typeface_design:
+      :name: Typeface Design
+      :sample_project:
+        :project_name: Anders Free Font
+        :author_name: Tom Anders Watkins
+        :author_url: https://www.behance.net/tomanders
+        :project_image: budgets/anders.jpg
+        :project_description: Custom typeface design.
+        :project_url: https://www.behance.net/gallery/18068463/Anders-(Free-Font)
+    :simple_lettering:
+      :name: Simple Lettering
+      :sample_project:
+        :project_name: Lettering
+        :author_name: Vivien Bertin
+        :author_url: https://www.behance.net/vivienbertin
+        :project_image: budgets/theory.jpg
+        :project_description: Simple, single-color vectorized lettering for a few words or short sentence.
+        :project_url: https://www.behance.net/gallery/19571269/Lettering
+    :complex_lettering:
+      :name: Complex Lettering
+      :sample_project:
+        :project_name: Lettering Projects
+        :author_name: Andreas Ejerfors
+        :author_url: https://www.behance.net/andreasejerfors
+        :project_image: budgets/irishale.jpg
+        :project_description: Illustrative, multi-word lettering project with multiple colors and/or effects.
+        :project_url: https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app
+
+:print_design:
+  :name: Print Design
+  :project_types:
+    :annual_report:
+      :name: Annual Report
+      :sample_project:
+        :project_name: Prometey Annual Report
+        :author_name: Backbone Studio
+        :author_url: https://www.behance.net/backbonestudio
+        :project_image: budgets/prometey.jpg
+        :project_description: Annual report including cover, layout, data visualisations, and supporting materials.
+        :project_url: https://www.behance.net/gallery/18918453/Prometey-Bank-Annual-Report-2012
+    :magazine:
+      :name: Magazine/Newspaper
+      :sample_project:
+        :project_name: Companion No2
+        :author_name: Chloe Galea
+        :author_url: https://www.behance.net/ChloeGalea
+        :project_image: budgets/companion.jpg
+        :project_description: Editorial design for a magazine or newspaper.
+        :project_url: https://www.behance.net/gallery/20305115/Companion-No2-25Hours-Hotel-Magazine
+    :book:
+      :name: Book
+      :sample_project:
+        :project_name: Tastebook
+        :author_name: Natalia Lachiewicz
+        :author_url: https://www.behance.net/lachiewicz
+        :project_image: budgets/tastebook.jpg
+        :project_description: Book design including cover, layout, typesetting, etc.
+        :project_url: https://www.behance.net/gallery/15523031/TASTEBOOK
+
+

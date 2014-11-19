@@ -4,57 +4,27 @@
 
   = render '/surveys/partials/pagination', {current_page: 6, position: 'top'}
 
+  - skill = BudgetSurveyData.skills[:UI_design]
+
   .survey-intro
     :markdown
       Let's admit it. Mobile apps are more fun to design!
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Simple Mobile App',
-          project_name: 'Spleat iPhone App 2.0',
-          author_name: 'Dima Shvedun',
-          author_url: 'https://www.behance.net/dimashvedun',
-          project_image: 'budgets/spleat.jpg',
-          project_description: 'A simple mobile app with 4-5 screens, a navigation menu, and a few custom UI elements.',
-          project_url: 'https://www.behance.net/gallery/18361431/Spleat-iPhone-App-20' }
-
+    = render '/surveys/partials/project', project: skill[:project_types][:simple_mobile_app]
     = render '/surveys/partials/budget', input_name: :simple_mobile_app_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Complex Mobile App',
-          project_name: 'PlayWellness',
-          author_name: 'Cuberto',
-          author_url: 'http://www.cuberto.com/',
-          project_image: 'budgets/playwellness.jpg',
-          project_description: 'A mobile app with many screens, complex interactions, animated transitions, and custom UI elements.',
-          project_url: 'https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app' }
-
+    = render '/surveys/partials/project', project: skill[:project_types][:complex_mobile_app]
     = render '/surveys/partials/budget', input_name: :complex_mobile_app_budget, input_label: 'How much would you charge for a similar project?', f: f
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Simple Web App',
-          project_name: 'SkyparkCDN',
-          author_name: 'Bogdan Nikitin',
-          author_url: 'https://www.behance.net/artnikitin',
-          project_image: 'budgets/skypark.jpg',
-          project_description: 'A simple web app with a main dashboard and a few additional screens.',
-          project_url: 'https://www.behance.net/gallery/14628401/Skyparkcdn' }
-
+    = render '/surveys/partials/project', project: skill[:project_types][:simple_web_app]
     = render '/surveys/partials/budget', input_name: :simple_web_app_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :simple_web_app_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
   = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project',
-        { question_title: 'Complex Web App',
-          project_name: 'Customer Care UI',
-          author_name: 'Jan Losert',
-          author_url: 'http://janlosert.com/',
-          project_image: 'budgets/customercare.jpg',
-          project_description: 'A complex web app with multiple screens, log in and sign up pages, profile pages, custom UI elments, etc.',
-          project_url: 'https://www.behance.net/gallery/14852505/Customer-Care-UI-User-Experience' }
-
+    = render '/surveys/partials/project', project: skill[:project_types][:complex_web_app]
     = render '/surveys/partials/budget', input_name: :complex_web_app_budget, input_label: 'How much would you charge for a similar project?', f: f
     = render '/surveys/partials/budget_coding', input_name: :complex_web_app_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
 
