@@ -1,5 +1,5 @@
 ---
-:logo_and_identity_design:
+- :key: :logo_and_identity_design
   :name: Logo & Identity Design
   :project_types:
     :logo:
@@ -24,7 +24,7 @@
           a logo, icons, and packaging.
         :project_url: https://www.behance.net/gallery/18065083/Gbox-Studios-Brand-identity-
 
-:illustration:
+- :key: :illustration
   :name: Illustration & Icon Design
   :project_types:
     :illustration:
@@ -42,11 +42,11 @@
         :project_name: Touristic icon design
         :author_name: Yoon J Kim
         :author_url: https://www.behance.net/YoonJ
-        :project_image: budgets/iconset.jpg
+        :project_image: budgets/iconset.png
         :project_description: An icon set of 30 single-width line icons.
         :project_url: https://www.behance.net/gallery/11228527/Touristic-icon-design
 
-:motion_design:
+- :key: :motion_design
   :name: Motion Design
   :project_types:
     :animated_trailer:
@@ -59,14 +59,12 @@
         :project_description: A 1-minute animated trailer for a mobile app.
         :project_url: https://www.behance.net/gallery/17789921/FanOs-S1
 
-:web_design:
+- :key: :web_design
   :name: Web Design
   :project_types:
     :coming_soon:
       :name: Coming Soon Page
-      :options:
-      - No Coding
-      - HTML/CSS Coding
+      :coding_option: yes
       :sample_project:
         :project_name: Snow Hippos
         :author_name: Martin Halik
@@ -76,9 +74,7 @@
         :project_url: https://dribbble.com/shots/769460-Dont-be-lame-be-a-snow-hippo/attachments/191157
     :landing_page:
       :name: Landing Page
-      :options:
-      - No Coding
-      - HTML/CSS Coding
+      :coding_option: yes
       :sample_project:
         :project_name: Landing Page
         :author_name: Haraldur Thorleifsson
@@ -89,9 +85,7 @@
         :project_url: https://dribbble.com/shots/934145-Landing-page-design/attachments/104293
     :simple_website:
       :name: Simple Website
-      :options:
-      - No Coding
-      - HTML/CSS Coding
+      :coding_option: yes
       :sample_project:
         :project_name: Seeadler
         :author_name: Stella Petkova
@@ -101,9 +95,7 @@
         :project_url: https://www.behance.net/gallery/10534437/Seeadler
     :complex_website:
       :name: Complex Website
-      :options:
-      - No Coding
-      - HTML/CSS Coding
+      :coding_option: yes
       :sample_project:
         :project_name: Google+
         :author_name: Haraldur Thorleifsson
@@ -112,7 +104,7 @@
         :project_description: A complex site with numerous different pages and templates, custom UI elements, etc.
         :project_url: http://haraldurthorleifsson.com/googleplus/
 
-:UI_design:
+- :key: :UI_design
   :name: UI & App Design
   :project_types:
     :simple_mobile_app:
@@ -135,9 +127,7 @@
         :project_url: https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app
     :simple_web_app:
       :name: Simple Web App
-      :options:
-      - No Coding
-      - HTML/CSS Coding
+      :coding_option: yes
       :sample_project:
         :project_name: SkyparkCDN
         :author_name: Bogdan Nikitin
@@ -147,9 +137,7 @@
         :project_url: https://www.behance.net/gallery/14628401/Skyparkcdn
     :complex_web_app:
       :name: Complex Web App
-      :options:
-      - No Coding
-      - HTML/CSS Coding
+      :coding_option: yes
       :sample_project:
         :project_name: Customer Care UI
         :author_name: Jan Losert
@@ -158,7 +146,7 @@
         :project_description: A complex web app with multiple screens, log in and sign up pages, profile pages, custom UI elments, etc.
         :project_url: https://www.behance.net/gallery/14852505/Customer-Care-UI-User-Experience
 
-:type_lettering:
+- :key: :type_lettering
   :name: Type & Lettering
   :project_types:
     :typeface_design:
@@ -189,7 +177,7 @@
         :project_description: Illustrative, multi-word lettering project with multiple colors and/or effects.
         :project_url: https://www.behance.net/gallery/18370423/PlayWellness-iPhone-app
 
-:print_design:
+- :key: :print_design
   :name: Print Design
   :project_types:
     :annual_report:

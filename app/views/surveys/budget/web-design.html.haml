@@ -2,9 +2,7 @@
 
   %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
 
-  = render '/surveys/partials/pagination', {current_page: 5, position: 'top'}
-
-  - skill = BudgetSurveyData.skills[:web_design]
+  = render '/surveys/partials/pagination', {current_page: :web_design, position: 'top'}
 
   .survey-intro
     :markdown
@@ -12,30 +10,8 @@
 
       On the other hand, HTML/CSS coding is optional.
 
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:coming_soon]
+  = render '/surveys/partials/skill_projects', skill: BudgetSurveyData.skills[:web_design], f: f
 
-    = render '/surveys/partials/budget', input_name: :coming_soon_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :coming_soon_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
-
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:landing_page]
-
-    = render '/surveys/partials/budget', input_name: :landing_page_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :landing_page_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
-
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:simple_website]
-
-    = render '/surveys/partials/budget', input_name: :simple_website_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :simple_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
-
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:complex_website]
-
-    = render '/surveys/partials/budget', input_name: :complex_website_budget, input_label: 'How much would you charge for a similar project?', f: f
-    = render '/surveys/partials/budget_coding', input_name: :complex_website_coding_budget, input_label: 'How much would you add for HTML/CSS coding?', f: f
-
-  = render '/surveys/partials/pagination', {current_page: 5, position: 'bottom'}
+  = render '/surveys/partials/pagination', {current_page: :web_design, position: 'bottom'}
 
 

@@ -2,7 +2,7 @@
 
   %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
 
-  = render '/surveys/partials/pagination', { current_page: 1, position: 'top'}
+  = render '/surveys/partials/pagination', { current_page: :about_you, position: 'top'}
 
   .survey-intro
     :markdown
@@ -21,4 +21,4 @@
     = f.input :hourly_rate, input_html: { value: @survey.hourly_rate }
     %p.survey-form-note If you don't bill by the hour, use an approximate hourly rate or just leave blank.
 
-  = render '/surveys/partials/pagination', { current_page: 1, position: 'bottom'}
+  = render '/surveys/partials/pagination', { current_page: :about_you, position: 'bottom'}

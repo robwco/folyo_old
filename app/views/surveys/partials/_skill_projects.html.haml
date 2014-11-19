@@ -1,0 +1,7 @@
+- skill[:project_types].each do |project_key, project_content|
+  = render layout: '/surveys/partials/form_block' do
+    = render '/surveys/partials/project', project: project_content
+    = render '/surveys/partials/budget', input_name: :"#{project_key}_budget", input_label: "How much would you add for a similar project?", f: f
+    - if project_content[:coding_option]
+      = render '/surveys/partials/budget', input_name: :"#{project_key}_coding_budget", input_label: 'How much would you add for HTML/CSS coding?', f: f
+

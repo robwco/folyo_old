@@ -1,4 +1,4 @@
-- budget_survey_contents = ['Introduction','About You','Logo & Identity Design','Illustration','Motion Design','Web Design','UI & App Design', 'Type & Lettering', 'Print Design', 'Finish Survey']
+- budget_survey_contents = %i(introduction about_you) + BudgetSurveyData.skills.keys + %i(finish_survey)
 
 - pagination_class = ''
 - next_button_class = ''
@@ -6,23 +6,23 @@
   - pagination_class = 'top-pagination'
   - next_button_class = 'disabled'
 
-- current_page_name = budget_survey_contents[current_page]
+- current_page_index = budget_survey_contents.index(current_page.to_sym)
+- prev_page = current_page_index == 0 ? nil : budget_survey_contents[current_page_index - 1]
+- next_page = budget_survey_contents[current_page_index + 1]
 
-.survey-pagination{:class => pagination_class}
+.survey-pagination{class: pagination_class}
 
-  - if current_page > 0
-    - prev_page_name = budget_survey_contents[current_page - 1]
-    %button{type: 'submit', name: 'page', value: prev_page_name.parameterize, class: 'button disabled prev', id: "#{position}-prev"}
+  - if prev_page
+    %button{type: 'submit', name: 'page', value: prev_page.to_s.downcase.dasherize, class: 'button disabled prev', id: "#{position}-prev"}
       %span
-        = prev_page_name
+        = BudgetSurveyData.skills[prev_page][:name] rescue prev_page.to_s.titleize
 
   - if position == 'top'
     %h3.survey-page-title
-      = current_page_name
-      %span #{current_page}/#{budget_survey_contents.length-2}
+      = BudgetSurveyData.skills[current_page][:name] rescue current_page.to_s.titleize
+      %span #{current_page_index}/#{BudgetSurveyData.skills.length + 1}
 
-  - if current_page < budget_survey_contents.length
-    - next_page_name = budget_survey_contents[current_page + 1]
-    %button{type: 'submit', name: 'page', value: next_page_name.parameterize, class: "button next #{next_button_class}", id: "#{position}-next"}
+  - if next_page
+    %button{type: 'submit', name: 'page', value: next_page.to_s.downcase.dasherize, class: "button next #{next_button_class}", id: "#{position}-next"}
       %span
-        = next_page_name
+        = BudgetSurveyData.skills[next_page][:name] rescue next_page.to_s.titleize

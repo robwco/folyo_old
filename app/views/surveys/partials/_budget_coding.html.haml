@@ -1,4 +1,0 @@
-.survey-answer
-  = render '/surveys/partials/label', input_label: 'How much would you add for HTML/CSS coding?'
-  = render '/surveys/partials/slider'
-  = f.input input_name, as: :hidden, input_html: { class: 'slider-value', value: @survey.send(input_name) }

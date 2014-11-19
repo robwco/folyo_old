@@ -9,20 +9,10 @@
   %ol
     %li
       %a{href: 'about-you'} About You
-    %li
-      %a{href: 'logo-identity-design'}= BudgetSurveyData.skills[:logo_and_identity_design][:name]
-    %li
-      %a{href: 'illustration'}= BudgetSurveyData.skills[:illustration][:name]
-    %li
-      %a{href: 'motion-design'}= BudgetSurveyData.skills[:motion_design][:name]
-    %li
-      %a{href: 'web-design'}= BudgetSurveyData.skills[:web_design][:name]
-    %li
-      %a{href: 'ui-app-design'}= BudgetSurveyData.skills[:UI_design][:name]
-    %li
-      %a{href: 'type-lettering'}= BudgetSurveyData.skills[:type_lettering][:name]
-    %li
-      %a{href: 'print-design'}= BudgetSurveyData.skills[:print_design][:name]
+
+    - BudgetSurveyData.skills.each do |skill, skill_content|
+      %li
+        %a{href: skill.to_s.downcase.dasherize}= skill_content[:name]
 
   .survey-cta
     = link_to 'Get Started', 'about-you', class: 'button'

@@ -2,24 +2,12 @@
 
   %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
 
-  = render '/surveys/partials/pagination', {current_page: 8, position: 'top'}
-
-  - skill = BudgetSurveyData.skills[:print_design]
+  = render '/surveys/partials/pagination', {current_page: :print_design, position: 'top'}
 
   .survey-intro
     :markdown
       Who says print is dead?
 
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:annual_report]
-    = render '/surveys/partials/budget', input_name: :annual_report_budget, input_label: 'How much would you charge for a similar project?', f: f
+  = render '/surveys/partials/skill_projects', skill: BudgetSurveyData.skills[:print_design], f: f
 
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:magazine]
-    = render '/surveys/partials/budget', input_name: :magazine_budget, input_label: 'How much would you charge for a similar project?', f: f
-
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:book]
-    = render '/surveys/partials/budget', input_name: :book_budget, input_label: 'How much would you charge for a similar project?', f: f
-
-  = render '/surveys/partials/pagination', {current_page: 8, position: 'bottom'}
+  = render '/surveys/partials/pagination', {current_page: :print_design, position: 'bottom'}

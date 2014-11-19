@@ -5,7 +5,7 @@ class Designer < User
   include Sidekiq::Delay
 
   def self.skills
-    BudgetSurveyData.skills.keys
+    @skills ||= BudgetSurveyData.skills.keys
   end
 
   def self.statuses

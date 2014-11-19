@@ -3,7 +3,15 @@ class BudgetSurveyData
   class << self
 
     def skills
-      @skills ||= YAML.load_file(File.join(Rails.root, 'config', 'surveys', 'budget.yml'))
+      @skills = nil if Rails.env.development?
+      if @skills.nil?
+        yaml = YAML.load_file(File.join(Rails.root, 'config', 'surveys', 'budget.yml'))
+        @skills = ActiveSupport::OrderedHash.new
+        yaml.each do |skill|
+          @skills[skill[:key]] = skill.tap {|skill| skill.delete(:key)}
+        end
+      end
+      @skills
     end
 
     def skills_with_statistics

@@ -1,0 +1,13 @@
+= simple_form_for @survey, url: survey_path(@survey), as: :survey, wrapper: :survey do |f|
+
+  %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
+
+  = render '/surveys/partials/pagination', {current_page: :UI_design, position: 'top'}
+
+  .survey-intro
+    :markdown
+      Let's admit it. Mobile apps are more fun to design!
+
+  = render '/surveys/partials/skill_projects', skill: BudgetSurveyData.skills[:UI_design], f: f
+
+  = render '/surveys/partials/pagination', {current_page: :UI_design, position: 'bottom'}

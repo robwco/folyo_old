@@ -2,9 +2,7 @@
 
   %a.survey-intro-link{href: '/surveys/budget/introduction'} The 2014 Folyo Budget Survey
 
-  = render '/surveys/partials/pagination', {current_page: 3, position: 'top'}
-
-  - skill = BudgetSurveyData.skills[:illustration]
+  = render '/surveys/partials/pagination', {current_page: :illustration, position: 'top'}
 
   .survey-intro
     :markdown
@@ -12,13 +10,7 @@
 
       For example, you might know that no matter what you'd charge *at least* $1500 for a set of 30 icons.
 
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:illustration]
-    = render '/surveys/partials/budget', input_name: :illustration_budget, input_label: 'How much would you charge for a similar project?', f:f
+  = render '/surveys/partials/skill_projects', skill: BudgetSurveyData.skills[:illustration], f: f
 
-  = render layout: '/surveys/partials/form_block' do
-    = render '/surveys/partials/project', project: skill[:project_types][:icon_design]
-    = render '/surveys/partials/budget', input_name: :icon_design_budget, input_label: 'How much would you charge for a similar project?', f:f
-
-  = render '/surveys/partials/pagination', {current_page: 3, position: 'bottom'}
+  = render '/surveys/partials/pagination', {current_page: :illustration, position: 'bottom'}
 
