@@ -65,6 +65,9 @@
     :coming_soon:
       :name: Coming Soon Page
       :coding_option: yes
+      options:
+        - css
+        - no coding
       :sample_project:
         :project_name: Snow Hippos
         :author_name: Martin Halik

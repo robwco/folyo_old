@@ -1,4 +1,6 @@
 #= require turbolinks
+#= require shims/es5-shim
+#= require react
 #= require map
 #= require epiceditor
 #= require s3_direct_upload

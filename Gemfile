@@ -35,6 +35,8 @@ gem 'chronic_duration'
 gem 'font-awesome-rails'
 gem 'zeroclipboard-rails'
 gem 'bootstrap-sass'
+gem 'react-rails', github: 'reactjs/react-rails'
+gem 'sprockets-coffee-react'
 
 # Upload
 gem 'aws-sdk' # S3 API

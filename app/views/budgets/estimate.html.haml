@@ -5,77 +5,77 @@
 = javascript_include_tag "draggabilly.pkgd.min.js"
 = javascript_include_tag "underscore-min.js"
 
-%form.budget-form{data: { statistics: @skills_with_statistics.to_json}}
+.budget-form{data: { statistics: @skills_with_statistics.to_json}}
 
-  .budget-section
-    %h2.budget-section-title 1. Pick a Project
+  / .budget-section
+  /   %h2.budget-section-title 1. Pick a Project
 
-    .budget-project
+  /   .budget-project
 
-      .project-settings.project-category
-        .inner
-          %h3.project-settings-title Category
-          .project-select-category
-            - @skills_with_statistics.each do |skill, skill_content|
-              %label
-                %input{name: "project-select-category", type: "radio", value: skill_content[:name]}/
-                %span= skill_content[:name]
+  /     .project-settings.project-category
+  /       .inner
+  /         %h3.project-settings-title Category
+  /         .project-select-category
+  /           - @skills_with_statistics.each do |skill, skill_content|
+  /             %label
+  /               %input{name: "project-select-category", type: "radio", value: skill_content[:name]}/
+  /               %span= skill_content[:name]
 
-      .project-settings.project-type.not-visible
-        .inner
-          %h3.project-settings-title Project
-          .project-select-type
+  /     .project-settings.project-type.not-visible
+  /       .inner
+  /         %h3.project-settings-title Project
+  /         .project-select-type
 
-      .project-settings.project-options.not-visible
-        .inner
-          %h3.project-settings-title Options
-          .project-select-options
+  /     .project-settings.project-options.not-visible
+  /       .inner
+  /         %h3.project-settings-title Options
+  /         .project-select-options
 
 
 
-  .budget-section
+  / .budget-section
 
-    %h2.budget-section-title 2. Set a Budget
+  /   %h2.budget-section-title 2. Set a Budget
 
-    .budget-selector
+  /   .budget-selector
 
-      .budget-slider
+  /     .budget-slider
 
-        .slider-body#heatmapArea
+  /       .slider-body#heatmapArea
 
-          %svg.slider-heatmap
+  /         %svg.slider-heatmap
 
-          .slider-legend.slider-prices
-            %ol
-              %li $0
-              - (1..10).each do |i|
-                %li $#{2*i}k
+  /         .slider-legend.slider-prices
+  /           %ol
+  /             %li $0
+  /             - (1..10).each do |i|
+  /               %li $#{2*i}k
 
-          / .slider-legend.slider-percents
-          /   %ol
-          /     %li 0%
-          /     %li 25%
-          /     %li 50%
-          /     %li 75%
-          /     %li 100%
+  /         / .slider-legend.slider-percents
+  /         /   %ol
+  /         /     %li 0%
+  /         /     %li 25%
+  /         /     %li 50%
+  /         /     %li 75%
+  /         /     %li 100%
 
-          .slider-cursor#cursor{style: 'left:40%;'}
-            .cursor-tooltip.cursor-price.cursor-tooltip-up
-              .inner
-                .inner2
-                  With a
-                  %span.cursor-figure.cursor-price-value $4000
-                  budget…
-            .cursor-body
-              .cursor-left
-              .cursor-center
-              .cursor-right
-            .cursor-tooltip.cursor-percent.cursor-tooltip-down
-              .inner
-                .inner2
-                  …you can reach
-                  %span.cursor-figure.cursor-percent-value 50%
-                  of designers.
+  /         .slider-cursor#cursor{style: 'left:40%;'}
+  /           .cursor-tooltip.cursor-price.cursor-tooltip-up
+  /             .inner
+  /               .inner2
+  /                 With a
+  /                 %span.cursor-figure.cursor-price-value $4000
+  /                 budget…
+  /           .cursor-body
+  /             .cursor-left
+  /             .cursor-center
+  /             .cursor-right
+  /           .cursor-tooltip.cursor-percent.cursor-tooltip-down
+  /             .inner
+  /               .inner2
+  /                 …you can reach
+  /                 %span.cursor-figure.cursor-percent-value 50%
+  /                 of designers.
 
   / .budget-section
   /   .sample-project

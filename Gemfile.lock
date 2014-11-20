@@ -28,6 +28,16 @@ GIT
       turbolinks
       whenever
 
+GIT
+  remote: git://github.com/reactjs/react-rails.git
+  revision: b0dd8c3296ca103384717ff8e5f469a6e2313baf
+  specs:
+    react-rails (1.0.0.pre)
+      connection_pool
+      execjs
+      rails (>= 3.1)
+      react-source (= 0.12)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,6 +135,8 @@ GEM
       railties (>= 4.0.0, < 5.0)
     coffee-rails-source-maps (1.4.0)
       coffee-script-source (>= 1.6.1)
+    coffee-react (2.0.0)
+      execjs
     coffee-script (2.3.0)
       coffee-script-source
       execjs
@@ -396,6 +408,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    react-source (0.12.0)
     redcarpet (3.1.2)
     redic (1.1.1)
       hiredis
@@ -477,6 +490,11 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sprockets-coffee-react (2.0.0)
+      coffee-react (>= 2.0.0)
+      coffee-script
+      sprockets
+      tilt
     sprockets-image_compressor (0.3.0)
       sprockets
     sprockets-rails (2.1.4)
@@ -592,6 +610,7 @@ DEPENDENCIES
   rack-livereload
   rails (= 4.1.6)
   rails_autolink
+  react-rails!
   redcarpet
   reverse_markdown
   rmagick
@@ -607,6 +626,7 @@ DEPENDENCIES
   sinatra (>= 1.3.0)
   sitemap_generator
   spring-commands-rspec
+  sprockets-coffee-react
   sprockets-image_compressor
   state_machine!
   susy

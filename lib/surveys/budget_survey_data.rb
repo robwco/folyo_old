@@ -37,9 +37,10 @@ class BudgetSurveyData
         aggregate_budgets(budgets)
       else
         option_keys = first_budget.keys
-        option_keys.map do |key|
+        option_keys.inject({}) do |h, key|
           budgets_for_option = budgets.map{|budgets| budgets[key] }.compact
-          { key.to_sym => aggregate_budgets(budgets_for_option) }
+          h[key.to_sym] = aggregate_budgets(budgets_for_option)
+          h
         end
       end
     end

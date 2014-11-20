@@ -54,37 +54,35 @@
 
 .budget-project{
   margin-bottom: 60px;
-  // display: flex;
-  // justify-content: center;
   position: relative;
+  min-height: 300px;
   @include cf;
 }
 .project-settings{
-  max-width: 33%;
-  width: calc((100% - 40px)/3);
-  position: relative;
+  width: 30%;
   top: 0px;
-  // flex: 1;
-  margin-right: 20px;
   @include animate();
   float: left;
-  &.not-visible{
-    // display: none;
-    opacity: 0;
-  }
+  overflow: hidden;
+  position: absolute;
+
   .inner{
     padding: 20px;
     border: 1px dotted $blue1;
     border-radius: 3px;
   }
-  &.project-category{
-    left: calc((100% - 40px)/3 + 20px);
+  .one-column & {
+    left: 35%;
   }
-  &:last-child{
-    margin-right: 0px;
+  .two-columns & {
+    &.project-category { left: 13.33%; }
+    &.project-type     { left: 56.66%; }
   }
-}
-.project-select{
+  .three-columns & {
+    &.project-category { left: 2.5%; }
+    &.project-type     { left: 35%; }
+    &.project-option   { left: 67.5%; }
+  }
 
 }
 
@@ -272,7 +270,13 @@
   position: relative;
   width: 100%;
   pointer-events:none;
-  circle{
+  .heatmap-point {
+    @include animate();
+    background: $green1;
+    border-radius: 50%;
+    position: absolute;
+  }
+  circle {
     color: $green1;
   }
   div{

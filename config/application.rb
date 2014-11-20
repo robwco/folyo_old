@@ -81,5 +81,7 @@ module Folyo
 
     config.action_mailer.default 'X-MC-PreserveRecipients' => 'false'
 
+    config.react.addons = true
+
   end
 end
