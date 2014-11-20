@@ -9,7 +9,7 @@ Views.Budgets.Estimate.Heatmap = React.createClass
 
   getDefaultProps: ->
     totalPoints: 100
-    sizeMultiplier: 2.5
+    sizeMultiplier: 1.5
 
   getPricingPoints: ->
     points = if @props.currentCategory && @props.currentProjectType
@@ -31,15 +31,17 @@ Views.Budgets.Estimate.Heatmap = React.createClass
 
   render: ->
     pricingPoints = @getPricingPoints()
-    createPoint = (pointIndex) =>
-      if point = pricingPoints[pointIndex]
-        pointSize = @props.sizeMultiplier * point.count
-        pointStyle =
-          left: "#{pointIndex}%"
-          width: "#{pointSize}px"
-          height: "#{pointSize}px"
 
-        <div className="heatmap-point" key={"heatmap-point-#{point.price}"} style={pointStyle} />
+    createPoint = (pointIndex) =>
+      point = pricingPoints[pointIndex] || { count: 0, price: pointIndex * @props.totalPoints}
+      pointSize = Math.round(@props.sizeMultiplier * point.count)
+      pointStyle =
+        left: "#{pointIndex}%"
+        marginLeft: "-#{pointSize / 2}px";
+        width: "#{pointSize}px"
+        height: "#{pointSize}px"
+      <div className="heatmap-point" key={"heatmap-point-#{point.price}"} style={pointStyle} />
+
     <div className="slider-heatmap">
       { [0..@props.totalPoints].map(createPoint) }
     </div>
