@@ -107,7 +107,7 @@ updateHeatmap = (category, type, option) ->
 @setCursorPosition = ($cursor, xcoord) ->
   $cursor.css('left', xcoord)
 
-updateCursor = ($cursor, xcoord) -> # take a cursor and an x coordinate, and update the cursor's labels
+updateCursorContent = ($cursor, xcoord) -> # take a cursor and an x coordinate, and update the cursor's labels
   $selector = $cursor.parents('.budget-selector')
   price = roundPrice(getPrice(xcoord))
   if price > maxPrice - 20 # round off at the end
@@ -162,18 +162,14 @@ class Views.Budgets.EstimateView extends Views.ApplicationView
         # grid: [ 88, 0 ]
       )
 
-      # on drag
+      # during the drag
       cursor.on 'dragMove', (instance, event, pointer) ->
-        updateCursor($(instance.element), instance.position.x)
-      
+        updateCursorContent($(instance.element), instance.position.x)
 
-      # cursor.on 'dragMove', (instance, event, pointer) ->
-      #   price = getPrice(instance.position.x)
-      #   setPriceValue(price, $answer)
-
-      cursor.on 'dragEnd', (instance, event, pointer) -> # make cursor "stick" to each step
-        xcoord = roundCoordinate(instance.position.x)
-        setCursorPosition($(instance.element), xcoord)
+      # when the user releases the mouse
+      cursor.on 'dragEnd', (instance, event, pointer) ->
+        xcoord = roundCoordinate(instance.position.x) # get the rounded coordinate
+        setCursorPosition($(instance.element), xcoord) # set the cursor to a rounded position
     )
 
   # make cursor body clickable
@@ -184,7 +180,7 @@ class Views.Budgets.EstimateView extends Views.ApplicationView
       $cursor = $('.slider-cursor', $slider)
       return if $target.parents('.slider-cursor').length > 0 # I don't remember what this does?
       xcoord = e.pageX - $target.offset().left
-      updateCursor($cursor, xcoord)
+      updateCursorContent($cursor, xcoord)
       setCursorPosition($cursor, xcoord)
 
   loadHeatMap: ->
