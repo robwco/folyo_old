@@ -1,0 +1,33 @@
+# @cjsx React.DOM
+
+# VOCABULARY
+# cursor: the center part that you drag that contains the labels
+# slider: the part on which you drag it that contains the legend
+# selector: the whole widget
+
+# TODO
+# - include draggability js properly (use bower?)
+# - replace heatmap.js by a bunch of divs of various sizes
+# - generate "heatmap" from data contained in projects object
+# - regenerate "heatmap" on project type change
+# - add sample project (use something for JS templates, or else just hardcode the HTML)
+# - make whole thing responsive
+# - enable clicking anywhere on the heatmap
+# - make price and percent parts draggable as well
+
+window.Views.Budgets ||= {}
+
+class Views.Budgets.EstimateView extends Views.ApplicationView
+
+  render: ->
+    super()
+
+    $budgetForm = $('.budget-form')
+
+    stats = JSON.parse($budgetForm.attr('data-statistics'))
+
+    head.load "<%=asset_path('draggabilly.pkgd.min.js')%>", "<%=asset_path('underscore-min.js')%>", ->
+      React.render(
+        <Views.Budgets.Estimate.Estimator stats={stats}/>,
+        $budgetForm[0]
+      )
