@@ -45,7 +45,7 @@ class BudgetSurveyData
     end
 
     def aggregate_budgets(budgets)
-      budgets.sort{|a, b| a <=> b }.map do |budget|
+      budgets.uniq.sort{|a, b| a <=> b }.map do |budget|
         {
           price: budget,
           percentile: budgets.percentile_rank(budget).round(2),
