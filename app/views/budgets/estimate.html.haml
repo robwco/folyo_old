@@ -47,8 +47,9 @@
 
           .slider-legend.slider-prices
             %ol
-              - (0..10).each do |i|
-                %li $#{i*1000}
+              %li $0
+              - (1..10).each do |i|
+                %li $#{2*i}k
 
           / .slider-legend.slider-percents
           /   %ol

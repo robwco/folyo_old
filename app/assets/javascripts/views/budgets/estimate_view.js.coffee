@@ -1,3 +1,8 @@
+# VOCABULARY
+# cursor: the center part that you drag that contains the labels
+# slider: the part on which you drag it that contains the legend
+# selector: the whole widget
+
 # TODO
 # - include draggability js properly (use bower?)
 # - replace heatmap.js by a bunch of divs of various sizes
@@ -41,9 +46,9 @@ pricesArray = [392, 748, 748, 1036, 1265, 1265, 1419, 1763, 1786, 1847, 1895, 18
 @getPosition = (price) ->
   return Math.round(price * $('.budget-slider').width() / maxPrice)
 
-# given a position on the slider, get the corresponding price
-@getPrice = (position) ->
-  return Math.round(maxPrice * position / $('.budget-slider').width())
+# given a coordinate on the slider, get the corresponding price
+@getPrice = (xcoord) ->
+  return Math.round(maxPrice * xcoord / $('.budget-slider').width())
 
 # given a number, get the closest price that exists in the price array
 getClosestPrice = (price) ->
@@ -53,6 +58,18 @@ getClosestPrice = (price) ->
       closestPrice = value;
   )
   return closestPrice
+
+# round a price
+@roundPrice = (price) ->
+  roundByHowMuch = 100
+  return Math.round(price/roundByHowMuch) * roundByHowMuch
+
+# given a price, get the coordinates
+@getCoordinatesByPrice = (price, $selector) -> price / maxPrice * $('.slider-body').width()
+
+# given a coordinate, return closest coordinate corresponding to a rounded price
+@roundCoordinate = (xcoord) ->
+  @getCoordinatesByPrice(@roundPrice(@getPrice(xcoord)))
 
 # mock function to simulate getting the percentile for a given price
 @getPercent = (price) ->
@@ -82,6 +99,46 @@ updateHeatmap = (category, type, option) ->
     dot = window.heatmap.select("circle:nth-of-type("+i+")").animate({r: diameter}, 300)
   )
 
+@setPriceCursor = (price, $slider) ->
+  price = roundPrice(price)
+  x = getCoordinatesByPrice(price, $slider)
+  $('.slider-cursor', $slider).css('left', x)
+
+@setCursorPosition = ($cursor, xcoord) ->
+  $cursor.css('left', xcoord)
+
+updateCursor = ($cursor, xcoord) -> # take a cursor and an x coordinate, and update the cursor's labels
+  $selector = $cursor.parents('.budget-selector')
+  price = roundPrice(getPrice(xcoord))
+  if price > maxPrice - 20 # round off at the end
+    price = maxPrice
+  $('.cursor-price-value').text('$'+price)
+  $('.cursor-percent-value').text(getPercent(price)+"%")
+
+  # constrain tooltip bodies
+  $('.cursor-tooltip .inner').each( ->
+    offset = 0
+
+    cursorLeftEdge = $(this).offset().left
+    cursorRightEdge = cursorLeftEdge + $(this).width()
+    selectorLeftEdge = $selector.offset().left
+    selectorRightEdge = selectorLeftEdge + $selector.width()
+
+    leftDelta = Math.round(cursorLeftEdge - selectorLeftEdge)
+    rightDelta = Math.round(selectorRightEdge - cursorRightEdge)
+
+    # console.log('distance from left edge: '+leftDelta)
+    # console.log('distance from right edge: '+rightDelta)
+
+    if(leftDelta < 0)
+      offset = -leftDelta
+
+    if(rightDelta < 0)
+      offset = rightDelta
+
+    $(this).find('.inner2').css('left', offset + 'px')
+  )
+
 class Views.Budgets.EstimateView extends Views.ApplicationView
 
   render: ->
@@ -89,7 +146,9 @@ class Views.Budgets.EstimateView extends Views.ApplicationView
     @settingsSetup()
     @loadHeatMap()
     @makeDraggable()
+    @makeClickable()
 
+  
   makeDraggable: ->
     $('.slider-cursor').each( ->
       elem = this
@@ -104,39 +163,29 @@ class Views.Budgets.EstimateView extends Views.ApplicationView
       )
 
       # on drag
-      cursor.on( 'dragMove', (instance, event, pointer) ->
-        price = getPrice(instance.position.x)
-        if price > maxPrice - 20 # round off at the end
-          price = maxPrice
-        $('.cursor-price-value').text('$'+price)
-        $('.cursor-percent-value').text(getPercent(price)+"%")
+      cursor.on 'dragMove', (instance, event, pointer) ->
+        updateCursor($(instance.element), instance.position.x)
+      
 
-        # constrain tooltip bodies
-        $('.cursor-tooltip .inner').each( ->
+      # cursor.on 'dragMove', (instance, event, pointer) ->
+      #   price = getPrice(instance.position.x)
+      #   setPriceValue(price, $answer)
 
-          offset = 0
-
-          cursorLeftEdge = $(this).offset().left
-          cursorRightEdge = cursorLeftEdge + $(this).width()
-          selectorLeftEdge = $selector.offset().left
-          selectorRightEdge = selectorLeftEdge + $selector.width()
-
-          leftDelta = Math.round(cursorLeftEdge - selectorLeftEdge)
-          rightDelta = Math.round(selectorRightEdge - cursorRightEdge)
-
-          # console.log('distance from left edge: '+leftDelta)
-          # console.log('distance from right edge: '+rightDelta)
-
-          if(leftDelta < 0)
-            offset = -leftDelta
-
-          if(rightDelta < 0)
-            offset = rightDelta
-
-          $(this).find('.inner2').css('left', offset + 'px')
-        )
-      )
+      cursor.on 'dragEnd', (instance, event, pointer) -> # make cursor "stick" to each step
+        xcoord = roundCoordinate(instance.position.x)
+        setCursorPosition($(instance.element), xcoord)
     )
+
+  # make cursor body clickable
+  makeClickable: ->
+    $('.slider-body').mouseup (e) ->
+      $target = $(e.target)
+      $slider = $target.parents('.slider-body')
+      $cursor = $('.slider-cursor', $slider)
+      return if $target.parents('.slider-cursor').length > 0 # I don't remember what this does?
+      xcoord = e.pageX - $target.offset().left
+      updateCursor($cursor, xcoord)
+      setCursorPosition($cursor, xcoord)
 
   loadHeatMap: ->
     window.heatmap = Snap(".slider-heatmap")
