@@ -271,6 +271,7 @@
   height: 100%;
   position: relative;
   width: 100%;
+  pointer-events:none;
   circle{
     color: $green1;
   }

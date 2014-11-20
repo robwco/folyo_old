@@ -175,11 +175,10 @@ class Views.Budgets.EstimateView extends Views.ApplicationView
   # make cursor body clickable
   makeClickable: ->
     $('.slider-body').mouseup (e) ->
-      $target = $(e.target)
-      $slider = $target.parents('.slider-body')
+      $slider = $(e.target).parents('.budget-selector').find('.slider-body') # make sure we select the right element
       $cursor = $('.slider-cursor', $slider)
-      return if $target.parents('.slider-cursor').length > 0 # I don't remember what this does?
-      xcoord = e.pageX - $target.offset().left
+      return if $slider.parents('.slider-cursor').length > 0 # I don't remember what this does?
+      xcoord = e.pageX - $slider.offset().left
       updateCursorContent($cursor, xcoord)
       setCursorPosition($cursor, xcoord)
 
