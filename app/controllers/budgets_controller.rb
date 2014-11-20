@@ -4,4 +4,8 @@ class BudgetsController < ApplicationController
     @skills_with_statistics = BudgetSurveyData.skills_with_statistics
   end
 
+  def statistics
+    render json: BudgetSurveyData.skills_with_statistics
+  end
+
 end
