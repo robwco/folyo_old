@@ -30,6 +30,7 @@ class Views.Surveys.ShowView extends Views.ApplicationView
         price = getPrice(instance.position.x)
         setPriceCursor(price, $sliderBody)
 
+    # make cursor body clickable
     $('.slider-body').mousedown (e) ->
       $target = $(e.target)
       return if $target.parents('.slider-cursor').length > 0
@@ -38,27 +39,16 @@ class Views.Surveys.ShowView extends Views.ApplicationView
       setPriceValue(price, $target.parents('.survey-answer'))
       setPriceCursor(price, $target)
 
-  setPriceValue = (price, $parent) ->
-    price = roundPrice(price)
-    $cursorPrice = $parent.find('.cursor-price-value')
-    if price == 0
-      if $cursorPrice.data('hasBeenDragged') == true
-        text = "n/a"
-      else
-        text = "Drag Me!"
-        $cursorPrice.data('hasBeenDragged', true)
+setPriceValue = (price, $parent) ->
+  price = roundPrice(price)
+  $cursorPrice = $parent.find('.cursor-price-value')
+  if price == 0
+    if $cursorPrice.data('hasBeenDragged') == true
+      text = "n/a"
     else
-      text = '$'+price
-
-    $cursorPrice.text(text)
-    $parent.find('.slider-value').val(price)
-
-  setPriceCursor = (price, $parent) ->
-    price = roundPrice(price)
-    x = getCoordinatesByPrice(price, $parent)
-    $('.slider-cursor', $parent).css('left', x)
-
-  roundPrice = (price) -> price = Math.round(price/100) * 100
-
-  getCoordinatesByPrice = (price, $slider) -> price / maxPrice * $slider.width()
-
+      text = "Drag Me!"
+      $cursorPrice.data('hasBeenDragged', true)
+  else
+    text = '$'+price
+  $cursorPrice.text(text)
+  $parent.find('.slider-value').val(price)
