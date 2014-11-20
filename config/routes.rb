@@ -114,6 +114,7 @@ Folyo::Application.routes.draw do
 
   resources :budgets do
     get 'estimate',   on: :collection
+    get 'statistics', on: :collection
   end
 
   get '/referrals', controller: 'referrals', action: 'index_for_current_user'
