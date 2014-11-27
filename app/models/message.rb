@@ -8,6 +8,7 @@ class Message
 
   belongs_to :from_user, class_name: 'User'
   belongs_to :to_user,   class_name: 'User'
+  belongs_to :job_offer
 
   ## validations ##
   validates_presence_of :from_user_id, :to_user_id, :comment
@@ -21,7 +22,7 @@ class Message
   protected
 
   def send_notification!
-    MessageMailer.sidekiq_delay.send_message(self.id)
+    MessageMailer.sidekiq_delay.send_message(self.id, self.job_offer_id)
   end
 
   def track_event

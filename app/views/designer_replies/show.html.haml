@@ -10,7 +10,7 @@
   = content_for :back_name, back_name_for_status(params[:status])
 
 = content_for :mainaction do
-  = link_to new_designer_message_path(@designer) , id: "get-in-touch", class: "button big-button fancybox-ajax" do
+  = link_to new_designer_message_path(@designer, job_offer_id: @job_offer) , id: "get-in-touch", class: "button big-button fancybox-ajax" do
     = fa_icon 'envelope'
     %span Get in Touch
   .reply-actions{class: class_for_reply(@designer_reply)}

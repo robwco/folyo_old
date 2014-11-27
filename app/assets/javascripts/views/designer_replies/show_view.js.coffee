@@ -20,7 +20,7 @@ class Views.DesignerReplies.ShowView extends Views.ApplicationView
     $('.reply-location', $header).html($reply.attr('data-location'))
 
     # updating actions
-    $('#get-in-touch').attr('href', "/designers/#{$reply.attr('data-designer-id')}/messages/new")
+    $('#get-in-touch').attr('href', "/designers/#{$reply.attr('data-designer-id')}/messages/new?job_offer_id=#{$reply.attr('data-offer-id')}")
     $('.shortlist.button').attr('href', $reply.attr('data-shortlist-path'))
     $('.hide.button').attr('href', $reply.attr('data-hide-path'))
 

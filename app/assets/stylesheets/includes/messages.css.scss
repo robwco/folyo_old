@@ -8,7 +8,7 @@
 @import "mixins/mixins";
 @import "mixins/arrows";
 
-.message-contents{
+.message-contents {
 	padding:15px;
 	background:white;
 	@include border-radius(5px);

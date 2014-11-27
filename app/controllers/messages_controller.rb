@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
   section :designers
 
-  before_filter :set_to_user
+  before_filter :set_to_user, :set_job_offer
   before_filter :get_referer, only: :new
 
   layout false
@@ -13,6 +13,7 @@ class MessagesController < ApplicationController
     @message = Message.new(:comment => params[:message][:comment])
     @message.to_user = @to_user
     @message.from_user = current_user
+    @message.job_offer = @job_offer
     @message.save
 
     create! do |success, failure|
@@ -33,6 +34,10 @@ class MessagesController < ApplicationController
     elsif params[:client_id]
         @to_user = Client.find(params[:client_id])
     end
+  end
+
+  def set_job_offer
+    @job_offer = JobOffer.find(params[:job_offer_id])
   end
 
   def get_referer
