@@ -46,7 +46,8 @@
 = content_for :container_style, "width: #{@reply_count * 100}%; max-width: #{@reply_count * 100}%; left: #{-(@previous_replies.count * 100)}%;"
 
 - @previous_replies.each_with_index do |reply, index|
-  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-index * 100}%", inner: (index == 0), with_flash: false
+  - replies_length = @previous_replies.length
+  = render '/designer_replies/reply', designer: reply.designer, designer_reply: reply, width: "#{(100.0 / @reply_count)}%", left: "#{-index * 100}%", inner: (index == replies_length - 1), with_flash: false
 
 = render '/designer_replies/reply', designer: @designer, designer_reply: @designer_reply, width: "#{(100.0 / @reply_count)}%", left: "#{-@previous_replies.count * 100}%", inner: true, with_flash: true
 
