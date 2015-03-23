@@ -5,7 +5,7 @@ gem 'rails', '4.1.10'
 
 # Rac
 gem 'unicorn'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 gem 'rack-timeout'
 gem 'unicorn-worker-killer'
 
