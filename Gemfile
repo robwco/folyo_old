@@ -6,6 +6,7 @@ gem 'rails', '4.1.10'
 # Core components
 gem 'unicorn'
 gem 'bson_ext'
+gem 'rails_12factor'
 
 # Persistence
 gem 'mongoid'
