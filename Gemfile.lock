@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/SpoonRocketInc/sprockets-image_compressor.git
+  revision: 5531cdd3d8edc5cf94a70a705aa9d00455cd3ad2
+  specs:
+    sprockets-image_compressor (0.3.0)
+      sprockets
+
+GIT
   remote: git://github.com/aganov/state_machine.git
   revision: 88e45a1b1622d7748933bc941e7e9b08b3045a94
   specs:
@@ -476,8 +483,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-image_compressor (0.3.0)
-      sprockets
     sprockets-rails (2.2.4)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -605,7 +610,7 @@ DEPENDENCIES
   sinatra (>= 1.3.0)
   sitemap_generator
   spring-commands-rspec
-  sprockets-image_compressor
+  sprockets-image_compressor!
   state_machine!
   susy
   swish
