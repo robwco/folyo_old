@@ -75,8 +75,6 @@ gem 'compass-rails'
 gem 'sass-rails'
 gem 'susy'
 gem 'uglifier'
-gem 'image_optim'
-gem 'image_optim_pack'
 gem 'asset_sync'
 
 group :development do
@@ -89,6 +87,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
   gem 'coffee-rails-source-maps'
+  gem 'image_optim'
 end
 
 group :test do
