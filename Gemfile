@@ -75,7 +75,8 @@ gem 'compass-rails'
 gem 'sass-rails'
 gem 'susy'
 gem 'uglifier'
-gem 'sprockets-image_compressor', github: "SpoonRocketInc/sprockets-image_compressor"
+gem 'image_optim'
+gem 'image_optim_pack'
 gem 'asset_sync'
 
 group :development do
