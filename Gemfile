@@ -3,13 +3,15 @@ ruby "2.1.3"
 
 gem 'rails', '4.1.10'
 
-# Core components
+# Rac
 gem 'unicorn'
-gem 'bson_ext'
 gem 'rails_12factor'
+gem 'rack-timeout'
+gem 'unicorn-worker-killer'
 
 # Persistence
 gem 'mongoid'
+gem 'bson_ext'
 gem 'rails_autolink'
 gem 'mongoid_slug'
 gem 'mongoid_rails_migrations'

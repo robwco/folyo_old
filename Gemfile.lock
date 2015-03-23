@@ -207,6 +207,7 @@ GEM
     fspath (2.1.1)
     fssm (0.2.10)
     geocoder (1.2.5)
+    get_process_mem (0.2.0)
     guard (2.7.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -384,6 +385,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-timeout (0.2.1)
     rails (4.1.10)
       actionmailer (= 4.1.10)
       actionpack (= 4.1.10)
@@ -537,6 +539,9 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    unicorn-worker-killer (0.4.3)
+      get_process_mem (~> 0)
+      unicorn (~> 4)
     vero (0.8.0)
       json
       rest-client
@@ -603,6 +608,7 @@ DEPENDENCIES
   pry-rails
   quiet_assets
   rack-livereload
+  rack-timeout
   rails (= 4.1.10)
   rails_12factor
   rails_autolink
@@ -628,5 +634,6 @@ DEPENDENCIES
   twitter
   uglifier
   unicorn
+  unicorn-worker-killer
   vero
   zeroclipboard-rails
