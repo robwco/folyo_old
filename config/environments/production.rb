@@ -88,9 +88,9 @@ Folyo::Application.configure do
 
   config.after_initialize do
     paypal_options = {
-      :login => 'info_api1.sachagreif.com',
-      :password => 'J2N2Z5KPNTS4UG47',
-      :signature => 'ABMZ5SZxLcwyoF0Iq9XT2kfzFbxWAWGx2dQzspqwg20J7AlXLp11ISj2'
+      :login => 'robwilliamsgd_api1.gmail.com',
+      :password => 'L42LE3YEN6EA2AJ8',
+      :signature => 'Ap1BMCUj-Ced0xjxfOQKNUmxy7-UAOj7.3R70Py915z40tI-TIrO2fsR'
     }
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end
